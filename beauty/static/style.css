@@ -1,0 +1,24 @@
+
+#main_outer {
+    width: 768px;
+    height: 1024px;
+    background-color: #444;
+    border: 1px solid #000;
+	border-top-right-radius: 1em;
+	border-top-left-radius: 1em;
+	border-bottom-left-radius: 1em;
+	border-bottom-right-radius: 1em;
+	padding: 0.5em;
+}
+
+#main {
+    height: 1004PX;
+    background-color: grey;
+    border: 1px solid #000;
+	border-top-right-radius: 0.5em;
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+	padding: 0.5em;
+}
+
