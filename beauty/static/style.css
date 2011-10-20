@@ -12,8 +12,25 @@
 }
 
 #main {
-    height: 1004PX;
+    height: 1004px;
     background-color: grey;
+}
+
+#choose {
+    height: 984px;
+    width: 352px;
+    background-color: #222;
+    float: left;
+}
+
+#trenches {
+    height: 984px;
+    width: 353px;
+    background-color: #222;
+    float: right;
+}
+
+.roundy {
     border: 1px solid #000;
 	border-top-right-radius: 0.5em;
 	border-top-left-radius: 0.5em;

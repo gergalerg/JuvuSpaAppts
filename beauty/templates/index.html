@@ -7,12 +7,21 @@
 	<meta name="publisher" content="Agora Health Networks, Inc.">
 	<meta name="copyright" content="©2011 Agora Health Networks, Inc. All rights reserved worldwide.">
 	<meta http-equiv="pragma" content="no-cache">
+    <link type="text/css" href="/static/css/cupertino/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+    <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 	<link rel="stylesheet" href="/static/style.css" type="text/css">
 	<title>Beauty</title>
+	<script type="text/javascript">
+		$(function(){
+		});
+	</script>
 </head>
 <body>
-	<div id="main_outer"><div id="main">
+	<div id="main_outer"><div id="main" class="roundy">
+	    <div id="choose" class="roundy"></div>
+	    <div id="trenches" class="roundy">
 		<a href="{% url home %}">Hey there!</a>
-	</div></div>
+</div>	</div></div>
 </body>
 </html>
