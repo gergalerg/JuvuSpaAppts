@@ -14,14 +14,67 @@
 	<title>Beauty</title>
 	<script type="text/javascript">
 		$(function(){
+		    $( ".tile" ).draggable({ 
+		        revert: 'invalid',
+		        revertDuration: 333,
+		        scroll: false,
+		        stack: '.tile',
+		        opacity: 0.75,
+		        zIndex: 2700,
+		        helper: 'clone',
+		        containment: '#main',
+		        start: function(event, ui) {
+		            // ui.helper.innerHTML() or something...
+		            console.log("start");
+		        },
+		        stop: function(event, ui) {
+		            console.log("stop");
+		        },
+		    });
+            $(".trenche").droppable({
+                accept: '.tile',
+                hoverClass: 'shiny',
+                drop: function() {
+                    console.log('dropped');
+                },
+            });
 		});
 	</script>
 </head>
 <body>
 	<div id="main_outer"><div id="main" class="roundy">
-	    <div id="choose" class="roundy"></div>
+	    <div id="choose" class="roundy">
+	        <div class="tile roundy">Foo</div>
+	        <div class="tile roundy">Bar</div>
+	        <div class="tile roundy">Baz</div>
+	        <div class="tile roundy">Foo</div>
+	        <div class="tile roundy">Bar</div>
+	        <div class="tile roundy">Baz</div>
+	        <div class="tile roundy">Foo</div>
+	        <div class="tile roundy">Bar</div>
+	        <div class="tile roundy">Baz</div>
+	        <div class="tile roundy">Foo</div>
+	        <div class="tile roundy">Bar</div>
+	        <div class="tile roundy">Baz</div>
+	        <div class="tile roundy">Foo</div>
+	        <div class="tile roundy">Bar</div>
+	        <div class="tile roundy">Baz</div>
+	        <div class="tile roundy">Foo</div>
+	        <div class="tile roundy">Bar</div>
+	        <div class="tile roundy">Baz</div>
+	        <div class="tile roundy">Foo</div>
+	        <div class="tile roundy">Bar</div>
+	    </div>
 	    <div id="trenches" class="roundy">
-		<a href="{% url home %}">Hey there!</a>
+	        <div class="trenche roundy">
+    	        <center><h1>A</h1></center>
+	        </div>
+	        <div class="trenche roundy">
+    	        <center><h1>B</h1></center>
+	        </div>
+	        <div class="trenche roundy">
+    	        <center><h1>C</h1></center>
+	        </div>
 </div>	</div></div>
 </body>
 </html>
