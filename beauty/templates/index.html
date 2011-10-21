@@ -29,63 +29,80 @@
 		        // Create a "trenche_inner" div
 		        var D = $(
 		            '<div class="trenche_inner">' +
+		            '<span class="trenche_text">' +
 		            which.html() +
+		            '</span>' +
 		            '<a class="remove_button">remove</a>' +
 		            '</div>'
 		        );
 
+		        // Bind its remove button.
 		        D.find(".remove_button").click(function() {
-//		            $(this).
-		            console.log("booty", "looty");
+		            if (dispatch.remove_attempt(D, where)) {
+		                dispatch.remove_success(D, where);
+		            }
 		        });
-		        where.append(D);
 
+		        where.append(D);
 		        where = trenche_to_html(where);
 		        console.log('dropped', which.html(), 'in', where);
 		    },
 
+		    remove_attempt: function(which, where) {
+		        // AJAX POST to server to remove the tile from the trenche
+		        var s = which.find(".trenche_text").text()
+                console.log("removing", s, 'from', trenche_to_html(where));
+                return true;
+		    },
+
+		    remove_success: function(which, where) {
+		        var s = which.find(".trenche_text").text()
+                console.log("removed", s, 'from', trenche_to_html(where));
+                which.fadeOut(333, function() { which.remove() });
+		    },
+
 		};
-		
-		function trenche_to_html(tile) {
-		    return $(tile).find('h1').first().html();
+
+		function trenche_to_html(trenche) {
+		    return $(trenche).find('h1').first().html();
 		}
 
 		function make_trenche_tile(target, text) {
 		    target.append('<div class="trenche_inner roundy">' + text + '</div>');
 		};
 
-		    $( ".tile" ).draggable({ 
-		        revert: 'invalid',
-		        revertDuration: 333,
-		        scroll: false,
-		        stack: '.tile',
-		        opacity: 0.75,
-		        zIndex: 2700,
-		        helper: 'clone',
-		        containment: '#main',
-		        start: function(event, ui) {
-		            // ui.helper.innerHTML() or something...
-		            console.log("start");
-		        },
-		        stop: function(event, ui) {
-		            console.log("stop");
-		        },
-		    });
+	    $( ".tile" ).draggable({ 
+	        revert: 'invalid',
+	        revertDuration: 333,
+	        scroll: false,
+	        stack: '.tile',
+	        opacity: 0.75,
+	        zIndex: 2700,
+	        helper: 'clone',
+	        containment: '#main',
+	        start: function(event, ui) {
+	            // ui.helper.innerHTML() or something...
+	            console.log("start");
+	        },
+	        stop: function(event, ui) {
+	            console.log("stop");
+	        },
+	    });
 
-            $(".trenche").droppable({
-                accept: '.tile',
-                hoverClass: 'shiny',
-                drop: function(event, ui) {
-                    var trenche = $(this);
-                    var treatment = ui.draggable;
-                    if (dispatch.drop_attempt(treatment, trenche)) {
-                        dispatch.drop_success(treatment, trenche);
-                    }
-                },
-            });
+        $(".trenche").droppable({
+            accept: '.tile',
+            hoverClass: 'shiny',
+            drop: function(event, ui) {
+                var trenche = $(this);
+                var treatment = ui.draggable;
+                if (dispatch.drop_attempt(treatment, trenche)) {
+                    dispatch.drop_success(treatment, trenche);
+                }
+            },
+        });
 
 
-// DEBUG function to automatically insert a tile into a trenche.
+// DEBUG call to automatically insert a tile into a trenche.
         dispatch.drop_success(
             $(".tile").first(),
             $(".trenche").first()
