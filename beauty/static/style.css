@@ -44,6 +44,7 @@
 .tile {
     background-color: grey;
     color: #003300;
+    cursor: move;
     margin-bottom: 0.5em;
     padding-top: 1.5em;
     padding-left: 1em;
@@ -53,17 +54,49 @@
     width: 310px;
 }
 
+.tile:hover {
+    border: 1px solid #fff;
+}
+
 .trenche {
     background-color: #222;
     color: grey;
     border-color: grey;
     margin-bottom: 1em;
-    height: 330px;
+    min-height: 330px;
+}
+
+.trenche_inner {
+    background-color: #333;
+    border-color: grey;
+    margin-bottom: 0.5em;
+    padding-top: 1em;
+    padding-left: 1em;
+    padding-bottom: 1em;
 }
 
 .shiny {
     background-color: #555;
     color: #222;
     border-color: #222;
+}
+
+.remove_button {
+    font-size: small;
+    background-color: #5A5A5A;
+    color: #111;
+    border: 1px solid #5A5A5A;
+    float: right;
+	border-top-right-radius: 0.5em;
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+	margin-right: 0.5em;
+	padding: 1px 5px 2px 5px;
+}
+
+.remove_button:hover {
+    border: 1px solid #000;
+    cursor: pointer;
 }
 

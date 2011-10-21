@@ -7,13 +7,53 @@
 	<meta name="publisher" content="Agora Health Networks, Inc.">
 	<meta name="copyright" content="©2011 Agora Health Networks, Inc. All rights reserved worldwide.">
 	<meta http-equiv="pragma" content="no-cache">
-    <link type="text/css" href="/static/css/cupertino/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+    <link type="text/css" href="/static/css/vader/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
     <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 	<link rel="stylesheet" href="/static/style.css" type="text/css">
 	<title>Beauty</title>
 	<script type="text/javascript">
+	
 		$(function(){
+
+		var dispatch = {
+
+		    drop_attempt: function(which, where) {
+		        where = trenche_to_html(where);
+		        console.log('dropping', which.html(), 'in', where, '...');
+		        return true;
+		    },
+
+		    drop_success: function(which, where) {
+
+		        // Create a "trenche_inner" div
+		        var D = $(
+		            '<div class="trenche_inner">' +
+		            which.html() +
+		            '<a class="remove_button">remove</a>' +
+		            '</div>'
+		        );
+
+		        D.find(".remove_button").click(function() {
+//		            $(this).
+		            console.log("booty", "looty");
+		        });
+		        where.append(D);
+
+		        where = trenche_to_html(where);
+		        console.log('dropped', which.html(), 'in', where);
+		    },
+
+		};
+		
+		function trenche_to_html(tile) {
+		    return $(tile).find('h1').first().html();
+		}
+
+		function make_trenche_tile(target, text) {
+		    target.append('<div class="trenche_inner roundy">' + text + '</div>');
+		};
+
 		    $( ".tile" ).draggable({ 
 		        revert: 'invalid',
 		        revertDuration: 333,
@@ -31,39 +71,33 @@
 		            console.log("stop");
 		        },
 		    });
+
             $(".trenche").droppable({
                 accept: '.tile',
                 hoverClass: 'shiny',
-                drop: function() {
-                    console.log('dropped');
+                drop: function(event, ui) {
+                    var trenche = $(this);
+                    var treatment = ui.draggable;
+                    if (dispatch.drop_attempt(treatment, trenche)) {
+                        dispatch.drop_success(treatment, trenche);
+                    }
                 },
             });
-		});
-	</script>
+
+
+// DEBUG function to automatically insert a tile into a trenche.
+        dispatch.drop_success(
+            $(".tile").first(),
+            $(".trenche").first()
+        );
+
+});</script>
 </head>
 <body>
 	<div id="main_outer"><div id="main" class="roundy">
 	    <div id="choose" class="roundy">
-	        <div class="tile roundy">Foo</div>
-	        <div class="tile roundy">Bar</div>
-	        <div class="tile roundy">Baz</div>
-	        <div class="tile roundy">Foo</div>
-	        <div class="tile roundy">Bar</div>
-	        <div class="tile roundy">Baz</div>
-	        <div class="tile roundy">Foo</div>
-	        <div class="tile roundy">Bar</div>
-	        <div class="tile roundy">Baz</div>
-	        <div class="tile roundy">Foo</div>
-	        <div class="tile roundy">Bar</div>
-	        <div class="tile roundy">Baz</div>
-	        <div class="tile roundy">Foo</div>
-	        <div class="tile roundy">Bar</div>
-	        <div class="tile roundy">Baz</div>
-	        <div class="tile roundy">Foo</div>
-	        <div class="tile roundy">Bar</div>
-	        <div class="tile roundy">Baz</div>
-	        <div class="tile roundy">Foo</div>
-	        <div class="tile roundy">Bar</div>
+	    {% for treatment in treatments %}
+	        <div class="tile roundy">{{ treatment }}</div>{% endfor %}
 	    </div>
 	    <div id="trenches" class="roundy">
 	        <div class="trenche roundy">
