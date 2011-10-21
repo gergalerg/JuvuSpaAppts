@@ -19,56 +19,54 @@
 		var dispatch = {
 
 		    drop_attempt: function(which, where) {
-		        where = trenche_to_html(where);
-		        console.log('dropping', which.html(), 'in', where, '...');
+		        // if (it's already in the trenche) { return false }
+		        // AJAX POST to server to add the tile to the trenche
+		        console.log('dropping', which.html(), 'in', trenche_id(where), '...');
 		        return true;
 		    },
 
 		    drop_success: function(which, where) {
-
-		        // Create a "trenche_inner" div
-		        var D = $(
-		            '<div class="trenche_inner">' +
-		            '<span class="trenche_text">' +
-		            which.html() +
-		            '</span>' +
-		            '<a class="remove_button">remove</a>' +
-		            '</div>'
-		        );
-
-		        // Bind its remove button.
-		        D.find(".remove_button").click(function() {
-		            if (dispatch.remove_attempt(D, where)) {
-		                dispatch.remove_success(D, where);
-		            }
-		        });
-
-		        where.append(D);
-		        where = trenche_to_html(where);
-		        console.log('dropped', which.html(), 'in', where);
+    		    var text = which.html();
+		        make_trenche_tile(where, text);
+		        console.log('dropped', text, 'in', trenche_id(where));
 		    },
 
 		    remove_attempt: function(which, where) {
 		        // AJAX POST to server to remove the tile from the trenche
 		        var s = which.find(".trenche_text").text()
-                console.log("removing", s, 'from', trenche_to_html(where));
+                console.log("removing", s, 'from', trenche_id(where));
                 return true;
 		    },
 
 		    remove_success: function(which, where) {
 		        var s = which.find(".trenche_text").text()
-                console.log("removed", s, 'from', trenche_to_html(where));
+                console.log("removed", s, 'from', trenche_id(where));
                 which.fadeOut(333, function() { which.remove() });
 		    },
 
 		};
 
-		function trenche_to_html(trenche) {
+		function trenche_id(trenche) {
 		    return $(trenche).find('h1').first().html();
 		}
 
-		function make_trenche_tile(target, text) {
-		    target.append('<div class="trenche_inner roundy">' + text + '</div>');
+		function make_trenche_tile(where, text) {
+	        // Create a "trenche_inner" div
+	        var D = $(
+	            '<div class="trenche_inner">' +
+	            '<span class="trenche_text">' +
+	            text +
+	            '</span>' +
+	            '<a class="remove_button">remove</a>' +
+	            '</div>'
+	        );
+	        // Bind its remove button.
+	        D.find(".remove_button").click(function() {
+	            if (dispatch.remove_attempt(D, where)) {
+	                dispatch.remove_success(D, where);
+	            }
+	        });
+            where.append(D);
 		};
 
 	    $( ".tile" ).draggable({ 
