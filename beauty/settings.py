@@ -14,11 +14,15 @@ MANAGERS = ADMINS = (
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'cats.sqlite3',
-    }
 }
+
+TRIPLE_STORES = {
+    'default': dict(
+        storage_name="hashes",
+        name="test",
+        options_string="new='yes',hash-type='memory',dir='.'",
+        ),
+    }
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from repui.models import add_provider, provider_named
 
 
 def _str_to_kinds(s):
