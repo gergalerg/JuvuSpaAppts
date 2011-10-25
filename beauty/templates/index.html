@@ -15,7 +15,8 @@
 	<script type="text/javascript">
 	
 		$(function(){
-
+		
+		// Various API calls that (eventually) contact the server.
 		var dispatch = {
 
 		    drop_attempt: function(which, where) {
@@ -80,7 +81,6 @@
 	        appendTo: '#main',
 	        containment: '#main',
 	        start: function(event, ui) {
-	            // ui.helper.innerHTML() or something...
 	            console.log("start dragging", $(this).html());
 	        },
 	        stop: function(event, ui) {
@@ -107,15 +107,6 @@
                 }
             },
         });
-        
-
-// DEBUG call to automatically insert a tile into a trenche.
-/*
-        dispatch.drop_success(
-            $(".tile").first(),
-            $(".trenche").first()
-        );
-*/
 
 });</script>
 </head>
