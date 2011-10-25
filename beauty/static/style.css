@@ -9,6 +9,7 @@
 	border-bottom-left-radius: 1em;
 	border-bottom-right-radius: 1em;
 	padding: 0.5em;
+	margin-left: 25%;
 }
 
 #main {
@@ -51,7 +52,7 @@
     padding-bottom: 1.5em;
     float: left;
     position: relative;
-    width: 310px;
+    width: 300px;
 }
 
 .tile:hover {
@@ -98,5 +99,9 @@
 .remove_button:hover {
     border: 1px solid #000;
     cursor: pointer;
+}
+
+.ui-accordion-content {
+    padding: 0.5em !important;
 }
 
