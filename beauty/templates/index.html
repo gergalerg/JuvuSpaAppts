@@ -13,17 +13,34 @@
 	<link rel="stylesheet" href="/static/style.css" type="text/css">
 	<title>Beauty</title>
 	<script type="text/javascript">
-	
-		$(function(){
+
+	$(function(){
 		
 		// Various API calls that (eventually) contact the server.
 		var dispatch = {
 
 		    drop_attempt: function(which, where) {
-		        // if (it's already in the trenche) { return false }
-		        // AJAX POST to server to add the tile to the trenche
 		        console.log('dropping', which.html(), 'in', trenche_id(where), '...');
-		        return true;
+
+		        // if (it's already in the trenche) { return false }
+
+                var result = false;
+		        $.ajax({
+                    type: 'POST',
+                    url: {% url iapi %},
+                    async: false,
+                    data: {
+                        s: which.html(),
+                        p: 'drop_treatment_from_trenche',
+                        o: trenche_id(where),
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        result = data;
+                    },
+                    dataType: 'json',
+                });
+		        return result;
 		    },
 
 		    drop_success: function(which, where) {

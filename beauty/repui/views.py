@@ -1,6 +1,21 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from repui.models import add_provider, provider_named
+from django.http import HttpResponse
+from repui.api import dispatch
+
+
+def _json_boolean(n):
+    return ("false", "true")[bool(n)]
+
+
+def iapi(request):
+    if __debug__:
+        print request.POST
+    res = dispatch(**request.POST)
+    return HttpResponse(
+        _json_boolean(res),
+        mimetype="application/json",
+        )
 
 
 def _str_to_kinds(s):
