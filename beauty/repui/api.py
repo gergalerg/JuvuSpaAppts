@@ -1,4 +1,7 @@
-from repui.models import add_treatment_to_trenche
+from repui.models import (
+    add_treatment_to_trenche,
+    create_availability_with_trenche,
+    )
 
 
 _API_METHODS = set()
@@ -37,6 +40,10 @@ class Dispatch:
     def add_treatment_to_trenche(self, s, o):
         add_treatment_to_trenche(s, o)
         return True
+
+    @_mark_api_method
+    def create_availability_with_trenche(self, s, o):
+        return create_availability_with_trenche(s)
 
 
 dispatch = Dispatch()

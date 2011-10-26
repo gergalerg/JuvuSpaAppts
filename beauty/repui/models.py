@@ -19,6 +19,7 @@ from repui.URIs import (
   SUPPORTS,
   LABEL,
   TYPE,
+  AVAIL,
   PREFIX,
   )
 
@@ -46,7 +47,7 @@ def provider_named(name):
   SELECT distinct ?a
   WHERE {
       ?a rdf:type cd:Provider .
-      ?a cd:name "%(name)s" .
+      ?a foaf:name "%(name)s" .
   }
   """
 
@@ -90,6 +91,19 @@ def add_treatment_to_trenche(treatment, trenche):
   M.add_statement(s)
 
 
+def create_availability_with_trenche(trenche):
+  T = get_trenche_from_label(trenche)
+  if not T:
+    if __debug__:
+      print 'unknown trenche:', repr(trenche)
+    return false # raise exception?
+  trenche = T[0]
+  avail = Node()
+  M.add_statement(Statement(avail, TYPE, AVAIL))
+  M.add_statement(Statement(avail, SUPPORTS, trenche))
+  return avail
+
+
 def get_treatment_from_label(label):
   return [
     t['treatment'] for t in _query("""
@@ -122,7 +136,7 @@ def get_trenche_support():
   SELECT distinct ?tlabel ?ttname
   WHERE {
       ?t rdfs:label ?tlabel .
-      ?tt cd:name ?ttname .
+      ?tt foaf:name ?ttname .
       ?t cd:SupportsTreatment ?tt .
   }
   """
