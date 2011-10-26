@@ -110,6 +110,19 @@
             }
         });
 
+        {# This is crunchy and hacky and wonderful! #}
+        function doom_that_came_to_sarnath() {
+{% for trench, treats in trenches %}
+            var trenche = $("#trench_{{ trench }}");
+    {% for treatment in treats %}
+            make_trenche_tile(trenche, "{{ treatment }}");
+	{% endfor %}
+{% endfor %}
+        }
+        
+        doom_that_came_to_sarnath();        
+
+
         $(".trenche").droppable({
             accept: '.tile',
             hoverClass: 'shiny',
@@ -136,15 +149,11 @@
 	      {% endfor %}
 	    </div>{# "choose" DIV #}
 	    <div id="trenches" class="roundy">
-	        <div class="trenche roundy">
-    	        <center><h1>A</h1></center>
+	      {% for trench, treats in trenches %}
+	        <div id="trench_{{ trench }}" class="trenche roundy">
+    	        <center><h1>{{ trench }}</h1></center>
 	        </div>
-	        <div class="trenche roundy">
-    	        <center><h1>B</h1></center>
-	        </div>
-	        <div class="trenche roundy">
-    	        <center><h1>C</h1></center>
-	        </div>
+	      {% endfor %}
 </div>	</div></div>
 </body>
 </html>

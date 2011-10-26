@@ -133,11 +133,12 @@ WHERE {
 @plain_query
 def get_trenche_support():
   """
-  SELECT distinct ?tlabel ?ttname
+  SELECT distinct ?trenchelabel ?treatmentname
   WHERE {
-      ?t rdfs:label ?tlabel .
-      ?tt foaf:name ?ttname .
-      ?t cd:SupportsTreatment ?tt .
+      ?trenche rdf:type cd:Trenche .
+      ?trenche rdfs:label ?trenchelabel .
+      ?treatment foaf:name ?treatmentname .
+      ?trenche cd:SupportsTreatment ?treatment .
   }
   """
 
@@ -156,16 +157,24 @@ def get_trenche_support():
 
 
 
+# Some simple debugging functions.
+
+from collections import defaultdict
+
+def subject():
+  d = defaultdict(list)
+  for s in M.as_stream():
+    d[s.subject].append((s.predicate, s.object))
+  for k in d:
+    print k
+    for p, o in d[k]:
+      print '\t', p, '->', o
+    print
 
 
-
-
-
-
-
-
-
-
+def print_all():
+  for i, s in enumerate(M.as_stream()):
+    print "Statement %i:" % (i,), s
 
 
 

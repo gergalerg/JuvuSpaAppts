@@ -1,7 +1,9 @@
+from collections import defaultdict
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
 from repui.api import dispatch
+from repui.models import get_trenche_support
 
 
 def _json_boolean(n):
@@ -181,13 +183,30 @@ TREATMENTS = {
 
 _t = [(k, TREATMENTS[k]) for k in sorted(TREATMENTS)]
 
+
+def _prepare_trenche_data():
+    d = defaultdict(list)
+    for r in get_trenche_support():
+        d[str(r['trenchelabel'])].append(str(r['treatmentname']))
+    for default_trenche in "ABC":
+        if default_trenche not in d:
+            d[default_trenche] # force appearance of key.
+    return [
+        (k, sorted(d[k]))
+        for k in sorted(d)
+        ]
+
+
 def index(request):
     '''
     Home page.
     '''
     return render_to_response(
         'index.html',
-        dict(treatments=_t),
+        dict(
+            treatments=_t,
+            trenches=_prepare_trenche_data(),
+            ),
         context_instance=RequestContext(request),
         )
 
