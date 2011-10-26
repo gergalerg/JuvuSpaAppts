@@ -1,3 +1,4 @@
+from repui.models import add_treatment_to_trenche
 
 
 _API_METHODS = set()
@@ -11,7 +12,7 @@ def _mark_api_method(func):
 class Dispatch:
 
     def __call__(self, s, p, o, **args):
-        s, p, o = s[0], p[0], o[0]
+        s, p, o = [str(term[0]) for term in (s, p, o)]
         if __debug__:
             print s, p, o, args
         if p not in _API_METHODS:
@@ -22,9 +23,12 @@ class Dispatch:
         return p(s, o)
 
     @_mark_api_method
-    def drop_treatment_from_trenche(self, s, o):
+    def add_treatment_to_trenche(self, s, o):
         if __debug__:
-            print 'drop_treatment_from_trenche', s, '->', o
+            print 'add_treatment_to_trenche', s, '->', o
+        add_treatment_to_trenche(s, o)
+        if __debug__:
+            print 'add_treatment_to_trenche', s, '->', o, '. COMPLETED'
         return True
 
 
