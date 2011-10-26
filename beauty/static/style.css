@@ -9,7 +9,7 @@
 	border-bottom-left-radius: 1em;
 	border-bottom-right-radius: 1em;
 	padding: 0.5em;
-	margin-left: 25%;
+/*	margin-left: 25%; */
 }
 
 #main {
@@ -21,7 +21,7 @@
     height: 984px;
     width: 352px;
     background-color: #222;
-    float: left;
+    position: relative;
     overflow: auto;
 }
 
@@ -29,8 +29,22 @@
     height: 984px;
     width: 353px;
     background-color: #222;
-    float: right;
+    position: relative;
+    left: 380px;
+    top: -1003px;
     overflow: auto;
+}
+
+#treat {
+    height: 984px;
+    width: 353px;
+    color: grey;
+    background-color: #222;
+    position: relative;
+    left: 380px;
+    top: -1003px;
+    overflow: auto;
+	padding: 0.5em;
 }
 
 .roundy {
@@ -40,6 +54,24 @@
 	border-bottom-left-radius: 0.5em;
 	border-bottom-right-radius: 0.5em;
 	padding: 0.5em;
+}
+
+fieldset.roundy {
+    border-color: grey;
+    margin-bottom: 1em;
+	padding: 1.25em;
+}
+
+form input[type=text] {
+    background-color: grey;
+	width: 60%;
+}
+
+form label {
+	width: 30%;
+	display: inline-block;
+    margin-bottom: 0.5em;
+    margin-right: 0.5em;
 }
 
 .tile {
