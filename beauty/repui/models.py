@@ -1,3 +1,4 @@
+from inspect import getargspec
 from django.conf import settings
 from RDF import (
   Storage,
@@ -10,43 +11,44 @@ from RDF import (
   SPARQLQuery,
   Serializer,
   )
+from repui.URIs import (
+  NAME,
+  PROVIDER,
+  TRENCHE,
+  TREATMENT,
+  SUPPORTS,
+  LABEL,
+  TYPE,
+  PREFIX,
+  )
 
 
-OUR_LAND = 'http://choicedocs.com/ref/'
-OUR_LAND_URI = Uri(OUR_LAND)
-
-
-NAME = Uri(OUR_LAND + 'name')
-PROVIDER = Uri(OUR_LAND + 'Provider')
-TRENCHE = Uri(OUR_LAND + 'Trenche')
-TREATMENT = Uri(OUR_LAND + 'Treatment')
-SUPPORTS = Uri(OUR_LAND + 'SupportsTreatment')
-
-
-LABEL = Uri('http://www.w3.org/2000/01/rdf-schema#label')
-TYPE = Uri('http://www.w3.org/1999/02/22-rdf-syntax-ns#type')
-
-
+# One big ol' internal in-memory store. New on each restart.
 M = Model(Storage(**settings.TRIPLE_STORES['default']))
 
 
 def _query(sparql, **args):
+  sparql = PREFIX + sparql
   return list(SPARQLQuery(str(sparql % args)).execute(M))
 
 
+def plain_query(f):
+  query = f.__doc__
+  arg_names = getargspec(f).args
+  def g(*args):
+    return _query(query, **dict(zip(arg_names, args)))
+  return g
+
+
+@plain_query
 def provider_named(name):
-  return _query("""\
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX cd: <http://choicedocs.com/ref/>
-SELECT distinct ?a
-WHERE {
-    ?a rdf:type cd:Provider .
-    ?a cd:name "%(name)s" .
-}
-  """,
-  name=name,
-  )
+  """
+  SELECT distinct ?a
+  WHERE {
+      ?a rdf:type cd:Provider .
+      ?a cd:name "%(name)s" .
+  }
+  """
 
 
 def add_thing(name, label, kind):
@@ -91,9 +93,6 @@ def add_treatment_to_trenche(treatment, trenche):
 def get_treatment_from_label(label):
   return [
     t['treatment'] for t in _query("""
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX cd: <http://choicedocs.com/ref/>
 SELECT distinct ?treatment
 WHERE {
     ?treatment rdf:type cd:Treatment .
@@ -107,9 +106,6 @@ WHERE {
 def get_trenche_from_label(label):
   return [
     t['trenche'] for t in _query("""
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX cd: <http://choicedocs.com/ref/>
 SELECT distinct ?trenche
 WHERE {
     ?trenche rdf:type cd:Trenche .
@@ -120,18 +116,16 @@ WHERE {
   )]
 
 
+@plain_query
 def get_trenche_support():
-  return _query("""
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX cd: <http://choicedocs.com/ref/>
-SELECT distinct ?tlabel ?ttname
-WHERE {
-    ?t rdfs:label ?tlabel .
-    ?tt cd:name ?ttname .
-    ?t cd:SupportsTreatment ?tt .
-}
-""")
+  """
+  SELECT distinct ?tlabel ?ttname
+  WHERE {
+      ?t rdfs:label ?tlabel .
+      ?tt cd:name ?ttname .
+      ?t cd:SupportsTreatment ?tt .
+  }
+  """
 
 
 

@@ -34,10 +34,7 @@
                         p: 'add_treatment_to_trenche',
                         o: trenche_id(where),
                     },
-                    success: function(data) {
-                        console.log(data);
-                        result = data;
-                    },
+                    success: function(data) { result = data; },
                     dataType: 'json',
                 });
 		        return result;
