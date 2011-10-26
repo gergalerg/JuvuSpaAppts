@@ -27,7 +27,7 @@
                 var result = false;
 		        $.ajax({
                     type: 'POST',
-                    url: {% url iapi %},
+                    url: "{% url iapi %}",
                     async: false,
                     data: {
                         s: which.html(),

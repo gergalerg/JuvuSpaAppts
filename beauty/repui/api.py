@@ -15,20 +15,27 @@ class Dispatch:
         s, p, o = [str(term[0]) for term in (s, p, o)]
         if __debug__:
             print s, p, o, args
+
         if p not in _API_METHODS:
             if __debug__:
                 print 'unknown API call:', p
             return False
-        p = getattr(self, p)
-        return p(s, o)
+
+        P = getattr(self, p)
+
+        if __debug__:
+            print s, '->', p, '->', o
+
+        res = P(s, o)
+
+        if __debug__:
+            print s, '->', p, '->', o, '. COMPLETED'
+
+        return res
 
     @_mark_api_method
     def add_treatment_to_trenche(self, s, o):
-        if __debug__:
-            print 'add_treatment_to_trenche', s, '->', o
         add_treatment_to_trenche(s, o)
-        if __debug__:
-            print 'add_treatment_to_trenche', s, '->', o, '. COMPLETED'
         return True
 
 
