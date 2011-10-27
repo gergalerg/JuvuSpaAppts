@@ -143,10 +143,24 @@ def get_trenche_support():
   """
 
 
+@plain_query
+def get_avails_supporting_treatment(name):
+  """
+  SELECT distinct ?av
+  WHERE {
+      ?av cd:SupportsTreatment ?trenche .
+      ?trenche cd:SupportsTreatment ?treatment .
+      ?treatment foaf:name "%(name)s" .
+  }
+  """
+
+
+
 
 
 ##add_treatment("Acupuncture", "Acupuncture is Fun")
 ##add_treatment_to_trenche("Acupuncture is Fun", "A")
+##create_availability_with_trenche("A")
 ##
 ##q = get_trenche_support()
 ##

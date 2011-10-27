@@ -149,3 +149,14 @@ form label {
     padding: 0.5em !important;
 }
 
+span#which_trenche {
+    color: #fff;
+    border: 1px solid #fff;
+	border-top-right-radius: 0.5em;
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+

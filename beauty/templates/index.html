@@ -60,8 +60,47 @@
                 console.log("removed", s, 'from', trenche_id(where));
                 which.fadeOut(333, function() { which.remove() });
 		    },
+		    
+		    avail_attempt: function(trenche) {
+		        console.log("adding avail to", trenche);
+
+                var result = false;
+		        $.ajax({
+                    type: 'POST',
+                    url: "{% url iapi %}",
+                    async: false,
+                    data: {
+                        s: trenche,
+                        p: 'create_availability_with_trenche',
+                        o: null,
+                    },
+                    success: function(data) { result = data; },
+                    dataType: 'json',
+                });
+		        return result;
+		        return true;
+		    },
+
+		    avail_success: function(trenche) {
+		        console.log("added avail to", trenche);
+                slide_right();
+		    },
 
 		};
+		
+		function subject() {
+	        $.ajax({
+                type: 'POST',
+                url: "{% url iapi %}",
+                async: false,
+                data: {
+                    s: null,
+                    p: 'subject',
+                    o: null,
+                },
+            });
+            return false;
+		}
 
 		function trenche_id(trenche) {
 		    return $(trenche).find('h1').first().html();
@@ -85,6 +124,38 @@
 	        });
             where.append(D);
 		};
+		
+		function set_which_trenche(trenche) {
+		    $("span#which_trenche").text(trenche);
+		}
+
+		function get_which_trenche() {
+		    return $("span#which_trenche").text();
+		}
+
+        function slide_left() {
+            $(".main_panel").each(function() {
+                $(this).animate({left: '-=380px'}, 333);
+            });
+        }
+
+        function slide_right() {
+            $(".main_panel").each(function() {
+                $(this).animate({left: '+=380px'}, 333);
+            })
+        }
+
+        {# This is crunchy and hacky and wonderful! #}
+        function doom_that_came_to_sarnath() {
+{% for trench, treats in trenches %}
+            var trenche = $("#trench_{{ trench }}");
+    {% for treatment in treats %}
+            make_trenche_tile(trenche, "{{ treatment }}");
+	{% endfor %}
+{% endfor %}
+        }
+        
+        doom_that_came_to_sarnath();        
 
 	    $( ".tile" ).draggable({ 
 	        revert: 'invalid',
@@ -112,19 +183,6 @@
             }
         });
 
-        {# This is crunchy and hacky and wonderful! #}
-        function doom_that_came_to_sarnath() {
-{% for trench, treats in trenches %}
-            var trenche = $("#trench_{{ trench }}");
-    {% for treatment in treats %}
-            make_trenche_tile(trenche, "{{ treatment }}");
-	{% endfor %}
-{% endfor %}
-        }
-        
-        doom_that_came_to_sarnath();        
-
-
         $(".trenche").droppable({
             accept: '.tile',
             hoverClass: 'shiny',
@@ -138,7 +196,7 @@
         });
         
         $(".trenche h1").click(function() {
-        
+            set_which_trenche($(this).html());
             // Detect what "panes" are showing...
             var n = $("#trenches").css("left");
             if (n == "380px") {
@@ -146,25 +204,29 @@
                 slide_left();
             } else if (n == "0px") {
                 // So #trenches is leftmost.
-                slide_right();
+                // slide_right();
             }
         });
-        
-    
-    
-    function slide_left() {
-        $(".main_panel").each(function() {
-            $(this).animate({left: '-=380px'}, 333);
+
+        $("button#cancel").button({
+            icons: {primary:'ui-icon-circle-close'},
+        }).click(function() {
+            slide_right();
+            return false;
         });
-    }
 
-    function slide_right() {
-        $(".main_panel").each(function() {
-            $(this).animate({left: '+=380px'}, 333);
-        })
-    }
+        $("button#done").button({
+            icons: {primary:'ui-icon-circle-check'},
+        }).click(function() {
+            // AJAX call to add availability.
+            var trenche = get_which_trenche()
+            if (dispatch.avail_attempt(trenche)) {
+                dispatch.avail_success(trenche);
+            }
+            return false;
+        });
 
-      //  testme();
+        $("button#subject").button().click(subject);
 
 });</script>
 </head>
@@ -210,6 +272,9 @@
 
             <fieldset class="roundy">
             <legend>Something Else</legend>
+                Adding availability with Trenche <span id="which_trenche"></span>.
+                <br>
+                <br>
                 Vivamus neque diam, vehicula ut egestas eget, euismod
                 vulputate eros. Ut cursus ullamcorper lobortis. Morbi nec
                 purus nisl, eu rutrum justo. Nulla sollicitudin placerat
@@ -219,6 +284,13 @@
                 turpis lobortis sollicitudin. Fusce lacinia convallis
                 sem, id aliquet sapien placerat eu.
             </fieldset>
+
+            <fieldset class="roundy">
+                <button id="done">Done</button>
+                <button id="cancel">Cancel</button>
+            </fieldset>
+            
+            <button id="subject">print triplestore</button>
 
             </form>
         </div>
