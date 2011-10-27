@@ -14,21 +14,9 @@
 	<title>Beauty</title>
 	<script type="text/javascript">
 
-function testme() {
-    var which = $("#choose");
-    which.fadeOut(333, function() {
-        which.remove();
-        $("#trenches").css("top", "0px").animate({
-            left: '0px',
-        }, 333, function() {
-            $("#treat").fadeIn(333);
-        });
-    })
-}
-
 	$(function(){
 
-        $("#treat").fadeOut(1);
+        // $("#treat").fadeOut(1);
 
 		// Various API calls that (eventually) contact the server.
 		var dispatch = {
@@ -149,13 +137,41 @@ function testme() {
             },
         });
         
+        $(".trenche h1").click(function() {
+        
+            // Detect what "panes" are showing...
+            var n = $("#trenches").css("left");
+            if (n == "380px") {
+                // So #choose and #trenches are showing.
+                slide_left();
+            } else if (n == "0px") {
+                // So #trenches is leftmost.
+                slide_right();
+            }
+        });
+        
+    
+    
+    function slide_left() {
+        $(".main_panel").each(function() {
+            $(this).animate({left: '-=380px'}, 333);
+        });
+    }
+
+    function slide_right() {
+        $(".main_panel").each(function() {
+            $(this).animate({left: '+=380px'}, 333);
+        })
+    }
+
       //  testme();
 
 });</script>
 </head>
 <body>
 	<div id="main_outer"><div id="main" class="roundy">
-	    <div id="choose" class="roundy">
+
+	    <div id="choose" class="roundy main_panel">
 	      {% for kind, treats in treatments %}
 	        <h3><a href="#">{{ kind }}</a></h3>
 	        <div>
@@ -164,37 +180,49 @@ function testme() {
 	        </div>
 	      {% endfor %}
 	    </div>{# "choose" DIV #}
-	    <div id="trenches" class="roundy">
+
+	    <div id="trenches" class="roundy main_panel">
 	      {% for trench, treats in trenches %}
 	        <div id="trench_{{ trench }}" class="trenche roundy">
     	        <center><h1>{{ trench }}</h1></center>
 	        </div>
 	      {% endfor %}
         </div>
-        <div id="treat" class="roundy">
+
+        <div id="treat" class="roundy main_panel">
             <center><h1>Add Availability</h1></center>
             <form>
 
             <fieldset id="time" class="roundy">
             <legend>Time</legend>
-            <label for="start_time">Starting at:</label><input id="start_time" class="ui-corner-all" type="text" /><br />
-            <label for="duration">Duration:</label><input id="duration" class="ui-corner-all" type="text" /><br />
+                <label for="start_time">Starting at:</label>
+                <input id="start_time" class="ui-corner-all" type="text" /><br />
+                <label for="duration">Duration:</label>
+                <input id="duration" class="ui-corner-all" type="text" /><br />
             </fieldset>
 
             <fieldset class="roundy">
             <legend>Dates</legend>
-            <input type="checkbox" checked="checked" />Today<br />
-            <input type="checkbox" />Tomorrow<br />
-            <input type="checkbox" />The next day<br />
+                <input type="checkbox" checked="checked" />Today<br />
+                <input type="checkbox" />Tomorrow<br />
+                <input type="checkbox" />The next day<br />
             </fieldset>
 
             <fieldset class="roundy">
             <legend>Something Else</legend>
-            Vivamus neque diam, vehicula ut egestas eget, euismod vulputate eros. Ut cursus ullamcorper lobortis. Morbi nec purus nisl, eu rutrum justo. Nulla sollicitudin placerat nisi, non ultricies lacus imperdiet sed. Nullam porttitor eros at eros mollis adipiscing. Integer scelerisque nulla a dui mollis nec varius risus tempor. Cras in leo id turpis lobortis sollicitudin. Fusce lacinia convallis sem, id aliquet sapien placerat eu. 
+                Vivamus neque diam, vehicula ut egestas eget, euismod
+                vulputate eros. Ut cursus ullamcorper lobortis. Morbi nec
+                purus nisl, eu rutrum justo. Nulla sollicitudin placerat
+                nisi, non ultricies lacus imperdiet sed. Nullam porttitor
+                eros at eros mollis adipiscing. Integer scelerisque nulla
+                a dui mollis nec varius risus tempor. Cras in leo id
+                turpis lobortis sollicitudin. Fusce lacinia convallis
+                sem, id aliquet sapien placerat eu.
             </fieldset>
 
             </form>
         </div>
+
     </div></div>
 </body>
 </html>

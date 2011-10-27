@@ -14,6 +14,13 @@ NAME = Uri('http://xmlns.com/foaf/0.1/name')
 LABEL = Uri('http://www.w3.org/2000/01/rdf-schema#label')
 TYPE = Uri('http://www.w3.org/1999/02/22-rdf-syntax-ns#type')
 
+##
+##http://www.w3.org/2006/time#Interval
+##http://www.w3.org/2006/time#xsdDateTime
+##http://www.w3.org/2006/time#Instant
+##
+
+
 PREFIX = """\
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>

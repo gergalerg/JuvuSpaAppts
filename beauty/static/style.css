@@ -15,9 +15,10 @@
 #main {
     height: 1004px;
     background-color: grey;
+    overflow: hidden;
 }
 
-#choose {
+.main_panel {
     height: 984px;
     width: 352px;
     background-color: #222;
@@ -25,25 +26,18 @@
     overflow: auto;
 }
 
+#choose {
+}
+
 #trenches {
-    height: 984px;
-    width: 353px;
-    background-color: #222;
-    position: relative;
     left: 380px;
     top: -1003px;
-    overflow: auto;
 }
 
 #treat {
-    height: 984px;
-    width: 353px;
     color: grey;
-    background-color: #222;
-    position: relative;
-    left: 380px;
-    top: -1003px;
-    overflow: auto;
+    left: 760px;
+    top: -2006px;
 	padding: 0.5em;
 }
 
@@ -68,7 +62,7 @@ form input[type=text] {
 }
 
 form label {
-	width: 30%;
+	width: 33%;
 	display: inline-block;
     margin-bottom: 0.5em;
     margin-right: 0.5em;
@@ -97,6 +91,23 @@ form label {
     border-color: grey;
     margin-bottom: 1em;
     min-height: 330px;
+}
+
+.trenche h1 {
+    border: 1px solid grey;
+	border-top-right-radius: 0.5em;
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+	margin-left: 1.5em;
+	margin-right: 1.5em;
+    cursor: pointer;
+}
+
+.trenche h1:hover {
+    color: white;
+    border-color: #222;
+    background-color: #555;
 }
 
 .trenche_inner {
@@ -129,7 +140,8 @@ form label {
 }
 
 .remove_button:hover {
-    border: 1px solid #000;
+    border-color: #000;
+    color: #000;
     cursor: pointer;
 }
 
