@@ -124,9 +124,9 @@
 	        });
             where.append(D);
 		};
-		
+
 		function set_which_trenche(trenche) {
-		    $("span#which_trenche").text(trenche);
+		    $("span#which_trenche").text(trenche).effect('pulsate');
 		}
 
 		function get_which_trenche() {
@@ -228,6 +228,14 @@
 
         $("button#subject").button().click(subject);
 
+        $( "#datepicker" ).datepicker({
+            minDate: "+3D",
+            maxDate: "+10D",
+            showAnim: "blind",
+            showOtherMonths: true,
+            selectOtherMonths: true,
+        });
+
 });</script>
 </head>
 <body>
@@ -265,9 +273,10 @@
 
             <fieldset class="roundy">
             <legend>Dates</legend>
-                <input type="checkbox" checked="checked" />Today<br />
-                <input type="checkbox" />Tomorrow<br />
-                <input type="checkbox" />The next day<br />
+                <input type="checkbox" checked="checked" /> Today<br />
+                <input type="checkbox" /> Tomorrow<br />
+                <input type="checkbox" /> The next day...<br /><br />
+                ...or a later day: <input id="datepicker" class="ui-corner-all" type="text" />
             </fieldset>
 
             <fieldset class="roundy">
