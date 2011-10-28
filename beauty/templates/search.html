@@ -13,6 +13,14 @@ $(function(){
         return false;
     });
 
+    $( "#datepicker" ).datepicker({
+        minDate: "+3D",
+        maxDate: "+10D",
+        showAnim: "blind",
+        showOtherMonths: true,
+        selectOtherMonths: true,
+    });
+
 });
 
 </script>
@@ -20,10 +28,10 @@ $(function(){
 {% block body %}
 <div id="main_outer">
     <div id="header">
-    <h1>Header goes here Y'all!</h1>
+      <h1>Header goes here Y'all!</h1>
     </div>
     <div id="main">
-    <h1>Search goes here Y'all!</h1>
+      <h1>Search goes here Y'all!</h1>
 
       <form>
 
