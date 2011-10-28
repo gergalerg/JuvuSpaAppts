@@ -7,6 +7,11 @@ from repui.models import get_trenche_support
 from beauty.data.treatments import TREATMENTS
 
 
+#=---- - - - - - - - - - - - - - - - - - - - - - - - -
+#
+# API service.
+
+
 def _json_boolean(n):
     return ("false", "true")[bool(n)]
 
@@ -19,6 +24,11 @@ def iapi(request):
         _json_boolean(res),
         mimetype="application/json",
         )
+
+
+#=---- - - - - - - - - - - - - - - - - - - - - - - - -
+#
+# Main page of the iPad reps' UI.
 
 
 def _prepare_trenche_data():
@@ -49,5 +59,53 @@ def index(request):
             ),
         context_instance=RequestContext(request),
         )
+
+
+#=---- - - - - - - - - - - - - - - - - - - - - - - - -
+#
+# Search for available appointments.
+
+
+def search(request):
+    '''
+    Search page.
+    '''
+    return render_to_response(
+        'search.html',
+        dict(),
+        context_instance=RequestContext(request),
+        )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

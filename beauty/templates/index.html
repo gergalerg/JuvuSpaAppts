@@ -1,17 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta name="language" content="en">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="author" content="ChoiceDocs.com">
-	<meta name="publisher" content="Agora Health Networks, Inc.">
-	<meta name="copyright" content="©2011 Agora Health Networks, Inc. All rights reserved worldwide.">
-	<meta http-equiv="pragma" content="no-cache">
-    <link type="text/css" href="/static/css/vader/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
-    <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
-    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+{% extends "base.html" %}
+{% block title %}Beauty{% endblock %}
+{% block html_head %}
 	<link rel="stylesheet" href="/static/style.css" type="text/css">
-	<title>Beauty</title>
 	<script type="text/javascript">
 
 	$(function(){
@@ -237,8 +227,8 @@
         });
 
 });</script>
-</head>
-<body>
+{% endblock %}
+{% block body %}
 	<div id="main_outer"><div id="main" class="roundy">
 
 	    <div id="choose" class="roundy main_panel">
@@ -305,5 +295,4 @@
         </div>
 
     </div></div>
-</body>
-</html>
+{% endblock %}

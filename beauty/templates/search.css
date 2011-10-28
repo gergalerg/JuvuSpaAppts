@@ -1,0 +1,64 @@
+body {
+    background-color: {{ colors.bg }};
+}
+
+#header {
+    color: {{ colors.header }};
+    background-color: {{ colors.header_bg }};
+    border: 2px solid {{ colors.header }};
+	border-top-right-radius: 1em;
+	border-top-left-radius: 1em;
+	border-bottom-left-radius: 1em;
+	border-bottom-right-radius: 1em;
+	padding: 3em;
+}
+
+#main {
+    color: {{ colors.main }};
+    background-color: {{ colors.main_bg }};
+    border-left: 2px solid {{ colors.main }};
+    border-right: 2px solid {{ colors.main }};
+    border-bottom: 2px solid {{ colors.main }};
+	border-bottom-left-radius: 1em;
+	border-bottom-right-radius: 1em;
+	margin-left: 3em;
+	margin-right: 3em;
+	margin-bottom: 2em;
+	padding: 2em;
+}
+
+.roundy {
+    border: 1px solid #000;
+	border-top-right-radius: 0.5em;
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+	padding: 0.5em;
+}
+
+fieldset.roundy {
+    border-color: {{ colors.main }};
+    margin-bottom: 1em;
+	padding: 1.25em;
+}
+
+fieldset#search_buttons {
+    text-align: right;
+}
+
+form input[type=text] {
+    background-color: {{ colors.bg }};
+	width: 80%;
+}
+
+#datepicker {
+	width: 50%;
+}
+
+form label {
+	width: 33%;
+	display: inline-block;
+    margin-bottom: 0.5em;
+    margin-right: 0.5em;
+}
+
