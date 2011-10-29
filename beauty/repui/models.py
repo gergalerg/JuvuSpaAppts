@@ -96,7 +96,7 @@ def create_availability_with_trenche(trenche):
   if not T:
     if __debug__:
       print 'unknown trenche:', repr(trenche)
-    return false # raise exception?
+    return False # raise exception?
   trenche = T[0]
   avail = Node()
   M.add_statement(Statement(avail, TYPE, AVAIL))

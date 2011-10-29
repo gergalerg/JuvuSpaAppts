@@ -1,0 +1,101 @@
+from collections import defaultdict
+from datetime import date, timedelta, datetime
+from django.shortcuts import render_to_response, redirect
+from django.template import RequestContext
+from django.http import HttpResponse
+from repui.api import dispatch
+from repui.models import get_trenche_support
+from beauty.data.treatments import TREATMENTS
+
+
+DATE_FORMAT = '%m/%d/%y'
+EXPECTED_FIELDS = [
+    'location',
+    'treatment',
+    'today',
+    'tomorrow',
+    'thenextday',
+    'anotherday',
+    ]
+
+
+def process_POST_params(request):
+    data = dict(
+        (name, request.POST.get(name, [None])[0])
+        for name in EXPECTED_FIELDS
+        )
+
+    if __debug__:
+        print data
+
+    data['lat_long'], data['distance_full_text'] = _distance(**data)
+    data['dates'] = _dates(**data)
+    return data
+
+
+def _dates(today, tomorrow, thenextday, anotherday, **_):
+    '''
+    Create a list of datetime.date objects for each of the selected days.
+
+    TODO anotherday should be converted by form validation.
+    '''
+    dates, t, d = [], date.today(), timedelta(days=1)
+    if today:
+        dates.append(t)
+    t += d
+    if tomorrow:
+        dates.append(t)
+    t += d
+    if thenextday:
+        dates.append(t)
+    if anotherday:
+        t = datetime.strptime(anotherday, DATE_FORMAT).date()
+        dates.append(t)
+    return dates
+
+
+def _distance(location, **_):
+    '''
+    Do some sort of geo-lookup and figure out a (latitude, longitude)
+    pair and a "canonical" display string for the address (or whatever
+    was entered.)
+
+    Should possibly raise one of these (unimplemented) exceptions:
+        AmbiguousLocationError (too many results)
+        NoLocationError (zero results)
+        ServiceInterruption (something went wrong, but it's not due to
+            user's search.)
+    '''
+    return (1, 2), "Where I Left My Heart, CA 94132"
+
+
+##
+##    <QueryDict: {
+##        u'csrfmiddlewaretoken': [u'db4187ab0c4fe8ef8859b2e9948ecaba'],
+##        u'location': [u'San Francisco'],
+##        u'treatment': [u'massage'],
+##        u'today': [u'on'],
+##        u'anotherday': [u'']
+##        }>
+##
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

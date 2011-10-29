@@ -13,8 +13,8 @@ MANAGERS = ADMINS = (
 )
 
 
-DATABASES = {
-}
+DATABASE_ENGINE = 'sqlite3'
+
 
 TRIPLE_STORES = {
     'default': dict(

@@ -108,12 +108,13 @@ def search(request):
         )
 
 
-
-
-
-
-
-
+##    <QueryDict: {
+##        u'csrfmiddlewaretoken': [u'db4187ab0c4fe8ef8859b2e9948ecaba'],
+##        u'location': [u'San Francisco'],
+##        u'treatment': [u'massage'],
+##        u'today': [u'on'],
+##        u'anotherday': [u'']
+##        }>
 
 
 
