@@ -1,5 +1,5 @@
 from collections import defaultdict
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponse
 from repui.api import dispatch
@@ -49,7 +49,7 @@ _t = [(k, TREATMENTS[k]) for k in sorted(TREATMENTS)]
 
 def index(request):
     '''
-    Home page.
+    Rep UI page.
     '''
     return render_to_response(
         'index.html',
@@ -65,11 +65,13 @@ def index(request):
 #
 # Search for available appointments.
 
+from pprint import pprint as _P
 
-def search(request):
+def home(request):
     '''
     Search page.
     '''
+
     return render_to_response(
         'search.html',
         dict(),
@@ -77,8 +79,32 @@ def search(request):
         )
 
 
+def _fake_appt(n):
+    return dict(
+        spa = str(n) + "Barney's",
+        rating = '2/7',
+        distance = 2.7 * (1 + n),
+        distance_text = str(2.7 * (1 + n)) + ' miles',
+        price = 1001.12,
+        )
 
 
+def search(request):
+##    if request.method != 'POST':
+##        return redirect('home')
+
+    _P(request.POST)
+
+    return render_to_response(
+        'results.html',
+        dict(
+            results = [
+                _fake_appt(n)
+                for n in range(3)
+                ],
+            ),
+        context_instance=RequestContext(request),
+        )
 
 
 

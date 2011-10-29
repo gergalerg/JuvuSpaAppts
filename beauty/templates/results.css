@@ -1,0 +1,80 @@
+body {
+    background-color: {{ colors.bg }};
+}
+
+#header {
+    color: {{ colors.header }};
+    background-color: {{ colors.header_bg }};
+    border: 2px solid {{ colors.header }};
+	border-top-right-radius: 1em;
+	border-top-left-radius: 1em;
+	border-bottom-left-radius: 1em;
+	border-bottom-right-radius: 1em;
+	padding: 1em;
+}
+
+#main {
+    color: {{ colors.main }};
+    background-color: {{ colors.main_bg }};
+    border-left: 2px solid {{ colors.main }};
+    border-right: 2px solid {{ colors.main }};
+    border-bottom: 2px solid {{ colors.main }};
+	border-bottom-left-radius: 1em;
+	border-bottom-right-radius: 1em;
+	margin-left: 1.5em;
+	margin-right: 1.5em;
+	margin-bottom: 1em;
+	padding: 1em;
+}
+
+#results {
+    float: left;
+    color: {{ colors.results }};
+    background-color: {{ colors.results_bg }};
+    width: 68%;
+	padding: 0.25em;
+    border: 1px solid {{ colors.results }};
+	margin-right: 0.5em;
+    min-height: 14em;
+ 	border-top-right-radius: 0.5em;
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+}
+
+#tools {
+    float: left;
+    color: {{ colors.tools }};
+    background-color: {{ colors.tools_bg }};
+    width: 28%;
+	padding: 0.25em;
+    border: 1px solid {{ colors.results }};
+    min-height: 14em;
+	border-top-right-radius: 0.5em;
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+}
+
+.searchy {
+    float: left;
+    width: 30%;
+    min-height: 4em;
+    background-color: {{ colors.bg }};
+    border: 1px solid {{ colors.header }};
+	margin: 0.25em;
+	padding: 0.25em;
+}
+
+.clearit {
+	margin: 0;
+	padding: 0;
+	height: 0;
+	clear: both;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+

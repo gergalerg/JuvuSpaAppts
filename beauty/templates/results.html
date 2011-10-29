@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Results{% endblock %}
+{% block html_head %}
+<script type="text/javascript" src="/static/js/jquery.tablesorter.min.js"></script>
+<link rel="stylesheet" href="/dyn/results.css" type="text/css">
+<link rel="stylesheet" href="/static/tablesorter.css" type="text/css">
+<title>Results</title>
+<script type="text/javascript">
+
+$(function() {
+  $("#resultsTable").tablesorter();
+});
+
+</script>
+{% endblock %}
+{% block body %}
+<div id="main_outer">
+
+<div id="header">
+
+<div class="searchy">
+<strong>Distance</strong><br>
+1 mile<br>
+5 miles<br>
+1.7M Lightyears
+</div>
+
+<div class="searchy">
+<strong>Price</strong><br>
+$100 or less<br>
+$101 - $1000<br>
+$1001 - $5000
+</div>
+
+<div class="searchy">
+<strong>Neighborhood</strong><br>
+North Beach<br>
+Inner Sunset<br>
+Marina
+</div>
+
+<div class="clearit"></div>
+</div>{# "header" #}
+
+<div id="main">
+
+<div id="results">
+<table id="resultsTable" class="tablesorter" >
+<thead><tr>
+		<th>Spa</th>
+		<th>Rating</th>
+		<th>Distance</th>
+		<th>Price</th>
+</tr></thead>
+<tbody>
+{% for appt in results %}
+	<tr>
+		<td>{{ appt.spa }}</td>
+		<td>{{ appt.rating }}</td>
+		<td><span distance="{{ appt.distance }}">{{ appt.distance_text }}</span></td>
+		<td>${{ appt.price|floatformat:2 }}</td>
+	</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>{# "results" #}
+
+<div id="tools">Tools!</div>
+
+<div class="clearit"></div>
+</div>{# "main" #}
+
+</div>{# "main_outer" #}
+{% endblock %}

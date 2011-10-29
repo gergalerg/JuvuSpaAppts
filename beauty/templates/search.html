@@ -10,6 +10,7 @@ $(function(){
     $("button#search").button({
         icons: {primary:'ui-icon-circle-check'},
     }).click(function() {
+        $("form").submit();
         return false;
     });
 
@@ -33,19 +34,20 @@ $(function(){
     <div id="main">
       <h1>Search goes here Y'all!</h1>
 
-      <form>
+      <form method="POST" action="{% url search %}">
+        {% csrf_token %}
 
-        <fieldset id="time" class="roundy">
-        <legend>What would you like?</legend>
-            <input id="treatment" class="ui-corner-all" type="text" />
+        <fieldset id="time" class="roundy" action="{% url search %}">
+          <legend>What would you like?</legend>
+          <input name="treatment" id="treatment" class="ui-corner-all" type="text" />
         </fieldset>
 
         <fieldset class="roundy">
         <legend>Dates</legend>
-            <input type="checkbox" checked="checked" /> Today<br />
-            <input type="checkbox" /> Tomorrow<br />
-            <input type="checkbox" /> The next day...<br /><br />
-            ...or a later day: <input id="datepicker" class="ui-corner-all" type="text" />
+            <input name="today" type="checkbox" checked="checked" /> Today<br />
+            <input name="tomorrow" type="checkbox" /> Tomorrow<br />
+            <input name="thenextday" type="checkbox" /> The next day...<br /><br />
+            ...or a later day: <input name="anotherday" id="datepicker" class="ui-corner-all" type="text" />
         </fieldset>
 
         <fieldset id="search_buttons" class="roundy">
