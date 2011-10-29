@@ -1,7 +1,7 @@
 table.tablesorter {
 	font-size: 12px;
-	background-color: #4D4D4D;
-	width: 1024px;
+	background-color: #efe;
+	width: 100%;
 	border: 1px solid #000;
 }
 table.tablesorter th {
@@ -10,21 +10,22 @@ table.tablesorter th {
 	background-color: #6E6E6E;
 }
 table.tablesorter td {
-	color: #FFF;
+	color: #003300;
 	padding: 5px;
 }
 table.tablesorter .even {
-	background-color: #3D3D3D;
+	background-color: #efe;
 }
 table.tablesorter .odd {
-	background-color: #6E6E6E;
+	background-color: #dfd;
 }
 table.tablesorter .header {
 	background-image: url(/static/bg.png);
 	background-repeat: no-repeat;
 	border-left: 1px solid #FFF;
-	border-right: 1px solid #000;
+	border-right: 1px solid #003300;
 	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #003300;
 	padding-left: 30px;
 	padding-top: 8px;
 	height: auto;

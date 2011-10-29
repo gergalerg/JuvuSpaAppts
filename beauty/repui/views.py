@@ -66,6 +66,7 @@ def index(request):
 # Search for available appointments.
 
 from pprint import pprint as _P
+from random import randint
 
 def home(request):
     '''
@@ -82,10 +83,10 @@ def home(request):
 def _fake_appt(n):
     return dict(
         spa = str(n) + "Barney's",
-        rating = '2/7',
-        distance = 2.7 * (1 + n),
+        rating = str(randint(0, 7)) + '/7',
+        distance = 2.7 * (10 - n),
         distance_text = str(2.7 * (1 + n)) + ' miles',
-        price = 1001.12,
+        price = 1001.12 * n,
         )
 
 
@@ -100,7 +101,7 @@ def search(request):
         dict(
             results = [
                 _fake_appt(n)
-                for n in range(3)
+                for n in range(7)
                 ],
             ),
         context_instance=RequestContext(request),

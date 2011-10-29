@@ -8,13 +8,35 @@
 <script type="text/javascript">
 
 $(function() {
-  $("#resultsTable").tablesorter();
+
+    $("#resultsTable").tablesorter();
+
+    $("button#search").button({
+        icons: {primary:'ui-icon-circle-check'},
+    }).click(function() {
+        $("form").submit();
+        return false;
+    });
+
 });
 
 </script>
 {% endblock %}
 {% block body %}
 <div id="main_outer">
+
+<div id="upper">
+<div id="re_search">
+  <form method="POST" action="{% url search %}">
+    {% csrf_token %}
+    <label for="treatment">What</label>
+    <input name="treatment" id="treatment" class="ui-corner-all" type="text" value="something" />
+    <label for="location">Where</label>
+    <input name="location" id="location" class="ui-corner-all" type="text" value="somewhere" />
+    <button id="search">Search</button>
+  </form>
+</div>
+</div>
 
 <div id="header">
 
@@ -54,7 +76,7 @@ Marina
 </tr></thead>
 <tbody>
 {% for appt in results %}
-	<tr>
+	<tr class="{% cycle 'odd' 'even' %}">
 		<td>{{ appt.spa }}</td>
 		<td>{{ appt.rating }}</td>
 		<td><span distance="{{ appt.distance }}">{{ appt.distance_text }}</span></td>

@@ -37,7 +37,7 @@ $(function(){
       <form method="POST" action="{% url search %}">
         {% csrf_token %}
 
-        <fieldset id="time" class="roundy" action="{% url search %}">
+        <fieldset id="time" class="roundy">
           <legend>What would you like?</legend>
           <input name="treatment" id="treatment" class="ui-corner-all" type="text" />
         </fieldset>
@@ -48,6 +48,11 @@ $(function(){
             <input name="tomorrow" type="checkbox" /> Tomorrow<br />
             <input name="thenextday" type="checkbox" /> The next day...<br /><br />
             ...or a later day: <input name="anotherday" id="datepicker" class="ui-corner-all" type="text" />
+        </fieldset>
+
+        <fieldset class="roundy">
+          <legend>Where?</legend>
+          <input name="location" id="location" class="ui-corner-all" type="text" />
         </fieldset>
 
         <fieldset id="search_buttons" class="roundy">
