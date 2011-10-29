@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.http import HttpResponse
 from repui.api import dispatch
 from repui.models import get_trenche_support
+from repui.search import process_POST_params
 from beauty.data.treatments import TREATMENTS
 
 
@@ -96,6 +97,15 @@ def search(request):
 
     _P(request.POST)
 
+    if request.method == 'POST':
+        criteria = process_POST_params(request)
+        _P(criteria)
+    else:
+        criteria = dict(
+            what='something',
+            where='somewhere',
+            )
+
     return render_to_response(
         'results.html',
         dict(
@@ -103,6 +113,8 @@ def search(request):
                 _fake_appt(n)
                 for n in range(7)
                 ],
+            what = criteria['treatment'],
+            where = criteria['distance_full_text'],
             ),
         context_instance=RequestContext(request),
         )

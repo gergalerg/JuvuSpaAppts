@@ -8,7 +8,7 @@ from repui.models import get_trenche_support
 from beauty.data.treatments import TREATMENTS
 
 
-DATE_FORMAT = '%m/%d/%y'
+DATE_FORMAT = '%m/%d/%Y'
 EXPECTED_FIELDS = [
     'location',
     'treatment',
@@ -21,7 +21,7 @@ EXPECTED_FIELDS = [
 
 def process_POST_params(request):
     data = dict(
-        (name, request.POST.get(name, [None])[0])
+        (name, request.POST.get(name))
         for name in EXPECTED_FIELDS
         )
 

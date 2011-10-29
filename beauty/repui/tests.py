@@ -64,7 +64,7 @@ class process_POST_params_Test(TestCase):
         # Add a specific date (in the past, as the business logic of not
         # allowing appointments in the past will not have been applied
         # yet.
-        self.fake_request.POST[u'anotherday'] = [u'11/28/10']
+        self.fake_request.POST[u'anotherday'] = [u'11/28/2010']
         result = process_POST_params(self.fake_request)
         self.assertEqual(
             result['dates'],

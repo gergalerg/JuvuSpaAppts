@@ -30,9 +30,9 @@ $(function() {
   <form method="POST" action="{% url search %}">
     {% csrf_token %}
     <label for="treatment">What</label>
-    <input name="treatment" id="treatment" class="ui-corner-all" type="text" value="something" />
+    <input name="treatment" id="treatment" class="ui-corner-all" type="text" value="{{ what }}" />
     <label for="location">Where</label>
-    <input name="location" id="location" class="ui-corner-all" type="text" value="somewhere" />
+    <input name="location" id="location" class="ui-corner-all" type="text" value="{{ where }}" />
     <button id="search">Search</button>
   </form>
 </div>
