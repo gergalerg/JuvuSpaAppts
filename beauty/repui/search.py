@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.http import HttpResponse
 from repui.api import dispatch
 from repui.models import get_trenche_support
-from beauty.data.treatments import TREATMENTS
+from beauty.data.treatments import TREATMENTS, lookup_treatment
 
 
 DATE_FORMAT = '%m/%d/%Y'
@@ -30,6 +30,8 @@ def process_POST_params(request):
 
     data['lat_long'], data['distance_full_text'] = _distance(**data)
     data['dates'] = _dates(**data)
+    treatment = data['treatment']
+    data['treatment_full_text'] = lookup_treatment(treatment) or treatment
     return data
 
 

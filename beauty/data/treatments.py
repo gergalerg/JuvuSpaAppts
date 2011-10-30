@@ -1,6 +1,8 @@
 '''
 Different treatment types grouped by "genus".
 '''
+from itertools import chain
+from difflib import get_close_matches
 
 
 def _str_to_kinds(s):
@@ -106,6 +108,23 @@ TREATMENTS = {
         '''),
 
     }
+
+ALL_TREATMENTS = list(TREATMENTS) + list(chain(*TREATMENTS.itervalues()))
+
+LOOKUP_TREATMENT = dict(
+    (treatment.lower(), treatment)
+    for treatment in ALL_TREATMENTS
+    )
+
+def lookup_treatment(term):
+    terml = term.lower()
+    result = LOOKUP_TREATMENT.get(terml)
+    if result:
+        return result
+    results = get_close_matches(terml, list(LOOKUP_TREATMENT))
+    if results:
+        return LOOKUP_TREATMENT[results[0]]
+    # i.e. return None
 
 
 ##    '''\

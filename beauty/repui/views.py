@@ -113,7 +113,7 @@ def search(request):
                 _fake_appt(n)
                 for n in range(7)
                 ],
-            what = criteria['treatment'],
+            what = criteria['treatment_full_text'],
             where = criteria['distance_full_text'],
             ),
         context_instance=RequestContext(request),
