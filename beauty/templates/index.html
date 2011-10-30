@@ -50,20 +50,23 @@
                 console.log("removed", s, 'from', trenche_id(where));
                 which.fadeOut(333, function() { which.remove() });
 		    },
-		    
+
 		    avail_attempt: function(trenche) {
 		        console.log("adding avail to", trenche);
+                var data = {};
+                jQuery.map($("form").serializeArray(), function(n, i){
+                    data[n['name']] = n['value'];
+                });
+                data['s'] = trenche;
+                data['p'] = 'create_availability_with_trenche';
+                data['o'] = null;
 
                 var result = false;
 		        $.ajax({
                     type: 'POST',
                     url: "{% url iapi %}",
                     async: false,
-                    data: {
-                        s: trenche,
-                        p: 'create_availability_with_trenche',
-                        o: null,
-                    },
+                    data: data,
                     success: function(data) { result = data; },
                     dataType: 'json',
                 });
@@ -256,17 +259,17 @@
             <fieldset id="time" class="roundy">
             <legend>Time</legend>
                 <label for="start_time">Starting at:</label>
-                <input id="start_time" class="ui-corner-all" type="text" /><br />
+                <input name="start_time" id="start_time" class="ui-corner-all" type="text" /><br />
                 <label for="duration">Duration:</label>
-                <input id="duration" class="ui-corner-all" type="text" /><br />
+                <input name="duration" id="duration" class="ui-corner-all" type="text" /><br />
             </fieldset>
 
             <fieldset class="roundy">
             <legend>Dates</legend>
-                <input type="checkbox" checked="checked" /> Today<br />
-                <input type="checkbox" /> Tomorrow<br />
-                <input type="checkbox" /> The next day...<br /><br />
-                ...or a later day: <input id="datepicker" class="ui-corner-all" type="text" />
+                <input name="today" type="checkbox" checked="checked" /> Today<br />
+                <input name="tomorrow" type="checkbox" /> Tomorrow<br />
+                <input name="thenextday" type="checkbox" /> The next day...<br /><br />
+                ...or a later day: <input name="anotherday" id="datepicker" class="ui-corner-all" type="text" />
             </fieldset>
 
             <fieldset class="roundy">
