@@ -3,7 +3,6 @@ from datetime import date, timedelta, datetime
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponse
-from repui.api import dispatch
 from repui.models import get_trenche_support
 from beauty.data.treatments import TREATMENTS, lookup_treatment
 
@@ -29,31 +28,31 @@ def process_POST_params(request):
         print data
 
     data['lat_long'], data['distance_full_text'] = _distance(**data)
-    data['dates'] = _dates(**data)
+    data['dates'] = dates(**data)
     treatment = data['treatment']
     data['treatment_full_text'] = lookup_treatment(treatment) or treatment
     return data
 
 
-def _dates(today, tomorrow, thenextday, anotherday, **_):
+def dates(today, tomorrow, thenextday, anotherday, **_):
     '''
     Create a list of datetime.date objects for each of the selected days.
 
     TODO anotherday should be converted by form validation.
     '''
-    dates, t, d = [], date.today(), timedelta(days=1)
+    days, t, d = [], date.today(), timedelta(days=1)
     if today:
-        dates.append(t)
+        days.append(t)
     t += d
     if tomorrow:
-        dates.append(t)
+        days.append(t)
     t += d
     if thenextday:
-        dates.append(t)
+        days.append(t)
     if anotherday:
         t = datetime.strptime(anotherday, DATE_FORMAT).date()
-        dates.append(t)
-    return dates
+        days.append(t)
+    return days
 
 
 def _distance(location, **_):

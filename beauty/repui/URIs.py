@@ -9,6 +9,7 @@ TRENCHE = Uri(OUR_LAND + 'Trenche')
 TREATMENT = Uri(OUR_LAND + 'Treatment')
 SUPPORTS = Uri(OUR_LAND + 'SupportsTreatment')
 AVAIL = Uri(OUR_LAND + 'AvailabilitySlot')
+DATE = Uri(OUR_LAND + 'Date')
 
 NAME = Uri('http://xmlns.com/foaf/0.1/name')
 LABEL = Uri('http://www.w3.org/2000/01/rdf-schema#label')

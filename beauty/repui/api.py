@@ -1,3 +1,4 @@
+from repui.search import dates, DATE_FORMAT
 from repui.models import (
     add_treatment_to_trenche,
     create_availability_with_trenche,
@@ -30,7 +31,7 @@ class Dispatch:
         if __debug__:
             print s, '->', p, '->', o
 
-        res = P(s, o)
+        res = P(s, o, args)
 
         if __debug__:
             print s, '->', p, '->', o, '. COMPLETED'
@@ -38,16 +39,21 @@ class Dispatch:
         return res
 
     @_mark_api_method
-    def add_treatment_to_trenche(self, s, o):
+    def add_treatment_to_trenche(self, s, o, args):
         add_treatment_to_trenche(s, o)
         return True
 
     @_mark_api_method
-    def create_availability_with_trenche(self, s, o):
-        return create_availability_with_trenche(s)
+    def create_availability_with_trenche(self, s, o, args):
+        days = dates(**args)
+        for day in days:
+            day = day.strftime(DATE_FORMAT)
+            print 'n', day
+            create_availability_with_trenche(s, day)
+        return True
 
     @_mark_api_method
-    def subject(self, s, o):
+    def subject(self, s, o, args):
         return subject()
 
 

@@ -20,6 +20,7 @@ from repui.URIs import (
   LABEL,
   TYPE,
   AVAIL,
+  DATE,
   PREFIX,
   )
 
@@ -91,7 +92,7 @@ def add_treatment_to_trenche(treatment, trenche):
   M.add_statement(s)
 
 
-def create_availability_with_trenche(trenche):
+def create_availability_with_trenche(trenche, day):
   T = get_trenche_from_label(trenche)
   if not T:
     if __debug__:
@@ -101,6 +102,7 @@ def create_availability_with_trenche(trenche):
   avail = Node()
   M.add_statement(Statement(avail, TYPE, AVAIL))
   M.add_statement(Statement(avail, SUPPORTS, trenche))
+  M.add_statement(Statement(avail, DATE, day))
   return avail
 
 
