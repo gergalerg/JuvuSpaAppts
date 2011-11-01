@@ -1,4 +1,8 @@
-from RDF import Uri
+try:
+    from RDF import Uri
+except ImportError:
+    def Uri(thing):
+        return thing
 
 
 OUR_LAND = 'http://choicedocs.com/ref/'
