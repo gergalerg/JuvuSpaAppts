@@ -3,7 +3,7 @@ from datetime import date, timedelta, datetime
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponse
-from repui.models import get_trenche_support
+from repui.models import get_trenche_support, get_avails
 from beauty.data.treatments import TREATMENTS, lookup_treatment
 
 
@@ -19,18 +19,21 @@ EXPECTED_FIELDS = [
 
 
 def process_POST_params(request):
-    data = dict(
-        (name, request.POST.get(name))
-        for name in EXPECTED_FIELDS
-        )
-
-    if __debug__:
-        print data
-
+    data = ensure_fields(dict(request.POST))
     data['lat_long'], data['distance_full_text'] = _distance(**data)
     data['dates'] = dates(**data)
     treatment = data['treatment']
     data['treatment_full_text'] = lookup_treatment(treatment) or treatment
+    return data
+
+
+def ensure_fields(D):
+    data = dict(
+        (name, D.get(name, [None])[0])
+        for name in EXPECTED_FIELDS
+        )
+    if __debug__:
+        print data
     return data
 
 
@@ -81,14 +84,59 @@ def _distance(location, **_):
 ##
 
 
+##
+##    {'anotherday': u'11/03/2011',
+##     'dates': [datetime.date(2011, 10, 31), datetime.date(2011, 11, 3)],
+##     'distance_full_text': 'Where I Left My Heart, CA 94132',
+##     'lat_long': (1, 2),
+##     'location': u'San Francisco',
+##     'thenextday': None,
+##     'today': u'on',
+##     'tomorrow': None,
+##     'treatment': u'massage',
+##     'treatment_full_text': 'Massage'}
+##
 
 
+from random import randint
 
 
+def _fake_appt(n):
+    return dict(
+        spa = str(n) + "Barney's",
+        rating = str(randint(0, 7)) + '/7',
+        distance = 2.7 * (10 - n),
+        distance_text = str(2.7 * (1 + n)) + ' miles',
+        price = 1001.12 * n,
+        )
 
 
+def _fake_real_appt(av):
+    av = av['av']
+    distance = randint(1, 300) / 10.
+    return dict(
+        spa = str(av),
+        rating = str(randint(0, 7)) + '/7',
+        distance = distance,
+        distance_text = str(distance) + ' miles',
+        price = randint(3, 100) * 10,
+        )
 
 
+def search_for_availabilities(dates, lat_long, treatment, **_):
+    print 'search_for_availabilities', dates, lat_long, treatment
+    results = []
+    for day in dates:
+        print day
+        day = day.strftime(DATE_FORMAT)
+        print treatment, day, '->',
+        avs = get_avails(treatment, day)
+        print avs
+        results.extend(_fake_real_appt(av) for av in avs)
+    print results
+    print
+    return results
+##    return map(_fake_appt, range(7))
 
 
 

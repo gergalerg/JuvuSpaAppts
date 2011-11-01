@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.http import HttpResponse
 from repui.api import dispatch
 from repui.models import get_trenche_support
-from repui.search import process_POST_params
+from repui.search import process_POST_params, search_for_availabilities
 from beauty.data.treatments import TREATMENTS
 
 
@@ -67,7 +67,7 @@ def index(request):
 # Search for available appointments.
 
 from pprint import pprint as _P
-from random import randint
+
 
 def home(request):
     '''
@@ -81,38 +81,23 @@ def home(request):
         )
 
 
-def _fake_appt(n):
-    return dict(
-        spa = str(n) + "Barney's",
-        rating = str(randint(0, 7)) + '/7',
-        distance = 2.7 * (10 - n),
-        distance_text = str(2.7 * (1 + n)) + ' miles',
-        price = 1001.12 * n,
-        )
-
-
 def search(request):
-##    if request.method != 'POST':
-##        return redirect('home')
+    if request.method != 'POST':
+        return redirect('home')
 
-    _P(request.POST)
+    if __debug__:
+        _P(request.POST)
 
-    if request.method == 'POST':
-        criteria = process_POST_params(request)
+    criteria = process_POST_params(request)
+    if __debug__:
+        print 'post process_POST_params() ->'
         _P(criteria)
-    else:
-        criteria = dict(
-            what='something',
-            where='somewhere',
-            )
+        print
 
     return render_to_response(
         'results.html',
         dict(
-            results = [
-                _fake_appt(n)
-                for n in range(7)
-                ],
+            results = search_for_availabilities(**criteria),
             what = criteria['treatment_full_text'],
             where = criteria['distance_full_text'],
             ),

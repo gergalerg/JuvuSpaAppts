@@ -1,16 +1,22 @@
 from inspect import getargspec
 from django.conf import settings
-from RDF import (
-  Storage,
-  Model,
-  Statement,
-  Uri,
-  Node,
-  Parser,
-  Query,
-  SPARQLQuery,
-  Serializer,
-  )
+##try:
+##    from RDF import (
+##        Storage,
+##        Model,
+##        Statement,
+##        Node,
+##        SPARQLQuery,
+##    )
+##except ImportError:
+from fake_rdf import (
+    Storage,
+    Model,
+    Statement,
+    Node,
+    SPARQLQuery,
+)
+
 from repui.URIs import (
   NAME,
   PROVIDER,
@@ -153,6 +159,19 @@ def get_avails_supporting_treatment(name):
       ?av cd:SupportsTreatment ?trenche .
       ?trenche cd:SupportsTreatment ?treatment .
       ?treatment foaf:name "%(name)s" .
+  }
+  """
+
+
+@plain_query
+def get_avails(treatment_name, date):
+  """
+  SELECT distinct ?av
+  WHERE {
+      ?av cd:SupportsTreatment ?trenche .
+      ?trenche cd:SupportsTreatment ?treatment .
+      ?treatment foaf:name "%(treatment_name)s" .
+      ?av cd:Date "%(date)s" .
   }
   """
 
