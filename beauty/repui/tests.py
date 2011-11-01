@@ -1,8 +1,8 @@
 from datetime import date, timedelta
-##try:
-##from RDF import Storage, Model, Statement
-##except ImportError:
-from fake_rdf import Storage, Model, Statement
+try:
+    from RDF import Storage, Model, Statement
+except ImportError:
+    from fake_rdf import Storage, Model, Statement
 from django.test import TestCase
 from django.conf import settings
 from repui.search import process_POST_params

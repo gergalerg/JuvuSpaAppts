@@ -1,21 +1,21 @@
 from inspect import getargspec
 from django.conf import settings
-##try:
-##    from RDF import (
-##        Storage,
-##        Model,
-##        Statement,
-##        Node,
-##        SPARQLQuery,
-##    )
-##except ImportError:
-from fake_rdf import (
-    Storage,
-    Model,
-    Statement,
-    Node,
-    SPARQLQuery,
-)
+try:
+    from RDF import (
+        Storage,
+        Model,
+        Statement,
+        Node,
+        SPARQLQuery,
+    )
+except ImportError:
+    from fake_rdf import (
+        Storage,
+        Model,
+        Statement,
+        Node,
+        SPARQLQuery,
+    )
 
 from repui.URIs import (
   NAME,
