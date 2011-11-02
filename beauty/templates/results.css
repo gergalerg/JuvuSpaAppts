@@ -109,3 +109,46 @@ form label {
 	clear: both;
 }
 
+.tile {
+    background-color: {{ colors.bg }};
+    border: 1px solid {{ colors.header }};
+	margin: 0.25em;
+	padding: 0.25em;
+    position: relative;
+    height: 84px;
+}
+
+.spa {
+    font-size: small;
+    position: absolute;
+    top: 74px;
+    left: 0.5em;
+}
+
+.rating {
+    font-size: x-small;
+    position: absolute;
+    left: 12em;
+}
+
+.logo {
+    position: absolute;
+    top: 0.25em;
+}
+
+.distance {
+    font-size: x-small;
+    position: absolute;
+    left: 12em;
+    top: 2em;
+}
+
+.price {
+    background-color: {{ colors.results_bg }};
+	margin: 0.25em;
+	padding: 0.25em;
+    position: absolute;
+    left: 7em;
+    top: 2em;
+}
+

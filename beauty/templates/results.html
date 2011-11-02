@@ -18,6 +18,20 @@ $(function() {
         return false;
     });
 
+    var foo = {{ results|safe }};
+
+    function make_tile(data, i) {
+        var d = $('<div id="tile_' + i + '" class="tile"></div>');
+        d.append('<div class="spa">' + data.spa + '</div>' +
+                 '<div class="rating">' + data.rating + '</div>' +
+                 '<div class="logo"><img src="/static/a_logo.png"></div>' +
+                 '<div class="distance" distance="' + data.distance + '">' + data.distance_text + '</div>' +
+                 '<div class="price">$' + data.price + '</div>');
+        $("div#results").append(d);
+    }
+
+    jQuery.map(foo, make_tile);
+
 });
 
 </script>
@@ -75,14 +89,6 @@ Marina
 		<th>Price</th>
 </tr></thead>
 <tbody>
-{% for appt in results %}
-	<tr class="{% cycle 'odd' 'even' %}">
-		<td>{{ appt.spa }}</td>
-		<td>{{ appt.rating }}</td>
-		<td><span distance="{{ appt.distance }}">{{ appt.distance_text }}</span></td>
-		<td>${{ appt.price|floatformat:2 }}</td>
-	</tr>
-{% endfor %}
 </tbody>
 </table>
 </div>{# "results" #}

@@ -107,7 +107,7 @@ def _fake_appt(n):
         rating = str(randint(0, 7)) + '/7',
         distance = 2.7 * (10 - n),
         distance_text = str(2.7 * (1 + n)) + ' miles',
-        price = 1001.12 * n,
+        price = '%.2f' % (1001.12 * n),
         )
 
 
@@ -119,7 +119,7 @@ def _fake_real_appt(av):
         rating = str(randint(0, 7)) + '/7',
         distance = distance,
         distance_text = str(distance) + ' miles',
-        price = randint(3, 100) * 10,
+        price = '%.2f' % (randint(3, 100) * 10),
         )
 
 
@@ -135,6 +135,10 @@ def search_for_availabilities(dates, lat_long, treatment, **_):
         results.extend(_fake_real_appt(av) for av in avs)
     print results
     print
+
+    if __debug__:
+        if not results:
+            results = map(_fake_appt, range(7))
     return results
 ##    return map(_fake_appt, range(7))
 

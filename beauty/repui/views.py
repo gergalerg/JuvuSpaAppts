@@ -1,4 +1,5 @@
 from collections import defaultdict
+from json import dumps
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponse
@@ -97,7 +98,7 @@ def search(request):
     return render_to_response(
         'results.html',
         dict(
-            results = search_for_availabilities(**criteria),
+            results = dumps(search_for_availabilities(**criteria)),
             what = criteria['treatment_full_text'],
             where = criteria['distance_full_text'],
             ),
