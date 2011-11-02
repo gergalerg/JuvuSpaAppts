@@ -37,10 +37,10 @@ $(function() {
 </script>
 {% endblock %}
 {% block body %}
-<div id="main_outer">
+<div id="main_outer" class="container">
 
-<div id="upper">
-<div id="re_search">
+<div id="upper" class="row">
+<div id="re_search" class="ten columns centered">
   <form method="POST" action="{% url search %}">
     {% csrf_token %}
     <label for="treatment">What</label>
@@ -52,35 +52,34 @@ $(function() {
 </div>
 </div>
 
-<div id="header">
+<div id="header" class="row">
 
-<div class="searchy">
+<div class="searchy three columns">
 <strong>Distance</strong><br>
 1 mile<br>
 5 miles<br>
 1.7M Lightyears
 </div>
 
-<div class="searchy">
+<div class="searchy three columns">
 <strong>Price</strong><br>
 $100 or less<br>
 $101 - $1000<br>
 $1001 - $5000
 </div>
 
-<div class="searchy">
+<div class="searchy three columns">
 <strong>Neighborhood</strong><br>
 North Beach<br>
 Inner Sunset<br>
 Marina
 </div>
 
-<div class="clearit"></div>
 </div>{# "header" #}
 
-<div id="main">
+<div id="main" class="row">
 
-<div id="results">
+<div id="results" class="seven columns">
 <table id="resultsTable" class="tablesorter" >
 <thead><tr>
 		<th>Spa</th>
@@ -93,9 +92,10 @@ Marina
 </table>
 </div>{# "results" #}
 
-<div id="tools">Tools!</div>
-
-<div class="clearit"></div>
+<div id="tools" class="four columns">Tools!
+<div class="row"><div class="ten columns">I'm a Map!</div></div>
+<div class="row"><div class="ten columns">I'm a Calendar!</div></div>
+</div>
 </div>{# "main" #}
 
 </div>{# "main_outer" #}
