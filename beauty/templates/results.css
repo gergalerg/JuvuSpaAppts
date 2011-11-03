@@ -2,81 +2,50 @@ body {
     background-color: {{ colors.bg }};
 }
 
-#header {
+.plumble {
     color: {{ colors.header }};
     background-color: {{ colors.header_bg }};
-    border: 2px solid {{ colors.header }};
-	border-top-right-radius: 1em;
-	border-top-left-radius: 1em;
-	border-bottom-left-radius: 1em;
-	border-bottom-right-radius: 1em;
+    padding: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+#re_search {
+}
+
+#header {
 }
 
 #main {
-    color: {{ colors.main }};
-    background-color: {{ colors.main_bg }};
-    border-left: 2px solid {{ colors.main }};
-    border-right: 2px solid {{ colors.main }};
-    border-bottom: 2px solid {{ colors.main }};
-	border-bottom-left-radius: 1em;
-	border-bottom-right-radius: 1em;
 }
 
 #results {
-    color: {{ colors.results }};
-    background-color: {{ colors.results_bg }};
     border: 1px solid {{ colors.results }};
- 	border-top-right-radius: 0.5em;
-	border-top-left-radius: 0.5em;
-	border-bottom-left-radius: 0.5em;
-	border-bottom-right-radius: 0.5em;
 }
 
 #tools {
     color: {{ colors.tools }};
     background-color: {{ colors.tools_bg }};
     border: 1px solid {{ colors.results }};
-	border-top-right-radius: 0.5em;
-	border-top-left-radius: 0.5em;
-	border-bottom-left-radius: 0.5em;
-	border-bottom-right-radius: 0.5em;
-}
-
-#upper {
-    color: {{ colors.main }};
-    background-color: {{ colors.main_bg }};
-    border-left: 2px solid {{ colors.main }};
-    border-right: 2px solid {{ colors.main }};
-    border-top: 2px solid {{ colors.main }};
-	border-top-left-radius: 1em;
-	border-top-right-radius: 1em;
-}
-
-#re_search {
-    color: {{ colors.header }};
-    background-color: {{ colors.header_bg }};
-    border: 1px solid {{ colors.results }};
-	border-top-right-radius: 0.5em;
-	border-top-left-radius: 0.5em;
-	border-bottom-left-radius: 0.5em;
-	border-bottom-right-radius: 0.5em;
+    padding: 0.25em;
 }
 
 .searchy {
     background-color: {{ colors.bg }};
     border: 1px solid {{ colors.header }};
+	border-top-right-radius: 0.5em;
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+    padding: 0.25em;
 }
 
 form input[type=text] {
     color: {{ colors.header }};
 	display: inline-block;
-    width: 30%;
 }
 
 form label {
 	display: inline-block;
-	margin-left: 0.5em;
-	margin-right: 0.5em;
 }
 
 .tile {

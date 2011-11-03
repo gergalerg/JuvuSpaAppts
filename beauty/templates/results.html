@@ -89,45 +89,67 @@ $(function() {
 {% block body %}
 <div id="main_outer" class="container">
 
-<div id="upper" class="row">
-<div id="re_search" class="ten columns centered">
+<div id="re_search" class="plumble">
+<div class="row">
+<div class="ten columns centered">
   <form method="POST" action="{% url search %}">
+<div class="row">
     {% csrf_token %}
+  <div class="five columns">
     <label for="treatment">What</label>
     <input name="treatment" id="treatment" class="ui-corner-all" type="text" value="{{ what }}" />
+  </div>
+  <div class="five columns">
     <label for="location">Where</label>
     <input name="location" id="location" class="ui-corner-all" type="text" value="{{ where }}" />
+  </div>
+  <div class="one columns">
     <button id="search">Search</button>
+  </div>
+</div>
   </form>
-</div>
-</div>
+</div></div></div>
 
-<div id="header" class="row">
+<div id="header" class="plumble">
+<div class="row">
+<div class="twelve columns centered">
 
-<div class="searchy three columns">
+<div class="three columns">
+<div class="searchy">
 <strong>Distance</strong><br>
 1 mile<br>
 5 miles<br>
 1.7M Lightyears
-</div>
+</div></div>
 
-<div class="searchy three columns">
+<div class="three columns">
+<div class="searchy">
 <strong>Price</strong><br>
 $100 or less<br>
 $101 - $1000<br>
 $1001 - $5000
-</div>
+</div></div>
 
-<div class="searchy three columns">
+<div class="three columns">
+<div class="searchy">
 <strong>Neighborhood</strong><br>
 North Beach<br>
 Inner Sunset<br>
 Marina
-</div>
+</div></div>
 
-</div>{# "header" #}
+<div class="three columns">
+<div class="searchy">
+<strong>Something Else</strong><br>
+Apples<br>
+Bananas<br>
+Kiwis
+</div></div>
 
-<div id="main" class="row">
+</div></div></div>{# "header" #}
+
+<div id="main" class="plumble">
+<div class="row">
 
 <div class="seven columns">
 <div id="results">
@@ -149,7 +171,8 @@ Marina
 <div class="row"><div class="ten columns">I'm a Calendar!</div></div>
 </div>
 </div>
-</div>{# "main" #}
+
+</div></div>{# "main" #}
 
 </div>{# "main_outer" #}
 {% endblock %}
