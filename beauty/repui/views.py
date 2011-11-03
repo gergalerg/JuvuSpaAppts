@@ -81,6 +81,10 @@ def home(request):
         context_instance=RequestContext(request),
         )
 
+def profile(request):
+    return render_to_response(
+        'profile.html',
+        )
 
 def search(request):
     if request.method != 'POST':

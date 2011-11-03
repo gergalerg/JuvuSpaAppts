@@ -47,6 +47,8 @@ urlpatterns = patterns('',
 
     url(r'^iapi/', 'repui.views.iapi', name='iapi'),
 
+    url(r'^profile/', 'repui.views.profile', name='profile'),
+
     url(r'^search/', 'repui.views.search', name='search'),
     (
         r'^dyn/results.css$',
