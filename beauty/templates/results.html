@@ -9,13 +9,77 @@
 
 $(function() {
 
-    $("#resultsTable").tablesorter();
+    $.tablesorter.addWidget({
+	    id: "substitute_tiles",
+	    format: function(table) {
+	        var tiles = {};
+	        $(".tile").each(function() {
+	            var tile = $(this);
+	            tiles[tile.attr('index')] = tile;
+	            tile.detach()
+	        });
+		    $("tbody tr", table).each(function() {
+		        var row = $(this);
+			    $("#results").append(tiles[row.attr('index')]);
+			    row.hide();
+		    });
+	    }
+    });
 
     $("button#search").button({
         icons: {primary:'ui-icon-circle-check'},
     }).click(function() {
         $("form").submit();
         return false;
+    });
+
+    var foo = {{ results|safe }};
+
+    function make_tile(data, i) {
+        $("div#results").append(
+
+'<div id="tile_' + i + '" class="tile" index="' + i + '">' +
+
+'<div id="desktop_tile_' + i + '" class="show-on-desktops row">' +
+'    <div class="three columns">' +
+'        <div class="row"><div class="twelve columns"><div class="logo"><img src="/static/a_logo.png"></div></div></div>' +
+'        <div class="row"><div class="twelve columns"><div class="spa">' + data.spa + '</div></div></div>' +
+'    </div>' +
+'    <div class="six columns">' +
+'        <div class="row"><div class="twelve columns"><div class="rating">Rating: ' + data.rating + '</div></div></div>' +
+'        <div class="row"><div class="twelve columns"><div class="distance" distance="' + data.distance + '">Distance: ' + data.distance_text + '</div></div></div>' +
+'    </div>' +
+'    <div class="three columns">' +
+'<div class="price">$' + data.price + '</div>' +
+'</div></div>' +
+
+
+'<div id="mobile_tile_' + i + '" class="show-on-phones row">' +
+'    <div class="six columns centered">' +
+'        <div class="logo"><img src="/static/a_logo.png"></div>' +
+'        <div class="row"><div class="twelve columns"><div class="spa">' + data.spa + '</div></div></div>' +
+'        <div class="row"><div class="twelve columns"><div class="rating">Rating: ' + data.rating + '</div></div></div>' +
+'        <div class="row"><div class="twelve columns"><div class="distance" distance="' + data.distance + '">Distance: ' + data.distance_text + '</div></div></div>' +
+'        <div class="row"><div class="twelve columns"><div class="rice">$' + data.price + '</div></div></div>' +
+'    </div>' +
+'</div>' +
+
+'</div>');
+
+        $("table#resultsTable tbody").append(
+'<tr id="trow_' + i + '" index="' + i + '" >' +
+'  <td>' + data.spa + '</td>' +
+'  <td>' + data.rating + '</td>' +
+'  <td><span distance="' + data.distance + '">' + data.distance_text + '</span></td>' +
+'  <td>$' + data.price + '</td>' +
+'</tr>');
+
+    }
+
+    jQuery.map(foo, make_tile);
+
+    $("#resultsTable").tablesorter({
+        widgets: ['substitute_tiles']
     });
 
 });
@@ -25,47 +89,70 @@ $(function() {
 {% block body %}
 <div id="main_outer" class="container">
 
-<div id="upper" class="row">
-<div id="re_search" class="ten columns centered">
+<div id="re_search" class="plumble">
+<div class="row">
+<div class="ten columns centered">
   <form method="POST" action="{% url search %}">
+<div class="row">
     {% csrf_token %}
+  <div class="five columns">
     <label for="treatment">What</label>
     <input name="treatment" id="treatment" class="ui-corner-all" type="text" value="{{ what }}" />
+  </div>
+  <div class="five columns">
     <label for="location">Where</label>
     <input name="location" id="location" class="ui-corner-all" type="text" value="{{ where }}" />
+  </div>
+  <div class="one columns">
     <button id="search">Search</button>
+  </div>
+</div>
   </form>
-</div>
-</div>
+</div></div></div>
 
-<div id="header" class="row">
+<div id="header" class="plumble">
+<div class="row">
+<div class="twelve columns centered">
 
-<div class="searchy three columns">
+<div class="three columns">
+<div class="searchy">
 <strong>Distance</strong><br>
 1 mile<br>
 5 miles<br>
 1.7M Lightyears
-</div>
+</div></div>
 
-<div class="searchy three columns">
+<div class="three columns">
+<div class="searchy">
 <strong>Price</strong><br>
 $100 or less<br>
 $101 - $1000<br>
 $1001 - $5000
-</div>
+</div></div>
 
-<div class="searchy three columns">
+<div class="three columns">
+<div class="searchy">
 <strong>Neighborhood</strong><br>
 North Beach<br>
 Inner Sunset<br>
 Marina
-</div>
+</div></div>
 
-</div>{# "header" #}
+<div class="three columns">
+<div class="searchy">
+<strong>Something Else</strong><br>
+Apples<br>
+Bananas<br>
+Kiwis
+</div></div>
 
-<div id="main" class="row">
+</div></div></div>{# "header" #}
 
-<div id="results" class="seven columns">
+<div id="main" class="plumble">
+<div class="row">
+
+<div class="seven columns">
+<div id="results">
 <table id="resultsTable" class="tablesorter" >
 <thead><tr>
 		<th>Spa</th>
@@ -74,23 +161,18 @@ Marina
 		<th>Price</th>
 </tr></thead>
 <tbody>
-{% for appt in results %}
-	<tr class="{% cycle 'odd' 'even' %}">
-		<td>{{ appt.spa }}</td>
-		<td>{{ appt.rating }}</td>
-		<td><span distance="{{ appt.distance }}">{{ appt.distance_text }}</span></td>
-		<td>${{ appt.price|floatformat:2 }}</td>
-	</tr>
-{% endfor %}
 </tbody>
 </table>
-</div>{# "results" #}
+</div></div>{# "results" #}
 
-<div id="tools" class="four columns">Tools!
+<div class="five columns">
+<div id="tools">Tools!
 <div class="row"><div class="ten columns">I'm a Map!</div></div>
 <div class="row"><div class="ten columns">I'm a Calendar!</div></div>
 </div>
-</div>{# "main" #}
+</div>
+
+</div></div>{# "main" #}
 
 </div>{# "main_outer" #}
 {% endblock %}
