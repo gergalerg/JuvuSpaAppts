@@ -1,8 +1,35 @@
 {% extends "base.html" %}
-{% block title %}Beauty{% endblock %}
+
+{% block title %}
+    SpaStalkers - Find spas, salons, massages
+{% endblock %}
+
+
 {% block html_head %}
 <link rel="stylesheet" href="/dyn/search.css" type="text/css">
-<title>Beauty</title>
+<link href='http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700' rel='stylesheet' type='text/css'>
+<style>
+    #background {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        z-index: -1;
+        opacity: .8;
+    }
+
+	select { 
+		color: #7f7f7f;
+		font-size: 24px !important;
+		padding: 4px 5px !important;
+		border: solid 1px #bbbbbb; 
+	}
+	option { 
+		font-style: italic;
+	}
+</style>
+
 <script type="text/javascript">
 
 $(function(){
@@ -26,41 +53,40 @@ $(function(){
 
 </script>
 {% endblock %}
+
+
+
+
 {% block body %}
-<div id="main_outer">
-    <div id="header">
-      <h1>Header goes here Y'all!</h1>
+<!-- BACKGROUND -->
+<!-- <img id="background" src="/static/bg/3877954043_31c6cc7441_b.jpg"> -->
+<!-- <img id="background" src="/static/bg/2964708287_1a9ee41468_b.jpg"> -->
+<img id="background" src="/static/bg/537183095_9b2abcba55_b.jpg">
+
+<div class="container">
+    <div class="row">
+        <div class="eight columns centered">
+            <br><br><br><br><br><br><br><br>
+			<center><h1 style="font-family: Pacifico; text-shadow: 1px 1px 1px #000; font-size: 800%; color: #7FBA02;">SpaStalkers</h1></center>
+
+            <br>
+			<center>
+			<form method="POST" action="{% url search %}">{% csrf_token %}
+				<input type="text" class="oversize input-text" name="treatment" id="treatment" placeholder="I am looking for...">
+
+				<select>
+                <option value="San Francisco">in San Francisco</option>
+				<option value="Oakland">Oakland</option>
+				<option value="San Jose">San Jose</option>
+				</select>
+				
+				<br><br>
+				
+                <input type="submit" id="search" value="SPA ME!" class="nice round oversize blue button">
+            </form>
+			</center>
+			<br><br><br>
+        </div>
     </div>
-    <div id="main">
-      <h1>Search goes here Y'all!</h1>
-
-      <form method="POST" action="{% url search %}">
-        {% csrf_token %}
-
-        <fieldset id="time" class="roundy">
-          <legend>What would you like?</legend>
-          <input name="treatment" id="treatment" class="ui-corner-all" type="text" />
-        </fieldset>
-
-        <fieldset class="roundy">
-        <legend>Dates</legend>
-            <input name="today" type="checkbox" checked="checked" /> Today<br />
-            <input name="tomorrow" type="checkbox" /> Tomorrow<br />
-            <input name="thenextday" type="checkbox" /> The next day...<br /><br />
-            ...or a later day: <input name="anotherday" id="datepicker" class="ui-corner-all" type="text" />
-        </fieldset>
-
-        <fieldset class="roundy">
-          <legend>Where?</legend>
-          <input name="location" id="location" class="ui-corner-all" type="text" />
-        </fieldset>
-
-        <fieldset id="search_buttons" class="roundy">
-            <button id="search">Search</button>
-        </fieldset>
-
-      </form>
-
-    </div>
-</div>{# "main_outer" #}
+</div><!-- container -->
 {% endblock %}
