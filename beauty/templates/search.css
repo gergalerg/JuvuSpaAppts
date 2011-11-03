@@ -47,8 +47,8 @@ fieldset#search_buttons {
 }
 
 form input[type=text] {
-    background-color: {{ colors.bg }};
-	width: 80%;
+/*    background-color: {{ colors.bg }}; */
+	width: 40%;
 }
 
 #datepicker {
