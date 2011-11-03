@@ -9,7 +9,22 @@
 
 $(function() {
 
-    $("#resultsTable").tablesorter();
+    $.tablesorter.addWidget({
+	    id: "substitute_tiles",
+	    format: function(table) {
+	        var tiles = {};
+	        $(".tile").each(function() {
+	            var tile = $(this);
+	            tiles[tile.attr('index')] = tile;
+	            tile.detach()
+	        });
+		    $("tbody tr", table).each(function() {
+		        var row = $(this);
+			    $("#results").append(tiles[row.attr('index')]);
+			    row.hide();
+		    });
+	    }
+    });
 
     $("button#search").button({
         icons: {primary:'ui-icon-circle-check'},
@@ -21,16 +36,51 @@ $(function() {
     var foo = {{ results|safe }};
 
     function make_tile(data, i) {
-        var d = $('<div id="tile_' + i + '" class="tile"></div>');
-        d.append('<div class="spa">' + data.spa + '</div>' +
-                 '<div class="rating">' + data.rating + '</div>' +
-                 '<div class="logo"><img src="/static/a_logo.png"></div>' +
-                 '<div class="distance" distance="' + data.distance + '">' + data.distance_text + '</div>' +
-                 '<div class="price">$' + data.price + '</div>');
-        $("div#results").append(d);
+        $("div#results").append(
+
+'<div id="tile_' + i + '" class="tile" index="' + i + '">' +
+
+'<div id="desktop_tile_' + i + '" class="show-on-desktops row">' +
+'    <div class="three columns">' +
+'        <div class="row"><div class="twelve columns"><div class="logo"><img src="/static/a_logo.png"></div></div></div>' +
+'        <div class="row"><div class="twelve columns"><div class="spa">' + data.spa + '</div></div></div>' +
+'    </div>' +
+'    <div class="six columns">' +
+'        <div class="row"><div class="twelve columns"><div class="rating">Rating: ' + data.rating + '</div></div></div>' +
+'        <div class="row"><div class="twelve columns"><div class="distance" distance="' + data.distance + '">Distance: ' + data.distance_text + '</div></div></div>' +
+'    </div>' +
+'    <div class="three columns">' +
+'<div class="price">$' + data.price + '</div>' +
+'</div></div>' +
+
+
+'<div id="mobile_tile_' + i + '" class="show-on-phones row">' +
+'    <div class="six columns centered">' +
+'        <div class="logo"><img src="/static/a_logo.png"></div>' +
+'        <div class="row"><div class="twelve columns"><div class="spa">' + data.spa + '</div></div></div>' +
+'        <div class="row"><div class="twelve columns"><div class="rating">Rating: ' + data.rating + '</div></div></div>' +
+'        <div class="row"><div class="twelve columns"><div class="distance" distance="' + data.distance + '">Distance: ' + data.distance_text + '</div></div></div>' +
+'        <div class="row"><div class="twelve columns"><div class="rice">$' + data.price + '</div></div></div>' +
+'    </div>' +
+'</div>' +
+
+'</div>');
+
+        $("table#resultsTable tbody").append(
+'<tr id="trow_' + i + '" index="' + i + '" >' +
+'  <td>' + data.spa + '</td>' +
+'  <td>' + data.rating + '</td>' +
+'  <td><span distance="' + data.distance + '">' + data.distance_text + '</span></td>' +
+'  <td>$' + data.price + '</td>' +
+'</tr>');
+
     }
 
     jQuery.map(foo, make_tile);
+
+    $("#resultsTable").tablesorter({
+        widgets: ['substitute_tiles']
+    });
 
 });
 
@@ -79,7 +129,8 @@ Marina
 
 <div id="main" class="row">
 
-<div id="results" class="seven columns">
+<div class="seven columns">
+<div id="results">
 <table id="resultsTable" class="tablesorter" >
 <thead><tr>
 		<th>Spa</th>
@@ -90,11 +141,13 @@ Marina
 <tbody>
 </tbody>
 </table>
-</div>{# "results" #}
+</div></div>{# "results" #}
 
-<div id="tools" class="four columns">Tools!
+<div class="five columns">
+<div id="tools">Tools!
 <div class="row"><div class="ten columns">I'm a Map!</div></div>
 <div class="row"><div class="ten columns">I'm a Calendar!</div></div>
+</div>
 </div>
 </div>{# "main" #}
 
