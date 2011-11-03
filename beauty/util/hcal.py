@@ -1,12 +1,29 @@
 '''
-Rough draft of calendar rendering.
+Render a deal calendar.
 '''
-
-##from calendar import HTMLCalendar
-##print HTMLCalendar(6).formatmonth(2011, 11)
-
-from pprint import pprint
 from datetime import date, timedelta
+from django.template.loader import render_to_string
+
+
+class DealCalendar:
+    '''
+    Render a deal calendar in HTML.
+    '''
+    # Done as a class and not a function in case we add later the ability
+    # to also emit JS and/or CSS as well as teh HTML.
+
+    def __init__(self, day=None):
+        self.day = day or date.today()
+
+    def get_table(self):
+        days = (
+            day.strftime("%d").lstrip('0') if day else ''
+            for day in yield_days(self.day)
+            )
+        return render_to_string(
+            'dealcal.html',
+            dict(weeks=list(by_sevens(days)))
+            )
 
 
 def by_sevens(days):
@@ -18,20 +35,10 @@ def by_sevens(days):
 
 A_DAY = timedelta(days=1)
 
-D = [
-    'mon', # 1
-    'tues', # 2
-    'wed',
-    'thurs',
-    'fri',
-    'sat',
-    'sun',
-    ]
-
-d = date.today()
 
 def days_since_sunday(day):
     return (1 + day.weekday()) % 7
+
 
 def yield_days(day, how_many_weeks=3):
     assert 1 <= how_many_weeks <= 10, repr(how_many_weeks)
@@ -45,13 +52,8 @@ def yield_days(day, how_many_weeks=3):
         if day.weekday() == 6:
             how_many_weeks -= 1
 
-##for _ in range(7):
-##    d += A_DAY
-##    print d.strftime("%A %d. %B %Y")
-##    for day in yield_days(d):
-##        print day, day and day.strftime("%A %d. %B %Y")
-##    print 
 
+# Note: this is a debugging function, not used in production.
 def tableize(day):
     yield '''\
 <table border="0" cellpadding="0" cellspacing="0" class="month">
@@ -69,6 +71,7 @@ def tableize(day):
 </tbody>
 </table>
 '''
+
 
 if __name__ == '__main__':
     print '\n'.join(tableize(date.today()))
