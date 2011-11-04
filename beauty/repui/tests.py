@@ -80,7 +80,7 @@ class process_POST_params_Test(TestCase):
 
         self.assertEqual(result['lat_long'], (1, 2))
         self.assertEqual(
-            result['distance_full_text'],
+            result['location_full_text'],
             "Where I Left My Heart, CA 94132"
             )
 

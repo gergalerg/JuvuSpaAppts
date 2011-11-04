@@ -1,0 +1,12 @@
+<div class="dealcal">
+<table id="dealcal_table">
+<thead>
+<tr><th class="sun">Sun</th><th class="mon">Mon</th><th class="tue">Tue</th><th class="wed">Wed</th><th class="thu">Thu</th><th class="fri">Fri</th><th class="sat">Sat</th></tr>
+</thead>
+<tbody>{% for week in weeks %}
+<tr class="week">{% for day in week %}
+  <td class="day">{{ day }} <span class="low_price"></span><br><a href="#"></a></td>{% endfor %}
+</tr>{% endfor %}
+</tbody>
+</table>
+</div>

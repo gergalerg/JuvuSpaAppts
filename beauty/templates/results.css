@@ -2,14 +2,30 @@ body {
     background-color: {{ colors.bg }};
 }
 
+#background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+    opacity: .8;
+}
+
 .plumble {
     color: {{ colors.header }};
-    background-color: {{ colors.header_bg }};
-    padding: 0.5em;
 	margin-bottom: 0.5em;
 }
 
 #re_search {
+}
+
+form input[type=text] {
+    margin-top: 0.5em;
+}
+
+form label {
+    margin-top: 0.5em;
 }
 
 #header {
@@ -22,16 +38,12 @@ body {
     border: 1px solid {{ colors.results }};
 }
 
-#tools {
-    color: {{ colors.tools }};
-    background-color: {{ colors.tools_bg }};
-    border: 1px solid {{ colors.results }};
-    padding: 0.25em;
+#resultsTable {
+    margin: 0px;
 }
 
 .searchy {
     background-color: {{ colors.bg }};
-    border: 1px solid {{ colors.header }};
 	border-top-right-radius: 0.5em;
 	border-top-left-radius: 0.5em;
 	border-bottom-left-radius: 0.5em;

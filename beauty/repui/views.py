@@ -7,7 +7,7 @@ from repui.api import dispatch
 from repui.models import get_trenche_support
 from repui.search import process_POST_params, search_for_availabilities
 from beauty.data.treatments import TREATMENTS
-
+from beauty.util.dealcal import DealCalendar
 
 #=---- - - - - - - - - - - - - - - - - - - - - - - - -
 #
@@ -104,7 +104,9 @@ def search(request):
         dict(
             results = dumps(search_for_availabilities(**criteria)),
             what = criteria['treatment_full_text'],
-            where = criteria['distance_full_text'],
+            where = criteria['location_full_text'],
+            deal_calendar = DealCalendar().get_table(),
+            lat_long = criteria['lat_long'],
             ),
         context_instance=RequestContext(request),
         )
