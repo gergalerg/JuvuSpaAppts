@@ -1,3 +1,6 @@
+@import url(http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700);
+	
+
 body {
     background-color: {{ colors.bg }};
 }
@@ -12,6 +15,7 @@ body {
     opacity: .8;
 }
 
+
 #header {
     color: {{ colors.header }};
     background-color: {{ colors.header_bg }};
@@ -22,6 +26,24 @@ body {
 	border-bottom-right-radius: 1em;
 	padding: 3em;
 }
+	
+#logotype {
+	font-size: 100px;
+	font-size: 10.0rem;
+	margin-bottom: 12px;
+	font-family: Pacifico; 
+	text-shadow: 1px 1px 1px #000; 
+	color: #7FBA02;
+}
+
+#logotype a {
+	color: #7FBA02;
+}
+
+#logotype a:hover {
+	color: #5f8b01;
+}
+
 
 #main {
     color: {{ colors.main }};
