@@ -22,13 +22,6 @@ body {
     border: 1px solid {{ colors.results }};
 }
 
-#tools {
-    color: {{ colors.tools }};
-    background-color: {{ colors.tools_bg }};
-    border: 1px solid {{ colors.results }};
-    padding: 0.25em;
-}
-
 .searchy {
     background-color: {{ colors.bg }};
     border: 1px solid {{ colors.header }};

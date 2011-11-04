@@ -1,10 +1,12 @@
 from collections import defaultdict
 from datetime import date, timedelta, datetime
+from traceback import print_exc
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponse
 from repui.models import get_trenche_support, get_avails
 from beauty.data.treatments import TREATMENTS, lookup_treatment
+from beauty.util.geo import geocode_from_address, grok_address
 
 
 DATE_FORMAT = '%m/%d/%Y'
@@ -20,7 +22,7 @@ EXPECTED_FIELDS = [
 
 def process_POST_params(request):
     data = ensure_fields(dict(request.POST))
-    data['lat_long'], data['distance_full_text'] = _distance(**data)
+    data['lat_long'], data['location_full_text'] = _distance(**data)
     data['dates'] = dates(**data)
     treatment = data['treatment']
     data['treatment_full_text'] = lookup_treatment(treatment) or treatment
@@ -58,6 +60,12 @@ def dates(today, tomorrow, thenextday, anotherday, **_):
     return days
 
 
+SF_LOC = {
+    'lat': 37.7749295,
+    'lng': -122.4194155,
+    }
+
+
 def _distance(location, **_):
     '''
     Do some sort of geo-lookup and figure out a (latitude, longitude)
@@ -70,7 +78,13 @@ def _distance(location, **_):
         ServiceInterruption (something went wrong, but it's not due to
             user's search.)
     '''
-    return (1, 2), "Where I Left My Heart, CA 94132"
+    geo_results = geocode_from_address(location)
+    try:
+        lat_long, location_full_text = grok_address(**geo_results)
+    except:
+        lat_long, location_full_text = SF_LOC, location
+        print_exc()
+    return lat_long, location_full_text
 
 
 ##

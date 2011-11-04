@@ -74,14 +74,16 @@ $(function(){
 			<form method="POST" action="{% url search %}">{% csrf_token %}
 				<input type="text" class="oversize input-text" name="treatment" id="treatment" placeholder="I am looking for...">
 
-				<select>
-                <option value="San Francisco">in San Francisco</option>
-				<option value="Oakland">Oakland</option>
-				<option value="San Jose">San Jose</option>
+				<select name="location">
+                <option value="San Francisco, CA">in San Francisco</option>
+				<option value="Oakland, CA">Oakland</option>
+				<option value="San Jose, CA">San Jose</option>
 				</select>
-				
+
 				<br><br>
-				
+
+				<input type="hidden" name="today" value="on" />
+
                 <input type="submit" id="search" value="SPA ME!" class="nice round oversize blue button">
             </form>
 			</center>

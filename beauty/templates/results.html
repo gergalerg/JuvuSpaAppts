@@ -149,11 +149,9 @@ Kiwis
 
 </div></div></div>{# "header" #}
 
-<div id="main" class="plumble">
-<div class="row">
+<div id="main" class="plumble"><div class="row">
 
-<div class="seven columns">
-<div id="results">
+<div class="seven columns"><div id="results">
 <table id="resultsTable" class="tablesorter" >
 <thead><tr>
 		<th>Spa</th>
@@ -167,15 +165,20 @@ Kiwis
 </div></div>{# "results" #}
 
 <div class="five columns">
-<div id="tools">Tools!
-<div class="row"><div class="ten columns">I'm a Map!</div></div>
-<div class="row"><div class="ten columns centered">
-{{ deal_calendar }}
+<div class="row"><div class="twelve columns centered">
+    <div id="location-map">
+    {% if no_network %}
+    <img src="/static/map-FPO.png"/>
+    {% else %}
+    <img src="http://maps.google.com/maps/api/staticmap?center={{ lat_long.lat }},{{ lat_long.lng }}&zoom=14&size=400x247&maptype=roadmap&markers=color:green|{{ where|urlencode }}&sensor=false"/>
+    {% endif %}
+    </div>{# "location-map" #}
+</div></div>
+<div class="row"><div class="twelve columns centered">
+    {{ deal_calendar }}
 </div></div>
 </div>
-</div>
 
-</div></div>{# "main" #}
-
+</div></div>{# "main" and its row DIV #}
 </div>{# "main_outer" #}
 {% endblock %}
