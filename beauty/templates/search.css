@@ -78,7 +78,13 @@ select {
 	padding: 4px 5px !important;
 	border: solid 1px #bbbbbb;
 }
+
 option {
 	font-style: italic;
+}
+
+#adv_search {
+    border: 1px solid black;
+    padding: 0.5em;
 }
 
