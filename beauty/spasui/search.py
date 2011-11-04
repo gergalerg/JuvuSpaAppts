@@ -4,7 +4,7 @@ from traceback import print_exc
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponse
-from repui.models import get_trenche_support, get_avails
+from spasui.models import get_trenche_support, get_avails
 from beauty.data.treatments import TREATMENTS, lookup_treatment
 from beauty.util.geo import geocode_from_address, grok_address
 

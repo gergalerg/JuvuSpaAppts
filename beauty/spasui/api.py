@@ -1,5 +1,5 @@
-from repui.search import ensure_fields, dates, DATE_FORMAT
-from repui.models import (
+from spasui.search import ensure_fields, dates, DATE_FORMAT
+from spasui.models import (
     add_treatment_to_trenche,
     create_availability_with_trenche,
     subject,

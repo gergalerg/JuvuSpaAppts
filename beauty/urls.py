@@ -24,9 +24,11 @@ COLORS = dict(
 
 urlpatterns = patterns('',
 
+    # Django Admin (unused so far.)
     (r'^admin/', include(admin.site.urls)),
 
-    url(r'^$', 'repui.views.home', name='home'),
+    # User-facing site, 'uui' app.
+    url(r'^$', 'uui.views.home', name='home'),
     ( # Actually, this is the CSS for 'home'.
         r'^dyn/search.css$',
         direct_to_template,
@@ -36,20 +38,7 @@ urlpatterns = patterns('',
             mimetype='text/css',
             ),
         ),
-
-    url(r'^repui/?$', 'repui.views.index', name='repui'),
-
-    (
-        r'^static/(?P<path>.*)$',
-        'django.views.static.serve',
-        {'document_root': settings.MEDIA_ROOT},
-        ),
-
-    url(r'^iapi/', 'repui.views.iapi', name='iapi'),
-
-    url(r'^profile/', 'repui.views.profile', name='profile'),
-
-    url(r'^search/', 'repui.views.search', name='search'),
+    url(r'^search/', 'uui.views.search', name='search'),
     (
         r'^dyn/results.css$',
         direct_to_template,
@@ -59,4 +48,19 @@ urlpatterns = patterns('',
             mimetype='text/css',
             ),
         ),
+
+    # Spa-facing site.
+    url(r'^iapi/', 'spasui.views.iapi', name='iapi'),
+    url(r'^profile/', 'spasui.views.profile', name='profile'),
+
+    # Rep's support site, apps.
+    url(r'^repui/?$', 'repui.views.index', name='repui'),
+
+    # Static media (should be served directly by the web server in production.)
+    (
+        r'^static/(?P<path>.*)$',
+        'django.views.static.serve',
+        {'document_root': settings.MEDIA_ROOT},
+        ),
+
     )

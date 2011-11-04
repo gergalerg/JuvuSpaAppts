@@ -6,14 +6,14 @@ except ImportError:
 from django.test import TestCase
 from django.conf import settings
 from repui.search import process_POST_params
-from repui.models import (
+from spasui.models import (
     add_treatment_to_trenche,
     create_availability_with_trenche,
     subject,
     get_trenche_support,
     get_avails,
     )
-from repui.URIs import (
+from beauty.util.URIs import (
     NAME,
     PROVIDER,
     TRENCHE,
@@ -24,7 +24,7 @@ from repui.URIs import (
     DATE,
     AVAIL,
     )
-import repui.models
+import spasui.models
 
 
 class process_POST_params_Test(TestCase):
@@ -88,11 +88,11 @@ class process_POST_params_Test(TestCase):
 class ModelMixin:
 
     def setUp(self):
-        self._M = repui.models.M
-        repui.models.M = Model(Storage(**settings.TRIPLE_STORES['default']))
+        self._M = spasui.models.M
+        spasui.models.M = Model(Storage(**settings.TRIPLE_STORES['default']))
 
     def tearDown(self):
-        repui.models.M = self._M
+        spasui.models.M = self._M
 
 
 class CreateAvailabilitiesTest(ModelMixin, TestCase):
@@ -114,13 +114,13 @@ class CreateAvailabilitiesTest(ModelMixin, TestCase):
     def testCreateAvailabilityWithUnknownTrenche(self):
         result = create_availability_with_trenche("A", "")
         self.assert_(not result)
-        self.assertEqual(list(repui.models.M.as_stream()), [])
+        self.assertEqual(list(spasui.models.M.as_stream()), [])
 
     def testCreateAvailabilityWithTrenche(self):
         add_treatment_to_trenche('Banana Slug Dip', 'A')
         result = create_availability_with_trenche("A", "11/03/2011")
-        self.assert_(Statement(result, TYPE, AVAIL) in repui.models.M)
-        self.assert_(Statement(result, DATE, "11/03/2011") in repui.models.M)
+        self.assert_(Statement(result, TYPE, AVAIL) in spasui.models.M)
+        self.assert_(Statement(result, DATE, "11/03/2011") in spasui.models.M)
 
 
 class SearchAvailabilitiesTest(ModelMixin, TestCase):
@@ -154,7 +154,7 @@ class SearchAvailabilitiesTest(ModelMixin, TestCase):
 ##
 ##        s = Statement(result, DATE, None)
 ##        print '- - - - - - - - - - - - - - - - '
-##        for stmt in repui.models.M.find_statements(s):
+##        for stmt in spasui.models.M.find_statements(s):
 ##            print stmt
 ##        print '- - - - - - - - - - - - - - - - '
 
