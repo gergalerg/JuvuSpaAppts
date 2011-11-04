@@ -8,6 +8,28 @@
 {% block html_head %}
 <link rel="stylesheet" href="/dyn/search.css" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700' rel='stylesheet' type='text/css'>
+<script type="text/javascript">
+
+$(function(){
+
+    $("#adv_search").slideToggle();
+
+    $("a#adv_search_link").click(function() {
+        $("#adv_search").slideToggle();
+        return false;
+    });
+
+    $( "#datepicker" ).datepicker({
+        minDate: "+3D",
+        maxDate: "+10D",
+        showAnim: "blind",
+        showOtherMonths: true,
+        selectOtherMonths: true,
+    });
+
+});
+
+</script>
 {% endblock %}
 
 {% block body %}
@@ -33,7 +55,13 @@
 				<option value="San Jose, CA">San Jose</option>
 				</select>
 
-				<br><br>
+				<br>
+				<a id="adv_search_link" href="#">advanced search</a>
+				<div id="adv_search">
+				<p>pick a day</p>
+				<input type="text" class="oversize input-text" name="anotherday" id="datepicker" placeholder="date">
+				</div>
+				<br>
 
 				<input type="hidden" name="today" value="on" />
 
