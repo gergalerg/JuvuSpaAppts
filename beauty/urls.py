@@ -38,7 +38,6 @@ urlpatterns = patterns('',
         ),
 
     url(r'^repui/?$', 'repui.views.index', name='repui'),
-
     (
         r'^static/(?P<path>.*)$',
         'django.views.static.serve',
@@ -58,5 +57,9 @@ urlpatterns = patterns('',
             extra_context=dict(colors=COLORS),
             mimetype='text/css',
             ),
-        ),
-    )
+    ),
+
+    url(r'^booking/', 'repui.views.booking', name='booking'),
+
+)
+

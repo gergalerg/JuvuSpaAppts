@@ -1,61 +1,64 @@
-<html>
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width" />
-	<title>Let's deal.</title>
+{% extends "base.html" %}
 
-	<link rel="stylesheet" href="stylesheets/globals.css">
-	<link rel="stylesheet" href="stylesheets/ui.css">
-	<link rel="stylesheet" href="stylesheets/forms.css">
-	<link rel="stylesheet" href="stylesheets/orbit.css">
-	<link rel="stylesheet" href="stylesheets/reveal.css">
-	<link rel="stylesheet" href="stylesheets/app.css">
-	<link rel="stylesheet" href="stylesheets/mobile.css">	
+{% block title %}
+    SpaStalkers - Find spas, salons, massages
+{% endblock %}
 
-	<script src="javascripts/jquery-1.5.1.min.js"></script>
-	<script src="javascripts/jquery.reveal.js"></script>
-	<script src="javascripts/jquery.orbit-1.3.0.js"></script>
-	<script src="javascripts/forms.jquery.js"></script>
-	<script src="javascripts/jquery.customforms.js"></script>
-	<script src="javascripts/jquery.placeholder.min.js"></script>
-	<script src="javascripts/app.js"></script>
-	<script src="javascripts/presentation.js"></script>
+{% block html_head %}
+<link rel="stylesheet" href="/dyn/search.css" type="text/css">
+<script type="text/javascript">
 
-	<script type="text/javascript">
-	     $(window).load(function() {
-	         $('#featured').orbit({
-			         animation: 'horizontal-push'
-			 });
-	     });
-	</script>	
-</head>
-<body>
-	<div class="container">
-	  <div class="row" style="background-color: #c0c0c0;">
-	    <div class="ten columns centered">
-			<h1>Let's deal.</h1>
-			<p><img src="http://placehold.it/300/92CD00/ffffff" align="right" style="padding: 0 0 0 25px;">
-			
-			<h2>What am I buying - $100</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla sem sed nibh venenatis placerat. Mauris eu nulla eu tellus pulvinar aliquet in ac metus. Proin scelerisque pellentesque eros, nec porta purus convallis in. Sed pellentesque tempor neque id imperdiet. Phasellus cursus lacinia augue eu eleifend.</p>
 
-			<a href="#" class="large nice round red button">Yeah, book it!</a><br><br>
-			
-			<h4>What is the catch?</h4>
-			<p>
-				<ol>
-					<li>Be on time.</li>
-					<li>Can't resell.</li>
-				</ol>
-			</p>
-			<p class="block-grid" style="font-size:10px; color: #fff;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla sem sed nibh venenatis placerat. Mauris eu nulla eu tellus pulvinar aliquet in ac metus. Proin scelerisque pellentesque eros, nec porta purus convallis in. Sed pellentesque tempor neque id imperdiet. Phasellus cursus lacinia augue eu eleifend. Vestibulum vitae sapien vel leo ornare ultrices. Vivamus id tortor tortor. Vestibulum tempus, libero at pretium euismod, turpis velit mollis erat, vitae suscipit sapien neque vitae mi.</p>
 
-	    </div>
-	  </div>
-	</div><!-- container -->
+$(function(){
 
-</body>
-</html>
+    $("#adv_search").slideToggle();
+
+    $("a#adv_search_link").click(function() {
+        $("#adv_search").slideToggle();
+        return false;
+    });
+
+    $( "#datepicker" ).datepicker({
+        minDate: "+3D",
+        maxDate: "+10D",
+        showAnim: "blind",
+        showOtherMonths: true,
+        selectOtherMonths: true,
+    });
+
+});
+
+</script>
+{% endblock %}
+
+{% block body %}
+<img id="background">
+
+<div class="container">
+  <div class="row" style="background-color: #c0c0c0;">
+    <div class="ten columns centered">
+		<h1>Let's deal.</h1>
+		<p><img src="/static/fakedata/DMB/interior02.jpg" width="300" align="right" style="padding: 10px; margin-left:  25px; border: 1px solid black;">
+		
+		<h2>What am I buying - $100</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla sem sed nibh venenatis placerat. Mauris eu nulla eu tellus pulvinar aliquet in ac metus. Proin scelerisque pellentesque eros, nec porta purus convallis in. Sed pellentesque tempor neque id imperdiet. Phasellus cursus lacinia augue eu eleifend.</p>
+
+		<a href="#" class="large nice round red button">Yeah, book it!</a><br><br>
+		
+		<h4>What is the catch?</h4>
+		<p>
+			<ol>
+				<li>Be on time.</li>
+				<li>Can't resell.</li>
+			</ol>
+		</p>
+		<p class="block-grid" style="font-size:10px; color: #fff;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla sem sed nibh venenatis placerat. Mauris eu nulla eu tellus pulvinar aliquet in ac metus. Proin scelerisque pellentesque eros, nec porta purus convallis in. Sed pellentesque tempor neque id imperdiet. Phasellus cursus lacinia augue eu eleifend. Vestibulum vitae sapien vel leo ornare ultrices. Vivamus id tortor tortor. Vestibulum tempus, libero at pretium euismod, turpis velit mollis erat, vitae suscipit sapien neque vitae mi.</p>
+
+    </div>
+  </div>
+</div><!-- container -->
+{% endblock %}
 
 
 <!-- 

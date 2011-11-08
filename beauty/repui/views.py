@@ -86,6 +86,11 @@ def profile(request):
         'profile.html',
         )
 
+def booking(request):
+    return render_to_response(
+        'booking.html',
+        )
+
 def search(request):
     if request.method != 'POST':
         return redirect('home')

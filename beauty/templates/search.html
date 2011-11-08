@@ -7,8 +7,9 @@
 
 {% block html_head %}
 <link rel="stylesheet" href="/dyn/search.css" type="text/css">
-<link href='http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700' rel='stylesheet' type='text/css'>
 <script type="text/javascript">
+
+
 
 $(function(){
 
@@ -33,42 +34,37 @@ $(function(){
 {% endblock %}
 
 {% block body %}
-<!-- BACKGROUND -->
-<!-- <img id="background" src="/static/bg/3877954043_31c6cc7441_b.jpg"> -->
-<!-- <img id="background" src="/static/bg/2964708287_1a9ee41468_b.jpg"> -->
-<img id="background" src="/static/bg/537183095_9b2abcba55_b.jpg">
+<img id="background">
 
 <div class="container">
     <div class="row">
         <div class="twelve columns">
-            <br><br><br><br><br><br><br><br>
-			<center><h1 id="logotype"><a href="/">SpaStalkers</a></h1></center>
+			<h1 id="logotype"><a href="/">SpaStalkers</a></h1>
 
-            <br>
-			<center>
+            <center>
 			<form method="POST" action="{% url search %}">{% csrf_token %}
-				<input type="text" class="oversize input-text" name="treatment" id="treatment" placeholder="I am looking for...">
-
+				<input class="oversize input-text" type="text" name="treatment" id="treatment" placeholder="I am looking for... massages" style="width: 33%;">
+				
 				<select name="location">
                 <option value="San Francisco, CA">in San Francisco</option>
 				<option value="Oakland, CA">Oakland</option>
 				<option value="San Jose, CA">San Jose</option>
 				</select>
 
-				<br>
-				<a id="adv_search_link" href="#">advanced search</a>
-				<div id="adv_search">
-				<p>pick a day</p>
-				<input type="text" class="oversize input-text" name="anotherday" id="datepicker" placeholder="date">
-				</div>
-				<br>
-
 				<input type="hidden" name="today" value="on" />
+				<input class="oversize input-text" type="text" name="anotherday" id="datepicker" placeholder="on which day?" style="width: 15%;">
 
-                <input type="submit" id="search" value="SPA ME!" class="nice round oversize blue button">
+                <input type="submit" id="search" value="SPA ME!" class="nice oversize blue button">
             </form>
+            
+            <a id="adv_search_link" href="#">Advanced search</a>
+            <div id="adv_search">
+            <p>pick a day</p>
+            
+            </div>
+            
 			</center>
-			<br><br><br>
+
         </div>
     </div>
 </div><!-- container -->
