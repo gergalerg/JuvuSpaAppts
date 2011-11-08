@@ -5,7 +5,7 @@ except ImportError:
     from fake_rdf import Storage, Model, Statement
 from django.test import TestCase
 from django.conf import settings
-from repui.search import process_POST_params
+from spasui.search import process_POST_params
 from spasui.models import (
     add_treatment_to_trenche,
     create_availability_with_trenche,
@@ -78,10 +78,13 @@ class process_POST_params_Test(TestCase):
     def test_location(self):
         result = process_POST_params(self.fake_request)
 
-        self.assertEqual(result['lat_long'], (1, 2))
+        self.assertEqual(
+            result['lat_long'],
+            {u'lat': 37.7749295, u'lng': -122.4194155}
+            )
         self.assertEqual(
             result['location_full_text'],
-            "Where I Left My Heart, CA 94132"
+            u'San Francisco, CA, USA'
             )
 
 
