@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Spa Calendar{% endblock %}
+{% block html_head %}
+<link rel="stylesheet" href="/static/calendar.css" type="text/css">
+<script type="text/javascript">
+
+$(function(){
+
+        function build_trenches() {
+{% for trench, treats in trenches %}
+            var trenche = $("#trench_{{ trench }}_div");
+    {% for treatment in treats %}
+            trenche.append("{{ treatment }}<br>");
+{% endfor %}{% endfor %}
+        }
+        
+        build_trenches();
+
+});
+
+</script>
+{% endblock %}
+{% block body %}
+<img id="background" src="/static/bg/537183095_9b2abcba55_b.jpg">
+<div class="container">
+
+<div class="row">
+    <div class="eight columns centered">
+		<center><h1>SpaStalkers</h1><h2>{{ spa_name }}</h2></center>
+    </div>
+</div>
+
+<form class="nice">{% csrf_token %}
+
+<div class="row"><div class="twelve columns centered">
+<div id="location" class="main">
+	<h1>Where</h1>
+    <ul class="block-grid mobile four-up">
+    {% for loc in locations %}
+        <li>
+            <label for="{{ loc.label }}">
+                <input name="{{ loc.label }}" id="{{ loc.label }}" type="checkbox" />
+                {{ loc.name }}
+            </label>
+        </li>
+    {% endfor %}
+    </ul>
+	Wants pawn term, dare worsted ladle gull hoe lift wetter murder inner ladle cordage, honor itch offer lodge dock florist. Disk ladle gull orphan worry ladle cluck wetter putty ladle rat hut, an fur disk raisin pimple colder Ladle Rat Rotten Hut. 
+</div>
+</div></div>
+
+<div class="row"><div class="twelve columns centered">
+<div id="treatments" class="main">
+	<h1>What</h1>
+    <ul id="trenches" class="block-grid mobile three-up">
+      {% for trench, treats in trenches %}
+        <li>
+              <label for="trench_{{ trench }}">
+                <input name="trench_{{ trench }}" id="trench_{{ trench }}" type="checkbox" />
+                {{ trench }}<br>
+                <div id="trench_{{ trench }}_div" class="trenche_list"></div>
+              </label>
+        </li>
+      {% endfor %}
+    </ul>
+
+	Wan moaning, Rat Rotten Hut's murder colder inset, "Ladle Rat Rotten Hut, heresy ladle basking winsome burden barter an shirker cockles. Tick disk ladle basking tutor cordage offer groin-murder hoe lifts honor udder site offer florist. Shaker lake! Dun stopper laundry wrote! An yonder nor sorghum-stenches, dun stopper torque wet strainers!" 
+</div>
+</div></div>
+
+<div class="row"><div class="twelve columns centered">
+<div id="time" class="main">
+	<h1>When</h1>
+	"Hoe-cake, murder," resplendent Ladle Rat Rotten Hut, an tickle ladle basking an stuttered oft. Honor wrote tutor cordage offer groin-murder, Ladle Rat Rotten Hut mitten anomalous woof. "Wail, wail, wail!" set disk wicket woof, "Evanescent Ladle Rat Rotten Hut! Wares are putty ladle gull goring wizard ladle basking?" 
+</div>
+</div></div>
+
+</form>
+
+</div><!-- container -->
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

@@ -6,8 +6,6 @@
 
 	$(function(){
 
-        // $("#treat").fadeOut(1);
-
 		// Various API calls that (eventually) contact the server.
 		var dispatch = {
 
@@ -143,9 +141,7 @@
 {% for trench, treats in trenches %}
             var trenche = $("#trench_{{ trench }}");
     {% for treatment in treats %}
-            make_trenche_tile(trenche, "{{ treatment }}");
-	{% endfor %}
-{% endfor %}
+            make_trenche_tile(trenche, "{{ treatment }}");{% endfor %}{% endfor %}
         }
         
         doom_that_came_to_sarnath();        

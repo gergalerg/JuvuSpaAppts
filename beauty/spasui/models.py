@@ -176,6 +176,25 @@ def get_avails(treatment_name, date):
   """
 
 
+def prepare_trenche_data():
+    '''
+    Return a list of two-tuples containing "header" keys and lists of
+    "content" strings suitable for building an Accordion thingy on the
+    client side.
+    '''
+    d = defaultdict(list)
+    for r in get_trenche_support():
+        d[str(r['trenchelabel'])].append(str(r['treatmentname']))
+    for default_trenche in "ABC":
+        if default_trenche not in d:
+            d[default_trenche] # force appearance of key.
+    res = [
+        (k, sorted(d[k]))
+        for k in sorted(d)
+        ]
+    for k, v in res[:]:
+        res.append((k + '_also', v))
+    return res
 
 
 

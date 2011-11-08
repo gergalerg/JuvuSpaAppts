@@ -52,6 +52,7 @@ urlpatterns = patterns('',
     # Spa-facing site.
     url(r'^iapi/', 'spasui.views.iapi', name='iapi'),
     url(r'^profile/', 'spasui.views.profile', name='profile'),
+    url(r'^calendar/', 'spasui.views.calendar', name='calendar'),
 
     # Rep's support site, apps.
     url(r'^repui/?$', 'repui.views.index', name='repui'),

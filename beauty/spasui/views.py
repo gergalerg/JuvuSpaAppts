@@ -1,6 +1,7 @@
 # API service.
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from spasui.models import prepare_trenche_data
 from spasui.api import dispatch
 
 
@@ -20,3 +21,19 @@ def iapi(request):
 
 def profile(request):
     return render_to_response('profile.html')
+
+
+def calendar(request):
+    return render_to_response(
+        'calendar.html',
+        dict(
+            locations=[
+                dict(
+                    label='sox%i' % n,
+                    name="%i Barny's" % n,
+                    )
+                for n in range(8)
+                ],
+            trenches=prepare_trenche_data(),
+            ),
+        )
