@@ -91,6 +91,11 @@ def booking(request):
         'booking.html',
         )
 
+def confirmation(request):
+    return render_to_response(
+        'confirmation.html',
+        )
+
 def search(request):
     if request.method != 'POST':
         return redirect('home')

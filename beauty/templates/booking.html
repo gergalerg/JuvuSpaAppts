@@ -6,9 +6,33 @@
 
 {% block html_head %}
 <link rel="stylesheet" href="/dyn/search.css" type="text/css">
+
+<style>
+
+	.booking_photos {
+		padding: 8px;
+		background: #eee;
+		border: 1px solid #fff;
+		box-shadow: 0px 2px 10px #333;
+		-moz-box-shadow: 0px 2px 10px #333;
+		-webkit-box-shadow: 0px 2px 10px #333;
+		position: relative;
+		margin: 0 0 0 25px;
+		/*
+		-webkit-transform: rotate(-1.5deg);
+		-moz-transform: rotate(-1.5deg);
+		*/
+	}
+	
+	.sosumi {
+		 font-size:10px; 
+		 color: #;
+	}
+	
+</style>
+
+
 <script type="text/javascript">
-
-
 
 $(function(){
 
@@ -36,10 +60,18 @@ $(function(){
 <img id="background">
 
 <div class="container">
-  <div class="row" style="background-color: #c0c0c0;">
-    <div class="ten columns centered">
-		<h1>Let's deal.</h1>
-		<p><img src="/static/fakedata/DMB/interior02.jpg" width="300" align="right" style="padding: 10px; margin-left:  25px; border: 1px solid black;">
+
+  <!-- HEADER -->
+  <div class="row">
+	<div class="twelve columns">
+		<h1 style="color: #7FBA02; text-shadow: 1px 1px 1px #000; font-family: Pacifico; margin: 7px 0 0 50px;">SpaStalkers</h1>
+	</div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="row" style="background-color: #DCE9BE; border-top: 7px solid #5f8b01;">
+    <div class="twelve columns" style="margin: 20px;">
+		<p><img src="/static/fakedata/DMB/interior02.jpg" class="booking_photos" width="300" align="right">
 		
 		<h2>What am I buying - $100</h2>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla sem sed nibh venenatis placerat. Mauris eu nulla eu tellus pulvinar aliquet in ac metus. Proin scelerisque pellentesque eros, nec porta purus convallis in. Sed pellentesque tempor neque id imperdiet. Phasellus cursus lacinia augue eu eleifend.</p>
@@ -53,10 +85,47 @@ $(function(){
 				<li>Can't resell.</li>
 			</ol>
 		</p>
-		<p class="block-grid" style="font-size:10px; color: #fff;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla sem sed nibh venenatis placerat. Mauris eu nulla eu tellus pulvinar aliquet in ac metus. Proin scelerisque pellentesque eros, nec porta purus convallis in. Sed pellentesque tempor neque id imperdiet. Phasellus cursus lacinia augue eu eleifend. Vestibulum vitae sapien vel leo ornare ultrices. Vivamus id tortor tortor. Vestibulum tempus, libero at pretium euismod, turpis velit mollis erat, vitae suscipit sapien neque vitae mi.</p>
-
     </div>
   </div>
+	<div class="row" style="background-color: #EFFFCD;">
+    <div class="twelve columns" style="margin: 20px;">
+		<p class="sosumi">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla sem sed nibh venenatis placerat. Mauris eu nulla eu tellus pulvinar aliquet in ac metus. Proin scelerisque pellentesque eros, nec porta purus convallis in. Sed pellentesque tempor neque id imperdiet. Phasellus cursus lacinia augue eu eleifend. Vestibulum vitae sapien vel leo ornare ultrices. Vivamus id tortor tortor. Vestibulum tempus, libero at pretium euismod, turpis velit mollis erat, vitae suscipit sapien neque vitae mi.</p>
+	  </div>
+	</div>
+
+	<!-- FOOTER -->
+	<div class="row" style="background-color: #eee;">
+    <div class="twelve columns" style="margin: 20px;">
+			<div class="row">
+				<div class="four columns">
+					<h4>HOME</h4>
+					<hr>
+					<ul>
+						<li><a href="">Lorem ipsum</a></li>
+						<li><a href="">Lorem ipsum</a></li>
+					</ul>
+				</div>
+				<div class="four columns">
+					<h4>SERVICES</h4>
+					<hr>
+					<ul>
+						<li><a href="">Lorem ipsum</a></li>
+						<li><a href="">Lorem ipsum</a></li>
+					</ul>
+				</div>
+				<div class="four columns">
+					<h4>LOCATIONS</h4>
+					<hr>
+					<ul>
+						<li><a href="">Lorem ipsum</a></li>
+						<li><a href="">Lorem ipsum</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 </div><!-- container -->
 {% endblock %}
 

@@ -61,5 +61,6 @@ urlpatterns = patterns('',
 
     url(r'^booking/', 'repui.views.booking', name='booking'),
 
+    url(r'^confirmation/', 'repui.views.confirmation', name='confirmation'),
 )
 
