@@ -1,4 +1,3 @@
-from datetime import date, timedelta
 try:
     from RDF import Storage, Model, Statement
 except ImportError:
@@ -8,21 +7,10 @@ from django.conf import settings
 from spasui.models import (
     add_treatment_to_trenche,
     create_availability_with_trenche,
-    subject,
     get_trenche_support,
     get_avails,
     )
-from beauty.util.URIs import (
-    NAME,
-    PROVIDER,
-    TRENCHE,
-    TREATMENT,
-    SUPPORTS,
-    LABEL,
-    TYPE,
-    DATE,
-    AVAIL,
-    )
+from beauty.util.URIs import TYPE, DATE, AVAIL
 import spasui.models
 
 
@@ -40,7 +28,6 @@ class CreateAvailabilitiesTest(ModelMixin, TestCase):
     """
     Tests the functionality related to Availabilities.
     """
-
 
     def testAddTreatmentToTrenche(self):
         add_treatment_to_trenche('Banana Slug Dip', 'A')

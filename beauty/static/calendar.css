@@ -1,3 +1,10 @@
+h1.arch {
+    color: #7FBA02;
+    text-shadow: 1px 1px 1px #000;
+    font-family: Pacifico;
+    margin: 7px 0 0 15px;
+}
+
 #background {
     width: 100%;
     height: 100%;
@@ -27,3 +34,12 @@ label:hover {
     padding-left: 0.75em;
     font-size: smaller;
 }
+
+select {
+	color: #7f7f7f;
+	font-size: 24px !important;
+	padding: 4px 5px !important;
+	border: solid 1px #bbbbbb;
+}
+
+
