@@ -68,5 +68,4 @@ urlpatterns = patterns('',
         {'document_root': settings.MEDIA_ROOT},
         ),
 
-    ),
-)
+    )
