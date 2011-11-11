@@ -1,6 +1,10 @@
 from datetime import date, time, datetime, timedelta
 from django.test import TestCase
 from spasui.search import process_POST_params
+from spasui.availabilities import (
+    process_availability_params,
+    create_availability,
+    )
 from spasui.search_tests import (
     # Import these here so the test runner can find them.
     CreateAvailabilitiesTest,
@@ -14,7 +18,6 @@ class process_POST_params_Test(TestCase):
     class FakeRequest:
         def __init__(self):
             self.POST = {
-                u'csrfmiddlewaretoken': [u'db4187ab0c4fe8ef8859b2e9948ecaba'],
                 u'location': [u'San Francisco'],
                 u'treatment': [u'massage'],
                 u'today': [u'on'],
@@ -81,10 +84,13 @@ class DatesFromTest(TestCase):
             sox1='on',
             sox2='on',
             sox3='on',
+
             trench_B_also='on',
             trench_C='on',
+
             from_date='11/11/2011',
             from_time='05:00',
+
             to_date='11/11/2011',
             to_time='21:00',
             )

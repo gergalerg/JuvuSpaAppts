@@ -56,24 +56,18 @@ class SearchAvailabilitiesTest(ModelMixin, TestCase):
     Tests the functionality related to searching Availabilities.
     """
 
-    def test_get_avails(self):
+    def setUp(self):
+        ModelMixin.setUp(self)
         add_treatment_to_trenche('Banana Slug Dip', 'A')
-        result = create_availability_with_trenche("A", "11/03/2011")
+        self.result = create_availability_with_trenche("A", "11/03/2011")
 
+    def test_get_avails(self):
         also_result = get_avails('BananaSlugDip', "11/03/2011")
-
         self.assertEqual(len(also_result), 1)
-        self.assertEqual(also_result[0]['av'], result)
+        self.assertEqual(also_result[0]['av'], self.result)
 
     def test_get_avails_one_day(self):
-        add_treatment_to_trenche('Banana Slug Dip', 'A')
-        resultA = create_availability_with_trenche("A", "11/03/2011")
         resultB = create_availability_with_trenche("A", "11/04/2011")
-
-        also_result = get_avails('BananaSlugDip', "11/03/2011")
-        self.assertEqual(len(also_result), 1)
-        self.assertEqual(also_result[0]['av'], resultA)
-
         also_result = get_avails('BananaSlugDip', "11/04/2011")
         self.assertEqual(len(also_result), 1)
         self.assertEqual(also_result[0]['av'], resultB)

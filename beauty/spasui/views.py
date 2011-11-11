@@ -4,6 +4,10 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from spasui.models import prepare_trenche_data
 from spasui.api import dispatch
+from spasui.availabilities import (
+    process_availability_params,
+    create_availability,
+    )
 
 
 def _json_boolean(n):
@@ -25,17 +29,42 @@ def profile(request):
 
 
 def calendar(request):
+    if request.method == 'POST':
+        return post_calendar(request)
+
     return render_to_response(
         'calendar.html',
         dict(
             locations=[
                 dict(
-                    label='sox%i' % n,
+                    label='loc_sox%i' % n,
                     name="%i Barny's" % n,
                     )
                 for n in range(8)
                 ],
             trenches=prepare_trenche_data(),
+            ),
+        context_instance=RequestContext(request),
+        )
+
+
+def post_calendar(request):
+    print 'HI!'
+    return render_to_response(
+        'calendar.html',
+        dict(
+            locations = [
+                dict(
+                    label='loc_sox%i' % n,
+                    name="%i Barny's" % n,
+                    )
+                for n in range(8)
+                ],
+            trenches = prepare_trenche_data(),
+            results = map(
+                create_availability,
+                process_availability_params(request.POST)
+                )
             ),
         context_instance=RequestContext(request),
         )
