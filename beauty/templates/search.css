@@ -28,9 +28,11 @@ body {
 }
 	
 #logotype {
-	font-size: 100px;
+    font-size: 100px;
 	font-size: 10.0rem;
-	margin-bottom: 12px;
+    text-align: center;
+	margin-top: 160px;
+    margin-bottom: 36px;
 	font-family: Pacifico; 
 	text-shadow: 1px 1px 1px #000; 
 	color: #7FBA02;
@@ -87,16 +89,17 @@ form input[type=text] {
 	width: 50%;
 }
 
-form label {
-	width: 33%;
-	display: inline-block;
-    margin-bottom: 0.5em;
-    margin-right: 0.5em;
+
+input.input-text.oversize {
+	font-size:  20px !important;
+	padding:  4px 5px !important;
+	border:  solid 1px #bbbbbb;
+	color: #7f7f7f;
 }
 
 select {
 	color: #7f7f7f;
-	font-size: 24px !important;
+	font-size: 20px !important;
 	padding: 4px 5px !important;
 	border: solid 1px #bbbbbb;
 }

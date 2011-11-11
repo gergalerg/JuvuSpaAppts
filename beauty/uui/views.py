@@ -40,3 +40,16 @@ def search(request):
             ),
         context_instance=RequestContext(request),
         )
+
+
+def booking(request):
+    return render_to_response(
+        'booking.html',
+        )
+
+
+def confirmation(request):
+    return render_to_response(
+        'confirmation.html',
+        )
+

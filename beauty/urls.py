@@ -38,7 +38,7 @@ urlpatterns = patterns('',
             mimetype='text/css',
             ),
         ),
-    url(r'^search/', 'uui.views.search', name='search'),
+
     (
         r'^dyn/results.css$',
         direct_to_template,
@@ -48,6 +48,10 @@ urlpatterns = patterns('',
             mimetype='text/css',
             ),
         ),
+
+    url(r'^search/', 'uui.views.search', name='search'),
+    url(r'^booking/', 'uui.views.booking', name='booking'),
+    url(r'^confirmation/', 'uui.views.confirmation', name='confirmation'),
 
     # Spa-facing site.
     url(r'^iapi/', 'spasui.views.iapi', name='iapi'),
@@ -64,4 +68,5 @@ urlpatterns = patterns('',
         {'document_root': settings.MEDIA_ROOT},
         ),
 
-    )
+    ),
+)
