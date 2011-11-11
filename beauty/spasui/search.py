@@ -1,15 +1,11 @@
-from collections import defaultdict
 from datetime import date, timedelta, datetime
 from traceback import print_exc
-from django.shortcuts import render_to_response, redirect
-from django.template import RequestContext
-from django.http import HttpResponse
-from spasui.models import get_trenche_support, get_avails
-from beauty.data.treatments import TREATMENTS, lookup_treatment
+from spasui.models import get_avails
+from beauty.data.treatments import lookup_treatment
+from beauty.util.timedate import DATE_FORMAT
 from beauty.util.geo import geocode_from_address, grok_address
 
 
-DATE_FORMAT = '%m/%d/%Y'
 EXPECTED_FIELDS = [
     'location',
     'treatment',

@@ -4,10 +4,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from spasui.models import prepare_trenche_data
 from spasui.api import dispatch
-from spasui.availabilities import (
-    process_availability_params,
-    create_availability,
-    )
+from spasui.availabilities import create_availabilities
 
 
 def _json_boolean(n):
@@ -61,10 +58,7 @@ def post_calendar(request):
                 for n in range(8)
                 ],
             trenches = prepare_trenche_data(),
-            results = map(
-                create_availability,
-                process_availability_params(request.POST)
-                )
+            results = list(create_availabilities(request.POST)),
             ),
         context_instance=RequestContext(request),
         )

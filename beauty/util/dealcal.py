@@ -3,6 +3,7 @@ Render a deal calendar.
 '''
 from datetime import date, timedelta
 from django.template.loader import render_to_string
+from beauty.util.timedate import A_DAY, days_since_sunday
 
 
 class DealCalendar:
@@ -31,13 +32,6 @@ def by_sevens(days):
     while days:
         yield days[:7]
         days = days[7:]
-
-
-A_DAY = timedelta(days=1)
-
-
-def days_since_sunday(day):
-    return (1 + day.weekday()) % 7
 
 
 def yield_days(day, how_many_weeks=3):

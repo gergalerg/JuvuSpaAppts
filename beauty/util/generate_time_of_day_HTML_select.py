@@ -3,21 +3,17 @@
 Generate an HTML select element for times of day.
 '''
 from datetime import datetime, time, timedelta
+from beauty.util.timedate import (
+    VALUE,
+    TEXT,
+    DATE_FORMAT,
+    A_DAY,
+    datetime_from_hour,
+    )
 
 
-VALUE, TEXT = '%H:%M', '%I:%M %p'
-DATE_FORMAT = '%m/%d/%Y'
-
-
-_A_DAY = timedelta(days=1)
-
-
-def _t(hour):
-    return datetime.min.replace(hour=hour)
-
-
-def HTML_select(name, hour, minutes, last=_t(21)):
-    t = _t(hour)
+def HTML_select(name, hour, minutes, last=datetime_from_hour(21)):
+    t = datetime_from_hour(hour)
     d = timedelta(minutes=minutes)
     res = ['<select name="%s">' % (name,)]
     while t <= last:
@@ -32,28 +28,6 @@ def HTML_select(name, hour, minutes, last=_t(21)):
         t += d
     res.append('</select>')
     return '\n'.join(res)
-
-
-def dates_from(
-    from_date='11/11/2011',
-    from_time='05:00',
-    to_date='11/11/2011',
-    to_time='21:00',
-    **_
-    ):
-    fd = datetime.strptime(from_date, DATE_FORMAT)
-    td = datetime.strptime(to_date, DATE_FORMAT)
-    assert fd <= td, (fd, td)
-
-    dates = []
-    while fd <= td:
-        dates.append(fd)
-        fd += _A_DAY
-
-    ft = datetime.strptime(from_time, VALUE).time()
-    tt = datetime.strptime(to_time, VALUE).time()
-
-    return dates, ft, tt
 
 
 if __name__ == '__main__':

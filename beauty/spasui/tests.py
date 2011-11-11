@@ -1,16 +1,13 @@
 from datetime import date, time, datetime, timedelta
 from django.test import TestCase
+from beauty.spasui.availabilities import dates_from
 from spasui.search import process_POST_params
-from spasui.availabilities import (
-    process_availability_params,
-    create_availability,
-    )
+
+# Import these here so the test runner can find them.
 from spasui.search_tests import (
-    # Import these here so the test runner can find them.
     CreateAvailabilitiesTest,
     SearchAvailabilitiesTest,
     )
-from beauty.util.generate_time_of_day_HTML_select import dates_from
 
 
 class process_POST_params_Test(TestCase):

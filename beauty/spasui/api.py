@@ -1,9 +1,10 @@
-from spasui.search import ensure_fields, dates, DATE_FORMAT
+from spasui.search import ensure_fields, dates
 from spasui.models import (
     add_treatment_to_trenche,
     create_availability_with_trenche,
     subject,
     )
+from beauty.util.timedate import DATE_FORMAT
 
 
 _API_METHODS = set()
