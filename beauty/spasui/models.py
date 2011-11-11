@@ -16,7 +16,7 @@ except ImportError:
         Node,
         SPARQLQuery,
     )
-
+from beauty.util.timedate import DATE_FORMAT
 from beauty.util.URIs import (
   NAME,
   PROVIDER,
@@ -28,6 +28,9 @@ from beauty.util.URIs import (
   AVAIL,
   DATE,
   PREFIX,
+  WHERE,
+  FROM_TIME,
+  TO_TIME,
   )
 
 
@@ -96,6 +99,27 @@ def add_treatment_to_trenche(treatment, trenche):
   if __debug__:
     print s
   M.add_statement(s)
+
+
+def create_availability(location, trenche, day, from_time, to_time):
+    '''
+    Return a status message or something to indicate whether the
+    availability slot was created or not.
+    '''
+
+    print "Check location.", location
+    # location = get_location_from_label(location)
+
+    print "Check day and time", day, from_time, to_time # (for, I dunno, conflicts or something.)
+    day = day.strftime(DATE_FORMAT)
+
+    avail = create_availability_with_trenche(trenche, day)
+    if not avail:
+        return 'FAIL %r %r %r %r %r' % (location, trenche, day, from_time, to_time)
+
+    M.add_statement(Statement(avail, WHERE, location))
+    M.add_statement(Statement(avail, FROM_TIME, from_time.isoformat()))
+    M.add_statement(Statement(avail, TO_TIME, to_time.isoformat()))
 
 
 def create_availability_with_trenche(trenche, day):
