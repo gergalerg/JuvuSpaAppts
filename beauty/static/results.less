@@ -1,6 +1,7 @@
-body {
-    background-color: {{ colors.bg }};
-}
+@fg: #003300;
+@bg: #eeffee;
+@input_color: #7f7f7f;
+@input_border_color: #bbbbbb;
 
 #background {
     width: 100%;
@@ -13,29 +14,23 @@ body {
 }
 
 .plumble {
-    color: {{ colors.header }};
+    color: @fg;
 	margin-bottom: 0.5em;
-}
-
-#re_search {
 }
 
 form input[type=text] {
     margin-top: 0.5em;
+    color: @input_color;
+	display: inline-block;
 }
 
 form label {
     margin-top: 0.5em;
-}
-
-#header {
-}
-
-#main {
+	display: inline-block;
 }
 
 #results {
-    border: 1px solid {{ colors.results }};
+    border: 1px solid @fg;
 }
 
 #resultsTable {
@@ -43,7 +38,7 @@ form label {
 }
 
 .searchy {
-    background-color: {{ colors.bg }};
+    background-color: @bg;
 	border-top-right-radius: 0.5em;
 	border-top-left-radius: 0.5em;
 	border-bottom-left-radius: 0.5em;
@@ -51,18 +46,9 @@ form label {
     padding: 0.25em;
 }
 
-form input[type=text] {
-    color: {{ colors.header }};
-	display: inline-block;
-}
-
-form label {
-	display: inline-block;
-}
-
 .tile {
-    background-color: {{ colors.bg }};
-    border: 1px solid {{ colors.header }};
+    background-color: @bg;
+    border: 1px solid @fg;
     padding: 0.25em;
     margin: 0.25em;
 }
@@ -83,8 +69,8 @@ form label {
 }
 
 .price {
-    background-color: {{ colors.results_bg }};
-    border: 1px solid {{ colors.header }};
+    background-color: #ffffff;
+    border: 1px solid @fg;
     padding: 1em;
     text-align: right;
 }
