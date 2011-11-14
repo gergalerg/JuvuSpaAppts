@@ -1,11 +1,65 @@
 {% extends "base.html" %}
-{% block title %}Results{% endblock %}
+
+
 {% block html_head %}
+<style>
+	@import url(http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700);
+
+	html {
+		font-size: 62.5%;
+	}
+
+	body {
+		background-color: #eee;
+	}
+
+	#header h1 {
+		font-family: Pacifico; 
+		font-size: 42px;
+		font-size: 4.2rem;	
+		color: #7FBA02;
+		margin: 10px 0 20px 0;
+	    text-align: center;
+	}
+
+	#header h1 a {
+		color: #7FBA02;
+	}
+	
+	#header h1 a:hover {
+		color: #5f8b01;
+	}
+
+	#content {
+	    background-color: #FFFFFF;
+	    border: 1px solid #E2E2E2;
+	    box-shadow: 0 2px 2px #DDDDDD;
+	    color: #666666;
+	    padding-right: 0px;
+	    padding-bottom: 40px;
+		position: relative;		
+	}
+		
+	#search {
+		font-size: 12px;
+		font-size: 1.2rem;
+		color: #fff;
+		text-transform: uppercase;
+		background-color: #027fb9;
+		border: 0;
+		padding: 5px 15px !important;
+	}
+	
+	#search:hover{
+		background-color: #015f8a;
+	}
+</style>
+
 <script type="text/javascript" src="/static/js/jquery.tablesorter.min.js"></script>
 <link rel="stylesheet" href="/dyn/results.css" type="text/css">
 <link rel="stylesheet" href="/static/tablesorter.css" type="text/css">
 <link rel="stylesheet" href="/static/dealcal.css" type="text/css">
-<title>Results</title>
+
 <script type="text/javascript">
 
 $(function() {
@@ -87,92 +141,143 @@ $(function() {
 
 </script>
 {% endblock %}
+
+
+{% block title %}
+Results - SpaStalker
+{% endblock %}
+
+
+
 {% block body %}
-<img id="background" src="/static/bg/537183095_9b2abcba55_b.jpg">
 <div id="main_outer" class="container">
 
-<div id="re_search" class="plumble">
-<div class="row">
-<div class="ten columns centered" style="vertical-align:middle">
-  <form method="POST" action="{% url results %}" class="nice">
-    {% csrf_token %}
-    <input type="hidden" name="today" value="on" />
-    <label for="treatment">What</label>
-    <input name="treatment" id="treatment" class="small input-text" type="text" value="{{ what }}" />
-    <label for="location">Where</label>
-    <input name="location" id="location" class="medium input-text" type="text" value="{{ where }}" />
-    <input type="submit" id="search" value="Search" class="nice round small blue button">
-  </form>
-</div></div></div>
+	<!-- HEADER -->
+	<div id="header" class="row">
+		<div class="twelve columns">
+			<h1><a href="/">SpaStalker</a></h1>
+		</div>
+	</div>
 
-<div id="header" class="plumble">
-<div class="row">
-<div class="twelve columns centered">
+	<!-- CONTENT -->
+	<div id="main" class="plumble">
+	<div id="content" class="row">
 
-<div class="three columns">
-<div class="searchy">
-<strong>Distance</strong><br>
-1 mile<br>
-5 miles<br>
-1.7M Lightyears
-</div></div>
+		<!-- SEARCHBOX -->
+		<div id="re_search" class="plumble">
+		<div class="row">
+			<div class="one columns"></div>
+			<div class="ten columns"><br><br>
 
-<div class="three columns">
-<div class="searchy">
-<strong>Price</strong><br>
-$100 or less<br>
-$101 - $1000<br>
-$1001 - $5000
-</div></div>
+				<center>
+				<form method="POST" action="{% url results %}">{% csrf_token %}
+					<input type="hidden" name="today" value="on" />
+					<label for="treatment">What:
+					<input style="display: inline;" id="treatment" name="treatment" type="text" value="{{ what }}" />
+					</label>
+					<label for="location">Where:
+					<input id="location" name="location" type="text" value="{{ where }}" />
+					</label>
+					<input id="search" type="submit" value="Search">
+				</form>
+				</center>
 
-<div class="three columns">
-<div class="searchy">
-<strong>Neighborhood</strong><br>
-North Beach<br>
-Inner Sunset<br>
-Marina
-</div></div>
+			</div>
+			<div class="one columns"></div>
+		</div>
+		</div>
 
-<div class="three columns">
-<div class="searchy">
-<strong>Something Else</strong><br>
-Apples<br>
-Bananas<br>
-Kiwis
-</div></div>
+		<div class="plumble" style="display:none;">
+		<div class="row">
+			<div class="twelve columns">
+				<div class="three columns">
+					<div class="searchy">
+						<strong>Distance</strong><br>
+						1 mile<br>
+						5 miles<br>
+						1.7M Lightyears
+					</div>
+				</div>
+				<div class="three columns">
+					<div class="searchy">
+						<strong>Price</strong><br>
+						$100 or less<br>
+						$101 - $1000<br>
+						$1001 - $5000
+					</div>
+				</div>
+				<div class="three columns">
+					<div class="searchy">
+						<strong>Neighborhood</strong><br>
+						North Beach<br>
+						Inner Sunset<br>
+						Marina
+					</div>
+				</div>
+				<div class="three columns">
+					<div class="searchy">
+						<strong>Something Else</strong><br>
+						Apples<br>
+						Bananas<br>
+						Kiwis
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+<br><br>
 
-</div></div></div>{# "header" #}
+		<div class="row">
+			<div class="one columns"></div>
 
-<div id="main" class="plumble"><div class="row">
+			<div class="six columns">
+				<div id="results">
+					<table id="resultsTable" class="tablesorter">
+					<thead>
+						<tr>
+							<th>Spa</th>
+							<th>Rating</th>
+							<th>Distance</th>
+							<th>Price</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+					</table>
+				</div>{# "results" #}
+			</div>
+			
+			<div class="four columns">
+				<div class="row">
+					<div class="twelve columns">
+				    	{{ deal_calendar }}
+					</div>
+				</div>
 
-<div class="seven columns"><div id="results">
-<table id="resultsTable" class="tablesorter" >
-<thead><tr>
-		<th>Spa</th>
-		<th>Rating</th>
-		<th>Distance</th>
-		<th>Price</th>
-</tr></thead>
-<tbody>
-</tbody>
-</table>
-</div></div>{# "results" #}
+				<div class="row">
+					<div class="twelve columns">
+	    				<div id="location-map">
+	    					{% if no_network %}
+	    					<img src="/static/map-FPO.png"/>
+	    					{% else %}
+	    					<img src="http://maps.google.com/maps/api/staticmap?center={{ lat_long.lat }},{{ lat_long.lng }}&zoom=14&size=400x247&maptype=roadmap&markers=color:green|{{ where|urlencode }}&sensor=false"/>
+	    					{% endif %}
+	    				</div>{# "location-map" #}
+					</div>
+				</div>
+			</div>
+			
+			<div class="one columns"></div>
+		</div>
 
-<div class="five columns">
-<div class="row"><div class="twelve columns centered">
-    {{ deal_calendar }}
-</div></div>
-<div class="row"><div class="twelve columns centered">
-    <div id="location-map">
-    {% if no_network %}
-    <img src="/static/map-FPO.png"/>
-    {% else %}
-    <img src="http://maps.google.com/maps/api/staticmap?center={{ lat_long.lat }},{{ lat_long.lng }}&zoom=14&size=400x247&maptype=roadmap&markers=color:green|{{ where|urlencode }}&sensor=false"/>
-    {% endif %}
-    </div>{# "location-map" #}
-</div></div>
-</div>
+	</div><!-- content -->{# "main" and its row DIV #}
+	
+	<!-- FOOTER -->
+	<div class="row">
+		<div class="twelve columns"><br><br>
 
-</div></div>{# "main" and its row DIV #}
-</div>{# "main_outer" #}
+		</div>
+	</div>
+	
+</div><!-- container -->{# "main_outer" #}
 {% endblock %}

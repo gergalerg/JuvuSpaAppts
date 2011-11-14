@@ -1,54 +1,85 @@
 {% extends "base.html" %}
 
-{% block title %}
-    SpaStalkers' Full Dossier on Deep Massage & Bodywork in San Francisco
-{% endblock %}
 
 {% block html_head %}
-<link rel="stylesheet" href="/dyn/search.css" type="text/css">
-<link href='http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700' rel='stylesheet' type='text/css'>
 <style>
-    #background {
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        left: 0px;
-        top: 0px;
-        z-index: -1;
-        opacity: 0.8;
-    }
+	@import url(http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700);
 
-	.profile_box {
-		background-color: #fff;
-		border: 1px solid #e2e2e2;
-		box-shadow: 0 2px 2px #DDD;
-		color: #666;
-		padding: 10px 20px;
-		margin-top: 45px;
-		margin-left: 20px;
-		position: relative;
+	html {
+		font-size: 62.5%;
 	}
 	
+	body {
+		background-color: #eee;
+	}
+
+	#header h1 {
+		font-family: Pacifico; 
+		font-size: 42px;
+		font-size: 4.2rem;	
+		color: #7FBA02;
+		margin: 10px 0 20px 0;
+	    text-align: center;
+	}
+	
+	#header h1 a {
+		color: #7FBA02;
+	}
+	
+	#header h1 a:hover {
+		color: #5f8b01;
+	}
+
+	#content {
+	    background-color: #FFFFFF;
+	    border: 1px solid #E2E2E2;
+	    box-shadow: 0 2px 2px #DDDDDD;
+	    color: #666666;
+	    padding-right: 0px;
+	    padding-bottom: 40px;
+		position: relative;		
+	}
+
 	.profile_logo {
 	   -webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.20), rgba(0,0,0,0.12) 0px 0px 10px inset;
 	   -moz-box-shadow: 0 3px 3px rgba(0,0,0,0.20), rgba(0,0,0,0.12) 0px 0px 10px inset;
 	   -webkit-border-radius: 10px;
 	   -moz-border-radius: 10px;
-		padding: 20px;
+		padding: 10px;
 		background: #fff;
 		border: 1px solid #ddd;
-		margin-top: 25px;
+		margin-top: 0px;
+		height: 160px;
+	}
+
+	.profile_infobox {
+		background-color: #fff;
+		border: 1px solid #e2e2e2;
+		box-shadow: 0 2px 2px #DDD;
+		color: #666;
+		padding: 10px 25px;
+		margin-top: 0px;
+		margin-left: 0px;
+		position: relative;
 	}
 	
+	.profile_box h2 {
+		font-size: 32px;
+		line-height: 38px;
+		font-weight: bold;
+		color: #404040;	
+	}
+		
 	.profile_photos {
 		padding: 8px;
-		background: #eee;
-		border: 1px solid #fff;
+		background: #fff;
+		border: 1px solid #ddd;
 		box-shadow: 0px 2px 10px #333;
 		-moz-box-shadow: 0px 2px 10px #333;
 		-webkit-box-shadow: 0px 2px 10px #333;
-		position: relative;
-		margin: 25px 0 0 0;
+		display: block;
+		margin-left: auto;
+		margin-right: auto
 		/*
 		-webkit-transform: rotate(-1.5deg);
 		-moz-transform: rotate(-1.5deg);
@@ -56,9 +87,15 @@
 	}
 
 	.profile_map {
-		padding: 5px;
-		background: #eee;
+		padding: 8px;
+		background: #fff;
 		border: 1px solid #ddd;
+		box-shadow: 0px 2px 10px #333;
+		-moz-box-shadow: 0px 2px 10px #333;
+		-webkit-box-shadow: 0px 2px 10px #333;
+		display: block;
+		margin-left: auto;
+		margin-right: auto
 	}
 	
 	.pin {
@@ -70,26 +107,27 @@
 	address {
 		font-size: 1.2em;
 	}
+	
+	#menu td {
+		vertical-align: middle;
+	}
 </style>
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false">
 </script>
 <script type="text/javascript">
-  function initialize() {
-    var latlng = new google.maps.LatLng(-34.397, 150.644);
-    var myOptions = {
-      zoom: 8,
-      center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var map = new google.maps.Map(document.getElementById("map_canvas"),
-        myOptions);
-  }
-
+function initialize() {
+	var latlng = new google.maps.LatLng(-34.397, 150.644);
+	var myOptions = {
+		zoom: 8,
+		center: latlng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+}
 </script>
 
 <script type="text/javascript">
-
 $(document).ready(function(){
 	$("#profile_slideshow").each(function(){
 		var rot = Math.random()*30-15+'deg';
@@ -97,169 +135,147 @@ $(document).ready(function(){
 		$(this).css('-moz-transform', 'rotate('+rot+')');
 	});
 });
+</script>
 
+<script type="text/javascript">
+     $(window).load(function() {
+         $('#featured').orbit();
+     });
 </script>
 {% endblock %}
 
 
-
-
-{% block body %}
-<body>
-<img id="background">
-
-<div class="container">
-
-  <!-- HEADER -->
-  <div class="row">
-	<div class="twelve columns">
-		<h1 style="color: #7FBA02; text-shadow: 1px 1px 1px #000; font-family: Pacifico; margin: 7px 0 0 50px;">SpaStalkers</h1>
-	</div>
-  </div>
-
-
-  <!-- CONTENT -->
-  <div class="row" style="background-color: #DCE9BE; border-top: 7px solid #5f8b01;">
-	<div class="four columns">
-		<p><img class="profile_logo" width="200" src="/static/fakedata/DMB/logo.jpg"></p>
-	</div>
-    <div class="eight columns">
-		<div class="profile_box">
-		<h2>Deep Massage & Bodywork</h2>
-			<div class="row">
-				<div class="six columns">
-					<ul>
-					<li>111 New Montgomery St, #208 <br>San Francisco, California, 94105</li>
-					<li>(415) 672-0665</li>
-					<li><a href="http://www.deepmassage.com">www.deepmassage.com</a></li>
-					</ul>
-				</div>
-				<div class="six columns">
-					<ul>
-					<lh><strong>Hours:</strong></lh>
-					<li>Mon-Fri 8am - 9pm<br>Sat 11am - 7:30pm<br>Sun 1pm - 9pm</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-    </div>
-  </div>
-
-  <div class="row" style="background-color: #DCE9BE;">
-    <div class="twelve columns">
-		<div id="featured"> 
-			<center>
-		     <img class="profile_photos" src="/static/fakedata/DMB/interior08.jpg" />
-		     <img class="profile_photos" src="/static/fakedata/DMB/interior01.jpg" />
-		     <img class="profile_photos" src="/static/fakedata/DMB/interior03.jpg" />
-		     <img class="profile_photos" src="/static/fakedata/DMB/interior04.jpg" />
-			</center>
-		</div>
-    </div>
-  </div>
-
-  <div class="row" style="background-color: #EFFFCD;">
-    <div class="twelve columns">
-		<h3><em>Menu and Recommendations</em></h3>
-			<table>
-				<thead>
-					<tr>
-						<th></th>
-						<th>Services</th>
-						<th>Description</th>
-						<th>Price</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><img src="http://placehold.it/60x60"></td>
-						<td>Massage</td>
-						<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </td>
-						<td>$60</td>
-						<td><a href="#" class="red button">Book it!</a></td>
-					</tr>
-					<tr>
-						<td><img src="http://placehold.it/60x60"></td>
-						<td>Colonics</td>
-						<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </td>
-						<td>$100</td>
-						<td><a href="#" class="red button">Book it!</a></td>
-					</tr>
-					<tr>
-						<td><img src="http://placehold.it/60x60"></td>
-						<td>Manicure</td>
-						<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </td>
-						<td>$20</td>
-						<td><a href="#" class="red button">Book it!</a></td>
-					</tr>
-					<tr>
-						<td><img src="http://placehold.it/60x60"></td>
-						<td>Package</td>
-						<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </td>
-						<td>$400</td>
-						<td><a href="#" class="green button">Book it!</a></td>
-					</tr>
-				</tbody>
-			</table>
-		<br>
-    </div>
-  </div>
-
-  <div class="row" style="background-color: #EFFFCD;">
-    <div class="twelve columns>
-		<h3><em>Where is this place?</em></h3>
-		<table>
-			<tr><td>
-		<img class="profile_map" src="http://maps.google.com/maps/api/staticmap?center=37.787579,-122.399255&zoom=14&size=400x300&maptype=roadmap&markers=color:green|37.787579,-122.399255&sensor=false"/>
-			</td><td><img src="/static/transportmodes.png"></td></tr>
-		</table>
-		<br><br>
-    </div>
-  </div>	
-
-	  <!-- FOOTER -->
-	  <div class="row" style="background-color: #eee;">
-    <div class="twelve columns" style="margin: 20px;">
-			<div class="row">
-				<div class="four columns">
-					<h4>HOME</h4>
-					<hr>
-					<ul>
-						<li><a href="">Lorem ipsum</a></li>
-						<li><a href="">Lorem ipsum</a></li>
-					</ul>
-				</div>
-				<div class="four columns">
-					<h4>SERVICES</h4>
-					<hr>
-					<ul>
-						<li><a href="">Lorem ipsum</a></li>
-						<li><a href="">Lorem ipsum</a></li>
-					</ul>
-				</div>
-				<div class="four columns">
-					<h4>LOCATIONS</h4>
-					<hr>
-					<ul>
-						<li><a href="">Lorem ipsum</a></li>
-						<li><a href="">Lorem ipsum</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	  </div>
-
-</div><!-- container -->
+{% block title %}
+Profile - SpaStalker
 {% endblock %}
 
 
-<!-- 
+{% block body %}
+<div class="container">
 
-1. Who is this? Show me details.
-2. Where is this? Show me how to get there.
-3. What do they offer and how much? Show me a menu.
-4. When are they available? Show me a calendar.
-5. Why should I trust this? Show me proof.
+	<!-- HEADER -->
+	<div id="header" class="row">
+		<div class="twelve columns">
+			<h1><a href="/">SpaStalker</a></h1>
+		</div>
+	</div>
 
--->
+	<!-- CONTENT -->
+	<div id="content" class="row">
+		<div class="twelve columns"><br><br>
+			<div class="row" style="">
+				<div class="one columns"></div>
+				<div class="three columns">
+					<img class="profile_logo" src="/static/fakedata/DMB/logo.jpg">
+				</div>
+				<div class="seven columns">
+					<div class="profile_infobox">
+						<h2 style="font-size: 30px; color: #027fb9;">Deep Massage & Bodywork</h2>
+						<div class="row">
+							<div class="six columns">
+								<ul>
+									<li>111 New Montgomery St, #208<br>San Francisco, 94105</li>
+									<li>(415) 672-0665</li>
+									<li><a href="http://www.deepmassage.com">www.deepmassage.com</a></li>
+								</ul>
+							</div>
+							<div class="six columns">
+								<ul>
+									<lh><strong>Hours:</strong></lh>
+									<li>Mon-Fri 8am - 9pm<br>Sat 11am - 7:30pm<br>Sun 1pm - 9pm</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="one columns"></div>
+			</div><!-- row -->
+	
+			<div class="row">
+			    <div class="twelve columns"><br><br>
+<!--						<img class="profile_photos" src="/static/fakedata/DMB/interior08.jpg" />
+						<img class="profile_photos" src="/static/fakedata/DMB/interior01.jpg" />
+						<img class="profile_photos" src="/static/fakedata/DMB/interior04.jpg" /> -->
+						<img class="profile_photos" src="/static/fakedata/DMB/interior03.jpg" />
+
+			    </div>
+			</div>
+	
+			<div class="row">
+				<div class="twelve columns"><br><br>
+					<div class="row">
+						<div class="one columns"></div>
+						<div class="ten columns">
+							<h3 style="color: #027FB9;">Services Offered</h3>
+								<table id="menu">
+									<thead>
+										<tr>
+											<th></th>
+											<th>Services</th>
+											<th>Description</th>
+											<th>Price</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><img src="/static/fakedata/DMB/services01.jpg" width="50"></td>
+											<td>Massage</td>
+											<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </td>
+											<td><h3>$60</h3></td>
+											<td><a href="/booking" class="red button">Book it!</a></td>
+										</tr>
+										<tr>
+											<td><img src="/static/fakedata/DMB/services02.jpg" width="50"></td>
+											<td>Colonics</td>
+											<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </td>
+											<td><h3>$100</h3></td>
+											<td><a href="/booking" class="red button">Book it!</a></td>
+										</tr>
+										<tr>
+											<td><img src="/static/fakedata/DMB/services03.jpg" width="50"></td>
+											<td>Manicure</td>
+											<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </td>
+											<td><h3>$20</h3></td>
+											<td><a href="/booking" class="red button">Book it!</a></td>
+										</tr>
+										<tr>
+											<td><img src="/static/fakedata/DMB/services04.jpg" width="50"></td>
+											<td>Package</td>
+											<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </td>
+											<td><h3>$400</h3></td>
+											<td><a href="/booking" class="green button">Book it!</a></td>
+										</tr>
+									</tbody>
+								</table>
+						</div>
+						<div class="one columns"></div>
+					</div>
+				</div>
+			</div>
+	
+			<div class="row">
+				<div class="twelve columns">
+					<div class="row">
+						<div class="one columns"></div>
+						<div class="ten columns">
+							<h3 style="color: #027FB9;">Provider Location</h3>
+							<img class="profile_map" src="http://maps.google.com/maps/api/staticmap?center=37.787579,-122.399255&zoom=14&size=800x300&maptype=roadmap&markers=color:green|37.787579,-122.399255&sensor=false"/>
+						</div>
+						<div class="one columns"></div>
+					</div>				
+				</div>
+			</div>	
+			
+		</div><!-- columns -->
+	</div><!-- content|row -->
+
+	<!-- FOOTER -->
+	<div class="row">
+		<div class="twelve columns"><br><br>
+
+		</div>
+	</div>
+
+</div><!-- container -->
+{% endblock %}

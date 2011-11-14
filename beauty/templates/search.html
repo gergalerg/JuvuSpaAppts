@@ -1,25 +1,100 @@
 {% extends "base.html" %}
 
-{% block title %}
-    SpaStalkers - Find spas, salons, massages
-{% endblock %}
-
 
 {% block html_head %}
-<link rel="stylesheet" href="/dyn/search.css" type="text/css">
+<style>
+	@import url(http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700);
+	
+	html {
+		font-size: 62.5%;
+	}
+	
+	body {
+		background-color: #eee;
+	}
+		
+	#logotype {
+		font-family: Pacifico; 
+	    font-size: 120px;
+		font-size: 12.0rem;	
+		color: #7FBA02;
+	/*	text-shadow: 2px 2px 2px #000; */
+	/*	text-shadow: -1px 0 #5f8b01, 0 1px #5f8b01, 1px 0 #5f8b01, 0 -1px #5f8b01; */
+		margin-top: 160px;
+	    text-align: center;
+	}
+	
+	#logotype a {
+		color: #7FBA02;
+	}
+	
+	#logotype a:hover {
+		color: #5f8b01;
+	}
+	
+	#tagline {
+		font-family: Helvetica;
+		font-size: 30px;
+		font-size: 3.0rem;
+		color: #5f8b01;
+		margin-top: -20px;
+		margin-bottom: 36px;
+		text-align: center;
+	}
+	
+	#treatment {
+		font-size: 22px !important;
+		font-size: 2.2rem !important;
+		color: #7f7f7f;
+		width: 220px;
+		padding:  5px 15px !important;
+		border:  solid 1px #bbbbbb;
+	}
+	
+	#datepicker {
+		font-size: 22px !important;
+		font-size: 2.2rem !important;
+		color: #7f7f7f;
+		width: 160px;
+		padding:  5px 5px !important;
+		border:  solid 1px #bbbbbb;
+	}
+	
+	#search {
+		font-size: 22px;
+		font-size: 2.2rem;
+		color: #fff;
+		text-transform: uppercase;
+		background-color: #027fb9;
+		border: 0;
+		padding: 5px 15px !important;
+	}
+	
+	#search:hover{
+		background-color: #015f8a;
+	}
+	
+	select {
+		font-size: 22px !important;
+		font-size: 2.2rem;
+		color: #7f7f7f;
+		padding: 4px 5px !important;
+		border: solid 1px #bbbbbb;
+		display: inline;
+	}
+	
+	option {
+		font-style: italic;
+	}
+	
+	#adv_search {
+	    border: 1px solid black;
+	    padding: 0.5em;
+	}
+</style>
+
 <script type="text/javascript">
-
-
-
 $(function(){
-
-    $("#adv_search").slideToggle();
-
-    $("a#adv_search_link").click(function() {
-        $("#adv_search").slideToggle();
-        return false;
-    });
-
     $( "#datepicker" ).datepicker({
         minDate: "+3D",
         maxDate: "+10D",
@@ -27,45 +102,41 @@ $(function(){
         showOtherMonths: true,
         selectOtherMonths: true,
     });
-
 });
-
 </script>
 {% endblock %}
 
-{% block body %}
-<img id="background" style="opacity: 0.45;">
 
+{% block title %}
+Search - SpaStalker
+{% endblock %}
+
+
+{% block body %}
 <div class="container">
     <div class="row">
         <div class="twelve columns">
-			<h1 id="logotype"><a href="/">SpaStalkers</a></h1>
+			<h1 id="logotype"><a href="/">SpaStalker</a></h1>
+			<h2 id="tagline">We're obsessed.</h2>
 
-            <center>
+			<center>
 			<form method="POST" action="{% url results %}">{% csrf_token %}
-				<input class="oversize input-text" type="text" name="treatment" id="treatment" placeholder="I am looking for... massages" style="width: 33%;">
-				
+				<input id="treatment" name="treatment" type="text" placeholder="Looking for... a spa?"> 
+
 				<select name="location">
-                <option value="San Francisco, CA">in San Francisco</option>
+				<option value="San Francisco, CA">in San Francisco</option>
 				<option value="Oakland, CA">Oakland</option>
 				<option value="San Jose, CA">San Jose</option>
 				</select>
 
 				<input type="hidden" name="today" value="on" />
-				<input class="oversize input-text" type="text" name="anotherday" id="datepicker" placeholder="on which day?" style="width: 15%;">
+				<input id="datepicker" name="anotherday" type="text" name="anotherday" placeholder="on which day?">
 
-                <input type="submit" id="search" value="SPA ME!" class="nice oversize blue button">
+				<input id="search" type="submit" value="Spa me!"> 
             </form>
-            
-            <a id="adv_search_link" href="#">Advanced search</a>
-            <div id="adv_search">
-            <p>pick a day</p>
-            
-            </div>
-            
-			</center>
+            </center>
 
-        </div>
-    </div>
+        </div><!-- columns -->
+    </div><!-- row -->
 </div><!-- container -->
 {% endblock %}
