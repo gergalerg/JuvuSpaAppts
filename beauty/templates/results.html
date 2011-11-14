@@ -94,7 +94,7 @@ $(function() {
 <div id="re_search" class="plumble">
 <div class="row">
 <div class="ten columns centered" style="vertical-align:middle">
-  <form method="POST" action="{% url search %}" class="nice">
+  <form method="POST" action="{% url results %}" class="nice">
     {% csrf_token %}
     <input type="hidden" name="today" value="on" />
     <label for="treatment">What</label>

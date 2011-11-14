@@ -42,7 +42,7 @@ $(function(){
 			<h1 id="logotype"><a href="/">SpaStalkers</a></h1>
 
             <center>
-			<form method="POST" action="{% url search %}">{% csrf_token %}
+			<form method="POST" action="{% url results %}">{% csrf_token %}
 				<input class="oversize input-text" type="text" name="treatment" id="treatment" placeholder="I am looking for... massages" style="width: 33%;">
 				
 				<select name="location">

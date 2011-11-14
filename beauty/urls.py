@@ -28,7 +28,7 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
 
     # User-facing site, 'uui' app.
-    url(r'^$', 'uui.views.home', name='home'),
+    url(r'^$', 'uui.views.search', name='home'),
     ( # Actually, this is the CSS for 'home'.
         r'^dyn/search.css$',
         direct_to_template,
@@ -49,7 +49,7 @@ urlpatterns = patterns('',
             ),
         ),
 
-    url(r'^search/', 'uui.views.search', name='search'),
+    url(r'^results/', 'uui.views.results', name='results'),
     url(r'^booking/', 'uui.views.booking', name='booking'),
     url(r'^confirmation/', 'uui.views.confirmation', name='confirmation'),
 
