@@ -6,7 +6,7 @@ from spasui.search import process_POST_params, search_for_availabilities
 from beauty.util.dealcal import DealCalendar
 
 
-def home(request):
+def search(request):
     '''
     Search page.
     '''
@@ -16,9 +16,9 @@ def home(request):
         )
 
 
-def search(request):
+def results(request):
     if request.method != 'POST':
-        return redirect('home')
+        return redirect('search')
 
     if __debug__:
         _P(request.POST)

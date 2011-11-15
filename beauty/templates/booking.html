@@ -1,14 +1,45 @@
 {% extends "base.html" %}
 
-{% block title %}
-    SpaStalkers - Find spas, salons, massages
-{% endblock %}
 
 {% block html_head %}
-<link rel="stylesheet" href="/dyn/search.css" type="text/css">
-
 <style>
+	@import url(http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700);
 
+	html {
+		font-size: 62.5%;
+	}
+
+	body {
+		background-color: #eee;
+	}
+
+	#header h1 {
+		font-family: Pacifico; 
+		font-size: 42px;
+		font-size: 4.2rem;	
+		color: #7FBA02;
+		margin: 10px 0 20px 0;
+	    text-align: center;
+	}
+
+	#header h1 a {
+		color: #7FBA02;
+	}
+	
+	#header h1 a:hover {
+		color: #5f8b01;
+	}
+
+	#content {
+	    background-color: #FFFFFF;
+	    border: 1px solid #E2E2E2;
+	    box-shadow: 0 2px 2px #DDDDDD;
+	    color: #666666;
+	    padding-right: 0px;
+	    padding-bottom: 40px;
+		position: relative;		
+	}
+	
 	.booking_photos {
 		padding: 8px;
 		background: #eee;
@@ -25,116 +56,55 @@
 	}
 	
 	.sosumi {
-		 font-size:10px; 
-		 color: #;
+		font-size:10px; 
+		color: #aaa;
 	}
 	
 </style>
-
-
-<script type="text/javascript">
-
-$(function(){
-
-    $("#adv_search").slideToggle();
-
-    $("a#adv_search_link").click(function() {
-        $("#adv_search").slideToggle();
-        return false;
-    });
-
-    $( "#datepicker" ).datepicker({
-        minDate: "+3D",
-        maxDate: "+10D",
-        showAnim: "blind",
-        showOtherMonths: true,
-        selectOtherMonths: true,
-    });
-
-});
-
-</script>
 {% endblock %}
 
-{% block body %}
-<img id="background">
 
+{% block title %}
+Book - SpaStalker
+{% endblock %}
+
+
+{% block body %}
 <div class="container">
 
-  <!-- HEADER -->
-  <div class="row">
-	<div class="twelve columns">
-		<h1 style="color: #7FBA02; text-shadow: 1px 1px 1px #000; font-family: Pacifico; margin: 7px 0 0 50px;">SpaStalkers</h1>
-	</div>
-  </div>
-
-  <!-- CONTENT -->
-  <div class="row" style="background-color: #DCE9BE; border-top: 7px solid #5f8b01;">
-    <div class="twelve columns" style="margin: 20px;">
-		<p><img src="/static/fakedata/DMB/interior02.jpg" class="booking_photos" width="300" align="right">
-		
-		<h2>What am I buying - $100</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla sem sed nibh venenatis placerat. Mauris eu nulla eu tellus pulvinar aliquet in ac metus. Proin scelerisque pellentesque eros, nec porta purus convallis in. Sed pellentesque tempor neque id imperdiet. Phasellus cursus lacinia augue eu eleifend.</p>
-
-		<a href="#" class="large nice round red button">Yeah, book it!</a><br><br>
-		
-		<h4>What is the catch?</h4>
-		<p>
-			<ol>
-				<li>Be on time.</li>
-				<li>Can't resell.</li>
-			</ol>
-		</p>
-    </div>
-  </div>
-	<div class="row" style="background-color: #EFFFCD;">
-    <div class="twelve columns" style="margin: 20px;">
-		<p class="sosumi">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla sem sed nibh venenatis placerat. Mauris eu nulla eu tellus pulvinar aliquet in ac metus. Proin scelerisque pellentesque eros, nec porta purus convallis in. Sed pellentesque tempor neque id imperdiet. Phasellus cursus lacinia augue eu eleifend. Vestibulum vitae sapien vel leo ornare ultrices. Vivamus id tortor tortor. Vestibulum tempus, libero at pretium euismod, turpis velit mollis erat, vitae suscipit sapien neque vitae mi.</p>
-	  </div>
-	</div>
-
-	<!-- FOOTER -->
-	<div class="row" style="background-color: #eee;">
-    <div class="twelve columns" style="margin: 20px;">
-			<div class="row">
-				<div class="four columns">
-					<h4>HOME</h4>
-					<hr>
-					<ul>
-						<li><a href="">Lorem ipsum</a></li>
-						<li><a href="">Lorem ipsum</a></li>
-					</ul>
-				</div>
-				<div class="four columns">
-					<h4>SERVICES</h4>
-					<hr>
-					<ul>
-						<li><a href="">Lorem ipsum</a></li>
-						<li><a href="">Lorem ipsum</a></li>
-					</ul>
-				</div>
-				<div class="four columns">
-					<h4>LOCATIONS</h4>
-					<hr>
-					<ul>
-						<li><a href="">Lorem ipsum</a></li>
-						<li><a href="">Lorem ipsum</a></li>
-					</ul>
-				</div>
-			</div>
+	<!-- HEADER -->
+	<div id="header" class="row">
+		<div class="twelve columns">
+			<h1><a href="/">SpaStalker</a></h1>
 		</div>
 	</div>
 
+	<!-- CONTENT -->
+	<div id="content" class="row">
+    	<div class="twelve columns">
+			<div class="one columns"></div>
+			<div class="ten columns"><br><br>
+			<p><img src="/static/fakedata/DMB/interior02.jpg" class="booking_photos" width="300" align="right">
+		
+				<h2 style="color: #027FB9;">Swedish Massage - $100</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla sem sed nibh venenatis placerat. Mauris eu nulla eu tellus pulvinar aliquet in ac metus. Proin scelerisque pellentesque eros, nec porta purus convallis in. Sed pellentesque tempor neque id imperdiet. Phasellus cursus lacinia augue eu eleifend.</p>
+
+				<center><a href="/confirmation" class="large nice round red button">Yeah, book it!</a></center><br><br>
+		
+				<hr>
+				
+				<p class="sosumi">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla sem sed nibh venenatis placerat. Mauris eu nulla eu tellus pulvinar aliquet in ac metus. Proin scelerisque pellentesque eros, nec porta purus convallis in. Sed pellentesque tempor neque id imperdiet. Phasellus cursus lacinia augue eu eleifend. Vestibulum vitae sapien vel leo ornare ultrices. Vivamus id tortor tortor. Vestibulum tempus, libero at pretium euismod, turpis velit mollis erat, vitae suscipit sapien neque vitae mi.</p>
+				</div>
+			<div class="one columns"></div>
+    	</div>
+	</div>
+
+	<!-- FOOTER -->
+	<div class="row">
+		<div class="twelve columns"><br><br>
+
+		</div>
+	</div>
 
 </div><!-- container -->
 {% endblock %}
-
-
-<!-- 
-
-1. Let's deal.
-2. What is the deal?
-3. What is the price?
-4. What is the catch?
-
--->
