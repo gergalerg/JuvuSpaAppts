@@ -96,6 +96,7 @@ $(function() {
 '<div id="tile_' + i + '" class="tile" index="' + i + '">' +
 
 '<div id="desktop_tile_' + i + '" class="show-on-desktops row">' +
+'  <div class="row"><div class="twelve columns">' +
 '    <div class="three columns">' +
 '        <div class="row"><div class="twelve columns"><div class="logo"><img src="/static/a_logo.png"></div></div></div>' +
 '        <div class="row"><div class="twelve columns"><div class="spa">' + data.spa + '</div></div></div>' +
@@ -105,8 +106,13 @@ $(function() {
 '        <div class="row"><div class="twelve columns"><div class="distance" distance="' + data.distance + '">Distance: ' + data.distance_text + '</div></div></div>' +
 '    </div>' +
 '    <div class="three columns">' +
-'<div class="price">$' + data.price + '</div>' +
-'</div></div>' +
+'        <div class="price">$' + data.price + '</div>' +
+'    </div>' +
+'  </div></div>' +
+'  <div class="row"><div class="twelve columns">' +
+'        <div class="details">All kinds of info about ' + data.spa + '!</div>' +
+'  </div></div>' +
+'</div>' +
 
 
 '<div id="mobile_tile_' + i + '" class="show-on-phones row">' +
@@ -120,6 +126,17 @@ $(function() {
 '</div>' +
 
 '</div>');
+
+        $("#desktop_tile_" + i).hover(
+          function () {
+            $(this).find('.details').slideDown();
+          },
+          function () {
+            $(this).find('.details').slideUp();
+          }
+        );
+
+        $("#desktop_tile_" + i).find('.details').slideUp(1);
 
         $("table#resultsTable tbody").append(
 '<tr id="trow_' + i + '" index="' + i + '" >' +
