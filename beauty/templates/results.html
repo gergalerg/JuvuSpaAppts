@@ -1,7 +1,47 @@
 {% extends "base.html" %}
-
+{% load verbatim_templatetag %}
 
 {% block html_head %}
+<script src="/static/js/ICanHaz.js" type="text/javascript"></script>
+
+
+{% verbatim %}
+<script id="tile_template" type="text/html">
+<div id="tile_{{ index }}" class="tile" index="{{ index }}">
+
+<div id="desktop_tile_{{ index }}" class="show-on-desktops row">
+  <div class="row"><div class="twelve columns">
+    <div class="three columns">
+        <div class="row"><div class="twelve columns"><div class="logo"><img src="/static/a_logo.png"></div></div></div>
+        <div class="row"><div class="twelve columns"><div class="spa">{{ spa }}</div></div></div>
+    </div>
+    <div class="six columns">
+        <div class="row"><div class="twelve columns"><div class="rating">Rating: {{ rating }}</div></div></div>
+        <div class="row"><div class="twelve columns"><div class="distance" distance="{{ distance }}">Distance: {{ distance_text }}</div></div></div>
+    </div>
+    <div class="three columns">
+        <div class="price">${{ price }}</div>
+    </div>
+  </div></div>
+  <div class="row"><div class="twelve columns">
+        <div class="details">All kinds of info about {{ spa }}!</div>
+  </div></div>
+</div>
+
+<div id="mobile_tile_{{ index }}" class="show-on-phones row">
+    <div class="six columns centered">
+        <div class="logo"><img src="/static/a_logo.png"></div>
+        <div class="row"><div class="twelve columns"><div class="spa">{{ spa }}</div></div></div>
+        <div class="row"><div class="twelve columns"><div class="rating">Rating: {{ rating }}</div></div></div>
+        <div class="row"><div class="twelve columns"><div class="distance" distance="{{ distance }}">Distance: {{ distance_text }}</div></div></div>
+        <div class="row"><div class="twelve columns"><div class="rice">${{ price }}</div></div></div>
+    </div>
+</div>
+
+</div>
+</script>
+{% endverbatim %}
+
 <style>
 	@import url(http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700);
 
@@ -91,41 +131,9 @@ $(function() {
     var foo = {{ results|safe }};
 
     function make_tile(data, i) {
-        $("div#results").append(
-
-'<div id="tile_' + i + '" class="tile" index="' + i + '">' +
-
-'<div id="desktop_tile_' + i + '" class="show-on-desktops row">' +
-'  <div class="row"><div class="twelve columns">' +
-'    <div class="three columns">' +
-'        <div class="row"><div class="twelve columns"><div class="logo"><img src="/static/a_logo.png"></div></div></div>' +
-'        <div class="row"><div class="twelve columns"><div class="spa">' + data.spa + '</div></div></div>' +
-'    </div>' +
-'    <div class="six columns">' +
-'        <div class="row"><div class="twelve columns"><div class="rating">Rating: ' + data.rating + '</div></div></div>' +
-'        <div class="row"><div class="twelve columns"><div class="distance" distance="' + data.distance + '">Distance: ' + data.distance_text + '</div></div></div>' +
-'    </div>' +
-'    <div class="three columns">' +
-'        <div class="price">$' + data.price + '</div>' +
-'    </div>' +
-'  </div></div>' +
-'  <div class="row"><div class="twelve columns">' +
-'        <div class="details">All kinds of info about ' + data.spa + '!</div>' +
-'  </div></div>' +
-'</div>' +
-
-
-'<div id="mobile_tile_' + i + '" class="show-on-phones row">' +
-'    <div class="six columns centered">' +
-'        <div class="logo"><img src="/static/a_logo.png"></div>' +
-'        <div class="row"><div class="twelve columns"><div class="spa">' + data.spa + '</div></div></div>' +
-'        <div class="row"><div class="twelve columns"><div class="rating">Rating: ' + data.rating + '</div></div></div>' +
-'        <div class="row"><div class="twelve columns"><div class="distance" distance="' + data.distance + '">Distance: ' + data.distance_text + '</div></div></div>' +
-'        <div class="row"><div class="twelve columns"><div class="rice">$' + data.price + '</div></div></div>' +
-'    </div>' +
-'</div>' +
-
-'</div>');
+        data['index'] = i;
+        var tile = ich.tile_template(data);
+        $("div#results").append(tile);
 
         $("#desktop_tile_" + i).hover(
           function () {
