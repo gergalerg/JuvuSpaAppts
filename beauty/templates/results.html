@@ -4,12 +4,27 @@
 {% block html_head %}
 <script src="/static/js/ICanHaz.js" type="text/javascript"></script>
 
-
 {% verbatim %}
+<script id="table_shell" type="text/html">
+<div id="{{ identifier }}" class="results">
+	<table class="tablesorter">
+	<thead>
+		<tr>
+			<th>Spa</th>
+			<th>Rating</th>
+			<th>Distance</th>
+			<th>Price</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+	</table>
+</div>
+</script>
 <script id="tile_template" type="text/html">
-<div id="tile_{{ index }}" class="tile" index="{{ index }}">
+<div class="tile" index="{{ index }}">
 
-<div id="desktop_tile_{{ index }}" class="show-on-desktops row">
+<div class="desktop_tile show-on-desktops row">
   <div class="row"><div class="twelve columns">
     <div class="three columns">
         <div class="row"><div class="twelve columns"><div class="logo"><img src="/static/a_logo.png"></div></div></div>
@@ -24,7 +39,7 @@
     </div>
   </div></div>
   <div class="row"><div class="twelve columns">
-        <div class="details">All kinds of info about {{ spa }}!</div>
+        <div class="details" style="display:none">All kinds of info about {{ spa }}!</div>
   </div></div>
 </div>
 
@@ -39,6 +54,14 @@
 </div>
 
 </div>
+</script>
+<script id="trow_template" type="text/html">
+<tr id="trow_{{ index }}" index="{{ index }}" >
+  <td>{{ spa }}</td>
+  <td>{{ rating }}</td>
+  <td><span distance="{{ distance }}">{{ distance_text }}</span></td>
+  <td>${{ price }}</td>
+</tr>
 </script>
 {% endverbatim %}
 
@@ -108,14 +131,15 @@ $(function() {
 	    id: "substitute_tiles",
 	    format: function(table) {
 	        var tiles = {};
-	        $(".tile").each(function() {
+	        var target = $(table).parent();
+	        $(".tile", target).each(function() {
 	            var tile = $(this);
 	            tiles[tile.attr('index')] = tile;
-	            tile.detach()
+	            tile.detach();
 	        });
 		    $("tbody tr", table).each(function() {
 		        var row = $(this);
-			    $("#results").append(tiles[row.attr('index')]);
+			    target.append(tiles[row.attr('index')]);
 			    row.hide();
 		    });
 	    }
@@ -130,49 +154,38 @@ $(function() {
 
     var foo = {{ results|safe }};
 
-    function make_tile(data, i) {
-        data['index'] = i;
-        var tile = ich.tile_template(data);
-        $("div#results").append(tile);
+    function make_table_for_reals(identifier, data) {
+        var tile_table = ich.table_shell({identifier:identifier});
 
-        $("#desktop_tile_" + i).hover(
-          function () {
-            $(this).find('.details').slideDown();
-          },
-          function () {
-            $(this).find('.details').slideUp();
-          }
-        );
+        var tbod = $("tbody", tile_table);
+        jQuery.map(data, function(datum, i) {
 
-        $("#desktop_tile_" + i).find('.details').slideUp(1);
+            datum['index'] = i;
 
-        $("table#resultsTable tbody").append(
-'<tr id="trow_' + i + '" index="' + i + '" >' +
-'  <td>' + data.spa + '</td>' +
-'  <td>' + data.rating + '</td>' +
-'  <td><span distance="' + data.distance + '">' + data.distance_text + '</span></td>' +
-'  <td>$' + data.price + '</td>' +
-'</tr>');
+            var tile = ich.tile_template(datum);
+            tile_table.append(tile);
+            tbod.append(ich.trow_template(datum));
 
+            var details = $(".details", tile);
+            $(".desktop_tile", tile).hover(
+                function () { details.slideDown() },
+                function () { details.slideUp() }
+            );
+        });
+
+        $("table", tile_table).tablesorter({widgets: ['substitute_tiles']});
+        return tile_table;
     }
 
-    jQuery.map(foo, make_tile);
-
-    $("#resultsTable").tablesorter({
-        widgets: ['substitute_tiles']
-    });
+    $("#tables_here").append(make_table_for_reals("Fun", foo));
+  //  $("#tables_here").append(make_table_for_reals("Bun", foo));
 
 });
 
 </script>
 {% endblock %}
 
-
-{% block title %}
-Results - SpaStalker
-{% endblock %}
-
-
+{% block title %}Results - SpaStalker{% endblock %}
 
 {% block body %}
 <div id="main_outer" class="container">
@@ -212,65 +225,10 @@ Results - SpaStalker
 		</div>
 		</div>
 
-		<div class="plumble" style="display:none;">
-		<div class="row">
-			<div class="twelve columns">
-				<div class="three columns">
-					<div class="searchy">
-						<strong>Distance</strong><br>
-						1 mile<br>
-						5 miles<br>
-						1.7M Lightyears
-					</div>
-				</div>
-				<div class="three columns">
-					<div class="searchy">
-						<strong>Price</strong><br>
-						$100 or less<br>
-						$101 - $1000<br>
-						$1001 - $5000
-					</div>
-				</div>
-				<div class="three columns">
-					<div class="searchy">
-						<strong>Neighborhood</strong><br>
-						North Beach<br>
-						Inner Sunset<br>
-						Marina
-					</div>
-				</div>
-				<div class="three columns">
-					<div class="searchy">
-						<strong>Something Else</strong><br>
-						Apples<br>
-						Bananas<br>
-						Kiwis
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-
-<br><br>
-
 		<div class="row">
 			<div class="one columns"></div>
 
-			<div class="six columns">
-				<div id="results">
-					<table id="resultsTable" class="tablesorter">
-					<thead>
-						<tr>
-							<th>Spa</th>
-							<th>Rating</th>
-							<th>Distance</th>
-							<th>Price</th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-					</table>
-				</div>{# "results" #}
+			<div id="tables_here" class="six columns">
 			</div>
 			
 			<div class="four columns">
@@ -297,13 +255,6 @@ Results - SpaStalker
 		</div>
 
 	</div><!-- content -->{# "main" and its row DIV #}
-	
-	<!-- FOOTER -->
-	<div class="row">
-		<div class="twelve columns"><br><br>
-
-		</div>
-	</div>
 	
 </div><!-- container -->{# "main_outer" #}
 {% endblock %}
