@@ -19,6 +19,9 @@
 	<tbody>
 	</tbody>
 	</table>
+	<div style="width:inherit; text-align:right">
+	<a href="#" class="nexting">next day</a>
+	</div>
 </div>
 </script>
 <script id="tile_template" type="text/html">
@@ -56,7 +59,7 @@
 </div>
 </script>
 <script id="trow_template" type="text/html">
-<tr id="trow_{{ index }}" index="{{ index }}" >
+<tr id="trow_{{ index }}" index="{{ index }}" style="display:none" >
   <td>{{ spa }}</td>
   <td>{{ rating }}</td>
   <td><span distance="{{ distance }}">{{ distance_text }}</span></td>
@@ -138,24 +141,26 @@ $(function() {
 	            tile.detach();
 	        });
 		    $("tbody tr", table).each(function() {
-		        var row = $(this);
-			    target.append(tiles[row.attr('index')]);
-			    row.hide();
+			    target.append(tiles[$(this).attr('index')]);
 		    });
 	    }
     });
 
-    $("button#search").button({
-        icons: {primary:'ui-icon-circle-check'},
-    }).click(function() {
-        $("form").submit();
-        return false;
-    });
-
-    var foo = {{ results|safe }};
+//    var foo = {{ results|safe }};
 
     function make_table_for_reals(identifier, data) {
-        var tile_table = ich.table_shell({identifier:identifier});
+        var tile_table = ich.table_shell({
+            identifier: identifier,
+            });
+
+        $("a.nexting", tile_table).button({
+            icons: {secondary: 'ui-icon-circle-triangle-e'},
+        }).click(function() {
+            return false;
+        }).hover(
+            function () { $("#Bun").fadeIn() },
+            function () { $("#Bun").fadeOut() }
+        );
 
         var tbod = $("tbody", tile_table);
         jQuery.map(data, function(datum, i) {
@@ -177,7 +182,60 @@ $(function() {
         return tile_table;
     }
 
-    $("#tables_here").append(make_table_for_reals("Fun", foo));
+    function header_on(t) {
+        $(".nexting", t).parent().css({opacity:1});
+        $(".tablesorter", t).css({opacity:1});
+    }
+
+    function header_off(t) {
+        $(".nexting", t).parent().css({opacity:0});
+        $(".tablesorter", t).css({opacity:0});
+    }
+
+    function get_results_table(identifier, day) {
+        $.ajax({
+            type: 'POST',
+            url: "{% url ares %}",
+            data: {
+                anotherday: day,
+                treatment: $("#treatment").val(),
+                location: $("#location").val(),
+            },
+            success: function(data) {
+                var table = make_table_for_reals(identifier, data);
+                header_off(table);
+                $(table).css({
+                    opacity: 0.5,
+                    position: "relative",
+                });
+                $("#tables_here").append(table);
+                var a = $("#tables_here").find(".results").last()
+                table.animate({
+                    top: '-=' + a.outerHeight() + 'px',
+                    left: '+=' + a.outerWidth() + 'px',
+                }, 333);
+                table.hide()
+
+            },
+            dataType: 'json',
+        });
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: "{% url ares %}",
+        data: {
+            anotherday: "{{ this_day }}",
+            treatment: "{{ what }}",
+            location: "{{ where }}",
+        },
+        success: function(data) {
+            $("#tables_here").append(make_table_for_reals("Fun", data));
+            get_results_table("Bun", "{{ next_day }}");
+        },
+        dataType: 'json',
+    });
+
   //  $("#tables_here").append(make_table_for_reals("Bun", foo));
 
 });
@@ -209,7 +267,7 @@ $(function() {
 
 				<center>
 				<form method="POST" action="{% url results %}">{% csrf_token %}
-					<input type="hidden" name="today" value="on" />
+					<input type="hidden" name="anotherday" value="{{ this_day }}" />
 					<label for="treatment">What:
 					<input style="display: inline;" id="treatment" name="treatment" type="text" value="{{ what }}" />
 					</label>

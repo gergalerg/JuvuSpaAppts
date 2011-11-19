@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     # User-facing site, 'uui' app.
     url(r'^$', 'uui.views.search', name='search'),
     url(r'^results/', 'uui.views.results', name='results'),
+    url(r'^res/', 'uui.views.ajax_results', name='ares'),
     url(r'^booking/', 'uui.views.booking', name='booking'),
     url(r'^confirmation/', 'uui.views.confirmation', name='confirmation'),
 
