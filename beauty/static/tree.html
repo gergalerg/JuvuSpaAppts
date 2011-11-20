@@ -9,13 +9,14 @@
 
 .node circle {
   cursor: pointer;
-  fill: #fff;
+  fill: #eef;
   stroke: steelblue;
   stroke-width: 1.5px;
 }
 
 .node text {
-  font: 10px sans-serif;
+  cursor: pointer;
+  font: 14px sans-serif;
 }
 
 path.link {
@@ -49,7 +50,7 @@ var vis = d3.select("#chart").append("svg:svg")
   .append("svg:g")
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
-d3.json("file_tree.json", function(json) {
+d3.json("treatments.json", function(json) {
   root = json;
   root.x0 = h / 2;
   root.y0 = 0;
@@ -86,7 +87,7 @@ function update(source) {
 
   nodeEnter.append("svg:circle")
       .attr("r", 1e-6)
-      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#eef"; });
 
   nodeEnter.append("svg:text")
       .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
@@ -101,8 +102,8 @@ function update(source) {
       .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
 
   nodeUpdate.select("circle")
-      .attr("r", 4.5)
-      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+      .attr("r", 8)
+      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#eef"; });
 
   nodeUpdate.select("text")
       .style("fill-opacity", 1);
