@@ -65,7 +65,8 @@ def post_calendar(request):
 
 
 def dashboard(request):
-    return HttpResponse(
-        '"Hi"',
-        mimetype="application/json",
+    return render_to_response(
+        'dashboard.html',
+        dict(),
+        context_instance=RequestContext(request),
         )
