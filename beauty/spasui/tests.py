@@ -1,5 +1,7 @@
 from datetime import date, time, datetime, timedelta
 from django.test import TestCase
+from django.test.client import Client
+from django.core.urlresolvers import reverse
 from beauty.spasui.availabilities import dates_from
 from spasui.search import process_POST_params
 
@@ -8,6 +10,16 @@ from spasui.search_tests import (
     CreateAvailabilitiesTest,
     SearchAvailabilitiesTest,
     )
+
+
+class URL_Test(TestCase):
+
+    def setUp(self):
+        self.c = Client()
+
+    def test_dashboard(self):
+        response = self.c.get(reverse('dashboard'))
+        self.assertEqual(response.status_code, 200)
 
 
 class process_POST_params_Test(TestCase):
