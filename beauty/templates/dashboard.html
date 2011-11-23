@@ -10,11 +10,26 @@
 
 <script id="tile_template" type="text/x-jquery-tmpl">
 <div class="tile">
-Name: <span data-bind="text:name">no-effing-name</span>
+    <span data-bind="text:mealName"></span>
+    <span data-bind="visible: extraCost">[!]</span>
+    <br>
+    <span class="clip" data-bind="text:description"></span>
 </div>
 </script>
 
 <script type="text/javascript">
+
+// See http://knockoutjs.com/documentation/custom-bindings.html
+ko.bindingHandlers.pagey = {
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel) {
+        var delta = 0 - $(element).position().left;
+        console.log(delta, element, valueAccessor(), allBindingsAccessor(), viewModel);
+        // This will be called once when the binding is first applied to an element,
+        // and again whenever the associated observable changes value.
+        // Update the DOM element based on the supplied values here.
+    }
+};
+
 var availableMeals = [         
     { mealName: 'Standard', description: 'Dry crusts of bread', extraCost: 0 },
     { mealName: 'Premium', description: 'Fresh bread with cheese', extraCost: 9.95 },
@@ -28,17 +43,12 @@ var some_class = function(name) {
 }
 
 var viewModel = {
-    /* we'll populate this in a moment */
-    stuffs: ko.observableArray([
-        new some_class("Steve"),
-        new some_class("Bert"),
-        new some_class("Andy")
-    ])
+    stuffs: ko.observableArray(availableMeals),
+    flagry: ko.observable(true),
 };
+
 $(function(){
-
-ko.applyBindings(viewModel); // Makes Knockout get to work
-
+    ko.applyBindings(viewModel);
 });
 </script>
 
@@ -50,23 +60,25 @@ ko.applyBindings(viewModel); // Makes Knockout get to work
   <div class="row">
     <div class="twelve columns">
       <h1 id="logotype"><a href="/">SpaStalker</a></h1>
+<label><input type="checkbox" data-bind="checked: flagry" /> Gift wrap</label>
     </div>{# columns #}
   </div>{# row #}
 
 <div class="row"><div class="twelve columns">
 <div id="hull">
+<p data-bind="text: flagry"></p>
+<div id="pane0" data-bind="pagey: flagry">
   <div class="row">
 
 <div class="four columns"><div id="hoo">
-<h2>Staff Members</h2>
-<p data-bind="template: {name:'tile_template', foreach: stuffs}"></p>
+  <h2>Staff Members</h2>
+  <p data-bind="template: {name:'tile_template', foreach: stuffs}"></p>
 </div></div>
 
 <div class="eight columns"><div id="boy">boy</div></div>
 
-  </div>
-
-</div>
+</div>{# pane0 #}
+</div>{# hull #}
 </div></div>
 	
 </div>{# container #}
