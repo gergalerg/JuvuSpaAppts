@@ -1,7 +1,8 @@
 @fg: #003300;
-@bg: #eeffee;
+@bg: lighten(@fg, 80%);
 @logo_color: #7FBA02;
 @logo_hover_color: #5f8b01;
+
 
 #logotype {
 	font-family: Pacifico; 
@@ -19,4 +20,25 @@
 
 }
 
+#hull {
+    color: @fg;
+}
 
+#hoo {
+    color: @fg;
+
+    h2 {
+        color: @fg;
+    }
+}
+
+#boy {
+    border: solid @fg 1px;
+}
+
+.tile {
+    padding: 0.25em;
+    background-color: spin(@bg, 30);
+    border: solid @fg 1px;
+    margin-bottom: 0.5em;
+}
