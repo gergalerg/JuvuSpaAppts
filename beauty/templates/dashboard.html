@@ -10,10 +10,11 @@
 
 <script id="tile_template" type="text/x-jquery-tmpl">
 <div class="tile">
-    <span data-bind="text:mealName"></span>
+    <span data-bind="text:name"></span>
     <span data-bind="visible: extraCost">[!]</span>
     <br>
     <span class="clip" data-bind="text:description"></span>
+    <a href="#" class="clip" data-bind="click: remove">Remove</a>
 </div>
 </script>
 
@@ -30,25 +31,48 @@ ko.bindingHandlers.pagey = {
     }
 };
 
-var availableMeals = [         
-    { mealName: 'Standard', description: 'Dry crusts of bread', extraCost: 0 },
-    { mealName: 'Premium', description: 'Fresh bread with cheese', extraCost: 9.95 },
-    { mealName: 'Deluxe', description: 'Caviar and vintage Dr Pepper', extraCost: 18.50 }
-];
+var StaffMember = function(options) {
+    this.name = options.name;
+    this.description = options.description;
+    this.extraCost = options.extraCost;
 
-var some_class = function(name) {
-    this.name = name;
-    this.availableMeals = availableMeals;
-    this.meal = ko.observable(availableMeals[1]);
+    this.remove = function() {
+        viewModel.stuffs.remove(this);
+    }
 }
+
+var availableMeals = jQuery.map([      
+        { name: 'Standard', description: 'Dry crusts of bread', extraCost: 0 },
+        { name: 'Premium', description: 'Fresh bread with cheese', extraCost: 9.95 },
+        { name: 'Deluxe', description: 'Caviar and vintage Dr Pepper', extraCost: 18.50 },
+    ],
+    function(n, i){ return new StaffMember(n) });
 
 var viewModel = {
     stuffs: ko.observableArray(availableMeals),
-    flagry: ko.observable(true),
+
+    add_staff_member: function() {
+        var name = $("#staff_name").val();
+        if (name != "") {
+            this.stuffs.push(new StaffMember({
+                name: name,
+                description: 'Bananas and Peanutbutter',
+                extraCost: 0.25,
+            }))
+        } else {
+            $("#staff_name").effect('highlight');
+        }
+    },
 };
 
 $(function(){
     ko.applyBindings(viewModel);
+    
+    $("button").button({
+        icons: {primary:'ui-icon-circle-plus'},
+        text: false,
+    }).click(function(){return false})
+
 });
 </script>
 
@@ -57,29 +81,46 @@ $(function(){
 {% block body %}
 <div class="container">
 
-  <div class="row">
-    <div class="twelve columns">
-      <h1 id="logotype"><a href="/">SpaStalker</a></h1>
-<label><input type="checkbox" data-bind="checked: flagry" /> Gift wrap</label>
-    </div>{# columns #}
-  </div>{# row #}
+  <div class="row"><div class="twelve columns">
+    <h1 id="logotype"><a href="/">SpaStalker</a></h1>
+  </div></div>{# columns row #}
 
 <div class="row"><div class="twelve columns">
 <div id="hull">
-<p data-bind="text: flagry"></p>
-<div id="pane0" data-bind="pagey: flagry">
-  <div class="row">
+<div id="pane0">
+<div class="row">
 
-<div class="four columns"><div id="hoo">
-  <h2>Staff Members</h2>
-  <p data-bind="template: {name:'tile_template', foreach: stuffs}"></p>
-</div></div>
+  <div class="four columns"><div id="hoo" class="panel">
+    <h2>Staff</h2>
+    <div id="staff_members">
+      <form class="nice">
+        <button data-bind="click: add_staff_member">Add Staff Member</button>
+        <input id="staff_name" name="staff_name" class="input-text small" type="text" placeholder="Add Staff Member">
+      </form>
+        <p data-bind="template: {name:'tile_template', foreach: stuffs}"></p>
+    </div>{# staff_members #}
+  </div>{# hoo #}</div>
 
-<div class="eight columns"><div id="boy">boy</div></div>
+  <div class="eight columns"><div id="boy">
+    <div class="row"><div class="twelve columns">
+      <div class="panel cake">
+        <h3>Procedures</h3>
+        <h3>Price</h3>
+      </div>{# panel #}
+    </div></div>{# columns row #}
+    <div class="row"><div class="twelve columns">
+      <div class="panel cake">
+        <h3>Hours</h3>
+        <h3>Rate</h3>
+        <h3>Something Else...</h3>
+      </div>{# panel #}
+    </div></div>{# columns row #}
+  </div>{# boy #}</div>
 
+</div>{# row #}
 </div>{# pane0 #}
 </div>{# hull #}
-</div></div>
-	
+</div></div>{# columns row #}
+
 </div>{# container #}
 {% endblock %}

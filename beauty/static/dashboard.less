@@ -1,8 +1,26 @@
-@fg: #003300;
-@bg: lighten(@fg, 80%);
+@fg: #787D78;
+@bg: #fff;
+@faded_fg: #C8D1C8;
 @logo_color: #7FBA02;
 @logo_hover_color: #5f8b01;
+@call_out: #FFF;
 
+.rounded-corners (@radius: 0.5em) {
+    border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+}
+
+.rounded-right-tab-corners (@radius: 0.5em) {
+	border-top-right-radius: @radius;
+	border-bottom-right-radius: @radius;
+}
+
+.call {
+    padding: 0.25em;
+    background-color: @call_out;
+    border: solid @fg 1px;
+}
 
 #logotype {
 	font-family: Pacifico; 
@@ -22,6 +40,7 @@
 
 #hull {
     color: @fg;
+    background-color: @bg;
 }
 
 #hoo {
@@ -32,17 +51,28 @@
     }
 }
 
-#boy {
-    border: solid @fg 1px;
+#boy {}
+
+#staff_members {
+    padding-left: 0.5em;
 }
 
 .tile {
-    padding: 0.25em;
-    background-color: spin(@bg, 30);
-    border: solid @fg 1px;
+    .call;
+    .rounded-corners;
     margin-bottom: 0.5em;
 }
 
 .clip {
     font-size: smaller;
+}
+
+.cake {
+    h3 {
+        color: @fg;
+    }
+}
+
+input#staff_name {
+    display: inline-block;
 }
