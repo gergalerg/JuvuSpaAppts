@@ -11,17 +11,6 @@
     -moz-border-radius: @radius;
 }
 
-.rounded-right-tab-corners (@radius: 0.5em) {
-	border-top-right-radius: @radius;
-	border-bottom-right-radius: @radius;
-}
-
-.call {
-    padding: 0.25em;
-    background-color: @call_out;
-    border: solid @fg 1px;
-}
-
 #logotype {
 	font-family: Pacifico; 
 	font-size: 42px;
@@ -49,6 +38,10 @@
     h2 {
         color: @fg;
     }
+    
+    form {
+        margin-bottom: 9px;
+    }
 }
 
 #boy {}
@@ -58,9 +51,16 @@
 }
 
 .tile {
-    .call;
+    padding: 0.25em;
+    margin-left: -0.25em;
+    border: solid transparent 1px;
     .rounded-corners;
     margin-bottom: 0.5em;
+}
+
+.tile:hover {
+    background-color: @call_out;
+    border-color: @fg;
 }
 
 .clip {
