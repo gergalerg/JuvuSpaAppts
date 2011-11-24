@@ -104,11 +104,11 @@ $(function(){
 
   <div class="four columns"><div id="hoo" class="panel">
     <h2>Staff</h2>
+    <p data-bind="template: {name:'tile_template', foreach: stuffs}"></p>
     <form class="nice">
       <button data-bind="click: add_staff_member">Add Staff Member</button>
       <input id="staff_name" name="staff_name" class="input-text small" type="text" placeholder="Add Staff Member">
     </form>
-    <p data-bind="template: {name:'tile_template', foreach: stuffs}"></p>
   </div>{# hoo #}</div>
 
   <div class="eight columns"><div id="boy">
