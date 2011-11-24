@@ -5,6 +5,16 @@
 @logo_hover_color: #5f8b01;
 @call_out: #FFF;
 
+
+@title_font: 'Josefin Sans', sans-serif;
+@body_font: 'Istok Web', serif;
+
+.title {
+    font-family: @title_font;
+    font-weight: 400;
+    color: @fg;
+}
+
 .rounded-corners (@radius: 0.5em) {
     border-radius: @radius;
     -webkit-border-radius: @radius;
@@ -36,7 +46,7 @@
     color: @fg;
 
     h2 {
-        color: @fg;
+        .title;
     }
     
     form {
@@ -51,6 +61,7 @@
 }
 
 .tile {
+    font-family: @body_font;
     padding: 0.25em;
     margin-left: -0.25em;
     border: solid transparent 1px;
@@ -68,11 +79,13 @@
 }
 
 .cake {
+    font-family: @body_font;
     h3 {
-        color: @fg;
+        .title;
     }
 }
 
 input#staff_name {
     display: inline-block;
+    font-family: @body_font;
 }
