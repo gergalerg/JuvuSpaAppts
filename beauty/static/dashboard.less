@@ -11,8 +11,8 @@
 
 .title {
     font-family: @title_font;
-    font-weight: 400;
-    color: @fg;
+    font-weight: 100;
+    color: black;
 }
 
 .rounded-corners (@radius: 0.5em) {
@@ -71,7 +71,7 @@
 
 .tile:hover {
     background-color: @call_out;
-    border-color: @fg;
+    border-color: lighten(@fg, 20%);
 }
 
 .clip {
