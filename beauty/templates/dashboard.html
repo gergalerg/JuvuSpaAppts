@@ -10,7 +10,7 @@
 
 <script id="tile_template" type="text/x-jquery-tmpl">
 <div class="tile">
-    <span data-bind="text:name"></span>
+    <a href="#" data-bind="text:name, click: make_current"></a>
     <span data-bind="visible: extraCost">[!]</span>
     <br>
     <span class="clip" data-bind="text:description"></span>
@@ -38,27 +38,38 @@ var StaffMember = function(options) {
 
     this.remove = function() {
         viewModel.stuffs.remove(this);
+        if (viewModel.stuffs().length == 0) {
+            viewModel.current({});
+        }
+    }
+
+    this.make_current = function() {
+        viewModel.current(this);
     }
 }
 
 var availableMeals = jQuery.map([      
-        { name: 'Standard', description: 'Dry crusts of bread', extraCost: 0 },
-        { name: 'Premium', description: 'Fresh bread with cheese', extraCost: 9.95 },
-        { name: 'Deluxe', description: 'Caviar and vintage Dr Pepper', extraCost: 18.50 },
+        { name: 'Billy', description: 'Dry crusts of bread', extraCost: 0 },
+        { name: 'Bob', description: 'Fresh bread with cheese', extraCost: 9.95 },
+        { name: 'Billy Jo Bob', description: 'Caviar and vintage Dr Pepper', extraCost: 18.50 },
     ],
     function(n, i){ return new StaffMember(n) });
 
 var viewModel = {
     stuffs: ko.observableArray(availableMeals),
+    current: ko.observable(availableMeals[0]),
 
     add_staff_member: function() {
         var name = $("#staff_name").val();
         if (name != "") {
-            this.stuffs.push(new StaffMember({
+            var newbie = new StaffMember({
                 name: name,
                 description: 'Bananas and Peanutbutter',
                 extraCost: 0.25,
-            }))
+            })
+            this.stuffs.push(newbie);
+            this.current(newbie);
+            $("#staff_name").val('');
         } else {
             $("#staff_name").effect('highlight');
         }
@@ -92,20 +103,20 @@ $(function(){
 
   <div class="four columns"><div id="hoo" class="panel">
     <h2>Staff</h2>
-    <div id="staff_members">
-      <form class="nice">
-        <button data-bind="click: add_staff_member">Add Staff Member</button>
-        <input id="staff_name" name="staff_name" class="input-text small" type="text" placeholder="Add Staff Member">
-      </form>
-        <p data-bind="template: {name:'tile_template', foreach: stuffs}"></p>
-    </div>{# staff_members #}
+    <form class="nice">
+      <button data-bind="click: add_staff_member">Add Staff Member</button>
+      <input id="staff_name" name="staff_name" class="input-text small" type="text" placeholder="Add Staff Member">
+    </form>
+    <p data-bind="template: {name:'tile_template', foreach: stuffs}"></p>
   </div>{# hoo #}</div>
 
   <div class="eight columns"><div id="boy">
     <div class="row"><div class="twelve columns">
       <div class="panel cake">
         <h3>Procedures</h3>
+        <p data-bind="text: current().name"></p>
         <h3>Price</h3>
+        <p data-bind="text: current().extraCost"></p>
       </div>{# panel #}
     </div></div>{# columns row #}
     <div class="row"><div class="twelve columns">
@@ -113,6 +124,7 @@ $(function(){
         <h3>Hours</h3>
         <h3>Rate</h3>
         <h3>Something Else...</h3>
+        <p data-bind="text: current().description"></p>
       </div>{# panel #}
     </div></div>{# columns row #}
   </div>{# boy #}</div>
