@@ -70,3 +70,11 @@ def dashboard(request):
         dict(),
         context_instance=RequestContext(request),
         )
+
+
+def dongle(request):
+    return render_to_response(
+        'dongle.html',
+        dict(),
+        context_instance=RequestContext(request),
+        )

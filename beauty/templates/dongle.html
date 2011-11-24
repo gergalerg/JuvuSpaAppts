@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% block html_head %}
+<link rel="stylesheet/less" href="/static/dashboard.less" type="text/css">
+<script src="/static/js/less.js" type="text/javascript"></script>
+<script src="/static/js/jquery.tmpl.js" type="text/javascript"></script>
+<script src="/static/js/knockout-1.2.1.debug.js" type="text/javascript"></script>
+<style>
+	@import url(http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700);
+	@import url(http://fonts.googleapis.com/css?family=Josefin+Sans:400,100|Istok+Web);
+</style>
+
+<script id="tile_template" type="text/x-jquery-tmpl">
+<div class="tile">
+    <a href="#" data-bind="text:name, click: make_current"></a>
+    <span data-bind="visible: extraCost">[!]</span>
+    <br>
+    <span class="clip" data-bind="text:description"></span>
+    <a href="#" class="clip" data-bind="click: remove">Remove</a>
+</div>
+</script>
+
+<script type="text/javascript">
+
+// See http://knockoutjs.com/documentation/custom-bindings.html
+ko.bindingHandlers.pagey = {
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel) {
+        var delta = 0 - $(element).position().left;
+        console.log(delta, element, valueAccessor(), allBindingsAccessor(), viewModel);
+        // This will be called once when the binding is first applied to an element,
+        // and again whenever the associated observable changes value.
+        // Update the DOM element based on the supplied values here.
+    }
+};
+
+var StaffMember = function(options) {
+    this.name = options.name;
+    this.description = options.description;
+    this.extraCost = options.extraCost;
+
+    this.remove = function() {
+        viewModel.stuffs.remove(this);
+        if (viewModel.stuffs().length == 0) {
+            viewModel.current({});
+        }
+    }
+
+    this.make_current = function() {
+        viewModel.current(this);
+    }
+}
+
+var availableMeals = jQuery.map([      
+        { name: 'Billy', description: 'Dry crusts of bread', extraCost: 0 },
+        { name: 'Bob', description: 'Fresh bread with cheese', extraCost: 9.95 },
+        { name: 'Billy Jo Bob', description: 'Caviar and vintage Dr Pepper', extraCost: 18.50 },
+    ],
+    function(n, i){ return new StaffMember(n) });
+
+var viewModel = {
+    stuffs: ko.observableArray(availableMeals),
+    current: ko.observable(availableMeals[0]),
+
+    add_staff_member: function() {
+        var name = $("#staff_name").val();
+        if (name != "") {
+            var newbie = new StaffMember({
+                name: name,
+                description: 'Bananas and Peanutbutter',
+                extraCost: 0.25,
+            })
+            this.stuffs.push(newbie);
+            this.current(newbie);
+            $("#staff_name").val('');
+        } else {
+            $("#staff_name").effect('highlight');
+        }
+    },
+};
+
+$(function(){
+    ko.applyBindings(viewModel);
+    
+    $("button").button({
+        icons: {primary:'ui-icon-circle-plus'},
+        text: false,
+    }).click(function(){return false})
+
+    $("#hoo").hide();
+    $(".cake").hide();
+
+    $("#hoo").delay(300).fadeIn('slow', function(){
+        $("#aa").fadeIn('slow', function(){
+            $("#bb").fadeIn('slow', function(){
+            });
+        });
+    });
+
+});
+</script>
+
+{% endblock %}
+{% block title %}Dashboard - SpaStalker{% endblock %}
+{% block body %}
+<div class="container">
+
+  <div class="row"><div class="twelve columns">
+    <h1 id="logotype"><a href="/">SpaStalker</a></h1>
+  </div></div>{# columns row #}
+
+<div class="row"><div class="twelve columns">
+<div id="hull">
+<div id="pane0">
+<div class="row">
+
+  <div class="four columns"><div id="hoo" class="panel">
+    <h2>Staff</h2>
+    <p data-bind="template: {name:'tile_template', foreach: stuffs}"></p>
+    <form class="nice">
+      <button data-bind="click: add_staff_member">Add Staff Member</button>
+      <input id="staff_name" name="staff_name" class="input-text small" type="text" placeholder="Add Staff Member">
+    </form>
+  </div>{# hoo #}</div>
+
+  <div class="eight columns"><div id="boy">
+    <div class="row"><div class="twelve columns">
+      <div id="aa" class="panel cake">
+        <h3>Procedures</h3>
+        <p data-bind="text: current().name"></p>
+        <h3>Price</h3>
+        <p data-bind="text: current().extraCost"></p>
+      </div>{# panel #}
+    </div></div>{# columns row #}
+    <div class="row"><div class="twelve columns">
+      <div id="bb" class="panel cake">
+        <h3>Hours</h3>
+        <h3>Rate</h3>
+        <h3>Something Else...</h3>
+        <p data-bind="text: current().description"></p>
+      </div>{# panel #}
+    </div></div>{# columns row #}
+  </div>{# boy #}</div>
+
+</div>{# row #}
+</div>{# pane0 #}
+</div>{# hull #}
+</div></div>{# columns row #}
+
+</div>{# container #}
+{% endblock %}
