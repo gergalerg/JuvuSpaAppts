@@ -21,6 +21,8 @@ urlpatterns = patterns('',
     url(r'^iapi/', 'spasui.views.iapi', name='iapi'),
     url(r'^profile/', 'spasui.views.profile', name='profile'),
     url(r'^calendar/', 'spasui.views.calendar', name='calendar'),
+    url(r'^dashboard/', 'spasui.views.dashboard', name='dashboard'),
+    url(r'^dongle/', 'spasui.views.dongle', name='dongle'),
 
     # Rep's support site, apps.
     url(r'^repui/?$', 'repui.views.index', name='repui'),
