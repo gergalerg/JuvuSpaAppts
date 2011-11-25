@@ -105,27 +105,21 @@ $(function() {
 {% block title %}Dashboard - SpaStalker{% endblock %}
 {% block body %}
 <div class="container">
-
-<div class="row"><div class="twelve columns">
+<div class="row">
+<div class="twelve columns" style="float: none">{# The float setting here is to finesse a performance issue with the SVG response when float:left. #}
 <div id="hull" class="panel">
 
-  <h1 data-bind="text: current"></h1>
-  <p>
+    <h1 data-bind="text: current"></h1>
+    <p>
     ..dare worsted ladle gull hoe lift wetter murder inner
     ladle cordage, honor itch offer lodge dock florist. Disk ladle gull
     orphan worry ladle cluck wetter putty ladle rat hut, an fur disk
     raisin pimple colder Ladle Rat Rotten Hut.
-  </p>
+    </p>
+
+    <div id="show"></div>
 
 </div>{# hull #}
-
-</div></div>{# columns row #}
-<div class="row"><div class="twelve columns">
-
-  <div class="panel">
-    <div id="show"></div>
-  </div>
-
 </div></div>{# columns row #}
 </div>{# container #}
 {% endblock %}
