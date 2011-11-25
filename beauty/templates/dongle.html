@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block html_head %}
-<link rel="stylesheet/less" href="/static/dashboard.less" type="text/css">
+<link rel="stylesheet/less" href="/static/dongle.less" type="text/css">
 <script src="/static/js/less.js" type="text/javascript"></script>
 <script src="/static/js/jquery.tmpl.js" type="text/javascript"></script>
 <script src="/static/js/knockout-1.2.1.debug.js" type="text/javascript"></script>
@@ -8,140 +8,62 @@
 	@import url(http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700);
 	@import url(http://fonts.googleapis.com/css?family=Josefin+Sans:400,100|Istok+Web);
 </style>
-
-<script id="tile_template" type="text/x-jquery-tmpl">
-<div class="tile">
-    <a href="#" data-bind="text:name, click: make_current"></a>
-    <span data-bind="visible: extraCost">[!]</span>
-    <br>
-    <span class="clip" data-bind="text:description"></span>
-    <a href="#" class="clip" data-bind="click: remove">Remove</a>
-</div>
-</script>
-
-<script type="text/javascript">
-
-// See http://knockoutjs.com/documentation/custom-bindings.html
-ko.bindingHandlers.pagey = {
-    update: function(element, valueAccessor, allBindingsAccessor, viewModel) {
-        var delta = 0 - $(element).position().left;
-        console.log(delta, element, valueAccessor(), allBindingsAccessor(), viewModel);
-        // This will be called once when the binding is first applied to an element,
-        // and again whenever the associated observable changes value.
-        // Update the DOM element based on the supplied values here.
-    }
-};
-
-var StaffMember = function(options) {
-    this.name = options.name;
-    this.description = options.description;
-    this.extraCost = options.extraCost;
-
-    this.remove = function() {
-        viewModel.stuffs.remove(this);
-        if (viewModel.stuffs().length == 0) {
-            viewModel.current({});
-        }
-    }
-
-    this.make_current = function() {
-        viewModel.current(this);
-    }
-}
-
-var availableMeals = jQuery.map([      
-        { name: 'Billy', description: 'Dry crusts of bread', extraCost: 0 },
-        { name: 'Bob', description: 'Fresh bread with cheese', extraCost: 9.95 },
-        { name: 'Billy Jo Bob', description: 'Caviar and vintage Dr Pepper', extraCost: 18.50 },
-    ],
-    function(n, i){ return new StaffMember(n) });
-
-var viewModel = {
-    stuffs: ko.observableArray(availableMeals),
-    current: ko.observable(availableMeals[0]),
-
-    add_staff_member: function() {
-        var name = $("#staff_name").val();
-        if (name != "") {
-            var newbie = new StaffMember({
-                name: name,
-                description: 'Bananas and Peanutbutter',
-                extraCost: 0.25,
-            })
-            this.stuffs.push(newbie);
-            this.current(newbie);
-            $("#staff_name").val('');
-        } else {
-            $("#staff_name").effect('highlight');
-        }
-    },
-};
-
-$(function(){
-    ko.applyBindings(viewModel);
-    
-    $("button").button({
-        icons: {primary:'ui-icon-circle-plus'},
-        text: false,
-    }).click(function(){return false})
-
-    $("#hoo").hide();
-    $(".cake").hide();
-
-    $("#hoo").delay(300).fadeIn('slow', function(){
-        $("#aa").fadeIn('slow', function(){
-            $("#bb").fadeIn('slow', function(){
-            });
-        });
-    });
-
-});
-</script>
-
 {% endblock %}
 {% block title %}Dashboard - SpaStalker{% endblock %}
 {% block body %}
 <div class="container">
 
-  <div class="row"><div class="twelve columns">
-    <h1 id="logotype"><a href="/">SpaStalker</a></h1>
-  </div></div>{# columns row #}
-
 <div class="row"><div class="twelve columns">
-<div id="hull">
-<div id="pane0">
-<div class="row">
+<div id="hull" class="panel">
 
-  <div class="four columns"><div id="hoo" class="panel">
-    <h2>Staff</h2>
-    <p data-bind="template: {name:'tile_template', foreach: stuffs}"></p>
-    <form class="nice">
-      <button data-bind="click: add_staff_member">Add Staff Member</button>
-      <input id="staff_name" name="staff_name" class="input-text small" type="text" placeholder="Add Staff Member">
-    </form>
-  </div>{# hoo #}</div>
+  <h1>Wants pawn term, </h1>
+  <p>
+    ..dare worsted ladle gull hoe lift wetter murder inner
+    ladle cordage, honor itch offer lodge dock florist. Disk ladle gull
+    orphan worry ladle cluck wetter putty ladle rat hut, an fur disk
+    raisin pimple colder Ladle Rat Rotten Hut.
+  </p>
 
-  <div class="eight columns"><div id="boy">
-    <div class="row"><div class="twelve columns">
-      <div id="aa" class="panel cake">
-        <h3>Procedures</h3>
-        <p data-bind="text: current().name"></p>
-        <h3>Price</h3>
-        <p data-bind="text: current().extraCost"></p>
-      </div>{# panel #}
-    </div></div>{# columns row #}
-    <div class="row"><div class="twelve columns">
-      <div id="bb" class="panel cake">
-        <h3>Hours</h3>
-        <h3>Rate</h3>
-        <h3>Something Else...</h3>
-        <p data-bind="text: current().description"></p>
-      </div>{# panel #}
-    </div></div>{# columns row #}
-  </div>{# boy #}</div>
+  <h2>Vivamus Urna Justo</h2>
+  <p>
+A, venenatis eget orci. Aliquam tincidunt justo nec turpis luctus quis scelerisque tortor varius. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam in nibh urna, sed volutpat leo. Vestibulum sapien purus, pretium sed vulputate sit amet, aliquet et massa. Sed pulvinar, ligula et iaculis luctus, leo elit bibendum erat, sit amet tempus nunc diam eu sem. Duis iaculis fringilla leo, ac ullamcorper dolor ultrices et. Etiam bibendum auctor rutrum.
+  </p>
 
-</div>{# row #}
-</div>{# pane0 #}
+  <h3>Ut Tellus</h3>
+  <p>
+Quam, semper at rutrum ut, lobortis vehicula felis. Aliquam erat volutpat. Fusce iaculis, erat in vestibulum iaculis, sapien nulla gravida tortor, sit amet faucibus nulla turpis ornare eros. Donec quis leo justo, sit amet luctus nulla. Sed convallis urna elit. Morbi feugiat interdum mauris sit amet semper. Donec volutpat lacinia leo eu fermentum. In pretium placerat enim sit amet venenatis. Etiam mattis odio nec magna varius elementum. Vestibulum a quam non justo tincidunt placerat nec ut felis.
+  </p>
+
+  <h2>Fusce</h2>
+  <p>
+Vel sapien leo. Mauris eget felis sapien. Curabitur pulvinar velit non magna consectetur eu faucibus odio convallis. In quis sem ac sapien gravida auctor. Integer neque lorem, mattis a convallis vitae, iaculis eu mi. Quisque a enim tellus. Donec ac nisi at urna mattis lobortis. Nam a eros at elit rhoncus vestibulum. Sed faucibus dui leo, sed sollicitudin turpis. Nam vitae risus nec felis faucibus facilisis eget vel justo. Morbi ut lorem eu elit tempus vestibulum. Aliquam nec aliquet orci.
+  </p>
+
+  <h2>Praesent id Pulvinar Quam</h2>
+  <p>
+Curabitur eget eleifend nulla. Fusce dui velit, aliquet sit amet dictum non, lobortis egestas massa. Duis sit amet orci eget metus iaculis semper. Phasellus magna arcu, faucibus at ultrices eu, tempus vel mauris. Quisque tempus neque dolor, sit amet auctor tellus. Morbi in elit nibh, vitae ultrices enim. Sed a ligula sit amet sapien lobortis ultrices eu ac mi. Morbi et varius sem. Phasellus a dui vitae ipsum pretium blandit bibendum vitae tortor. Praesent bibendum neque in nisi posuere a interdum nulla tincidunt. Maecenas elit lacus, viverra quis vestibulum in, pretium vel urna. Quisque lobortis tempus eros in ornare. Mauris lorem est, placerat viverra aliquam congue, mollis sit amet metus. Praesent vitae velit in dolor porta mollis.
+  </p>
+
+  <h2>Aliquam H2</h2>
+  <h4>Erat Volutpat H4</h4>
+  <h5>Nam Facilisis Augue Sagittis H5</h5>
+  <h6>Libero Aliquet sed Sollicitudin est Consequat H6</h6>
+  <p>
+Vivamus dignissim pretium dapibus. Vestibulum cursus dignissim dui et fringilla. Fusce congue lacinia elementum. Donec vel varius justo. In hac habitasse platea dictumst. Mauris accumsan nibh a tellus lobortis sed condimentum sem tempor. Integer ligula ligula, mollis et dictum in, dapibus nec ante. Donec nunc turpis, malesuada vel vestibulum at, vulputate in mauris. Nulla id dui ante, ac semper massa. Ut lacinia mattis pellentesque. Duis non egestas lacus. Cras pretium pellentesque mollis. 
+  </p>
+  
+  <hr>
+
+  <h6 class="phat">Libero Aliquet sed Sollicitudin est Consequat</h6>
+  <p class="captiony">
+Vivamus dignissim pretium dapibus. Vestibulum cursus dignissim dui et fringilla. Fusce congue lacinia elementum. Donec vel varius justo. In hac habitasse platea dictumst. Mauris accumsan nibh a tellus lobortis sed condimentum sem tempor. Integer ligula ligula, mollis et dictum in, dapibus nec ante. Donec nunc turpis, malesuada vel vestibulum at, vulputate in mauris. Nulla id dui ante, ac semper massa. Ut lacinia mattis pellentesque. Duis non egestas lacus. Cras pretium pellentesque mollis. 
+  </p>
+
+  <h6 class="phat">Integer neque lorem, mattis a convallis vitae, iaculis eu mi</h6>
+  <p class="captiony">
+Quisque a enim tellus. Donec ac nisi at urna mattis lobortis. Nam a eros at elit rhoncus vestibulum. Sed faucibus dui leo, sed sollicitudin turpis. Nam vitae risus nec felis faucibus facilisis eget vel justo. Morbi ut lorem eu elit tempus vestibulum. Aliquam nec aliquet orci.
+  </p>
+
 </div>{# hull #}
 </div></div>{# columns row #}
 
