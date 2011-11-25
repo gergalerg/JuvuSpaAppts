@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^calendar/', 'spasui.views.calendar', name='calendar'),
     url(r'^dashboard/', 'spasui.views.dashboard', name='dashboard'),
     url(r'^dongle/', 'spasui.views.dongle', name='dongle'),
+    url(r'^rad/', 'spasui.views.rad', name='rad'),
 
     # Rep's support site, apps.
     url(r'^repui/?$', 'repui.views.index', name='repui'),

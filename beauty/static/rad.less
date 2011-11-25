@@ -1,0 +1,30 @@
+@fg: #787D78;
+
+@title_font: 'Josefin Sans', sans-serif;
+@body_font: 'Istok Web', serif;
+
+#hull {
+    color: @fg;
+    font-family: @body_font;
+}
+
+.title {
+    font-family: @title_font;
+    font-weight: 100;
+    color: black;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    .title;
+}
+
+h3.phat, h4.phat, h5.phat, h6.phat {
+    .title;
+    font-weight: 400;
+}
+
+p.captiony {
+    font-size: smaller;
+    font-family: @body_font;
+    line-height: 1.25em;
+}
