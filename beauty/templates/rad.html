@@ -24,7 +24,7 @@ $(function() {
         var the_month = circles.filter(in_month);
 
         the_month.transition()
-            .delay(function(d) { return 150 + 250 * Math.random() })
+            .delay(function(d) { return 75 * Math.random() })
             .duration(function(d) { return 1500 + (500 * Math.random()) })
             .attr("cx", function(d) { return xm(d.day_of_week) })
             .attr("cy", function(d) { return ym(d.week_of_year - months_week) })
@@ -43,7 +43,7 @@ $(function() {
         .duration(1200)
         .attr("fill-opacity", 0)
       .transition()
-        .delay(function(d) { return 250 * Math.random() })
+        .delay(function(d) { return 680 * Math.random() })
         .attr("cy", h * 2)
         .ease("quad");
     }
@@ -101,8 +101,9 @@ $(function() {
     var year = d3.time.days(new Date(2011, 0, 1), new Date(2012, 0, 1));
 
     var h = 250, w = 1024;
+    var x0 = 10, x1 = 914;
 
-    var x = d3.scale.linear().domain([0,53]).range([10, 914]),
+    var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
         y = d3.scale.linear().domain([0,7]).range([20,h]),
         r = d3.scale.linear().domain([0,1]).range([5,10]),
         r_med = d3.scale.linear().domain([0,1]).range([15,30]),
@@ -144,7 +145,7 @@ $(function() {
         .attr("r", function() { return r(Math.random()) })
 		.on("mouseover", viewModel.pointing_at)
 		.on("mouseout", viewModel.unpointing_at)
-		.on("click", select_month_from_day);
+		.on("click", viewModel.select_day);
 
 // Animate color cycle at three minutes per complete rainbow. ;)
 
