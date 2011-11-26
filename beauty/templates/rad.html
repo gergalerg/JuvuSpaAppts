@@ -14,8 +14,49 @@
 
 $(function() {
 
+    function shrink(T) { T
+	    .attr("r", function() { return r(Math.random()) })
+	    .delay(100)
+	    .duration(333)
+    }
+
     var viewModel = {
-        current: ko.observable("Wants Pawn Term, "),
+        current: ko.observable(""),
+        pointed_at: ko.observable("Wants Pawn Term, "),
+
+        pointing_at: function(d) {
+		    viewModel.pointed_at(d.label);
+			d3.select(this).transition()
+				.attr("r", function() {
+				    return (viewModel.current() != d.label)
+				        ? r_med(Math.random())
+				        : r_big(Math.random());
+				})
+				.duration(2500)
+				.ease("elastic", 3, 0.3);
+		},
+
+        unpointing_at: function(d) {
+            var c = viewModel.current();
+            viewModel.pointed_at((c != "") ? c : "Select Date");
+            if (c != d.label) { // Don't shrink current day.
+			    d3.select(this).transition().call(shrink);
+            }
+		},
+
+		select_day: function(d) {
+            var c = viewModel.current();
+		    if (c != "") { // Shrink previous current day.
+		        d3.selectAll("circle")
+		            .filter(function(dd, i) { return (c == dd.label) })
+    		        .transition().call(shrink);
+		    }
+		    viewModel.current(d.label);
+		    d3.selectAll("circle") // Enlarge current day.
+		        .filter(function(dd, i) { return (d == dd) })
+		        .transition()
+		        .attr("r", function() { return r_big(Math.random()) })
+		},
     };
 
     var day = d3.time.format("%w"),
@@ -30,6 +71,7 @@ $(function() {
     var x = d3.scale.linear().domain([0,53]).range([10, 914]),
         y = d3.scale.linear().domain([0,7]).range([20,h]),
         r = d3.scale.linear().domain([0,1]).range([5,10]),
+        r_med = d3.scale.linear().domain([0,1]).range([15,30]),
         r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
         c0 = d3.scale.linear().domain([0,1]).range(
             ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
@@ -71,44 +113,10 @@ $(function() {
             return (month(d.date) % 2 == 0) ? c1(Math.random()) : c0(Math.random());
         })
         .attr("fill-opacity", .5)
-//        .attr("visibility", "hidden")
         .attr("r", function() { return r(Math.random()) })
-		.on("mouseover", function(d) {
-		    viewModel.current(d.label);
-			d3.select(this).transition()
-				.attr("r", function() { return r(Math.random()) * 3 })
-				.delay(0)
-				.duration(2500)
-				.ease("elastic", 3, 0.3)
-		}).on("mouseout", function(d) {
-		    viewModel.current("Select Date");
-			d3.select(this).transition()
-				.attr("r", function() { return r(Math.random()) })
-				.delay(100)
-				.duration(333)
-		}).on("click", function(d) {
-	        var m = month(d.date);
-	        var the_month = d3.selectAll("circle").filter(function(d, i) { return (month(d.date) == m) });
-	        var base_week = week(new Date(2011, +m, 1)); // week_of_year
-
-	        the_month.transition()
-                .delay(function(d) { return 150 + 250 * Math.random() })
-                .duration(function(d) { return 1500 + (500 * Math.random()) })
-                .attr("cx", function(d) { return xm(d.day_of_week) })
-                .attr("cy", function(d) { return ym(d.week_of_year - base_week) })
-				.attr("r", function() { return r_big(Math.random()) });
-
-			d3.selectAll("circle")
-			    .filter(function(d, i) { return (month(d.date) != m) })
-              .transition()
-                .duration(1200)
-                .attr("fill-opacity", 0)
-                .remove()
-              .transition()
-			    .delay(function(d) { return 250 * Math.random() })
-                .attr("cy", h * 2)
-                .ease("quad");
-	    });
+		.on("mouseover", viewModel.pointing_at)
+		.on("mouseout", viewModel.unpointing_at)
+		.on("click", viewModel.select_day);
 
     function crambery() {
         window.setTimeout(crambery, 180000);
@@ -134,7 +142,7 @@ $(function() {
 <div class="twelve columns" style="float: none">{# The float setting here is to finesse a performance issue with the SVG response when float:left. #}
 <div id="hull" class="panel">
 
-    <h1 data-bind="text: current"></h1>
+    <h1 data-bind="text: pointed_at"></h1>
     <p>Glide your mouse over the circles below to find a date, then click to 
     make that date the current date. ..dare worsted ladle gull hoe lift
     wetter murder inner ladle cordage, honor itch offer lodge dock florist.
