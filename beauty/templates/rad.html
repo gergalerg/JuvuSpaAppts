@@ -21,16 +21,11 @@ $(function() {
     var day = d3.time.format("%w"),
         week = d3.time.format("%U"),
         month = d3.time.format("%m"),
-        percent = d3.format(".1%"),
         format = d3.time.format("%A, %B %d %Y");
-
-    var color = d3.scale.quantize()
-        .domain([-.05, .05])
-        .range(d3.range(9));
 
     var year = d3.time.days(new Date(2011, 0, 1), new Date(2012, 0, 1));
 
-    var h = 250, z = 10;
+    var h = 250, w = 1024;
 
     var x = d3.scale.linear().domain([0,53]).range([10, 914]),
         y = d3.scale.linear().domain([0,7]).range([20,h]),
@@ -42,9 +37,9 @@ $(function() {
             ["hsl(150, 50%, 50%)", "hsl(250, 100%, 50%)"]
             ).interpolate(d3.interpolateHsl);
 
-    var y2 = d3.scale.linear().domain([0,7]).range([h/2 - 20, h/2 + 20]);
-
-    var rday = d3.scale.linear().domain([0,1]).range([0,7]);
+        c2 = d3.scale.linear().domain([0,11]).range(
+            ["hsl(0, 50%, 90%)", "hsl(360, 50%, 90%)"]
+            ).interpolate(d3.interpolateHsl);
 
     var data = jQuery.map(year,
         function(d, i){
@@ -59,7 +54,7 @@ $(function() {
 
     var vis = d3.select("#show")
         .append("svg:svg")
-        .attr("width", 1024)
+        .attr("width", w)
         .attr("height", 2.6 * h);
 
     vis.selectAll("circle")
@@ -69,10 +64,7 @@ $(function() {
         .attr("cy", function(d) { return y(d.y) })
         .attr("stroke-width", "none")
         .attr("fill", function(d) {
-            if (month(d.date) % 2 == 0) {
-                return c1(Math.random());
-            }
-            return c0(Math.random());
+            return (month(d.date) % 2 == 0) ? c1(Math.random()) : c0(Math.random());
         })
         .attr("fill-opacity", .5)
 //        .attr("visibility", "hidden")
@@ -91,11 +83,18 @@ $(function() {
 				.delay(100)
 				.duration(333)
 		});
-/*
-    d3.select("body").transition()
-        .duration(7500)
-        .style("background-color", "blue");
-*/
+
+    function crambery() {
+        window.setTimeout(crambery, 180000);
+        for (var i = 0; i < 12; i++) {
+            d3.select("body").transition()
+                .delay(15000 * i)
+                .duration(15000)
+                .style("background-color", c2(i));
+        }
+    }
+    crambery();
+
     ko.applyBindings(viewModel);
 
 });
@@ -110,12 +109,11 @@ $(function() {
 <div id="hull" class="panel">
 
     <h1 data-bind="text: current"></h1>
-    <p>
-    ..dare worsted ladle gull hoe lift wetter murder inner
-    ladle cordage, honor itch offer lodge dock florist. Disk ladle gull
-    orphan worry ladle cluck wetter putty ladle rat hut, an fur disk
-    raisin pimple colder Ladle Rat Rotten Hut.
-    </p>
+    <p>Glide your mouse over the circles below to find a date, then click to 
+    make that date the current date. ..dare worsted ladle gull hoe lift
+    wetter murder inner ladle cordage, honor itch offer lodge dock florist.
+    Disk ladle gull orphan worry ladle cluck wetter putty ladle rat hut, an
+    fur disk raisin pimple colder Ladle Rat Rotten Hut.</p>
 
     <div id="show"></div>
 
