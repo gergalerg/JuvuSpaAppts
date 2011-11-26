@@ -30,6 +30,7 @@ $(function() {
     var x = d3.scale.linear().domain([0,53]).range([10, 914]),
         y = d3.scale.linear().domain([0,7]).range([20,h]),
         r = d3.scale.linear().domain([0,1]).range([5,10]),
+        r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
         c0 = d3.scale.linear().domain([0,1]).range(
             ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
             ).interpolate(d3.interpolateHsl);
@@ -37,15 +38,18 @@ $(function() {
             ["hsl(150, 50%, 50%)", "hsl(250, 100%, 50%)"]
             ).interpolate(d3.interpolateHsl);
 
-        c2 = d3.scale.linear().domain([0,11]).range(
+    var c2 = d3.scale.linear().domain([0,11]).range(
             ["hsl(0, 50%, 90%)", "hsl(360, 50%, 90%)"]
             ).interpolate(d3.interpolateHsl);
+
+    var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
+        ym = d3.scale.linear().domain([0,4]).range([20 + h, h * 2]);
 
     var data = jQuery.map(year,
         function(d, i){
             return {
-                "x": week(d),
-                "y": day(d),
+                "week_of_year": week(d),
+                "day_of_week": day(d),
                 "label": format(d),
                 "date": d,
             }
@@ -60,8 +64,8 @@ $(function() {
     vis.selectAll("circle")
         .data(data)
         .enter().append("svg:circle")
-        .attr("cx", function(d) { return x(d.x) })
-        .attr("cy", function(d) { return y(d.y) })
+        .attr("cx", function(d) { return x(d.week_of_year) })
+        .attr("cy", function(d) { return y(d.day_of_week) })
         .attr("stroke-width", "none")
         .attr("fill", function(d) {
             return (month(d.date) % 2 == 0) ? c1(Math.random()) : c0(Math.random());
@@ -82,7 +86,23 @@ $(function() {
 				.attr("r", function() { return r(Math.random()) })
 				.delay(100)
 				.duration(333)
-		});
+		}).on("click", function(d) {
+	        var m = month(d.date);
+	        var the_month = d3.selectAll("circle").filter(function(d, i) { return (month(d.date) == m) });
+	        var base_week = week(new Date(2011, +m, 1)); // week_of_year
+	        console.log(m, base_week);
+
+	        the_month.transition()
+                .duration(2000)
+                .attr("cx", function(d) { return xm(d.day_of_week) })
+                .attr("cy", function(d) { return ym(d.week_of_year - base_week) })
+				.attr("r", function() { return r_big(Math.random()) });
+
+			d3.selectAll("circle")
+			    .filter(function(d, i) { return (month(d.date) != m) })
+                .duration(2000)
+			    .attr("visibility", "hidden");
+	    });
 
     function crambery() {
         window.setTimeout(crambery, 180000);
