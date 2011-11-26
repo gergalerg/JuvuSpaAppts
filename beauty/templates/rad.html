@@ -80,23 +80,17 @@ $(function() {
             ["hsl(150, 50%, 50%)", "hsl(250, 100%, 50%)"]
             ).interpolate(d3.interpolateHsl);
 
-    var c2 = d3.scale.linear().domain([0,11]).range(
-            ["hsl(0, 50%, 90%)", "hsl(360, 50%, 90%)"]
-            ).interpolate(d3.interpolateHsl);
-
     var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
         ym = d3.scale.linear().domain([0,4]).range([100 + h, h * 2.4]);
 
-    var data = jQuery.map(year,
-        function(d, i){
-            return {
-                "week_of_year": week(d),
-                "day_of_week": day(d),
-                "label": format(d),
-                "date": d,
-            }
+    var data = jQuery.map(year, function(d, i) {
+        return {
+            "week_of_year": week(d),
+            "day_of_week": day(d),
+            "label": format(d),
+            "date": d,
         }
-    );
+    });
 
     var vis = d3.select("#show")
         .append("svg:svg")
@@ -118,16 +112,22 @@ $(function() {
 		.on("mouseout", viewModel.unpointing_at)
 		.on("click", viewModel.select_day);
 
-    function crambery() {
-        window.setTimeout(crambery, 180000);
+// Animate color cycle at three minutes per complete rainbow. ;)
+
+    var cram_color = d3.scale.linear().domain([0,11]).range(
+            ["hsl(0, 50%, 90%)", "hsl(360, 50%, 90%)"]
+            ).interpolate(d3.interpolateHsl);
+
+    function crambery(minutes) {
+        window.setTimeout(crambery, 60000 * minutes, minutes);
         for (var i = 0; i < 12; i++) {
             d3.select("body").transition()
-                .delay(15000 * i)
-                .duration(15000)
-                .style("background-color", c2(i));
+                .delay(minutes * 5000 * i)
+                .duration(minutes * 5000)
+                .style("background-color", cram_color(i));
         }
     }
-    crambery();
+    crambery(3);
 
     ko.applyBindings(viewModel);
 
@@ -143,11 +143,8 @@ $(function() {
 <div id="hull" class="panel">
 
     <h1 data-bind="text: pointed_at"></h1>
-    <p>Glide your mouse over the circles below to find a date, then click to 
-    make that date the current date. ..dare worsted ladle gull hoe lift
-    wetter murder inner ladle cordage, honor itch offer lodge dock florist.
-    Disk ladle gull orphan worry ladle cluck wetter putty ladle rat hut, an
-    fur disk raisin pimple colder Ladle Rat Rotten Hut.</p>
+    <p>Glide your mouse over the circles below to find a date, then click on
+    it to make that date the current date.</p>
 
     <div id="show"></div>
 
