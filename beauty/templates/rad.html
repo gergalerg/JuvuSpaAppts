@@ -14,6 +14,40 @@
 
 $(function() {
 
+    function select_month_from_day(d) {
+        var m = month(d.date);
+        var months_week = week(new Date(2011, +m, 1));
+        function in_month(datum) {
+            return month(datum.date) == m;
+        }
+        var circles = d3.selectAll("circle");
+        var the_month = circles.filter(in_month);
+
+        the_month.transition()
+            .delay(function(d) { return 150 + 250 * Math.random() })
+            .duration(function(d) { return 1500 + (500 * Math.random()) })
+            .attr("cx", function(d) { return xm(d.day_of_week) })
+            .attr("cy", function(d) { return ym(d.week_of_year - months_week) })
+		    .attr("r", function() { return r_big(Math.random()) });
+
+        clear_unmatching(circles, in_month, fade_drop);
+    }
+
+    function clear_unmatching(selection, predicate, effect) {
+        selection.filter(function(d) { return !predicate(d) })
+            .transition().call(effect)
+            .remove();
+    }
+
+    function fade_drop(T) { T
+        .duration(1200)
+        .attr("fill-opacity", 0)
+      .transition()
+        .delay(function(d) { return 250 * Math.random() })
+        .attr("cy", h * 2)
+        .ease("quad");
+    }
+
     function shrink(T) { T
 	    .attr("r", function() { return r(Math.random()) })
 	    .delay(100)
@@ -110,7 +144,7 @@ $(function() {
         .attr("r", function() { return r(Math.random()) })
 		.on("mouseover", viewModel.pointing_at)
 		.on("mouseout", viewModel.unpointing_at)
-		.on("click", viewModel.select_day);
+		.on("click", select_month_from_day);
 
 // Animate color cycle at three minutes per complete rainbow. ;)
 
