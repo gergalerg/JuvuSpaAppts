@@ -43,7 +43,7 @@ $(function() {
             ).interpolate(d3.interpolateHsl);
 
     var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
-        ym = d3.scale.linear().domain([0,4]).range([20 + h, h * 2]);
+        ym = d3.scale.linear().domain([0,4]).range([100 + h, h * 2.4]);
 
     var data = jQuery.map(year,
         function(d, i){
@@ -79,7 +79,7 @@ $(function() {
 				.attr("r", function() { return r(Math.random()) * 3 })
 				.delay(0)
 				.duration(2500)
-				.ease("elastic", 3, .3)
+				.ease("elastic", 3, 0.3)
 		}).on("mouseout", function(d) {
 		    viewModel.current("Select Date");
 			d3.select(this).transition()
@@ -90,18 +90,24 @@ $(function() {
 	        var m = month(d.date);
 	        var the_month = d3.selectAll("circle").filter(function(d, i) { return (month(d.date) == m) });
 	        var base_week = week(new Date(2011, +m, 1)); // week_of_year
-	        console.log(m, base_week);
 
 	        the_month.transition()
-                .duration(2000)
+                .delay(function(d) { return 150 + 250 * Math.random() })
+                .duration(function(d) { return 1500 + (500 * Math.random()) })
                 .attr("cx", function(d) { return xm(d.day_of_week) })
                 .attr("cy", function(d) { return ym(d.week_of_year - base_week) })
 				.attr("r", function() { return r_big(Math.random()) });
 
 			d3.selectAll("circle")
 			    .filter(function(d, i) { return (month(d.date) != m) })
-                .duration(2000)
-			    .attr("visibility", "hidden");
+              .transition()
+                .duration(1200)
+                .attr("fill-opacity", 0)
+                .remove()
+              .transition()
+			    .delay(function(d) { return 250 * Math.random() })
+                .attr("cy", h * 2)
+                .ease("quad");
 	    });
 
     function crambery() {
