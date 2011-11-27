@@ -12,123 +12,146 @@
 </style>
 <script type="text/javascript">
 
-$(function() {
+function select_month_from_day(d) {
+    select_month(month(d.date));
+}
 
-    function select_month_from_day(d) {
-        select_month(month(d.date));
-    }
+function select_month(m) {
+    var first_day = new Date(2011, +m, 1);
+    console.log(first_day);
+    var months_week = week(first_day);
+    function in_month(d) { return month(d.date) == m }
+    var circles = d3.selectAll("circle");
+    var the_month = circles.filter(in_month);
 
-    function select_month(m) {
-        var months_week = week(new Date(2011, +m, 1));
-        function in_month(d) { return month(d.date) == m }
-        var circles = d3.selectAll("circle");
-        var the_month = circles.filter(in_month);
+    the_month.transition()
+        .delay(function(d) { return 75 * Math.random() })
+        .duration(function(d) { return 1500 + (500 * Math.random()) })
+        .attr("cx", function(d) { return xm(d.day_of_week) })
+        .attr("cy", function(d) {
+            console.log(m, d.week_of_year, months_week, (d.week_of_year - months_week));
+            return ym(d.week_of_year - months_week);
+        })
+        .attr("r", function() { return r_big(Math.random()) });
 
-        the_month.transition()
-            .delay(function(d) { return 75 * Math.random() })
-            .duration(function(d) { return 1500 + (500 * Math.random()) })
-            .attr("cx", function(d) { return xm(d.day_of_week) })
-            .attr("cy", function(d) { return ym(d.week_of_year - months_week) })
-            .attr("r", function() { return r_big(Math.random()) });
+    clear_unmatching(circles, in_month, fade_drop);
+}
 
-        clear_unmatching(circles, in_month, fade_drop);
-    }
+function clear_unmatching(selection, predicate, effect) {
+    selection.filter(function(d) { return !predicate(d) })
+        .transition().call(effect)
+        .remove();
+}
 
-    function clear_unmatching(selection, predicate, effect) {
-        selection.filter(function(d) { return !predicate(d) })
-            .transition().call(effect)
-            .remove();
-    }
+function fade_drop(T) { T
+    .duration(1200)
+    .attr("fill-opacity", 0)
+  .transition()
+    .delay(function(d) { return 680 * Math.random() })
+    .attr("cy", h * 2)
+    .ease("quad");
+}
 
-    function fade_drop(T) { T
-        .duration(1200)
-        .attr("fill-opacity", 0)
-      .transition()
-        .delay(function(d) { return 680 * Math.random() })
-        .attr("cy", h * 2)
-        .ease("quad");
-    }
+function shrink(T) { T
+    .attr("r", function() { return r(Math.random()) })
+    .delay(100)
+    .duration(333)
+}
 
-    function shrink(T) { T
-	    .attr("r", function() { return r(Math.random()) })
-	    .delay(100)
-	    .duration(333)
-    }
+var viewModel = {
+    current: ko.observable(""),
+    pointed_at: ko.observable("Wants Pawn Term, "),
 
-    var viewModel = {
-        current: ko.observable(""),
-        pointed_at: ko.observable("Wants Pawn Term, "),
+    pointing_at: function(d) {
+	    viewModel.pointed_at(d.label);
+		d3.select(this).transition()
+			.attr("r", function() {
+			    return (viewModel.current() != d.label)
+			        ? r_med(Math.random())
+			        : r_big(Math.random());
+			})
+			.duration(2500)
+			.ease("elastic", 3, 0.3);
+	},
 
-        pointing_at: function(d) {
-		    viewModel.pointed_at(d.label);
-			d3.select(this).transition()
-				.attr("r", function() {
-				    return (viewModel.current() != d.label)
-				        ? r_med(Math.random())
-				        : r_big(Math.random());
-				})
-				.duration(2500)
-				.ease("elastic", 3, 0.3);
-		},
-
-        unpointing_at: function(d) {
-            var c = viewModel.current();
-            viewModel.pointed_at((c != "") ? c : "Select Date");
-            if (c != d.label) { // Don't shrink current day.
-			    d3.select(this).transition().call(shrink);
-            }
-		},
-
-		select_day: function(d) {
-            var c = viewModel.current();
-		    if (c != "") { // Shrink previous current day.
-		        d3.selectAll("circle")
-		            .filter(function(dd, i) { return (c == dd.label) })
-    		        .transition().call(shrink);
-		    }
-		    viewModel.current(d.label);
-		    d3.selectAll("circle") // Enlarge current day.
-		        .filter(function(dd, i) { return (d == dd) })
-		        .transition()
-		        .attr("r", function() { return r_big(Math.random()) })
-		},
-    };
-
-    var day = d3.time.format("%w"),
-        week = d3.time.format("%U"),
-        month = d3.time.format("%m"),
-        format = d3.time.format("%A, %B %d %Y");
-
-    var year = d3.time.days(new Date(2011, 0, 1), new Date(2012, 0, 1));
-
-    var h = 250, w = 1024;
-    var x0 = 10, x1 = 914;
-
-    var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
-        y = d3.scale.linear().domain([0,7]).range([20,h]),
-        r = d3.scale.linear().domain([0,1]).range([5,10]),
-        r_med = d3.scale.linear().domain([0,1]).range([15,30]),
-        r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
-        c0 = d3.scale.linear().domain([0,1]).range(
-            ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
-            ).interpolate(d3.interpolateHsl);
-        c1 = d3.scale.linear().domain([0,1]).range(
-            ["hsl(150, 50%, 50%)", "hsl(250, 100%, 50%)"]
-            ).interpolate(d3.interpolateHsl);
-
-    var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
-        ym = d3.scale.linear().domain([0,4]).range([100 + h, h * 2.4]);
-
-    var xmselector = d3.scale.linear().domain([0,11]).range([x0, x1]);
-
-    var data = jQuery.map(year, function(d, i) {
-        return {
-            "week_of_year": week(d),
-            "day_of_week": day(d),
-            "label": format(d),
-            "date": d,
+    unpointing_at: function(d) {
+        var c = viewModel.current();
+        viewModel.pointed_at((c != "") ? c : "Select Date");
+        if (c != d.label) { // Don't shrink current day.
+		    d3.select(this).transition().call(shrink);
         }
-    });
+	},
+
+	select_day: function(d) {
+        var c = viewModel.current();
+	    if (c != "") { // Shrink previous current day.
+	        d3.selectAll("circle")
+	            .filter(function(dd, i) { return (c == dd.label) })
+		        .transition().call(shrink);
+	    }
+	    viewModel.current(d.label);
+	    d3.selectAll("circle") // Enlarge current day.
+	        .filter(function(dd, i) { return (d == dd) })
+	        .transition()
+	        .attr("r", function() { return r_big(Math.random()) })
+	},
+};
+
+var day = d3.time.format("%w"),
+    week = d3.time.format("%U"),
+    _month = d3.time.format("%m"),
+    format = d3.time.format("%A, %B %d %Y");
+
+function month(d) { return _month(d) - 1 }
+
+var year = d3.time.days(new Date(2011, 0, 1), new Date(2012, 0, 1));
+
+var h = 250, w = 1024;
+var x0 = 10, x1 = 914;
+
+var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
+    y = d3.scale.linear().domain([0,7]).range([20,h]),
+    r = d3.scale.linear().domain([0,1]).range([5,10]),
+    r_med = d3.scale.linear().domain([0,1]).range([15,30]),
+    r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
+    c0 = d3.scale.linear().domain([0,1]).range(
+        ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
+        ).interpolate(d3.interpolateHsl);
+    c1 = d3.scale.linear().domain([0,1]).range(
+        ["hsl(150, 50%, 50%)", "hsl(250, 100%, 50%)"]
+        ).interpolate(d3.interpolateHsl);
+
+var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
+    ym = d3.scale.linear().domain([0,4]).range([45, h * 1.618]);
+
+var xmselector = d3.scale.linear().domain([1, 12]).range([x0, x1]);
+
+var data = jQuery.map(year, function(d, i) {
+    return {
+        "week_of_year": week(d),
+        "day_of_week": day(d),
+        "label": format(d),
+        "date": d,
+    }
+});
+
+// Animate color cycle at three minutes per complete rainbow. ;)
+
+var cram_color = d3.scale.linear().domain([0,11]).range(
+        ["hsl(0, 50%, 90%)", "hsl(360, 50%, 90%)"]
+        ).interpolate(d3.interpolateHsl);
+
+function crambery(minutes) {
+    window.setTimeout(crambery, 60000 * minutes, minutes);
+    for (var i = 0; i < 12; i++) {
+        d3.select("body").transition()
+            .delay(minutes * 5000 * i)
+            .duration(minutes * 5000)
+            .style("background-color", cram_color(i));
+    }
+}
+
+$(function() {
 
     var vis = d3.select("#show")
         .append("svg:svg")
@@ -150,21 +173,6 @@ $(function() {
 		.on("mouseout", viewModel.unpointing_at)
 		.on("click", select_month_from_day);
 
-// Animate color cycle at three minutes per complete rainbow. ;)
-
-    var cram_color = d3.scale.linear().domain([0,11]).range(
-            ["hsl(0, 50%, 90%)", "hsl(360, 50%, 90%)"]
-            ).interpolate(d3.interpolateHsl);
-
-    function crambery(minutes) {
-        window.setTimeout(crambery, 60000 * minutes, minutes);
-        for (var i = 0; i < 12; i++) {
-            d3.select("body").transition()
-                .delay(minutes * 5000 * i)
-                .duration(minutes * 5000)
-                .style("background-color", cram_color(i));
-        }
-    }
     crambery(3);
 
     ko.applyBindings(viewModel);
@@ -185,6 +193,19 @@ $(function() {
     it to make that date the current date.</p>
 
     <div id="show"></div>
+
+<a href="#" data-bind="click: function() { select_month(0) }">Jan</a>
+<a href="#" data-bind="click: function() { select_month(1) }">Feb</a>
+<a href="#" data-bind="click: function() { select_month(2) }">Mar</a>
+<a href="#" data-bind="click: function() { select_month(3) }">Apr</a>
+<a href="#" data-bind="click: function() { select_month(4) }">May</a>
+<a href="#" data-bind="click: function() { select_month(5) }">June</a>
+<a href="#" data-bind="click: function() { select_month(6) }">July</a>
+<a href="#" data-bind="click: function() { select_month(7) }">Aug</a>
+<a href="#" data-bind="click: function() { select_month(8) }">Sept</a>
+<a href="#" data-bind="click: function() { select_month(9) }">Oct</a>
+<a href="#" data-bind="click: function() { select_month(10) }">Nov</a>
+<a href="#" data-bind="click: function() { select_month(11) }">Dec</a>
 
 </div>{# hull #}
 </div></div>{# columns row #}
