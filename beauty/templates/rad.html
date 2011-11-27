@@ -109,16 +109,18 @@ var viewModel = {
 
 	select_day: function(d) {
         var c = viewModel.current();
-	    if (c != "") { // Shrink previous current day.
-	        d3.selectAll("circle")
-	            .filter(function(dd, i) { return (c == dd.label) })
-		        .transition().call(shrink);
+	    if (c != d.label) {
+	        if (c != "") { // Shrink previous current day.
+	            d3.selectAll("circle")
+	                .filter(function(dd, i) { return (c == dd.label) })
+		            .transition().call(shrink);
+	        }
+	        // Enlarge current day.
+	        viewModel.current(d.label);
+	        d3.selectAll(this)
+	            .transition()
+	            .attr("r", function() { return r_big(Math.random()) })
 	    }
-	    viewModel.current(d.label);
-	    d3.selectAll("circle") // Enlarge current day.
-	        .filter(function(dd, i) { return (d == dd) })
-	        .transition()
-	        .attr("r", function() { return r_big(Math.random()) })
 	},
 };
 
