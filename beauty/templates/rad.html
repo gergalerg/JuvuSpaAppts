@@ -15,6 +15,7 @@
 function select_year() {
     d3.selectAll("circle")
         .transition()
+        .delay(function(d) { return 230 * Math.random() })
         .duration(1200)
         .call(year_style);
 }
@@ -53,6 +54,7 @@ function fade_drop(T) { T
     .attr("fill-opacity", 0.01)
   .transition()
     .delay(function(d) { return 680 * Math.random() })
+    .attr("cx", function(d) { return x(d.week_of_year) })
     .attr("cy", h * 2)
     .ease("quad");
 }
@@ -228,24 +230,25 @@ $(function() {
 <div id="hull" class="panel">
 
     <h1 data-bind="text: pointed_at"></h1>
-    <p>Glide your mouse over the circles below to find a date, then click on
-    it to make that date the current date.</p>
+    <a href="#" data-bind="click: select_year">2011</a> |
+    <a href="#" data-bind="click: function() { select_month(0) }">Jan</a>
+    <a href="#" data-bind="click: function() { select_month(1) }">Feb</a>
+    <a href="#" data-bind="click: function() { select_month(2) }">Mar</a>
+    <a href="#" data-bind="click: function() { select_month(3) }">Apr</a>
+    <a href="#" data-bind="click: function() { select_month(4) }">May</a>
+    <a href="#" data-bind="click: function() { select_month(5) }">June</a>
+    <a href="#" data-bind="click: function() { select_month(6) }">July</a>
+    <a href="#" data-bind="click: function() { select_month(7) }">Aug</a>
+    <a href="#" data-bind="click: function() { select_month(8) }">Sept</a>
+    <a href="#" data-bind="click: function() { select_month(9) }">Oct</a>
+    <a href="#" data-bind="click: function() { select_month(10) }">Nov</a>
+    <a href="#" data-bind="click: function() { select_month(11) }">Dec</a>
+    <p>
+    Glide your mouse over the circles below to find a date, then click on
+    it to make that date the current date.
+    </p>
 
     <div id="show"></div>
-
-<a href="#" data-bind="click: select_year">2011</a> |
-<a href="#" data-bind="click: function() { select_month(0) }">Jan</a>
-<a href="#" data-bind="click: function() { select_month(1) }">Feb</a>
-<a href="#" data-bind="click: function() { select_month(2) }">Mar</a>
-<a href="#" data-bind="click: function() { select_month(3) }">Apr</a>
-<a href="#" data-bind="click: function() { select_month(4) }">May</a>
-<a href="#" data-bind="click: function() { select_month(5) }">June</a>
-<a href="#" data-bind="click: function() { select_month(6) }">July</a>
-<a href="#" data-bind="click: function() { select_month(7) }">Aug</a>
-<a href="#" data-bind="click: function() { select_month(8) }">Sept</a>
-<a href="#" data-bind="click: function() { select_month(9) }">Oct</a>
-<a href="#" data-bind="click: function() { select_month(10) }">Nov</a>
-<a href="#" data-bind="click: function() { select_month(11) }">Dec</a>
 
 </div>{# hull #}
 </div></div>{# columns row #}
