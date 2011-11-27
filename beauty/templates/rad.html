@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block html_head %}
+<script type="text/javascript" src="/static/js/bbone/underscore.js"></script>
+<script type="text/javascript" src="/static/js/bbone/backbone.js"></script>
 <script type="text/javascript" src="/static/js/d3/d3.js"></script>
 <script type="text/javascript" src="/static/js/d3/d3.time.js"></script>
 <link rel="stylesheet/less" href="/static/rad.less" type="text/css">
@@ -12,16 +14,67 @@
 </style>
 <script type="text/javascript">
 
+//-------------------------------------------------------
+// Date Formatting and Scales.
+//
+
+var day = d3.time.format("%w"),
+    week = d3.time.format("%U"),
+    _month = d3.time.format("%m"),
+    format = d3.time.format("%A, %B %d %Y");
+
+function month(d) { return _month(d) - 1 }
+
+var h = 250, w = 1024;
+var x0 = 10, x1 = 914;
+
+var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
+    y = d3.scale.linear().domain([0,7]).range([20,h]),
+
+    r = d3.scale.linear().domain([0,1]).range([5,10]),
+    r_med = d3.scale.linear().domain([0,1]).range([15,30]),
+    r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
+
+    c0 = d3.scale.linear().domain([0,1]).range(
+        ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
+        ).interpolate(d3.interpolateHsl);
+    c1 = d3.scale.linear().domain([0,1]).range(
+        ["hsl(150, 50%, 50%)", "hsl(250, 100%, 50%)"]
+        ).interpolate(d3.interpolateHsl);
+
+var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
+    ym = d3.scale.linear().domain([0,4]).range([45, h * 1.618]);
+
+var xmselector = d3.scale.linear().domain([1, 12]).range([x0, x1]);
+
+//-------------------------------------------------------
+// Teh Year Data.
+//
+
+var year = d3.time.days(new Date(2011, 0, 1), new Date(2012, 0, 1));
+var data = jQuery.map(year, function(d, i) {
+    var datum = {
+        "month": month(d),
+        "week_of_year": week(d),
+        "day_of_week": day(d),
+        "label": format(d),
+        "date": d,
+    };
+    var months_week = week(new Date(2011, datum.month, 1));
+    datum.week_of_month = datum.week_of_year - months_week;
+    return datum;
+});
+
+//-------------------------------------------------------
+// Arrange day-circles in various interesting patterns.
+//
+
 function select_year() {
     d3.selectAll("circle")
         .transition()
         .delay(function(d) { return 230 * Math.random() })
         .duration(1200)
         .call(year_style);
-}
-
-function select_month_from_day(d) {
-    select_month(d.month);
 }
 
 function select_month(m) {
@@ -89,96 +142,84 @@ var viewModel = {
     current: ko.observable(""),
     pointed_at: ko.observable("Wants Pawn Term, "),
 
-    pointing_at: function(d) {
-	    viewModel.pointed_at(d.label);
-		d3.select(this).transition()
-			.attr("r", function() {
-			    return (viewModel.current() != d.label)
-			        ? r_med(Math.random())
-			        : r_big(Math.random());
-			})
-			.duration(2500)
-			.ease("elastic", 3, 0.3);
-	},
-
-    unpointing_at: function(d) {
-        var c = viewModel.current();
-        viewModel.pointed_at((c != "") ? c : "Select Date");
-        if (c != d.label) { // Don't shrink current day.
-		    d3.select(this).transition().call(shrink);
-        }
-	},
-
-	select_day: function(d) {
-        var c = viewModel.current();
-	    if (c != d.label) {
-	        if (c != "") { // Shrink previous current day.
-	            d3.selectAll("circle")
-	                .filter(function(dd, i) { return (c == dd.label) })
-		            .transition().call(shrink);
-	        }
-	        // Enlarge current day.
-	        viewModel.current(d.label);
-	        d3.selectAll(this)
-	            .transition()
-	            .attr("r", function() { return r_big(Math.random()) })
-	    }
+	is_current: function(d) {
+	    return viewModel.current() == d.label;
 	},
 };
 
-//-------------------------------------------------------
-// Formatting and scales.
-//
+_.extend(viewModel, Backbone.Events);
 
-var day = d3.time.format("%w"),
-    week = d3.time.format("%U"),
-    _month = d3.time.format("%m"),
-    format = d3.time.format("%A, %B %d %Y");
+viewModel.bind("pointing_at", function(d) {
+    viewModel.pointed_at(d.label);
+});
 
-function month(d) { return _month(d) - 1 }
+viewModel.bind("unpointing_at", function(d) {
+    var c = viewModel.current();
+    viewModel.pointed_at((c != "") ? c : "Select Date");
+});
 
-var h = 250, w = 1024;
-var x0 = 10, x1 = 914;
-
-var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
-    y = d3.scale.linear().domain([0,7]).range([20,h]),
-
-    r = d3.scale.linear().domain([0,1]).range([5,10]),
-    r_med = d3.scale.linear().domain([0,1]).range([15,30]),
-    r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
-
-    c0 = d3.scale.linear().domain([0,1]).range(
-        ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
-        ).interpolate(d3.interpolateHsl);
-    c1 = d3.scale.linear().domain([0,1]).range(
-        ["hsl(150, 50%, 50%)", "hsl(250, 100%, 50%)"]
-        ).interpolate(d3.interpolateHsl);
-
-var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
-    ym = d3.scale.linear().domain([0,4]).range([45, h * 1.618]);
-
-var xmselector = d3.scale.linear().domain([1, 12]).range([x0, x1]);
-
-//-------------------------------------------------------
-// Teh Year Data.
-//
-
-var year = d3.time.days(new Date(2011, 0, 1), new Date(2012, 0, 1));
-var data = jQuery.map(year, function(d, i) {
-    var datum = {
-        "month": month(d),
-        "week_of_year": week(d),
-        "day_of_week": day(d),
-        "label": format(d),
-        "date": d,
-    };
-    var months_week = week(new Date(2011, datum.month, 1));
-    datum.week_of_month = datum.week_of_year - months_week;
-    return datum;
+viewModel.bind("select_day", function(d) {
+    viewModel.current(d.label);
 });
 
 //-------------------------------------------------------
-// Animate color cycle at three minutes per complete rainbow. ;)
+// View Controller (handles d3 animation.)
+//
+
+var view = { previous: false };
+_.extend(view, Backbone.Events);
+
+view.bind("pointing_at", function(d, it) {
+    d3.select(it).transition()
+	    .attr("r", function() {
+	        return (viewModel.is_current(d))
+	            ? r_big(Math.random())
+	            : r_med(Math.random());
+	    })
+	    .duration(2500)
+	    .ease("elastic", 3, 0.3);
+});
+
+view.bind("unpointing_at", function(d, it) {
+    if (!viewModel.is_current(d)) { // Don't shrink current day.
+	    d3.select(it).transition().call(shrink);
+    }
+});
+
+view.bind("select_day", function(d, it) {
+    var circ = d3.select(it);
+    circ.transition()
+        .attr("r", function() { return r_big(Math.random()) });
+    if (view.previous) {
+        view.previous.transition().call(shrink);
+    }
+    view.previous = circ;
+});
+
+//-------------------------------------------------------
+// Mouse bindings for the day-circles.
+// Mostly to de-couple the viewModel logic from the d3 transitions that
+// animate it.
+
+function mouse_bindings(T) { T
+	.on("mouseover", function(d) {
+	    viewModel.trigger("pointing_at", d, this);
+	    view.trigger("pointing_at", d, this);
+	    })
+	.on("mouseout", function(d) {
+	    viewModel.trigger("unpointing_at", d, this);
+	    view.trigger("unpointing_at", d, this);
+	    })
+	.on("click", function(d) {
+        if (!viewModel.is_current(d)) {
+            viewModel.trigger("select_day", d, this);
+            view.trigger("select_day", d, this);
+        }
+    });
+}
+
+//-------------------------------------------------------
+// Animate color cycle.
 //
 
 var cram_color = d3.scale.linear().domain([0,11]).range(
@@ -207,18 +248,17 @@ $(function() {
     vis.selectAll("circle")
         .data(data)
         .enter().append("svg:circle")
-//        .filter(function(d) {return d.month % 2 == 1})
         .attr("stroke-width", "none")
         .call(year_style)
-		.on("mouseover", viewModel.pointing_at)
-		.on("mouseout", viewModel.unpointing_at)
-		.on("click", viewModel.select_day);
+        .call(mouse_bindings)
 
-    crambery(3);
+    crambery(3); // Animate color cycle at three minutes per complete rainbow. ;)
 
     ko.applyBindings(viewModel);
 
 });
+
+//-------------------------------------------------------
 
 </script>
 {% endblock %}
