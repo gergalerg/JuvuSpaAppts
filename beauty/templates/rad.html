@@ -15,7 +15,7 @@
 function select_year() {
     d3.selectAll("circle")
         .transition()
-        .duration(2000)
+        .duration(1200)
         .call(year_style);
 }
 
@@ -65,7 +65,7 @@ function shrink(T) { T
 
 function month_style(T) { T
     .delay(function(d) { return 75 * Math.random() })
-    .duration(function(d) { return 1500 + (500 * Math.random()) })
+    .duration(function(d) { return 500 + (500 * Math.random()) })
     .attr("cx", function(d) { return xm(d.day_of_week) })
     .attr("cy", function(d) { return ym(d.week_of_month) })
     .attr("r", function() { return r_big(Math.random()) })
