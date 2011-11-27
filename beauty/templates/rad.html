@@ -32,13 +32,21 @@ function select_month(m) {
 
 function clear_unmatching(selection, predicate, effect) {
     selection.filter(function(d) { return !predicate(d) })
-        .transition().call(effect)
- //       .remove();
+        .transition().call(effect);
 }
 
 //-------------------------------------------------------
 // Effects bundles (used with .call(<effect>).)
 //
+
+function shiny(T) { T
+    .attr("fill", function(d) {
+        return (d.month % 2 == 0)
+            ? c1(Math.random())
+            : c0(Math.random());
+    })
+    .attr("fill-opacity", 0.5)
+}
 
 function fade_drop(T) { T
     .duration(1200)
@@ -60,26 +68,15 @@ function month_style(T) { T
     .duration(function(d) { return 1500 + (500 * Math.random()) })
     .attr("cx", function(d) { return xm(d.day_of_week) })
     .attr("cy", function(d) { return ym(d.week_of_month) })
-        .attr("fill", function(d) {
-            return (month(d.date) % 2 == 0)
-                ? c1(Math.random())
-                : c0(Math.random());
-        })
-        .attr("fill-opacity", .5)
-    .attr("r", function() { return r_big(Math.random()) });
+    .attr("r", function() { return r_big(Math.random()) })
+    .call(shiny)
 }
 
 function year_style(T) { T
-        .attr("cx", function(d) { return x(d.week_of_year) })
-        .attr("cy", function(d) { return y(d.day_of_week) })
-        .attr("stroke-width", "none")
-        .attr("fill", function(d) {
-            return (month(d.date) % 2 == 0)
-                ? c1(Math.random())
-                : c0(Math.random());
-        })
-        .attr("fill-opacity", .5)
-        .attr("r", function() { return r(Math.random()) })
+    .attr("cx", function(d) { return x(d.week_of_year) })
+    .attr("cy", function(d) { return y(d.day_of_week) })
+    .attr("r", function() { return r(Math.random()) })
+    .call(shiny)
 }
 
 //-------------------------------------------------------
@@ -141,9 +138,11 @@ var x0 = 10, x1 = 914;
 
 var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
     y = d3.scale.linear().domain([0,7]).range([20,h]),
+
     r = d3.scale.linear().domain([0,1]).range([5,10]),
     r_med = d3.scale.linear().domain([0,1]).range([15,30]),
     r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
+
     c0 = d3.scale.linear().domain([0,1]).range(
         ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
         ).interpolate(d3.interpolateHsl);
@@ -205,6 +204,7 @@ $(function() {
         .data(data)
         .enter().append("svg:circle")
 //        .filter(function(d) {return d.month % 2 == 1})
+        .attr("stroke-width", "none")
         .call(year_style)
 		.on("mouseover", viewModel.pointing_at)
 		.on("mouseout", viewModel.unpointing_at)
