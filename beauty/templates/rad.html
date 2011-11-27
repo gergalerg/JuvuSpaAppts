@@ -18,7 +18,6 @@ function select_month_from_day(d) {
 
 function select_month(m) {
     var first_day = new Date(2011, +m, 1);
-    console.log(first_day);
     var months_week = week(first_day);
     function in_month(d) { return month(d.date) == m }
     var circles = d3.selectAll("circle");
@@ -28,10 +27,7 @@ function select_month(m) {
         .delay(function(d) { return 75 * Math.random() })
         .duration(function(d) { return 1500 + (500 * Math.random()) })
         .attr("cx", function(d) { return xm(d.day_of_week) })
-        .attr("cy", function(d) {
-            console.log(m, d.week_of_year, months_week, (d.week_of_year - months_week));
-            return ym(d.week_of_year - months_week);
-        })
+        .attr("cy", function(d) { return ym(d.week_of_year - months_week) })
         .attr("r", function() { return r_big(Math.random()) });
 
     clear_unmatching(circles, in_month, fade_drop);
@@ -151,6 +147,19 @@ function crambery(minutes) {
     }
 }
 
+function year_style(T) { T
+        .attr("cx", function(d) { return x(d.week_of_year) })
+        .attr("cy", function(d) { return y(d.day_of_week) })
+        .attr("stroke-width", "none")
+        .attr("fill", function(d) {
+            return (month(d.date) % 2 == 0)
+                ? c1(Math.random())
+                : c0(Math.random());
+        })
+        .attr("fill-opacity", .5)
+        .attr("r", function() { return r(Math.random()) })
+}
+
 $(function() {
 
     var vis = d3.select("#show")
@@ -161,17 +170,10 @@ $(function() {
     vis.selectAll("circle")
         .data(data)
         .enter().append("svg:circle")
-        .attr("cx", function(d) { return x(d.week_of_year) })
-        .attr("cy", function(d) { return y(d.day_of_week) })
-        .attr("stroke-width", "none")
-        .attr("fill", function(d) {
-            return (month(d.date) % 2 == 0) ? c1(Math.random()) : c0(Math.random());
-        })
-        .attr("fill-opacity", .5)
-        .attr("r", function() { return r(Math.random()) })
+        .call(year_style)
 		.on("mouseover", viewModel.pointing_at)
 		.on("mouseout", viewModel.unpointing_at)
-		.on("click", select_month_from_day);
+		.on("click", viewModel.select_day);
 
     crambery(3);
 
