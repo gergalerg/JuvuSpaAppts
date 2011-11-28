@@ -153,6 +153,8 @@ var viewModel = {
     current_el: ko.observable(),
     pointed_at: ko.observable("Wants Pawn Term, "),
     pointed_at_el: ko.observable(),
+    
+    viewing: ko.observable("year"),
 
 	is_current: function(d) {
 	    return viewModel.current() == d.label;
@@ -187,6 +189,19 @@ viewModel.current_el.subscribe(function(it) {
         view.previous.transition().call(shrink);
     }
     view.previous = circ;
+});
+
+viewModel.viewing.subscribe(function(view) {
+    $(".indicate").removeClass("indicate");
+    $("#" + view + "_link").addClass("indicate");
+});
+
+viewModel.viewing.subscribe(function(view) {
+    if (view == "year") {
+        select_year();
+    } else {
+        select_month(view);
+    }
 });
 
 //-------------------------------------------------------
@@ -231,6 +246,30 @@ function crambery(minutes) {
 }
 
 //-------------------------------------------------------
+// Route some URLs.
+//
+
+var Workspace = Backbone.Router.extend({
+
+    routes: {
+        "year": "year",
+        "month/:mnum": "month",
+    },
+
+    year: function() {
+        viewModel.viewing("year");
+    },
+
+    month: function(mnum) {
+        mnum = +mnum;
+        if (mnum >= 0 && mnum < 12) {
+            viewModel.viewing(mnum);
+        }
+    }
+
+});
+
+//-------------------------------------------------------
 
 $(function() {
 
@@ -248,11 +287,16 @@ $(function() {
 
     crambery(3); // Animate color cycle at three minutes per complete rainbow. ;)
 
+    new Workspace();
+    Backbone.history.start();
+
     ko.applyBindings(viewModel);
 
 });
 
 //-------------------------------------------------------
+
+
 
 </script>
 {% endblock %}
@@ -264,19 +308,19 @@ $(function() {
 <div id="hull" class="panel">
 
     <h1 data-bind="text: pointed_at"></h1>
-    <a href="#" data-bind="click: select_year">2011</a> |
-    <a href="#" data-bind="click: function() { select_month(0) }">Jan</a>
-    <a href="#" data-bind="click: function() { select_month(1) }">Feb</a>
-    <a href="#" data-bind="click: function() { select_month(2) }">Mar</a>
-    <a href="#" data-bind="click: function() { select_month(3) }">Apr</a>
-    <a href="#" data-bind="click: function() { select_month(4) }">May</a>
-    <a href="#" data-bind="click: function() { select_month(5) }">June</a>
-    <a href="#" data-bind="click: function() { select_month(6) }">July</a>
-    <a href="#" data-bind="click: function() { select_month(7) }">Aug</a>
-    <a href="#" data-bind="click: function() { select_month(8) }">Sept</a>
-    <a href="#" data-bind="click: function() { select_month(9) }">Oct</a>
-    <a href="#" data-bind="click: function() { select_month(10) }">Nov</a>
-    <a href="#" data-bind="click: function() { select_month(11) }">Dec</a>
+    <a id="year_link" href="#year" >2011</a> |
+    <a id="0_link" href="#month/0">Jan</a>
+    <a id="1_link" href="#month/1">Feb</a>
+    <a id="2_link" href="#month/2">Mar</a>
+    <a id="3_link" href="#month/3">Apr</a>
+    <a id="4_link" href="#month/4">May</a>
+    <a id="5_link" href="#month/5">June</a>
+    <a id="6_link" href="#month/6">July</a>
+    <a id="7_link" href="#month/7">Aug</a>
+    <a id="8_link" href="#month/8">Sept</a>
+    <a id="9_link" href="#month/9">Oct</a>
+    <a id="10_link" href="#month/10">Nov</a>
+    <a id="11_link" href="#month/11">Dec</a>
     <p>
     Glide your mouse over the circles below to find a date, then click on
     it to make that date the current date.
