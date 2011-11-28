@@ -112,6 +112,16 @@ function fade_drop(T) { T
     .ease("quad");
 }
 
+function embiggen(T) { T
+    .attr("r", function(d) {
+        return (viewModel.is_current(d))
+            ? r_big(Math.random())
+            : r_med(Math.random());
+    })
+    .duration(2500)
+    .ease("elastic", 3, 0.3)
+}
+
 function shrink(T) { T
     .attr("r", function() { return r(Math.random()) })
     .delay(100)
@@ -169,27 +179,20 @@ viewModel.bind("select_day", function(d) {
 var view = { previous: false };
 _.extend(view, Backbone.Events);
 
-view.bind("pointing_at", function(d, it) {
-    d3.select(it).transition()
-	    .attr("r", function() {
-	        return (viewModel.is_current(d))
-	            ? r_big(Math.random())
-	            : r_med(Math.random());
-	    })
-	    .duration(2500)
-	    .ease("elastic", 3, 0.3);
+view.bind("pointing_at", function(it) {
+    d3.select(it).transition().call(embiggen);
 });
 
-view.bind("unpointing_at", function(d, it) {
-    if (!viewModel.is_current(d)) { // Don't shrink current day.
-	    d3.select(it).transition().call(shrink);
-    }
+view.bind("unpointing_at", function(it) {
+    d3.select(it)
+        // Don't shrink current day.
+        .filter(function(d, i) { return !viewModel.is_current(d) })
+        .transition().call(shrink);
 });
 
-view.bind("select_day", function(d, it) {
+view.bind("select_day", function(it) {
     var circ = d3.select(it);
-    circ.transition()
-        .attr("r", function() { return r_big(Math.random()) });
+    circ.transition().call(embiggen);
     if (view.previous) {
         view.previous.transition().call(shrink);
     }
@@ -203,17 +206,17 @@ view.bind("select_day", function(d, it) {
 
 function mouse_bindings(T) { T
 	.on("mouseover", function(d) {
-	    viewModel.trigger("pointing_at", d, this);
-	    view.trigger("pointing_at", d, this);
-	    })
+	    viewModel.trigger("pointing_at", d);
+	    view.trigger("pointing_at", this);
+    })
 	.on("mouseout", function(d) {
-	    viewModel.trigger("unpointing_at", d, this);
-	    view.trigger("unpointing_at", d, this);
-	    })
+        viewModel.trigger("unpointing_at", d);
+        view.trigger("unpointing_at", this);
+    })
 	.on("click", function(d) {
         if (!viewModel.is_current(d)) {
-            viewModel.trigger("select_day", d, this);
-            view.trigger("select_day", d, this);
+            viewModel.trigger("select_day", d);
+            view.trigger("select_day", this);
         }
     });
 }
