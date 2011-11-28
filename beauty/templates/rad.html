@@ -137,7 +137,7 @@ function month_style(T) { T
     .call(shiny)
 }
 
-function year_style(T) { T
+function year_style(S) { S
     .attr("cx", function(d) { return x(d.week_of_year) })
     .attr("cy", function(d) { return y(d.day_of_week) })
     .attr("r", function() { return r(Math.random()) })
@@ -150,47 +150,37 @@ function year_style(T) { T
 
 var viewModel = {
     current: ko.observable(""),
+    current_el: ko.observable(),
     pointed_at: ko.observable("Wants Pawn Term, "),
+    pointed_at_el: ko.observable(),
 
 	is_current: function(d) {
 	    return viewModel.current() == d.label;
 	},
 };
 
-_.extend(viewModel, Backbone.Events);
-
-viewModel.bind("pointing_at", function(d) {
-    viewModel.pointed_at(d.label);
-});
-
-viewModel.bind("unpointing_at", function(d) {
-    var c = viewModel.current();
-    viewModel.pointed_at((c != "") ? c : "Select Date");
-});
-
-viewModel.bind("select_day", function(d) {
-    viewModel.current(d.label);
-});
-
 //-------------------------------------------------------
 // View Controller (handles d3 animation.)
 //
 
-var view = { previous: false };
-_.extend(view, Backbone.Events);
+var view = {
+    previous: false,
+    pointed_at: false,
+};
 
-view.bind("pointing_at", function(it) {
-    d3.select(it).transition().call(embiggen);
-});
-
-view.bind("unpointing_at", function(it) {
-    d3.select(it)
+viewModel.pointed_at_el.subscribe(function(it) {
+    if (it) {
+        it = d3.select(it);
+        it.transition().call(embiggen);
+    } else if (view.pointed_at) {
         // Don't shrink current day.
-        .filter(function(d, i) { return !viewModel.is_current(d) })
-        .transition().call(shrink);
+        view.pointed_at.filter(function(d) { return !viewModel.is_current(d) })
+            .transition().call(shrink);
+    }
+    view.pointed_at = it;
 });
 
-view.bind("select_day", function(it) {
+viewModel.current_el.subscribe(function(it) {
     var circ = d3.select(it);
     circ.transition().call(embiggen);
     if (view.previous) {
@@ -206,17 +196,18 @@ view.bind("select_day", function(it) {
 
 function mouse_bindings(T) { T
 	.on("mouseover", function(d) {
-	    viewModel.trigger("pointing_at", d);
-	    view.trigger("pointing_at", this);
+        viewModel.pointed_at(d.label);
+        viewModel.pointed_at_el(this);
     })
 	.on("mouseout", function(d) {
-        viewModel.trigger("unpointing_at", d);
-        view.trigger("unpointing_at", this);
+        var c = viewModel.current();
+        viewModel.pointed_at((c != "") ? c : "Select Date");
+        viewModel.pointed_at_el(false);
     })
 	.on("click", function(d) {
         if (!viewModel.is_current(d)) {
-            viewModel.trigger("select_day", d);
-            view.trigger("select_day", this);
+            viewModel.current(d.label);
+            viewModel.current_el(this);
         }
     });
 }
