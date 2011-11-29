@@ -39,7 +39,7 @@ var StaffMember = function(options) {
 
     this.remove = function() {
         viewModel.stuffs.remove(this);
-        if (viewModel.stuffs().length == 0) {
+        if (viewModel.stuffs().length == 0 || viewModel.current() == this) {
             viewModel.current({});
         }
     }
