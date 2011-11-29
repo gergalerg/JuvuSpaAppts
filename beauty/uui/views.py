@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from spasui.search import process_POST_params, search_for_availabilities
 from beauty.util.dealcal import DealCalendar
+from yelp import YelpApi
 
 
 def search(request):
@@ -29,18 +30,17 @@ def results(request):
         _P(criteria)
         print
 
+    (s, total) = findSpas(criteria['treatment'], criteria['location'], '6')
+
     return render_to_response(
         'results.html',
-        dict(
-            results = dumps(search_for_availabilities(**criteria)),
-            what = criteria['treatment_full_text'],
-            where = criteria['location_full_text'],
-            deal_calendar = DealCalendar().get_table(),
-            lat_long = criteria['lat_long'],
-            ),
+        {'spas': s, 'total': total, 'criteria': criteria},
         context_instance=RequestContext(request),
         )
 
+def findSpas(t, l, m):
+    y = YelpApi(t, l, m)
+    return y.x, y.total
 
 def booking(request):
     return render_to_response(
