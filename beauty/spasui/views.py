@@ -72,6 +72,14 @@ def dashboard(request):
         )
 
 
+def info(request):
+    return render_to_response(
+        'info.html',
+        dict(),
+        context_instance=RequestContext(request),
+        )
+
+
 def dongle(request):
     return render_to_response(
         'dongle.html',
