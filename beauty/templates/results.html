@@ -199,8 +199,8 @@ Results - SpaStalker
 							<td width="50"><img src="{{ s.3 }}"><br><br></td>
 							<td>
 								<h4><a href="../profile">{{ s.0 }}</a></h4>
-								<img src="{{ s.1 }}">
 								<address>{{ s.2.display_address.0 }}, {{ s.2.display_address.3 }}</address>
+								<img src="{{ s.1 }}">
 							</tr>
 						<tr>
 							<td colspan="4"><p>{{ s.4 }}</p>
@@ -227,9 +227,8 @@ Results - SpaStalker
 	    					{% if no_network %}
 	    					<img src="/static/map-FPO.png"/>
 	    					{% else %}
-								<img src="http://placehold.it/400x400">
-								<img src="http://placehold.it/400x400">
-								<img src="http://placehold.it/400x400">
+								<img src="http://placehold.it/400&text=Map+widget">
+								<img src="http://placehold.it/400&text=Calendar+widget">
 <!--	    					<img src="http://maps.google.com/maps/api/staticmap?center={{ lat_long.lat }},{{ lat_long.lng }}&zoom=14&size=400x247&maptype=roadmap&markers=color:green|{{ where|urlencode }}&sensor=false"/> -->
 	    					{% endif %}
 	    				</div>{# "location-map" #}
