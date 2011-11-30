@@ -15,7 +15,7 @@ class YelpApi:
         self.us_url = self.unsigned_url()
         self.s_url = self.signed_url()
         self.data = self.load()
-        (self.x, self.providers, self.total, self.region) = self.parse()
+        self.x, self.providers, self.total, self.region = self.parse()
 
     def unsigned_url(self):
         t = '&term=' + self.term
@@ -61,29 +61,29 @@ class YelpApi:
         # Yelp Object Data
         x = []
 
-        for i in range(len(providers)):
+        for i, provider in enumerate(providers):
             y = []
 
-            if 'name' in providers[i] is not None:
-                y.append(providers[i]['name'])
+            if 'name' in provider:
+                y.append(provider['name'])
 
-            if 'rating_img_url' in providers[i] is not None:
-                y.append(providers[i]['rating_img_url'])
+            if 'rating_img_url' in provider:
+                y.append(provider['rating_img_url'])
 
-            if 'location' in providers[i] is not None:
-                y.append(providers[i]['location'])
+            if 'location' in provider:
+                y.append(provider['location'])
 
-            if 'image_url' in providers[i] is not None:
-                y.append(providers[i]['image_url'])
+            if 'image_url' in provider:
+                y.append(provider['image_url'])
 
-            if 'snippet_text' in providers[i] is not None:
-                y.append(providers[i]['snippet_text'])
+            if 'snippet_text' in provider:
+                y.append(provider['snippet_text'])
 
-            if 'review_count' in providers[i] is not None:
-                y.append(providers[i]['review_count'])
+            if 'review_count' in provider:
+                y.append(provider['review_count'])
 
-            if 'url' in providers[i] is not None:
-                y.append(providers[i]['url'])
+            if 'url' in provider:
+                y.append(provider['url'])
 
             x.append(y)
 
@@ -106,4 +106,4 @@ class YelpApi:
             ['url']
         """
 
-        return (x, providers, total, region)
+        return x, providers, total, region

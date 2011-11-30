@@ -30,7 +30,7 @@ def results(request):
         _P(criteria)
         print
 
-    (s, total) = findSpas(criteria['treatment'], criteria['location'], '6')
+    s, total = findSpas(criteria['treatment'], criteria['location'], '6')
 
     return render_to_response(
         'results.html',
