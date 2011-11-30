@@ -20,6 +20,8 @@
 var h = 1250, w = 1024;
 var y0 = 10, y1 = 914;
 
+var left = 23;
+
 var hour = d3.time.format("%H:%M");
 
 var early = new Date(2011, 0, 1, 5);
@@ -29,9 +31,14 @@ var night = new Date(2011, 0, 1, 21, 1);
 
 var day_line = d3.time.scale()
     .domain([early, morning, afternoon, night])
-    .rangeRound([10, 110, 610, 710])
+//    .rangeRound([10, 110, 610, 710])
+    .range([10, 110, 610, 710])
 
 var ticks = day_line.ticks(d3.time.minutes, 15);
+//var ticks = day_line.ticks(15);
+//var ticks = day_line.ticks(d3.time.seconds, 25);
+//var ticks = day_line.ticks(d3.time.minutes, 20);
+var m = 4;
 
 $(function() {
 
@@ -44,19 +51,20 @@ $(function() {
     var lines = vis.selectAll("line")
         .data(ticks)
       .enter().append("svg:line")
-        .attr("x1", 23)
-        .attr("x2", 42)
+//        .attr("x1", function(d, i) { return left + ((i % m == 0) ? 50 : 54 )})
+        .attr("x1", left + 50)
+        .attr("x2", function(d, i) { return left + ((i % m == 0) ? 65 : 61 )})
         .attr("y1", day_line)
         .attr("y2", day_line)
-        .attr("stroke", function(d, i) { return (i % 4 == 0) ? "#787D78" : "#ccc" });
+        .attr("stroke", function(d, i) { return (i % m == 0) ? "#787D78" : "#ccc" });
 
     var texts = vis.selectAll("text.date_rule")
         .data(ticks)
     .enter().append("svg:text")
-        .filter(function(d, i) { return i % 4 == 0 })
-    //    .attr("text-anchor", "middle")
+        .filter(function(d, i) { return i % m == 0 })
+        .attr("text-anchor", "end")
         .attr("class", "date_rule")
-        .attr("x", 47)
+        .attr("x", left + 45)
         .attr("y", day_line)
         .attr("dy", 4)
         .text(hour)
