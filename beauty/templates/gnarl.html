@@ -1,0 +1,424 @@
+{% extends "base.html" %}
+{% block html_head %}
+<script type="text/javascript" src="/static/js/bbone/underscore.js"></script>
+<script type="text/javascript" src="/static/js/bbone/backbone.js"></script>
+<script type="text/javascript" src="/static/js/d3/d3.js"></script>
+<script type="text/javascript" src="/static/js/d3/d3.time.js"></script>
+<link rel="stylesheet/less" href="/static/rad.less" type="text/css">
+<script src="/static/js/less.js" type="text/javascript"></script>
+<script src="/static/js/jquery.tmpl.js" type="text/javascript"></script>
+<script src="/static/js/knockout-1.2.1.debug.js" type="text/javascript"></script>
+<style>
+	@import url(http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700);
+	@import url(http://fonts.googleapis.com/css?family=Josefin+Sans:400,100|Istok+Web|Philosopher);
+</style>
+<script type="text/javascript">
+
+//-------------------------------------------------------
+// Date Formatting and Scales.
+//
+
+var day = d3.time.format("%w"),
+    week = d3.time.format("%U"),
+    _month = d3.time.format("%m"),
+    mday = d3.time.format("%d"),
+    format = d3.time.format("%A, %B %d %Y");
+
+function month(d) { return _month(d) - 1 }
+
+var h = 250, w = 1024;
+var x0 = 10, x1 = 914;
+
+var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
+    y = d3.scale.linear().domain([0,7]).range([20,h]),
+
+    r = d3.scale.linear().domain([0,1]).range([5,10]),
+    r_med = d3.scale.linear().domain([0,1]).range([15,30]),
+    r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
+
+    c0 = d3.scale.linear().domain([0,1]).range(
+        ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
+        ).interpolate(d3.interpolateHsl);
+    c1 = d3.scale.linear().domain([0,1]).range(
+        ["hsl(150, 50%, 50%)", "hsl(250, 100%, 50%)"]
+        ).interpolate(d3.interpolateHsl);
+
+var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
+    ym = d3.scale.linear().domain([0,4]).range([45, h * 1.618]);
+
+var xmselector = d3.scale.linear().domain([1, 12]).range([x0, x1]);
+
+//-------------------------------------------------------
+// Teh Year Data.
+//
+
+var year = d3.time.days(new Date(2011, 0, 1), new Date(2012, 0, 1));
+var data = jQuery.map(year, function(d, i) {
+    var datum = {
+        "month": month(d),
+        "week_of_year": +week(d),
+        "day_of_week": day(d),
+        "day_of_month": mday(d),
+        "label": format(d),
+        "date": d,
+    };
+    var months_week = week(new Date(2011, datum.month, 1));
+    datum.week_of_month = datum.week_of_year - months_week;
+    return datum;
+});
+
+//-------------------------------------------------------
+// Arrange day-circles in various interesting patterns.
+//
+
+function select_year() {
+    d3.selectAll("circle")
+        .transition()
+        .delay(function(d) { return 230 * Math.random() })
+        .duration(1200)
+        .call(year_style);
+    d3.selectAll("text").transition().call(hidey);
+}
+
+function select_month(m) {
+    var in_month = function(d) { return d.month == m };
+    var circles = d3.selectAll("circle");
+    circles.filter(in_month).transition().call(month_style);
+    clear_unmatching(circles, in_month, fade_drop);
+
+    var texts = d3.selectAll("text")
+    texts.filter(in_month).transition()
+        .delay(600)
+        .duration(300)
+        .attr("x", function(d) { return xm(d.day_of_week) })
+        .attr("y", function(d) { return ym(d.week_of_month) })
+        .attr("fill-opacity", 1)
+    clear_unmatching(texts, in_month, hidey);
+}
+
+function select_week(w) {
+    var in_week = function(d) { return d.week_of_year == w };
+    var circles = d3.selectAll("circle");
+
+    circles.filter(in_week).transition().call(week_style);
+    clear_unmatching(circles, in_week, fade_drop);
+
+    var texts = d3.selectAll("text")
+    texts.filter(in_week).transition()
+        .duration(function(d) { return 500 + (500 * Math.random()) })
+        .attr("x", function(d) { return xm(d.day_of_week) })
+        .attr("y", function(d) { return ym(0) })
+        .attr("fill-opacity", 1)
+    clear_unmatching(texts, in_week, hidey);
+/*
+
+    var in_week = function(d) { return d.week_of_year == w }
+    var texts = d3.selectAll("text")
+    .filter().transition()
+        .attr("x", function(d) { return xm(d.day_of_week) })
+        .attr("y", function(d) { return ym(0) });
+
+    console.log('yes');
+    var vis = d3.select("#uncanny")
+        .data(data)
+        .filter(in_week).insert("svg:text")
+        .text(function(d) { return d.day_of_week; })
+        .attr("x", function(d) { return xm(d.day_of_week) })
+        .attr("y", function(d) { return ym(0) });
+    console.log('yes!');
+
+d3.select("svg")
+    .data(d3.range(8))
+    .enter()
+    .append("svg:text")
+    .text(function(d) { return d.day_of_week; })
+    .attr("x", function(d) { return xm(d) })
+    .attr("y", function(d) { return ym(0) })
+*/
+}
+
+function clear_unmatching(selection, predicate, effect) {
+    selection.filter(function(d) { return !predicate(d) })
+        .transition().call(effect);
+}
+
+//-------------------------------------------------------
+// Effects bundles (used with .call(<effect>).)
+//
+
+function shiny(T) { T
+    .attr("fill", function(d) {
+        return (d.month % 2 == 0)
+            ? c1(Math.random())
+            : c0(Math.random());
+    })
+    .attr("fill-opacity", 0.5)
+}
+
+function hidey(T) { T
+    .duration(300)
+    .attr("fill-opacity", 0.01)
+}
+
+function fade_drop(T) { T
+    .duration(1200)
+    .attr("fill-opacity", 0.01)
+  .transition()
+    .delay(function(d) { return 680 * Math.random() })
+    .attr("cx", function(d) { return x(d.week_of_year) })
+    .attr("cy", h * 2)
+    .ease("quad");
+}
+
+function embiggen(T) { T
+    .attr("r", function(d) {
+        return (viewModel.is_current(d))
+            ? r_big(Math.random())
+            : r_med(Math.random());
+    })
+    .duration(2500)
+    .ease("elastic", 3, 0.3)
+}
+
+function shrink(T) { T
+    .attr("r", function() { return r(Math.random()) })
+    .delay(100)
+    .duration(333)
+}
+
+function week_style(T) { T
+    .call(month_style)
+    .attr("cy", function(d) { return ym(0) })
+}
+
+function month_style(T) { T
+    .delay(function(d) { return 75 * Math.random() })
+    .duration(function(d) { return 500 + (500 * Math.random()) })
+    .attr("cx", function(d) { return xm(d.day_of_week) })
+    .attr("cy", function(d) { return ym(d.week_of_month) })
+    .attr("r", function() { return r_big(Math.random()) })
+    .call(shiny)
+}
+
+function year_style(S) { S
+    .attr("cx", function(d) { return x(d.week_of_year) })
+    .attr("cy", function(d) { return y(d.day_of_week) })
+    .attr("r", function() { return r(Math.random()) })
+    .call(shiny)
+}
+
+//-------------------------------------------------------
+// KO ModelView Thingy.
+//
+
+var viewModel = {
+    current: ko.observable(""),
+    current_el: ko.observable(),
+    pointed_at: ko.observable("Wants Pawn Term, "),
+    pointed_at_el: ko.observable(),
+    
+    viewing: ko.observable("year"),
+
+	is_current: function(d) {
+	    return viewModel.current() == d.label;
+	},
+};
+
+//-------------------------------------------------------
+// View Controller (handles d3 animation.)
+//
+
+var view = {
+    previous: false,
+    pointed_at: false,
+};
+
+viewModel.pointed_at_el.subscribe(function(it) {
+    if (it) {
+        it = d3.select(it);
+        it.transition().call(embiggen);
+    } else if (view.pointed_at) {
+        // Don't shrink current day.
+        view.pointed_at.filter(function(d) { return !viewModel.is_current(d) })
+            .transition().call(shrink);
+    }
+    view.pointed_at = it;
+});
+
+viewModel.current_el.subscribe(function(it) {
+    var circ = d3.select(it);
+    circ.transition().call(embiggen);
+    if (view.previous) {
+        view.previous.transition().call(shrink);
+    }
+    view.previous = circ;
+});
+
+viewModel.viewing.subscribe(function(view) {
+    $(".indicate").removeClass("indicate");
+    $("#" + view + "_link").addClass("indicate");
+});
+
+viewModel.viewing.subscribe(function(view) {
+    if (view == "year") {
+        select_year();
+    } else if (view[0] == 'w') {
+        console.log('kick', view.slice(1));
+        select_week(view.slice(1));
+    } else {
+        select_month(view);
+    }
+});
+
+//-------------------------------------------------------
+// Mouse bindings for the day-circles.
+// Mostly to de-couple the viewModel logic from the d3 transitions that
+// animate it.
+
+function mouse_bindings(T) { T
+	.on("mouseover", function(d) {
+        viewModel.pointed_at(d.label);
+        viewModel.pointed_at_el(this);
+    })
+	.on("mouseout", function(d) {
+        var c = viewModel.current();
+        viewModel.pointed_at((c != "") ? c : "Select Date");
+        viewModel.pointed_at_el(false);
+    })
+	.on("click", function(d) {
+        if (!viewModel.is_current(d)) {
+            viewModel.current(d.label);
+            viewModel.current_el(this);
+        }
+    });
+}
+
+//-------------------------------------------------------
+// Animate color cycle.
+//
+
+var cram_color = d3.scale.linear().domain([0,11]).range(
+        ["hsl(0, 50%, 90%)", "hsl(360, 50%, 90%)"]
+        ).interpolate(d3.interpolateHsl);
+
+function crambery(minutes) {
+    window.setTimeout(crambery, 60000 * minutes, minutes);
+    for (var i = 0; i < 12; i++) {
+        d3.select("body").transition()
+            .delay(minutes * 5000 * i)
+            .duration(minutes * 5000)
+            .style("background-color", cram_color(i));
+    }
+}
+
+//-------------------------------------------------------
+// Route some URLs.
+//
+
+var Workspace = Backbone.Router.extend({
+
+    routes: {
+        "year": "year",
+        "month/:mnum": "month",
+        "week/:wnum": "week",
+    },
+
+    year: function() {
+        viewModel.viewing("year");
+    },
+
+    month: function(mnum) {
+        mnum = +mnum;
+        if (mnum >= 0 && mnum < 12) {
+            viewModel.viewing(mnum);
+        }
+    },
+
+    week: function(wnum) {
+        console.log('woo', wnum);
+        wnum = +wnum;
+        if (wnum >= 0 && wnum < 54) {
+            viewModel.viewing('w' + wnum);
+        }
+    }
+
+});
+
+//-------------------------------------------------------
+
+$(function() {
+
+    var vis = d3.select("#show")
+        .append("svg:svg")
+        .attr("width", w)
+        .attr("height", 2.6 * h)
+        .attr("id", "uncanny");
+
+    var circles = vis.selectAll("circle")
+        .data(data)
+    .enter().append("svg:circle")
+        .attr("stroke-width", "none")
+        .call(year_style)
+        .call(mouse_bindings);
+
+    var texts = vis.selectAll("text")
+        .data(data)
+    .enter().append("svg:text")
+        .attr("text-anchor", "middle")
+        .attr("x", function(d) { return x(d.week_of_year) })
+        .attr("y", 0)
+        .attr("dy", 4)
+        .text(function(d) { return +d.day_of_month; })
+        .attr("fill-opacity", 0)
+
+    crambery(3); // Animate color cycle at three minutes per complete rainbow. ;)
+
+    new Workspace();
+    Backbone.history.start();
+
+    ko.applyBindings(viewModel);
+
+    for (var i = 0; i < 53; i++) {
+        var link = $('<a id="w' + i + '_link" href="#week/' + i + '">o</a>');
+        $("#hull").append(link);
+    }
+
+});
+
+
+//-------------------------------------------------------
+
+</script>
+{% endblock %}
+{% block title %}Dashboard - SpaStalker{% endblock %}
+{% block body %}
+<div class="container">
+<div class="row">
+<div class="twelve columns" style="float: none">{# The float setting here is to finesse a performance issue with the SVG response when float:left. #}
+<div id="hull" class="panel">
+
+    <h1 data-bind="text: pointed_at"></h1>
+    <a id="year_link" href="#year" >2011</a> |
+    <a id="0_link" href="#month/0">Jan</a>
+    <a id="1_link" href="#month/1">Feb</a>
+    <a id="2_link" href="#month/2">Mar</a>
+    <a id="3_link" href="#month/3">Apr</a>
+    <a id="4_link" href="#month/4">May</a>
+    <a id="5_link" href="#month/5">June</a>
+    <a id="6_link" href="#month/6">July</a>
+    <a id="7_link" href="#month/7">Aug</a>
+    <a id="8_link" href="#month/8">Sept</a>
+    <a id="9_link" href="#month/9">Oct</a>
+    <a id="10_link" href="#month/10">Nov</a>
+    <a id="11_link" href="#month/11">Dec</a>
+    <p>
+    Glide your mouse over the circles below to find a date, then click on
+    it to make that date the current date.
+    </p>
+
+    <div id="show"></div>
+
+</div>{# hull #}
+</div></div>{# columns row #}
+</div>{# container #}
+{% endblock %}
