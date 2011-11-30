@@ -17,10 +17,11 @@
 //-------------------------------------------------------
 // Date Formatting and Scales.
 //
-var h = 1250, w = 1024;
+var h = 714, w = 1024;
 var y0 = 10, y1 = 914;
 
 var left = 23;
+var slider_offset = 0.0;
 
 var hour = d3.time.format("%H:%M");
 
@@ -29,12 +30,19 @@ var morning = new Date(2011, 0, 1, 9);
 var afternoon = new Date(2011, 0, 1, 17);
 var night = new Date(2011, 0, 1, 21, 1);
 
-var day_line = d3.time.scale()
-    .domain([early, morning, afternoon, night])
-//    .rangeRound([10, 110, 610, 710])
+var day_to_n = d3.time.scale()
+    .domain([early, night])
+    .range([0, 1])
+
+var n_to_y = d3.scale.linear()
+    .domain([0, 0.25, 0.75, 1])
     .range([10, 110, 610, 710])
 
-var ticks = day_line.ticks(d3.time.minutes, 15);
+function day_line(d) {
+    return n_to_y(day_to_n(d) + slider_offset) - 400 * slider_offset;
+}
+
+var ticks = day_to_n.ticks(d3.time.minutes, 15);
 //var ticks = day_line.ticks(15);
 //var ticks = day_line.ticks(d3.time.seconds, 25);
 //var ticks = day_line.ticks(d3.time.minutes, 20);
@@ -69,6 +77,33 @@ $(function() {
         .attr("dy", 4)
         .text(hour)
 
+    var updater = _.throttle(function() {
+        d3.selectAll("line")
+            .transition()
+            .delay(0)
+            .duration(0)
+            .attr("y1", day_line)
+            .attr("y2", day_line);
+        d3.selectAll("text.date_rule")
+            .transition()
+            .delay(0)
+            .duration(0)
+            .attr("y", day_line);
+    }, 100);
+
+    $("#slider").slider({
+        max: 0.25,
+        min: -0.25,
+        step: 0.00333,
+        orientation: 'vertical',
+        animate: true,
+        slide: function(event, ui) {
+            console.log(ui.value, '=======================================');
+            slider_offset = ui.value;
+            updater();
+        },
+    });
+
 });
 
 
@@ -78,19 +113,25 @@ $(function() {
 {% endblock %}
 {% block body %}
 <div class="container">
-<div class="row">
-<div class="twelve columns" style="float: none">{# The float setting here is to finesse a performance issue with the SVG response when float:left. #}
 <div id="hull" class="panel">
-
-    <h1>Hi Y'All!</h1>
-    <p>
-    Glide your mouse over the circles below to find a date, then click on
-    it to make that date the current date.
-    </p>
+<div class="row">
+    <div class="twelve columns" >
+        <h1>Hi Y'All!</h1>
+        <p>
+        Slide the slider on the left up and down to move the magnified portion of the time-line up and down.
+        </p>
+    </div>{# columns #}
+</div>{# row #}
+<div class="row">
+<div class="one columns" >
+    <div id="slider"></div>
+</div>{# columns #}
+<div class="eleven columns" >
 
     <div id="show"></div>
 
+</div>{# columns #}
+</div>{# row #}
 </div>{# hull #}
-</div></div>{# columns row #}
 </div>{# container #}
 {% endblock %}
