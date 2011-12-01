@@ -96,7 +96,7 @@ viewModel.viewing.subscribe(function(view) {
     $("#" + view + "_link").addClass("indicate");
 });
 
-viewModel.viewing.subscribe(function(view) {
+viewModel.viewing.subscribe(_.throttle(function(view) {
     var i = (view == "dash") ? 4 : +view;
     var delta = i - View.previous_view;
     if (delta == 0) {
@@ -117,7 +117,8 @@ viewModel.viewing.subscribe(function(view) {
     }
     f(i, View.previous_view, leaving, arriving);
     View.previous_view = i;
-});
+},
+1000));
 
 //-------------------------------------------------------
 // Route URLs.
@@ -190,10 +191,10 @@ $(function(){
   <div class="row"><div class="twelve columns">
     <div id="crumbs">
     <h3>
-    <a id="0_link" href="#step/0">Step 1</a> &mdash;
-    <a id="1_link" href="#step/1">Step 2</a> &mdash;
-    <a id="2_link" href="#step/2">Step 3</a> &mdash;
-    <a id="3_link" href="#step/3">Step 4</a> &mdash;
+    <a id="0_link" href="#step/0">Step 1</a> &mdash; &gt;
+    <a id="1_link" href="#step/1">Step 2</a> &mdash; &gt;
+    <a id="2_link" href="#step/2">Step 3</a> &mdash; &gt;
+    <a id="3_link" href="#step/3">Step 4</a> &mdash; &gt;
     <a id="dash_link" href="#d">Dashboard</a>
     </h3>
     </div>
