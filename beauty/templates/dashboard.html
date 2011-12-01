@@ -85,6 +85,12 @@ viewModel.display_view_name = ko.dependentObservable(function() {
     return (viewing == 'dash') ? '' : viewing + 1;
 }, viewModel);
 
+
+var View = {
+    previous_view: false,
+};
+
+
 viewModel.viewing.subscribe(function(view) {
     $(".indicate").removeClass("indicate");
     $("#" + view + "_link").addClass("indicate");
@@ -92,14 +98,15 @@ viewModel.viewing.subscribe(function(view) {
 
 viewModel.viewing.subscribe(function(view) {
     if (view == "dash") {
-        $("#pane_1").fadeOut("fast", function(){
-            $("#pane0").fadeIn("fast");
+        $("#pane_1").hide("slide", { direction: 'left', }, 200, function(){
+                $("#pane0").show("slide", { direction: 'right' }, 200);
         });
-    } else {
-        $("#pane0").fadeOut("fast", function(){
-            $("#pane_1").fadeIn("fast");
+    } else if (View.previous_view == "dash"){
+        $("#pane0").hide("slide", { direction: 'right', }, 200, function(){
+                $("#pane_1").show("slide", { direction: 'left' }, 200);
         });
     }
+    View.previous_view = view;
 });
 
 //-------------------------------------------------------
