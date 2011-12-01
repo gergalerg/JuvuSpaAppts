@@ -87,7 +87,7 @@ viewModel.display_view_name = ko.dependentObservable(function() {
 
 
 var View = {
-    previous_view: false,
+    previous_view: 0,
 };
 
 
@@ -97,16 +97,26 @@ viewModel.viewing.subscribe(function(view) {
 });
 
 viewModel.viewing.subscribe(function(view) {
-    if (view == "dash") {
-        $("#pane_1").hide("slide", { direction: 'left', }, 200, function(){
-                $("#pane0").show("slide", { direction: 'right' }, 200);
-        });
-    } else if (View.previous_view == "dash"){
-        $("#pane0").hide("slide", { direction: 'right', }, 200, function(){
-                $("#pane_1").show("slide", { direction: 'left' }, 200);
+    var i = (view == "dash") ? 4 : +view;
+    var delta = i - View.previous_view;
+    if (delta == 0) {
+        return;
+    }
+    var leaving = delta < 0 ? 'right' : 'left';
+    var arriving = delta < 0 ? 'left' : 'right';
+    var panes = $(".pane");
+
+    function f(target, previous, leaving, arriving) {
+        if (target == previous) { return };
+        var next = previous - (target < previous ? 1 : -1);
+        $(panes[previous]).hide("slide", { direction: leaving, }, 150, function() {
+            $(panes[next]).show("slide", { direction: arriving }, 150, function() {
+                f(target, next, leaving, arriving);
+            });
         });
     }
-    View.previous_view = view;
+    f(i, View.previous_view, leaving, arriving);
+    View.previous_view = i;
 });
 
 //-------------------------------------------------------
@@ -150,7 +160,8 @@ var routey = Backbone.Router.extend({
 var routes = new routey();
 
 $(function(){
-    $("#pane0").hide();
+    $(".pane").hide();
+    $("#pane_0").show();
 
     ko.applyBindings(viewModel);
     
@@ -191,7 +202,57 @@ $(function(){
 <div class="row"><div class="twelve columns">
 <div id="hull">
 
-<div id="pane0">
+
+
+<div id="pane_0" class="pane">
+<div class="row">
+  <div class="twelve columns">
+  <div class="panel">
+    <h2>Step 1</h2>
+    <div class="fpo">Placeholder for Step 1</div>
+  </div>{# panel #}
+  </div>{# columns  #}
+</div>{# row #}
+</div>{# pane_0 #}
+
+
+<div id="pane_1" class="pane">
+<div class="row">
+  <div class="twelve columns">
+  <div class="panel">
+    <h2>Step 2</h2>
+    <div class="fpo">Placeholder for Step 2</div>
+  </div>{# panel #}
+  </div>{# columns  #}
+</div>{# row #}
+</div>{# pane_1 #}
+
+
+<div id="pane_2" class="pane">
+<div class="row">
+  <div class="twelve columns">
+  <div class="panel">
+    <h2>Step 3</h2>
+    <div class="fpo">Placeholder for Step 3</div>
+  </div>{# panel #}
+  </div>{# columns  #}
+</div>{# row #}
+</div>{# pane_2 #}
+
+
+<div id="pane_3" class="pane">
+<div class="row">
+  <div class="twelve columns">
+  <div class="panel">
+    <h2>Step 4</h2>
+    <div class="fpo">Placeholder for Step 4</div>
+  </div>{# panel #}
+  </div>{# columns  #}
+</div>{# row #}
+</div>{# pane_3 #}
+
+
+<div id="pane_5" class="pane">
 <div class="row">
 
   <div class="four columns"><div id="hoo" class="panel">
@@ -223,21 +284,8 @@ $(function(){
   </div>{# boy #}</div>
 
 </div>{# row #}
-</div>{# pane0 #}
+</div>{# pane_5 #}
 
-
-<div id="pane_1">
-<div class="row">
-
-  <div class="twelve columns">
-  <div class="panel">
-    <h2>Step <span data-bind="text: display_view_name"></span></h2>
-    <div class="fpo">Placeholder for Step <span data-bind="text: display_view_name"></span></div>
-  </div>{# panel #}
-  </div>{# columns  #}
-
-</div>{# row #}
-</div>{# pane_1 #}
 
 </div>{# hull #}
 </div></div>{# columns row #}
