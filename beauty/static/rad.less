@@ -1,12 +1,13 @@
 @fg: #787D78;
-@darker_fg: #484B48;
+@foundation_link_blue: #2A85E8;
 
 @title_font: 'Josefin Sans', sans-serif;
-@body_font: 'Philosopher', serif;
+@body_font: 'Istok Web', serif;
+@prose_font: 'Philosopher', serif;
 
 #hull {
     color: @fg;
-    font-family: @body_font;
+    font-family: @prose_font;
 }
 
 .title {
@@ -28,5 +29,15 @@ p.captiony {
     font-size: smaller;
     font-family: @body_font;
     line-height: 1.25em;
-    color: @darker_fg;
+}
+
+.indicate {
+    color: #fff;
+    background-color: @foundation_link_blue;
+}
+
+text {
+    fill: @fg;
+    font-family: @title_font;
+    font-size: 18px;
 }

@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <title>Displaying RDF with Protovis</title>
+    <script type="text/javascript" src="/static/js/protovis-3.2.js"></script>
+    <script type="text/javascript" src="/static/js/data.js"></script>
+    <style type="text/css">
+
+body {
+  margin: 0;
+}
+
+#lovely {
+  border: 3px solid #A9C2A1;
+  width: 1024px;
+  height: 768px;
+}
+
+.code_snippet {
+  border: 1px solid black;
+  margin: 1em;
+  margin-left: 2em;
+  margin-right: 20%;
+  padding: 2px;
+}
+
+
+    </style>
+  </head>
+  <body>
+
+<h1>Displaying RDF with Protovis</h1>
+
+This image is an SVG graphic created by Protovis and animated in realtime
+in your browser.
+
+<div id="lovely">
+    <script type="text/javascript+protovis">
+
+var w = 1024, h = 768,
+    colors = pv.Colors.category19();
+
+var vis = new pv.Panel()
+    .width(w)
+    .height(h)
+    .fillStyle("white")
+    .event("mousedown", pv.Behavior.pan())
+    .event("mousewheel", pv.Behavior.zoom());
+
+var force = vis.add(pv.Layout.Force)
+    .nodes(graph_data.nodes)
+    .links(graph_data.links);
+
+force.link.add(pv.Line);
+
+force.node.add(pv.Dot)
+    .size(function(d) (d.linkDegree + 20) * Math.pow(this.scale, -1.5))
+    .fillStyle(function(d) d.fix ? "brown" :
+                    d.nodeName=="http://umbel.org/umbel/ac/Action" ?
+                    "green" : colors(d.group))
+    .strokeStyle(function() this.fillStyle().darker())
+    .lineWidth(1)
+    .title(function(d) d.nodeName)
+    .event("mousedown", pv.Behavior.drag())
+    .event("drag", force);
+
+vis.render();
+
+    </script>
+</div>
+</center>
+
+  </body>
+</html>
+

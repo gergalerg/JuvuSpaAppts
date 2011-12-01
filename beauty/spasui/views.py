@@ -78,3 +78,19 @@ def dongle(request):
         dict(),
         context_instance=RequestContext(request),
         )
+
+
+def rad(request):
+    return render_to_response(
+        'rad.html',
+        dict(),
+        context_instance=RequestContext(request),
+        )
+
+
+def gnarl(request):
+    return render_to_response(
+        'gnarl.html',
+        dict(),
+        context_instance=RequestContext(request),
+        )
