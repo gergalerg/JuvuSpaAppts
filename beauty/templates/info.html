@@ -27,6 +27,16 @@ $(function(){
 
 <div class="row"><div class="twelve columns">
 <div id="hull" class="panel">
+
+<h2>Spa Information for {{ spa_name }}</h2>
+
+<table>
+<form action="{% url info %}" method="POST">
+{% csrf_token %}
+{{ form }}
+<tr><th></th><td><input type="submit" value="Hit me!" /></td></tr>
+</form>
+</table>
 </div>{# hull #}
 </div></div>{# columns row #}
 
