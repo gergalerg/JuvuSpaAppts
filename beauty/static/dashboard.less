@@ -69,7 +69,16 @@
     background-color: @bg;
 }
 
-#pane0 {
+#pane_1 {
+    label {
+        margin-bottom: 2px;
+        span {
+            padding-left: 1em;
+            padding-right: 1em;
+            padding-top: 0.3em;
+            padding-bottom: 0.2em;
+        }
+    }
 }
 
 .pane {
@@ -127,7 +136,7 @@
     }
 }
 
-input#staff_name {
+input[type=text] {
     display: inline-block;
     font-family: @body_font;
 }
@@ -145,3 +154,4 @@ label {
         .title;
     }
 }
+

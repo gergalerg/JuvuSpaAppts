@@ -85,9 +85,7 @@ TREATMENTS = {
     'Skin': _str_to_kinds('''
         BOTOX Cosmetic
         Accent
-        Juvederm
         Radiesse
-        Perlane
         Pixel Skin Treatment
         PhotoDynamic Therapy
         Skin Tightening
