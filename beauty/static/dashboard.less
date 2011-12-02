@@ -93,26 +93,27 @@
     form {
         margin-bottom: 9px;
     }
+
+    .tile {
+        font-family: @body_font;
+        padding: 0.25em;
+        margin-left: -0.25em;
+        border: solid transparent 1px;
+        .rounded-corners;
+        margin-bottom: 0.5em;
+    }
+
+    .tile:hover {
+        background-color: @call_out;
+        border-color: lighten(@fg, 20%);
+    }
+
 }
 
 #boy {}
 
 #staff_members {
     padding-left: 0.5em;
-}
-
-.tile {
-    font-family: @body_font;
-    padding: 0.25em;
-    margin-left: -0.25em;
-    border: solid transparent 1px;
-    .rounded-corners;
-    margin-bottom: 0.5em;
-}
-
-.tile:hover {
-    background-color: @call_out;
-    border-color: lighten(@fg, 20%);
 }
 
 .clip {
@@ -131,6 +132,16 @@ input#staff_name {
     font-family: @body_font;
 }
 
+input.tile {
+}
+
 label {
     font-family: @body_font;
+}
+
+.magic {
+    font-family: @prose_font;
+    h4 {
+        .title;
+    }
 }

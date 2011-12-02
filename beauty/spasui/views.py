@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from spasui.models import prepare_trenche_data
 from spasui.api import dispatch
 from spasui.availabilities import create_availabilities
+from beauty.data.treatments import SORTED_TREATMENTS
 
 
 def _json_boolean(n):
@@ -67,7 +68,7 @@ def post_calendar(request):
 def dashboard(request):
     return render_to_response(
         'dashboard.html',
-        dict(),
+        dict(treatments=SORTED_TREATMENTS),
         context_instance=RequestContext(request),
         )
 

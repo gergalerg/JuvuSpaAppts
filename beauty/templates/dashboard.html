@@ -171,6 +171,16 @@ $(function(){
         text: false,
     }).click(function(){return false})
 
+    $("#choose").accordion({
+        collapsible: true,
+        autoHeight: false,
+        create: function(event, ui) {
+            $(this).accordion("activate", false);
+        }
+    });
+    
+    $("input.tile").button();
+
     if (!Backbone.history.start()) {
         // Default to Step 1.
         routes.navigate("step/0", true);
@@ -237,8 +247,40 @@ $(function(){
   <div class="twelve columns">
   <div class="panel">
     <h2>Services Provided</h2>
-    <div class="fpo">Placeholder for Step 2</div>
-    <div class="button_bar_bottom"><a class="blueman button radius" href="#step/2">Next &gt;</a></div>
+    <div class="row">
+    <div class="seven columns">
+
+        <form>
+	    <div id="choose" class="roundy main_panel">
+	      {% for kind, treats in treatments %}
+	        <h3><a href="#">{{ kind }}</a></h3>
+	        <div>
+	        {% for treatment in treats %}
+	        <input class="tile" type="checkbox" id="check_{{ treatment }}" /><label for="check_{{ treatment }}">{{ treatment }}</label><br>
+	        {% endfor %}
+	        </div>
+	      {% endfor %}
+	    </div>{# "choose" DIV #}
+        </form>
+
+    </div>{# columns #}
+
+    <div class="five columns">
+    <div class="magic">
+      <h4>Wants pawn term, </h4>
+      <p>
+        ..dare worsted ladle gull hoe lift wetter murder inner
+        ladle cordage, honor itch offer lodge dock florist. Disk ladle gull
+        orphan worry ladle cluck wetter putty ladle rat hut, an fur disk
+        raisin pimple colder Ladle Rat Rotten Hut.
+      </p>
+    </div>{#  magic #}
+    </div>{# columns #}
+
+    </div>{# row #}
+
+    <div class="button_bar_bottom" style="margin-top:18px"><a class="blueman button radius" href="#step/2">Next &gt;</a></div>
+
   </div>{# panel #}
   </div>{# columns  #}
 </div>{# row #}
