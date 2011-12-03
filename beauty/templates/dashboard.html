@@ -22,8 +22,8 @@
 </script>
 
 <script id="proc_template" type="text/x-jquery-tmpl">
-<div class="proc">
-    <span data-bind="text:name"></span>
+<div class="proc" data-bind="visible:supported">
+    <span data-bind="text:name, style: { 'paddingLeft': sub ? '1.75em' : '' }"></span>
 </div>
 </script>
 
@@ -39,6 +39,16 @@ ko.bindingHandlers.pagey = {
         // Update the DOM element based on the supplied values here.
     }
 };
+
+var SpaProcedure = function(options) {
+    this.name = options.name;
+    this.supported = ko.observable(options.supported);
+    this.sub = !!options.sub;
+
+    this.toggle = function() {
+        this.supported(!this.supported());
+    }
+}
 
 var StaffMember = function(options) {
     this.name = options.name;
@@ -57,6 +67,23 @@ var StaffMember = function(options) {
     }
 }
 
+var procedures = jQuery.map([
+{% for kind, treats in treatments %}
+    {
+        name: "{{ kind }}",
+        supported: true,
+        sub: false,
+    },
+{% for treatment in treats %}
+    {
+        name: "{{ treatment }}",
+        supported: false,
+        sub: true,
+    },
+{% endfor %}
+{% endfor %}
+], function(n, i){ return new SpaProcedure(n) })
+
 var availableMeals = jQuery.map([      
         { name: 'Billy', description: 'Dry crusts of bread', extraCost: 0 },
         { name: 'Bob', description: 'Fresh bread with cheese', extraCost: 9.95 },
@@ -69,7 +96,7 @@ var viewModel = {
     stuffs: ko.observableArray(availableMeals),
     current: ko.observable(availableMeals[0]),
 
-    spas_procedures: ko.observableArray([{'name':'Cats'}]),
+    spas_procedures: ko.observableArray(procedures),
 
     add_staff_member: function() {
         var name = $("#staff_name").val();
@@ -129,8 +156,6 @@ viewModel.viewing.subscribe(_.throttle(function(view) {
 1000));
 
 //-------------------------------------------------------
-// Route URLs.
-//
 
 function fade_in_dash_panels() {
     $("#hoo").hide();
@@ -143,6 +168,10 @@ function fade_in_dash_panels() {
         });
     });
 }
+
+//-------------------------------------------------------
+// Route URLs.
+//
 
 var routey = Backbone.Router.extend({
 
@@ -187,7 +216,15 @@ $(function(){
         }
     });
     
-    $("input.tile").button();
+    $("input.tile").button().change(function () {
+        var treat = $(this).attr('name');
+        var proc = _.find(viewModel.spas_procedures(), function(proc) {
+//            console.log(proc);
+            return ("check_" + proc.name) == treat && proc.sub;
+        });
+        console.log(treat);
+        proc.toggle();
+    });
 
     if (!Backbone.history.start()) {
         // Default to Step 1.
