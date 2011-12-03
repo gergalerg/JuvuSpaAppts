@@ -23,7 +23,7 @@
 
 <script id="proc_template" type="text/x-jquery-tmpl">
 <div class="proc" data-bind="visible:supported">
-    <span data-bind="text:name, style: { 'paddingLeft': sub ? '1.75em' : '' }"></span>
+    <span data-bind="text:name, click:make_current, style: { 'paddingLeft': sub ? '1.75em' : '' }"></span>
 </div>
 </script>
 
@@ -65,6 +65,10 @@ var SpaProcedure = function(options) {
     this.toggle = function() {
         this.supported(!this.supported());
     }
+
+    this.make_current = function() {
+        viewModel.current_proc(this);
+    }
 }
 
 // Convert the (server-embedded) JSON to KO models.
@@ -105,6 +109,8 @@ var viewModel = {
 
     treatments: {{ treatments|safe }},
     obj_treatments: ko.observableArray(TREATMENTS),
+
+    current_proc: ko.observable({name:'None Selected'}),
 
     add_staff_member: function() {
         var name = $("#staff_name").val();
@@ -323,7 +329,21 @@ $(function(){
   <div class="twelve columns">
   <div class="panel">
     <h2>Customize Menu</h2>
-    <div class="fpo">Placeholder for Step 3</div>
+
+    <div class="row">
+
+    <div class="three columns">
+      <p data-bind="template: {name:'proc_category_template', foreach: obj_treatments}"></p>
+    </div>{# columns #}
+
+    <div class="nine columns">
+    <div class="proc_detail">Foobar
+        <h3 data-bind="text: current_proc().name"></h3>
+    </div>
+    </div>{# columns #}
+
+    </div>{# row #}
+
     <div class="button_bar_bottom"><a class="blueman button radius" href="#step/3">Next &gt;</a></div>
   </div>{# panel #}
   </div>{# columns  #}
@@ -363,12 +383,6 @@ $(function(){
         <p data-bind="text: current().name"></p>
         <h3>Price</h3>
         <p data-bind="text: current().extraCost"></p>
-      </div>{# panel #}
-    </div></div>{# columns row #}
-    <div class="row"><div class="twelve columns">
-      <div id="bb" class="panel cake">
-        <h3>Hours</h3>
-        <h3>Rate</h3>
         <h3>Something Else...</h3>
         <p data-bind="text: current().description"></p>
       </div>{# panel #}

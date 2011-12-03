@@ -16,6 +16,10 @@
     color: black;
 }
 
+h2, h4 {
+    .title;
+}
+
 .rounded-corners (@radius: 0.5em) {
     border-radius: @radius;
     -webkit-border-radius: @radius;
@@ -39,20 +43,17 @@
 	font-size: 42px;
 	font-size: 4.2rem;	
 	color: @logo_color;
-
     a {
 	    color: @logo_color;
     }
-
     a:hover {
 	    color: @logo_hover_color;
     }
-
 }
 
 #crumbs {
-    .title;
     h3 {
+        .title;
         font-weight: normal;
         a {
             padding: 4px;
@@ -82,9 +83,6 @@
 }
 
 .pane {
-    h2 {
-        .title;
-    }
     div.fpo {
         text-align: center;
         padding-top: 20em;
@@ -94,15 +92,9 @@
 
 #hoo {
     color: @fg;
-
-    h2 {
-        .title;
-    }
-
     form {
         margin-bottom: 9px;
     }
-
     .tile {
         font-family: @body_font;
         padding: 0.25em;
@@ -111,12 +103,10 @@
         .rounded-corners;
         margin-bottom: 0.5em;
     }
-
     .tile:hover {
         background-color: @call_out;
         border-color: lighten(@fg, 20%);
     }
-
 }
 
 #boy {}
@@ -150,7 +140,14 @@ label {
 
 .magic {
     font-family: @prose_font;
-    h4 {
+}
+
+.proc_display {
+    font-family: @prose_font;
+}
+
+.proc_detail {
+    h3 {
         .title;
     }
 }
