@@ -58,9 +58,13 @@ var TREATMENTS = {{ obj_treatments|safe }};
 //
 
 var SpaProcedure = function(options) {
-    this.name = options.name;
-    this.supported = ko.observable(options.supported);
+    this.name = ko.observable(options.name);
+    this.nickname = ko.observable(options.name);
+    this.supported = ko.observable(true); // options.supported
     this.sub = !!options.sub;
+
+    this.price = ko.observable(0.0);
+    this.duration = ko.observable(60);
 
     this.toggle = function() {
         this.supported(!this.supported());
@@ -215,6 +219,16 @@ $(function(){
         text: false,
     }).click(function(){return false})
 
+    $("button#add_proc").button({
+        icons: {primary:'ui-icon-circle-plus'},
+        text: false,
+    }).click(function(){return false})
+
+    $("button#del_proc").button({
+        icons: {primary:'ui-icon-circle-close'},
+        text: false,
+    }).click(function(){return false})
+
     $("#choose").accordion({
         collapsible: true,
         autoHeight: false,
@@ -337,8 +351,17 @@ $(function(){
     </div>{# columns #}
 
     <div class="nine columns">
-    <div class="proc_detail">Foobar
+    <div class="proc_detail">
         <h3 data-bind="text: current_proc().name"></h3>
+        <h5>Details</h5>
+            <form class="nice">
+                <input class="input-text" type="text" data-bind="value:current_proc().nickname" placeholder="None Selected"><br>
+                <input class="input-text" type="text" data-bind="value:current_proc().price" placeholder="Price"><br>
+                <input class="input-text" type="text" data-bind="value:current_proc().duration" placeholder="Duration"><br>
+                <button id="add_proc">Add</button>
+                <button id="del_proc">Delete</button>
+            </form>
+
     </div>
     </div>{# columns #}
 
