@@ -66,17 +66,12 @@ def post_calendar(request):
         )
 
 
-def _f(k):
-    k['treats'] = dumps(k['treats'])
-    return k
-
-
 def dashboard(request):
     return render_to_response(
         'dashboard.html',
         dict(
             treatments=SORTED_TREATMENTS,
-            obj_treatments=map(_f, OBJ_SORTED_TREATMENTS),
+            obj_treatments=dumps(OBJ_SORTED_TREATMENTS, indent=2),
             ),
         context_instance=RequestContext(request),
         )

@@ -11,7 +11,7 @@
 	@import url(http://fonts.googleapis.com/css?family=Josefin+Sans:400,100|Istok+Web|Philosopher);
 </style>
 
-<script id="tile_template" type="text/x-jquery-tmpl">
+<script id="tile_template" type="text/x-jquery-tmpl">{# StaffMember pane_4 #}
 <div class="tile">
     <a href="#" data-bind="text:name, click: make_current"></a>
     <span data-bind="visible: extraCost">[!]</span>
@@ -27,25 +27,35 @@
 </div>
 </script>
 
-<script id="proc_catagory_template" type="text/x-jquery-tmpl">
+<script id="proc_category_template" type="text/x-jquery-tmpl">
 <div class="proc_display">
     <span data-bind="text:name"></span>
     <p data-bind="template: {name:'proc_template', foreach: treats}"></p>
 </div>
 </script>
 
+<script id="accordion_proc_template" type="text/x-jquery-tmpl">
+<input class="tile" type="checkbox" data-bind="event: {change:toggle}, attr: { id: 'check_' + name, name: 'check_' + name }"/>
+<label for="check_{{ treatment }}" data-bind="attr: { for: 'check_' + name }, text:name"></label>
+<br>
+</script>
+
+<script id="accordion_proc_category_template" type="text/x-jquery-tmpl">
+<h3><a href="#" data-bind="text:name"></a></h3>
+<div data-bind="template: {name:'accordion_proc_template', foreach: treats}"></div>
+</script>
+
 <script type="text/javascript">
 
-// See http://knockoutjs.com/documentation/custom-bindings.html
-ko.bindingHandlers.pagey = {
-    update: function(element, valueAccessor, allBindingsAccessor, viewModel) {
-        var delta = 0 - $(element).position().left;
-        console.log(delta, element, valueAccessor(), allBindingsAccessor(), viewModel);
-        // This will be called once when the binding is first applied to an element,
-        // and again whenever the associated observable changes value.
-        // Update the DOM element based on the supplied values here.
-    }
-};
+//-------------------------------------------------------
+// Static Data
+//
+
+var TREATMENTS = {{ obj_treatments|safe }};
+
+//-------------------------------------------------------
+// View Model
+//
 
 var SpaProcedure = function(options) {
     this.name = options.name;
@@ -56,6 +66,13 @@ var SpaProcedure = function(options) {
         this.supported(!this.supported());
     }
 }
+
+// Convert the (server-embedded) JSON to KO models.
+_.each(TREATMENTS, function(kind) {
+    kind.treats = ko.observableArray(
+        _.map(kind.treats, function(n) { return new SpaProcedure(n); })
+    )
+});
 
 var StaffMember = function(options) {
     this.name = options.name;
@@ -74,36 +91,7 @@ var StaffMember = function(options) {
     }
 }
 
-var TREATMENTS = [
-{% for kind in obj_treatments %}
-    {
-        name: "{{ kind.name }}",
-        treats: ko.observableArray(jQuery.map({{ kind.treats|safe }}, function(n, i) {
-            console.log(i, n);
-            return new SpaProcedure(n);
-        })),
-    },
-{% endfor %}
-];
-
-var procedures = jQuery.map([
-{% for kind, treats in treatments %}
-    {
-        name: "{{ kind }}",
-        supported: true,
-        sub: false,
-    },
-{% for treatment in treats %}
-    {
-        name: "{{ treatment }}",
-        supported: false,
-        sub: true,
-    },
-{% endfor %}
-{% endfor %}
-], function(n, i){ return new SpaProcedure(n) })
-
-var availableMeals = jQuery.map([      
+var availableMeals = _.map([      
         { name: 'Billy', description: 'Dry crusts of bread', extraCost: 0 },
         { name: 'Bob', description: 'Fresh bread with cheese', extraCost: 9.95 },
         { name: 'Billy Jo Bob', description: 'Caviar and vintage Dr Pepper', extraCost: 18.50 },
@@ -117,7 +105,6 @@ var viewModel = {
 
     treatments: {{ treatments|safe }},
     obj_treatments: ko.observableArray(TREATMENTS),
-    spas_procedures: ko.observableArray(procedures),
 
     add_staff_member: function() {
         var name = $("#staff_name").val();
@@ -141,11 +128,13 @@ viewModel.display_view_name = ko.dependentObservable(function() {
     return (viewing == 'dash') ? '' : viewing + 1;
 }, viewModel);
 
+//-------------------------------------------------------
+// View
+//
 
 var View = {
     previous_view: 0,
 };
-
 
 viewModel.viewing.subscribe(function(view) {
     $(".indicate").removeClass("indicate");
@@ -155,7 +144,7 @@ viewModel.viewing.subscribe(function(view) {
 viewModel.viewing.subscribe(_.throttle(function(view) {
     var i = (view == "dash") ? 4 : +view;
     var delta = i - View.previous_view;
-    if (delta == 0) {
+    if (!delta) {
         return;
     }
     var leaving = delta < 0 ? 'right' : 'left';
@@ -175,20 +164,6 @@ viewModel.viewing.subscribe(_.throttle(function(view) {
     View.previous_view = i;
 },
 1000));
-
-//-------------------------------------------------------
-
-function fade_in_dash_panels() {
-    $("#hoo").hide();
-    $(".cake").hide();
-
-    $("#hoo").delay(300).fadeIn('slow', function(){
-        $("#aa").fadeIn('slow', function(){
-            $("#bb").fadeIn('slow', function(){
-            });
-        });
-    });
-}
 
 //-------------------------------------------------------
 // Route URLs.
@@ -218,7 +193,12 @@ var routey = Backbone.Router.extend({
 
 var routes = new routey();
 
+//-------------------------------------------------------
+// Fire 'er up!
+//
+
 $(function(){
+
     $(".pane").hide();
     $("#pane_0").show();
 
@@ -237,18 +217,7 @@ $(function(){
         }
     });
     
-    $("input.tile").button().change(function () {
-        var treat = $(this).attr('name');
-        console.log(treat);
-        var proc = _.each(viewModel.obj_treatments(), function(kind) {
-            console.log(kind);
-            _.each(kind.treats(), function(t) {
-                if ("check_" + t.name == treat) {
-                    treat.toggle();
-                }
-            });
-        });
-    });
+    $("input.tile").button();
 
     if (!Backbone.history.start()) {
         // Default to Step 1.
@@ -320,15 +289,7 @@ $(function(){
     <div class="seven columns">
 
         <form>
-	    <div id="choose" class="roundy main_panel">
-	      {% for kind, treats in treatments %}
-	        <h3><a href="#">{{ kind }}</a></h3>
-	        <div>
-	        {% for treatment in treats %}
-	        <input class="tile" type="checkbox" id="check_{{ treatment }}" name="check_{{ treatment }}" /><label for="check_{{ treatment }}">{{ treatment }}</label><br>
-	        {% endfor %}
-	        </div>
-	      {% endfor %}
+	    <div id="choose" class="roundy main_panel" data-bind="template: {name:'accordion_proc_category_template', foreach: obj_treatments}">
 	    </div>{# "choose" DIV #}
         </form>
 
@@ -343,7 +304,7 @@ $(function(){
         orphan worry ladle cluck wetter putty ladle rat hut, an fur disk
         raisin pimple colder Ladle Rat Rotten Hut.
       </p>
-      <p data-bind="template: {name:'proc_catagory_template', foreach: obj_treatments}"></p>
+      <p data-bind="template: {name:'proc_category_template', foreach: obj_treatments}"></p>
     </div>{#  magic #}
     </div>{# columns #}
 
