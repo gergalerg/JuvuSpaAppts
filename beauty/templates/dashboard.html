@@ -27,6 +27,13 @@
 </div>
 </script>
 
+<script id="proc_catagory_template" type="text/x-jquery-tmpl">
+<div class="proc_display">
+    <span data-bind="text:name"></span>
+    <p data-bind="template: {name:'proc_template', foreach: treats}"></p>
+</div>
+</script>
+
 <script type="text/javascript">
 
 // See http://knockoutjs.com/documentation/custom-bindings.html
@@ -67,6 +74,18 @@ var StaffMember = function(options) {
     }
 }
 
+var TREATMENTS = [
+{% for kind in obj_treatments %}
+    {
+        name: "{{ kind.name }}",
+        treats: ko.observableArray(jQuery.map({{ kind.treats|safe }}, function(n, i) {
+            console.log(i, n);
+            return new SpaProcedure(n);
+        })),
+    },
+{% endfor %}
+];
+
 var procedures = jQuery.map([
 {% for kind, treats in treatments %}
     {
@@ -96,6 +115,8 @@ var viewModel = {
     stuffs: ko.observableArray(availableMeals),
     current: ko.observable(availableMeals[0]),
 
+    treatments: {{ treatments|safe }},
+    obj_treatments: ko.observableArray(TREATMENTS),
     spas_procedures: ko.observableArray(procedures),
 
     add_staff_member: function() {
@@ -218,12 +239,15 @@ $(function(){
     
     $("input.tile").button().change(function () {
         var treat = $(this).attr('name');
-        var proc = _.find(viewModel.spas_procedures(), function(proc) {
-//            console.log(proc);
-            return ("check_" + proc.name) == treat && proc.sub;
-        });
         console.log(treat);
-        proc.toggle();
+        var proc = _.each(viewModel.obj_treatments(), function(kind) {
+            console.log(kind);
+            _.each(kind.treats(), function(t) {
+                if ("check_" + t.name == treat) {
+                    treat.toggle();
+                }
+            });
+        });
     });
 
     if (!Backbone.history.start()) {
@@ -319,7 +343,7 @@ $(function(){
         orphan worry ladle cluck wetter putty ladle rat hut, an fur disk
         raisin pimple colder Ladle Rat Rotten Hut.
       </p>
-      <p data-bind="template: {name:'proc_template', foreach: spas_procedures}"></p>
+      <p data-bind="template: {name:'proc_catagory_template', foreach: obj_treatments}"></p>
     </div>{#  magic #}
     </div>{# columns #}
 

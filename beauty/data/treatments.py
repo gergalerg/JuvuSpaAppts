@@ -109,6 +109,15 @@ TREATMENTS = {
 
 SORTED_TREATMENTS = [(k, TREATMENTS[k]) for k in sorted(TREATMENTS)]
 
+OBJ_SORTED_TREATMENTS = [
+    dict(name=k, treats=[dict(
+        name=t,
+        supported=False,
+        sub=True,
+        ) for t in TREATMENTS[k]])
+    for k in sorted(TREATMENTS)
+    ]
+
 ALL_TREATMENTS = list(TREATMENTS) + list(chain(*TREATMENTS.itervalues()))
 
 LOOKUP_TREATMENT = dict(
