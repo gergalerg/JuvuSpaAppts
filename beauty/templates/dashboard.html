@@ -58,7 +58,7 @@ var TREATMENTS = {{ obj_treatments|safe }};
 //
 
 var SpaProcedure = function(options) {
-    this.name = ko.observable(options.name);
+    this.name = options.name;
     this.nickname = ko.observable(options.name);
     this.supported = ko.observable(true); // options.supported
     this.sub = !!options.sub;
