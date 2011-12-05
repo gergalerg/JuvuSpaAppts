@@ -110,31 +110,6 @@ function select_week(w) {
         .attr("y", function(d) { return ym(0) })
         .attr("fill-opacity", 1)
     clear_unmatching(texts, in_week, hidey);
-/*
-
-    var in_week = function(d) { return d.week_of_year == w }
-    var texts = d3.selectAll("text")
-    .filter().transition()
-        .attr("x", function(d) { return xm(d.day_of_week) })
-        .attr("y", function(d) { return ym(0) });
-
-    console.log('yes');
-    var vis = d3.select("#uncanny")
-        .data(data)
-        .filter(in_week).insert("svg:text")
-        .text(function(d) { return d.day_of_week; })
-        .attr("x", function(d) { return xm(d.day_of_week) })
-        .attr("y", function(d) { return ym(0) });
-    console.log('yes!');
-
-d3.select("svg")
-    .data(d3.range(8))
-    .enter()
-    .append("svg:text")
-    .text(function(d) { return d.day_of_week; })
-    .attr("x", function(d) { return xm(d) })
-    .attr("y", function(d) { return ym(0) })
-*/
 }
 
 function clear_unmatching(selection, predicate, effect) {
@@ -174,14 +149,20 @@ function embiggen(T) { T
     .attr("r", function(d) {
         return (viewModel.is_current(d))
             ? r_big(Math.random())
-            : r_med(Math.random());
+            : (viewModel.viewing() == "year")
+                ? r_med(Math.random())
+                : r_big(Math.random());
     })
     .duration(2500)
     .ease("elastic", 3, 0.3)
 }
 
 function shrink(T) { T
-    .attr("r", function() { return r(Math.random()) })
+    .attr("r", function() {
+        return (viewModel.viewing() == "year")
+            ? r(Math.random())
+            :  r_big(Math.random())
+    })
     .delay(100)
     .duration(333)
 }
@@ -321,6 +302,7 @@ var Workspace = Backbone.Router.extend({
         "year": "year",
         "month/:mnum": "month",
         "week/:wnum": "week",
+        "day/:dnum": "day",
     },
 
     year: function() {
@@ -335,10 +317,16 @@ var Workspace = Backbone.Router.extend({
     },
 
     week: function(wnum) {
-        console.log('woo', wnum);
         wnum = +wnum;
         if (wnum >= 0 && wnum < 54) {
             viewModel.viewing('w' + wnum);
+        }
+    },
+
+    day: function(dnum) {
+        dnum = +dnum;
+        if (dnum >= 0 && dnum < 365) {
+            viewModel.viewing('d' + dnum);
         }
     }
 
@@ -360,7 +348,7 @@ $(function() {
         .attr("stroke-width", "none")
         .call(year_style)
         .call(mouse_bindings);
-
+/*
     var texts = vis.selectAll("text")
         .data(data)
     .enter().append("svg:text")
@@ -370,19 +358,19 @@ $(function() {
         .attr("dy", 4)
         .text(function(d) { return +d.day_of_month; })
         .attr("fill-opacity", 0)
-
+*/
     crambery(3); // Animate color cycle at three minutes per complete rainbow. ;)
 
     new Workspace();
     Backbone.history.start();
 
     ko.applyBindings(viewModel);
-
+/*
     for (var i = 0; i < 53; i++) {
         var link = $('<a id="w' + i + '_link" href="#week/' + i + '">o</a>');
         $("#hull").append(link);
     }
-
+*/
 });
 
 
