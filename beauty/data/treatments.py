@@ -3,6 +3,7 @@ Different treatment types grouped by "genus".
 '''
 from itertools import chain
 from difflib import get_close_matches
+from simplejson import dumps
 
 
 def _str_to_kinds(s):
@@ -136,58 +137,14 @@ def lookup_treatment(term):
     # i.e. return None
 
 
-##    '''\
-##    Microdermabrasion
-##    Clinical Facial
-##    Chemical Peel
-##    Hydrating Therapy
-##    Deep Cleansing Therapy
-##    Firming and relaxation
-##    MicroFacial
-##    Micropeel
-##    Oxygen Facial
-##    Aromatherapy
-##    Pregnancy Facial
-##    Dysport
-##    Perlane
-##    Juvederm
-##    Restalyne
-##    Sculptra
-##    Intentse Pulsed Light
-##    Laser Resurfacing
-##    Acne Treatment
-##    Sublative Rejuvenation
-##    Pedicure
-##    Manicure
-##    Sclerotherapy
-##    Endermologie
-##    Herbal Body wrap
-##    Infrared Body wrap
-##    Underarm Rejuvenation
-##    Intense Pulsed Light
-##    Skin Tag Removal
-##    Thermage Skin Tightening
-##    Back Facial
-##    Brazillian Facial
-##    Scrub
-##    Skin Lightening
-##    Tattoo removal
-##    Swedish Massage
-##    Deep Tissue Massage
-##    Prenatal Massage
-##    Thermal Stone Massage
-##    Shiatsu Massage
-##    Reflexology
-##    Laser Hair Removal
-##    Waxing Hair Removal
-##    BOTOX Cosmetic
-##    Accent
-##    Juvederm
-##    Radiesse
-##    Perlane
-##    Pixel Skin Treatment
-##    PhotoDynamic Therapy
-##    Skin Tightening
-##    PhotoFacial Elite
-##    Photorejuvenation
-##    Fraxel'''.splitlines()
+_tree_form_treatments = {
+    'name': 'Enjoy',
+    'children': [
+        {
+            'name': treatment,
+            'children': [{'name': kind} for kind in kinds],
+            }
+        for treatment, kinds in SORTED_TREATMENTS
+        ],
+    }
+TREE = dumps(_tree_form_treatments, indent=2)

@@ -6,7 +6,11 @@ from django.shortcuts import render_to_response
 from spasui.models import prepare_trenche_data
 from spasui.api import dispatch
 from spasui.availabilities import create_availabilities
-from beauty.data.treatments import SORTED_TREATMENTS, OBJ_SORTED_TREATMENTS
+from beauty.data.treatments import (
+    SORTED_TREATMENTS,
+    OBJ_SORTED_TREATMENTS,
+    TREE,
+    )
 
 
 def _json_boolean(n):
@@ -72,6 +76,7 @@ def dashboard(request):
         dict(
             treatments=SORTED_TREATMENTS,
             obj_treatments=dumps(OBJ_SORTED_TREATMENTS, indent=2),
+            tree_data=TREE,
             ),
         context_instance=RequestContext(request),
         )

@@ -1,2 +1,238 @@
-{"name": "Enjoy", "children": [{"name": "Facials", "children": [{"name": "Microdermabrasion"}, {"name": "Clinical Facials"}, {"name": "Chemical Peels"}, {"name": "Organic Treatments"}, {"name": "Hydrating Therapy"}, {"name": "Deep Cleansing Therapy"}, {"name": "Firming and relaxation"}, {"name": "MicroFacial"}, {"name": "Micropeel"}, {"name": "Oxygen Facial"}, {"name": "Aromatherapy"}, {"name": "Pregnancy Facial"}, {"name": "Dysport"}, {"name": "Perlane"}, {"name": "Juvederm"}, {"name": "Restalyne"}, {"name": "Sculptra"}, {"name": "Intentse Pulsed Light"}, {"name": "Laser Resurfacing"}, {"name": "Acne Treatment"}, {"name": "Sublative Rejuvenation"}]}, {"name": "Hair Removal", "children": [{"name": "Laser"}, {"name": "Waxing"}, {"name": "Light Heat Therapy"}]}, {"name": "Hand and Feet", "children": [{"name": "Pedicure"}, {"name": "Medical pedicure"}, {"name": "Manicure"}, {"name": "Medical manicure"}, {"name": "Mani/pedi"}]}, {"name": "Skin", "children": [{"name": "BOTOX Cosmetic"}, {"name": "Accent"}, {"name": "Juvederm"}, {"name": "Radiesse"}, {"name": "Perlane"}, {"name": "Pixel Skin Treatment"}, {"name": "PhotoDynamic Therapy"}, {"name": "Skin Tightening"}, {"name": "PhotoFacial Elite"}, {"name": "Photorejuvenation"}, {"name": "Fraxel"}, {"name": "Hyaluronic acid"}, {"name": "Restylane"}, {"name": "Hylaform"}]}, {"name": "Acupuncture", "children": [{"name": "Acupuncture"}, {"name": "Electro Acupuncture"}, {"name": "Cupping Therapy"}, {"name": "Gua Sha Therapy"}, {"name": "Tui Na Therapy"}]}, {"name": "Body Services", "children": [{"name": "Sclerotherapy"}, {"name": "Endermologie"}, {"name": "Body Wrap"}, {"name": "Herbal Body Wrap"}, {"name": "Infrared Body Wrap"}, {"name": "Underarm Rejuvenation"}, {"name": "Intense Pulsed Light"}, {"name": "Skin Tag Removal"}, {"name": "Thermage Skin Tightening"}, {"name": "Back Facial"}, {"name": "Brazillian Facial"}, {"name": "Scrub"}, {"name": "Skin Lightening"}, {"name": "Tattoo removal"}]}, {"name": "Massage", "children": [{"name": "Swedish"}, {"name": "Deep Tissue"}, {"name": "Prenatal"}, {"name": "Thermal Stone Massage"}, {"name": "Shiatsu"}, {"name": "Reflexology"}]}]}
-
+{
+  "name": "Enjoy", 
+  "children": [
+    {
+      "name": "Acupuncture", 
+      "children": [
+        {
+          "name": "Acupuncture"
+        }, 
+        {
+          "name": "Electro Acupuncture"
+        }, 
+        {
+          "name": "Cupping Therapy"
+        }, 
+        {
+          "name": "Gua Sha Therapy"
+        }, 
+        {
+          "name": "Tui Na Therapy"
+        }
+      ]
+    }, 
+    {
+      "name": "Body Services", 
+      "children": [
+        {
+          "name": "Sclerotherapy"
+        }, 
+        {
+          "name": "Endermologie"
+        }, 
+        {
+          "name": "Body Wrap"
+        }, 
+        {
+          "name": "Herbal Body Wrap"
+        }, 
+        {
+          "name": "Infrared Body Wrap"
+        }, 
+        {
+          "name": "Underarm Rejuvenation"
+        }, 
+        {
+          "name": "Intense Pulsed Light"
+        }, 
+        {
+          "name": "Skin Tag Removal"
+        }, 
+        {
+          "name": "Thermage Skin Tightening"
+        }, 
+        {
+          "name": "Back Facial"
+        }, 
+        {
+          "name": "Brazillian Facial"
+        }, 
+        {
+          "name": "Scrub"
+        }, 
+        {
+          "name": "Skin Lightening"
+        }, 
+        {
+          "name": "Tattoo removal"
+        }
+      ]
+    }, 
+    {
+      "name": "Facials", 
+      "children": [
+        {
+          "name": "Microdermabrasion"
+        }, 
+        {
+          "name": "Clinical Facials"
+        }, 
+        {
+          "name": "Chemical Peels"
+        }, 
+        {
+          "name": "Organic Treatments"
+        }, 
+        {
+          "name": "Hydrating Therapy"
+        }, 
+        {
+          "name": "Deep Cleansing Therapy"
+        }, 
+        {
+          "name": "Firming and relaxation"
+        }, 
+        {
+          "name": "MicroFacial"
+        }, 
+        {
+          "name": "Micropeel"
+        }, 
+        {
+          "name": "Oxygen Facial"
+        }, 
+        {
+          "name": "Aromatherapy"
+        }, 
+        {
+          "name": "Pregnancy Facial"
+        }, 
+        {
+          "name": "Dysport"
+        }, 
+        {
+          "name": "Perlane"
+        }, 
+        {
+          "name": "Juvederm"
+        }, 
+        {
+          "name": "Restalyne"
+        }, 
+        {
+          "name": "Sculptra"
+        }, 
+        {
+          "name": "Intentse Pulsed Light"
+        }, 
+        {
+          "name": "Laser Resurfacing"
+        }, 
+        {
+          "name": "Acne Treatment"
+        }, 
+        {
+          "name": "Sublative Rejuvenation"
+        }
+      ]
+    }, 
+    {
+      "name": "Hair Removal", 
+      "children": [
+        {
+          "name": "Laser"
+        }, 
+        {
+          "name": "Waxing"
+        }, 
+        {
+          "name": "Light Heat Therapy"
+        }
+      ]
+    }, 
+    {
+      "name": "Hand and Feet", 
+      "children": [
+        {
+          "name": "Pedicure"
+        }, 
+        {
+          "name": "Medical pedicure"
+        }, 
+        {
+          "name": "Manicure"
+        }, 
+        {
+          "name": "Medical manicure"
+        }, 
+        {
+          "name": "Mani/pedi"
+        }
+      ]
+    }, 
+    {
+      "name": "Massage", 
+      "children": [
+        {
+          "name": "Swedish"
+        }, 
+        {
+          "name": "Deep Tissue"
+        }, 
+        {
+          "name": "Prenatal"
+        }, 
+        {
+          "name": "Thermal Stone Massage"
+        }, 
+        {
+          "name": "Shiatsu"
+        }, 
+        {
+          "name": "Reflexology"
+        }
+      ]
+    }, 
+    {
+      "name": "Skin", 
+      "children": [
+        {
+          "name": "BOTOX Cosmetic"
+        }, 
+        {
+          "name": "Accent"
+        }, 
+        {
+          "name": "Radiesse"
+        }, 
+        {
+          "name": "Pixel Skin Treatment"
+        }, 
+        {
+          "name": "PhotoDynamic Therapy"
+        }, 
+        {
+          "name": "Skin Tightening"
+        }, 
+        {
+          "name": "PhotoFacial Elite"
+        }, 
+        {
+          "name": "Photorejuvenation"
+        }, 
+        {
+          "name": "Fraxel"
+        }, 
+        {
+          "name": "Hyaluronic acid"
+        }, 
+        {
+          "name": "Restylane"
+        }, 
+        {
+          "name": "Hylaform"
+        }
+      ]
+    }
+  ]
+}
