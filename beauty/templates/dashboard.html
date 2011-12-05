@@ -11,7 +11,8 @@
 	@import url(http://fonts.googleapis.com/css?family=Josefin+Sans:400,100|Istok+Web|Philosopher);
 </style>
 
-<script id="tile_template" type="text/x-jquery-tmpl">{# StaffMember pane_4 #}
+{# StaffMember pane_4 Step "Dashboard" ================================================= #}
+<script id="tile_template" type="text/x-jquery-tmpl">
 <div class="tile">
     <a href="#" data-bind="text:name, click: make_current"></a>
     <span data-bind="visible: extraCost">[!]</span>
@@ -21,6 +22,7 @@
 </div>
 </script>
 
+{# Treatments Outline Display Steps 2 & 3 ================================================= #}
 <script id="proc_template" type="text/x-jquery-tmpl">
 <div class="proc" data-bind="visible:supported">
     <span data-bind="text:name, click:make_current, style: { 'paddingLeft': sub ? '1.75em' : '' }"></span>
@@ -34,6 +36,7 @@
 </div>
 </script>
 
+{# Accordion Display Step 2 ================================================= #}
 <script id="accordion_proc_template" type="text/x-jquery-tmpl">
 <input class="tile" type="checkbox" data-bind="event: {change:toggle}, attr: { id: 'check_' + name, name: 'check_' + name }"/>
 <label for="check_{{ treatment }}" data-bind="attr: { for: 'check_' + name }, text:name"></label>
@@ -43,6 +46,23 @@
 <script id="accordion_proc_category_template" type="text/x-jquery-tmpl">
 <h3><a href="#" data-bind="text:name"></a></h3>
 <div data-bind="template: {name:'accordion_proc_template', foreach: treats}"></div>
+</script>
+
+{# Full Treatment Menu Step 4 ================================================= #}
+<script id="review_proc_template" type="text/x-jquery-tmpl">
+<div class="review_proc" data-bind="visible:supported">
+    <h4 data-bind="text:name"></h4>
+    <span data-bind="text:nickname"></span>
+    <span data-bind="text:formatted_price"></span>
+    <span data-bind="text:duration"></span>
+</div>
+</script>
+
+<script id="review_proc_category_template" type="text/x-jquery-tmpl">
+<div class="review_proc_category">
+    <div class="review_procs" data-bind="template: {name:'review_proc_template', foreach: treats}"></p>
+    </div>
+</div>
 </script>
 
 <script type="text/javascript">
@@ -65,6 +85,10 @@ var SpaProcedure = function(options) {
 
     this.price = ko.observable(0.0);
     this.duration = ko.observable(60);
+
+    this.formatted_price = ko.dependentObservable(function() {
+        return "$" + (+this.price()).toFixed(2);
+    }, this);
 
     this.toggle = function() {
         this.supported(!this.supported());
@@ -354,6 +378,11 @@ $(function(){
     <div class="proc_detail">
         <h3 data-bind="text: current_proc().name"></h3>
         <h5>Details</h5>
+            <div class="sub_proc" data-bind="visible:current_proc().supported">
+                <span data-bind="text:current_proc().nickname"></span>
+                <span data-bind="text:current_proc().formatted_price"></span>
+                <span data-bind="text:current_proc().duration"></span>
+            </div>
             <form class="nice">
                 <input class="input-text" type="text" data-bind="value:current_proc().nickname" placeholder="None Selected"><br>
                 <input class="input-text" type="text" data-bind="value:current_proc().price" placeholder="Price"><br>
@@ -379,7 +408,7 @@ $(function(){
   <div class="twelve columns">
   <div class="panel">
     <h2>Spa Menu Review</h2>
-    <div class="fpo">Placeholder for Step 4</div>
+    <div data-bind="template: {name:'review_proc_category_template', foreach: obj_treatments}"></div>
     <div class="button_bar_bottom"><a class="blueman button radius" href="#d">Next &gt;</a></div>
   </div>{# panel #}
   </div>{# columns  #}
