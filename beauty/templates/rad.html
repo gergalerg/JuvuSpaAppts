@@ -22,6 +22,7 @@ var day = d3.time.format("%w"),
     week = d3.time.format("%U"),
     _month = d3.time.format("%m"),
     mday = d3.time.format("%d"),
+    yday = d3.time.format("%j"),
     format = d3.time.format("%A, %B %d %Y");
 
 function month(d) { return _month(d) - 1 }
@@ -59,6 +60,7 @@ var data = jQuery.map(year, function(d, i) {
         "week_of_year": +week(d),
         "day_of_week": day(d),
         "day_of_month": mday(d),
+        "day_of_year": +yday(d),
         "label": format(d),
         "date": d,
     };
@@ -110,6 +112,14 @@ function select_week(w) {
         .attr("y", function(d) { return ym(0) })
         .attr("fill-opacity", 1)
     clear_unmatching(texts, in_week, hidey);
+}
+
+function select_day(day) {
+    var in_day = function(d) { return d.day_of_year == day };
+    clear_unmatching(
+        d3.selectAll("circle"),
+        in_day,
+        fade_drop);
 }
 
 function clear_unmatching(selection, predicate, effect) {
@@ -165,6 +175,13 @@ function shrink(T) { T
     })
     .delay(100)
     .duration(333)
+}
+
+function swell(T) { T
+    .attr("r", 2000)
+    .delay(100)
+    .duration(1333)
+    .attr("fill-opacity", 0.01)
 }
 
 function week_style(T) { T
@@ -228,9 +245,9 @@ viewModel.pointed_at_el.subscribe(function(it) {
 
 viewModel.current_el.subscribe(function(it) {
     var circ = d3.select(it);
-    circ.transition().call(embiggen);
+    circ.transition().call(swell);
     if (view.previous) {
-        view.previous.transition().call(shrink);
+        view.previous.transition().call(shrink).attr("fill-opacity", 0.5);
     }
     view.previous = circ;
 });
@@ -244,8 +261,9 @@ viewModel.viewing.subscribe(function(view) {
     if (view == "year") {
         select_year();
     } else if (view[0] == 'w') {
-        console.log('kick', view.slice(1));
         select_week(view.slice(1));
+    } else if (view[0] == 'd') {
+        select_day(view.slice(1));
     } else {
         select_month(view);
     }
@@ -270,6 +288,7 @@ function mouse_bindings(T) { T
         if (!viewModel.is_current(d)) {
             viewModel.current(d.label);
             viewModel.current_el(this);
+            routes.navigate("day/" + d.day_of_year, true);
         }
     });
 }
@@ -332,6 +351,8 @@ var Workspace = Backbone.Router.extend({
 
 });
 
+var routes = new Workspace();
+
 //-------------------------------------------------------
 
 $(function() {
@@ -361,8 +382,10 @@ $(function() {
 */
     crambery(3); // Animate color cycle at three minutes per complete rainbow. ;)
 
-    new Workspace();
-    Backbone.history.start();
+    if (!Backbone.history.start()) {
+        // Default to Step 1.
+        routes.navigate("year", true);
+    };
 
     ko.applyBindings(viewModel);
 /*
