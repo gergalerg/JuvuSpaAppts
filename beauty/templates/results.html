@@ -121,6 +121,7 @@
 	}
 </style>
 
+<script type="text/javascript" src="/static/js/jquery.hoverIntent.js"></script>
 <script type="text/javascript" src="/static/js/jquery.tablesorter.min.js"></script>
 <link rel="stylesheet" href="/static/tablesorter.css" type="text/css">
 <link rel="stylesheet" href="/static/dealcal.css" type="text/css">
@@ -172,7 +173,7 @@ $(function() {
             tbod.append(ich.trow_template(datum));
 
             var details = $(".details", tile);
-            $(".desktop_tile", tile).hover(
+            $(".desktop_tile", tile).hoverIntent(
                 function () { details.slideDown() },
                 function () { details.slideUp() }
             );
