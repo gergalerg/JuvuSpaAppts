@@ -46,11 +46,20 @@
 		font-size: 22px !important;
 		font-size: 2.2rem !important;
 		color: #7f7f7f;
-		width: 220px;
+		width: 160px;
 		padding:  5px 15px !important;
 		border:  solid 1px #bbbbbb;
 	}
 	
+    #location {
+		font-size: 22px !important;
+		font-size: 2.2rem !important;
+		color: #7f7f7f;
+		width: 220px;
+		padding:  5px 15px !important;
+		border:  solid 1px #bbbbbb;
+    }
+
 	#datepicker {
 		font-size: 22px !important;
 		font-size: 2.2rem !important;
@@ -73,7 +82,7 @@
 	#search:hover{
 		background-color: #015f8a;
 	}
-	
+
 	select {
 		font-size: 22px !important;
 		font-size: 2.2rem;
@@ -121,16 +130,9 @@ Search - SpaStalker
 
 			<center>
 			<form method="POST" action="{% url results %}">{% csrf_token %}
-				<input id="treatment" name="treatment" type="text" placeholder="Looking for... a spa?"> 
-
-				<select name="location">
-				<option value="San Francisco, CA">in San Francisco</option>
-				<option value="Oakland, CA">Oakland</option>
-				<option value="San Jose, CA">San Jose</option>
-				</select>
-
-				<input id="datepicker" name="anotherday" type="text" placeholder="on which day?">
-
+				<input value="Spas" id="treatment" name="treatment" type="text" placeholder="Looking for... a spa?"> 
+				<h3 style="display: inline;"> around </h3> <input value="355 Bryant St, SF" id="location" name="location" type="text" placeholder="Where are you?"> 
+				<input type="hidden" name="today" value="on" />
 				<input id="search" type="submit" value="Spa me!"> 
             </form>
             </center>

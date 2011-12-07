@@ -1,0 +1,48 @@
+@fg: #787D78;
+@foundation_link_blue: #2A85E8;
+
+@title_font: 'Josefin Sans', sans-serif;
+@body_font: 'Istok Web', serif;
+@prose_font: 'Philosopher', serif;
+
+#hull {
+    color: @fg;
+    font-family: @prose_font;
+}
+
+.title {
+    font-family: @title_font;
+    font-weight: 100;
+    color: black;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    .title;
+}
+
+h3.phat, h4.phat, h5.phat, h6.phat {
+    .title;
+    font-weight: 400;
+}
+
+p.captiony {
+    font-size: smaller;
+    font-family: @body_font;
+    line-height: 1.25em;
+}
+
+.indicate {
+    color: #fff;
+    background-color: @foundation_link_blue;
+}
+
+text {
+    fill: @fg;
+    font-family: @title_font;
+    font-size: 18px;
+}
+
+#slider {
+    height: 700px;
+    background: transparent;
+}

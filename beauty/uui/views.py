@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponse
 from spasui.search import process_POST_params, search_for_availabilities
 from beauty.util.dealcal import DealCalendar
+from yelp import YelpApi
 
 
 def search(request):
@@ -22,6 +23,8 @@ def results(request):
         return redirect('search')
 
     results, criteria = _get_results(request)
+
+    s = YelpApi(criteria['treatment'], criteria['location'], '5')
 
     return render_to_response(
         'results.html',

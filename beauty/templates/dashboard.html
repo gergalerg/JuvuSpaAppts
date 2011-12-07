@@ -1,0 +1,583 @@
+{% extends "base.html" %}
+{% block html_head %}
+<script type="text/javascript" src="/static/js/libby.js"></script>
+<script type="text/javascript" src="/static/js/bbone/underscore.js"></script>
+<script type="text/javascript" src="/static/js/bbone/backbone.js"></script>
+<link type="text/css" href="/static/dashboard.less" rel="stylesheet/less">
+<script type="text/javascript" src="/static/js/less.js"></script>
+<script type="text/javascript" src="/static/js/jquery.tmpl.js"></script>
+<script type="text/javascript" src="/static/js/knockout-1.2.1.debug.js"></script>
+<script type="text/javascript" src="/static/js/d3/d3.js"></script>
+<script type="text/javascript" src="/static/js/d3/d3.layout.js"></script>
+<style>
+	@import url(http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700);
+	@import url(http://fonts.googleapis.com/css?family=Josefin+Sans:400,100|Istok+Web|Philosopher);
+</style>
+
+{# StaffMember pane_4 Step "Dashboard" ================================================= #}
+<script id="tile_template" type="text/x-jquery-tmpl">
+<div class="tile">
+    <a href="#" data-bind="text:name, click: make_current"></a>
+    <span data-bind="visible: extraCost">[!]</span>
+    <br>
+    <span class="clip" data-bind="text:description"></span>
+    <a href="#" class="clip" data-bind="click: remove">Remove</a>
+</div>
+</script>
+
+{# Treatments Outline Display Steps 2 & 3 ================================================= #}
+<script id="proc_template" type="text/x-jquery-tmpl">
+<div class="proc" data-bind="visible:supported">
+    <span data-bind="text:name, click:make_current, style: { 'paddingLeft': sub ? '1.75em' : '' }"></span>
+</div>
+</script>
+
+<script id="proc_category_template" type="text/x-jquery-tmpl">
+<div class="proc_display">
+    <span data-bind="text:name"></span>
+    <p data-bind="template: {name:'proc_template', foreach: treats}"></p>
+</div>
+</script>
+
+{# Accordion Display Step 2 ================================================= #}
+<script id="accordion_proc_template" type="text/x-jquery-tmpl">
+<input class="tile" type="checkbox" data-bind="event: {change:toggle}, attr: { id: 'check_' + name, name: 'check_' + name }"/>
+<label for="check_{{ treatment }}" data-bind="attr: { for: 'check_' + name }, text:name"></label>
+<br>
+</script>
+
+<script id="accordion_proc_category_template" type="text/x-jquery-tmpl">
+<h3><a href="#" data-bind="text:name"></a></h3>
+<div data-bind="template: {name:'accordion_proc_template', foreach: treats}"></div>
+</script>
+
+{# Full Treatment Menu Step 4 ================================================= #}
+<script id="review_proc_template" type="text/x-jquery-tmpl">
+<div class="review_proc" data-bind="visible:supported">
+    <h4 data-bind="text:name"></h4>
+    <span data-bind="text:nickname"></span>
+    <span data-bind="text:formatted_price"></span>
+    <span data-bind="text:duration"></span>
+</div>
+</script>
+
+<script id="review_proc_category_template" type="text/x-jquery-tmpl">
+<div class="review_proc_category">
+    <div class="review_procs" data-bind="template: {name:'review_proc_template', foreach: treats}"></p>
+    </div>
+</div>
+</script>
+
+<script type="text/javascript">
+
+//-------------------------------------------------------
+// Static Data
+//
+
+var TREATMENTS = {{ obj_treatments|safe }};
+
+var root = {{ tree_data|safe }};
+
+//-------------------------------------------------------
+// View Model
+//
+
+var SpaProcedure = function(options) {
+    this.name = options.name;
+    this.nickname = ko.observable(options.name);
+    this.supported = ko.observable(options.supported);
+    this.sub = !!options.sub;
+
+    this.price = ko.observable(0.0);
+    this.duration = ko.observable(60);
+
+    this.formatted_price = ko.dependentObservable(function() {
+        return "$" + (+this.price()).toFixed(2);
+    }, this);
+
+    this.toggle = function() {
+        this.supported(!this.supported());
+    }
+
+    this.make_current = function() {
+        viewModel.current_proc(this);
+    }
+}
+
+// Convert the (server-embedded) JSON to KO models.
+_.each(TREATMENTS, function(kind) {
+    kind.treats = ko.observableArray(
+        _.map(kind.treats, function(n) { return new SpaProcedure(n); })
+    )
+});
+
+var StaffMember = function(options) {
+    this.name = options.name;
+    this.description = options.description;
+    this.extraCost = options.extraCost;
+
+    this.remove = function() {
+        viewModel.stuffs.remove(this);
+        if (viewModel.stuffs().length == 0 || viewModel.current() == this) {
+            viewModel.current({});
+        }
+    }
+
+    this.make_current = function() {
+        viewModel.current(this);
+    }
+}
+
+var availableMeals = _.map([      
+        { name: 'Billy', description: 'Dry crusts of bread', extraCost: 0 },
+        { name: 'Bob', description: 'Fresh bread with cheese', extraCost: 9.95 },
+        { name: 'Billy Jo Bob', description: 'Caviar and vintage Dr Pepper', extraCost: 18.50 },
+    ],
+    function(n, i){ return new StaffMember(n) });
+
+var viewModel = {
+    viewing: ko.observable(),
+    stuffs: ko.observableArray(availableMeals),
+    current: ko.observable(availableMeals[0]),
+
+    treatments: {{ treatments|safe }},
+    obj_treatments: ko.observableArray(TREATMENTS),
+
+    current_proc: ko.observable({name:'None Selected'}),
+
+    add_staff_member: function() {
+        var name = $("#staff_name").val();
+        if (name != "") {
+            var newbie = new StaffMember({
+                name: name,
+                description: 'Bananas and Peanutbutter',
+                extraCost: 0.25,
+            })
+            this.stuffs.push(newbie);
+            this.current(newbie);
+            $("#staff_name").val('');
+        } else {
+            $("#staff_name").effect('highlight');
+        }
+    },
+};
+
+viewModel.display_view_name = ko.dependentObservable(function() {
+    var viewing = this.viewing();
+    return (viewing == 'dash') ? '' : viewing + 1;
+}, viewModel);
+
+//-------------------------------------------------------
+// View
+//
+
+var View = {
+    previous_view: 0,
+};
+
+viewModel.viewing.subscribe(function(view) {
+    $(".indicate").removeClass("indicate");
+    $("#" + view + "_link").addClass("indicate");
+});
+
+viewModel.viewing.subscribe(_.throttle(function(view) {
+    var i = (view == "dash") ? 4 : +view;
+    var delta = i - View.previous_view;
+    if (!delta) {
+        return;
+    }
+    var leaving = delta < 0 ? 'right' : 'left';
+    var arriving = delta < 0 ? 'left' : 'right';
+    var panes = $(".pane");
+
+    function f(target, previous, leaving, arriving) {
+        if (target == previous) { return };
+        var next = previous - (target < previous ? 1 : -1);
+        $(panes[previous]).hide("slide", { direction: leaving, }, 150, function() {
+            $(panes[next]).show("slide", { direction: arriving }, 150, function() {
+                f(target, next, leaving, arriving);
+            });
+        });
+    }
+    f(i, View.previous_view, leaving, arriving);
+    View.previous_view = i;
+},
+1000));
+
+//-------------------------------------------------------
+// Route URLs.
+//
+
+var routey = Backbone.Router.extend({
+
+    routes: {
+        "d": "dash",
+        "step/:num": "step",
+    },
+
+    dash: function() {
+        viewModel.viewing("dash");
+    },
+
+    step: function(num) {
+        num = +num;
+        if (num >= 0 && num < 4) {
+            viewModel.viewing(num);
+        } else {
+            routes.navigate("step/0", true);
+        }
+    },
+
+});
+
+var routes = new routey();
+
+//-------------------------------------------------------
+// Layout Junk.
+//
+
+var m = [10, 120, 10, 120],
+    w = 914 - m[1] - m[3],
+    h = 800 - m[0] - m[2],
+    i = 0,
+    duration = 500;
+
+var tree = d3.layout.tree()
+    .size([h, w]);
+
+var diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.y, d.x]; });
+
+//-------------------------------------------------------
+// Fire 'er up!
+//
+
+$(function(){
+
+    $(".pane").hide();
+    $("#pane_0").show();
+
+    ko.applyBindings(viewModel);
+
+//============================================================
+
+    // Toggle children on click.
+    function click(d) {
+      if (d.children) {
+        d._children = d.children;
+        d.children = null;
+      } else {
+        d.children = d._children;
+        d._children = null;
+      }
+      update(d);
+    }
+
+    var vis = d3.select("#chart").append("svg:svg")
+        .attr("width", w + m[1] + m[3])
+        .attr("height", h + m[0] + m[2])
+      .append("svg:g")
+        .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+    root.x0 = h / 2;
+    root.y0 = 0;
+
+    function collapse(d) {
+        if (d.children) {
+          d._children = d.children;
+          d._children.forEach(collapse);
+          d.children = null;
+        }
+    }
+
+    root.children.forEach(collapse);
+    update(root);
+
+    function update(source) {
+
+      // Compute the new tree layout.
+      var nodes = tree.nodes(root).reverse();
+
+      // Normalize for fixed-depth.
+      nodes.forEach(function(d) { d.y = d.depth * 110; });
+
+      // Update the nodes…
+      var node = vis.selectAll("g.node")
+          .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+      // Enter any new nodes at the parent's previous position.
+      var nodeEnter = node.enter().append("svg:g")
+          .attr("class", "node")
+          .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+          .on("click", click);
+
+      nodeEnter.append("svg:circle")
+          .attr("r", 1e-6)
+          .style("fill", function(d) { return d._children ? "lightsteelblue" : "#eef"; });
+
+      nodeEnter.append("svg:text")
+          .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+          .attr("dy", ".35em")
+          .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+          .text(function(d) { return d.name; })
+          .style("fill-opacity", 1e-6);
+
+      // Transition nodes to their new position.
+      var nodeUpdate = node.transition()
+          .duration(duration)
+          .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+      nodeUpdate.select("circle")
+          .attr("r", 8)
+          .style("fill", function(d) { return d._children ? "lightsteelblue" : "#eef"; });
+
+      nodeUpdate.select("text")
+          .style("fill-opacity", 1);
+
+      // Transition exiting nodes to the parent's new position.
+      var nodeExit = node.exit().transition()
+          .duration(duration)
+          .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+          .remove();
+
+      nodeExit.select("circle")
+          .attr("r", 1e-6);
+
+      nodeExit.select("text")
+          .style("fill-opacity", 1e-6);
+
+      // Update the links…
+      var link = vis.selectAll("path.link")
+          .data(tree.links(nodes), function(d) { return d.target.id; });
+
+      // Enter any new links at the parent's previous position.
+      link.enter().insert("svg:path", "g")
+          .attr("class", "link")
+          .attr("d", function(d) {
+            var o = {x: source.x0, y: source.y0};
+            return diagonal({source: o, target: o});
+          })
+        .transition()
+          .duration(duration)
+          .attr("d", diagonal);
+
+      // Transition links to their new position.
+      link.transition()
+          .duration(duration)
+          .attr("d", diagonal);
+
+      // Transition exiting nodes to the parent's new position.
+      link.exit().transition()
+          .duration(duration)
+          .attr("d", function(d) {
+            var o = {x: source.x, y: source.y};
+            return diagonal({source: o, target: o});
+          })
+          .remove();
+
+      // Stash the old positions for transition.
+      nodes.forEach(function(d) {
+        d.x0 = d.x;
+        d.y0 = d.y;
+      });
+    }
+
+//============================================================
+
+    setup_button("button#add_staff", 'ui-icon-circle-plus');
+    setup_button("button#add_proc", 'ui-icon-circle-plus');
+    setup_button("button#del_proc", 'ui-icon-circle-close');
+
+    $("#choose").accordion({
+        collapsible: true,
+        autoHeight: false,
+        create: function(event, ui) {
+            $(this).accordion("activate", false);
+        }
+    });
+    
+    $("input.tile").button();
+
+    if (!Backbone.history.start()) {
+        // Default to Step 1.
+        routes.navigate("step/0", true);
+    }
+
+});
+</script>
+
+{% endblock %}
+{% block title %}Dashboard - SpaStalker{% endblock %}
+{% block body %}
+<div class="container">
+
+  <div class="row"><div class="twelve columns">
+    <h1 id="logotype"><a href="/">SpaStalker</a></h1>
+  </div></div>{# columns row #}
+
+  <div class="row"><div class="twelve columns">
+    <div id="crumbs">
+    <h3>
+    <a id="0_link" href="#step/0">Step 1</a> &mdash; &gt;
+    <a id="1_link" href="#step/1">Step 2</a> &mdash; &gt;
+    <a id="2_link" href="#step/2">Step 3</a> &mdash; &gt;
+    <a id="3_link" href="#step/3">Step 4</a> &mdash; &gt;
+    <a id="dash_link" href="#d">Dashboard</a>
+    </h3>
+    </div>
+  </div></div>{# columns row #}
+
+<div class="row"><div class="twelve columns">
+<div id="hull">
+
+
+<div id="pane_0" class="pane">
+<div class="row">
+  <div class="twelve columns">
+  <div class="panel">
+    <h2>Basic Information</h2>
+    <form class="nice">
+    <table>
+    <tr><th><label for="id_spa_name">Spa name:</label></th><td><input id="id_spa_name" type="text" name="spa_name" class="input-text" maxlength="100" /></td></tr>
+    <tr><th><label for="id_address">Address:</label></th><td><input id="id_address" type="text" name="address" class="input-text" maxlength="100" /></td></tr>
+    <tr><th><label for="id_neighborhood">Neighborhood:</label></th><td><input id="id_neighborhood" type="text" name="neighborhood" class="input-text" maxlength="100" /></td></tr>
+    <tr><th><label for="id_hours">Hours:</label></th><td><input id="id_hours" type="text" name="hours" class="input-text" maxlength="100" /></td></tr>
+    <tr><th><label for="id_phone">Phone:</label></th><td><input id="id_phone" type="text" name="phone" class="input-text" maxlength="100" /></td></tr>
+
+    <tr><th><label for="id_website">Website:</label></th><td><input id="id_website" type="text" name="website" class="input-text" maxlength="100" /></td></tr>
+    <tr><th><label for="id_email_contact">Email contact:</label></th><td><input type="text" name="email_contact" id="id_email_contact" class="input-text" /></td></tr>
+    <tr><th><label for="id_pictures">Pictures:</label></th><td><input id="id_pictures" type="text" name="pictures" class="input-text" maxlength="100" /></td></tr>
+    <tr><th><label for="id_description">Description:</label></th><td><input id="id_description" type="text" name="description" class="input-text" maxlength="100" /></td></tr>
+    <tr><th><label for="id_wheelchair_accessible">Wheelchair accessible:</label></th><td><input type="checkbox" name="wheelchair_accessible" id="id_wheelchair_accessible" /></td></tr>
+    <tr><th><label for="id_espanol">Espanol:</label></th><td><input type="checkbox" name="espanol" id="id_espanol" /></td></tr>
+    </table>
+    </form>
+    <div class="button_bar_bottom"><a class="blueman button radius" href="#step/1">Next &gt;</a></div>
+  </div>{# panel #}
+  </div>{# columns  #}
+</div>{# row #}
+</div>{# pane_0 #}
+
+
+<div id="pane_1" class="pane">
+<div class="row">
+  <div class="twelve columns">
+  <div class="panel">
+    <h2>Services Provided</h2>
+    <div class="row">
+    <div class="seven columns">
+
+        <form>
+	    <div id="choose" class="roundy main_panel" data-bind="template: {name:'accordion_proc_category_template', foreach: obj_treatments}">
+	    </div>{# "choose" DIV #}
+        </form>
+
+    </div>{# columns #}
+
+    <div class="five columns">
+    <div class="magic">
+      <h4>Wants pawn term, </h4>
+      <p>
+        ..dare worsted ladle gull hoe lift wetter murder inner
+        ladle cordage, honor itch offer lodge dock florist. Disk ladle gull
+        orphan worry ladle cluck wetter putty ladle rat hut, an fur disk
+        raisin pimple colder Ladle Rat Rotten Hut.
+      </p>
+      <p data-bind="template: {name:'proc_category_template', foreach: obj_treatments}"></p>
+    </div>{#  magic #}
+    </div>{# columns #}
+
+    </div>{# row #}
+
+    <div class="button_bar_bottom" style="margin-top:18px"><a class="blueman button radius" href="#step/2">Next &gt;</a></div>
+
+  </div>{# panel #}
+  </div>{# columns  #}
+</div>{# row #}
+</div>{# pane_1 #}
+
+
+<div id="pane_2" class="pane">
+<div class="row">
+  <div class="twelve columns">
+  <div class="panel">
+    <h2>Customize Menu</h2>
+
+    <div class="row">
+
+    <div class="three columns">
+      <p data-bind="template: {name:'proc_category_template', foreach: obj_treatments}"></p>
+    </div>{# columns #}
+
+    <div class="nine columns">
+    <div class="proc_detail">
+        <h3 data-bind="text: current_proc().name"></h3>
+        <h5>Details</h5>
+            <div class="sub_proc" data-bind="visible:current_proc().supported">
+                <span data-bind="text:current_proc().nickname"></span>
+                <span data-bind="text:current_proc().formatted_price"></span>
+                <span data-bind="text:current_proc().duration"></span>
+            </div>
+            <form class="nice">
+                <input class="input-text" type="text" data-bind="value:current_proc().nickname" placeholder="None Selected"><br>
+                <input class="input-text" type="text" data-bind="value:current_proc().price" placeholder="Price"><br>
+                <input class="input-text" type="text" data-bind="value:current_proc().duration" placeholder="Duration"><br>
+                <button id="add_proc">Add</button>
+                <button id="del_proc">Delete</button>
+            </form>
+
+    </div>
+    </div>{# columns #}
+
+    </div>{# row #}
+
+    <div class="button_bar_bottom"><a class="blueman button radius" href="#step/3">Next &gt;</a></div>
+  </div>{# panel #}
+  </div>{# columns  #}
+</div>{# row #}
+</div>{# pane_2 #}
+
+
+<div id="pane_3" class="pane">
+<div class="row">
+  <div class="twelve columns">
+  <div class="panel">
+    <h2>Spa Menu Review</h2>
+    <div data-bind="template: {name:'review_proc_category_template', foreach: obj_treatments}"></div>
+    <div class="button_bar_bottom"><a class="blueman button radius" href="#d">Next &gt;</a></div>
+  </div>{# panel #}
+  </div>{# columns  #}
+</div>{# row #}
+</div>{# pane_3 #}
+
+
+<div id="pane_4" class="pane">
+<div class="row">
+
+  <div class="four columns"><div id="hoo" class="panel">
+    <h2>Staff</h2>
+    <p data-bind="template: {name:'tile_template', foreach: stuffs}"></p>
+    <form class="nice">
+      <button id="add_staff" data-bind="click: add_staff_member">Add Staff Member</button>
+      <input id="staff_name" name="staff_name" class="input-text small" type="text" placeholder="Add Staff Member">
+    </form>
+  </div>{# hoo #}</div>
+
+  <div class="eight columns"><div id="boy">
+    <div class="row"><div class="twelve columns">
+      <div id="aa" class="panel cake">
+        <h3>Procedures for <span data-bind="text: current().name"></span></h3>
+        <div id="chart"></div>
+      </div>{# panel #}
+    </div></div>{# columns row #}
+  </div>{# boy #}</div>
+
+</div>{# row #}
+</div>{# pane_4 #}
+
+
+</div>{# hull #}
+</div></div>{# columns row #}
+
+</div>{# container #}
+{% endblock %}

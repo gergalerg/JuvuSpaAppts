@@ -302,7 +302,7 @@ $(function() {
 	    					{% if no_network %}
 	    					<img src="/static/map-FPO.png"/>
 	    					{% else %}
-	    					<img src="http://maps.google.com/maps/api/staticmap?center={{ lat_long.lat }},{{ lat_long.lng }}&zoom=14&size=400x247&maptype=roadmap&markers=color:green|{{ where|urlencode }}&sensor=false"/>
+        					<img src="http://maps.google.com/maps/api/staticmap?center={{ lat_long.lat }},{{ lat_long.lng }}&zoom=14&size=400x247&maptype=roadmap&markers=color:green|{{ where|urlencode }}&sensor=false"/>
 	    					{% endif %}
 	    				</div>{# "location-map" #}
 					</div>
@@ -312,7 +312,7 @@ $(function() {
 			<div class="one columns"></div>
 		</div>
 
-	</div><!-- content -->{# "main" and its row DIV #}
+	</div>{# "main" and its row DIV #}
 	
 </div><!-- container -->{# "main_outer" #}
 {% endblock %}
