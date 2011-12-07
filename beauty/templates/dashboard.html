@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block html_head %}
+<script type="text/javascript" src="/static/js/libby.js"></script>
 <script type="text/javascript" src="/static/js/bbone/underscore.js"></script>
 <script type="text/javascript" src="/static/js/bbone/backbone.js"></script>
-<link rel="stylesheet/less" href="/static/dashboard.less" type="text/css">
-<script src="/static/js/less.js" type="text/javascript"></script>
-<script src="/static/js/jquery.tmpl.js" type="text/javascript"></script>
-<script src="/static/js/knockout-1.2.1.debug.js" type="text/javascript"></script>
+<link type="text/css" href="/static/dashboard.less" rel="stylesheet/less">
+<script type="text/javascript" src="/static/js/less.js"></script>
+<script type="text/javascript" src="/static/js/jquery.tmpl.js"></script>
+<script type="text/javascript" src="/static/js/knockout-1.2.1.debug.js"></script>
 <script type="text/javascript" src="/static/js/d3/d3.js"></script>
 <script type="text/javascript" src="/static/js/d3/d3.layout.js"></script>
-<script type="text/javascript" src="/static/js/treezy.js"></script>
 <style>
 	@import url(http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700);
 	@import url(http://fonts.googleapis.com/css?family=Josefin+Sans:400,100|Istok+Web|Philosopher);
@@ -383,21 +383,10 @@ $(function(){
     }
 
 //============================================================
-    
-    $("button#add_staff").button({
-        icons: {primary:'ui-icon-circle-plus'},
-        text: false,
-    }).click(function(){return false})
 
-    $("button#add_proc").button({
-        icons: {primary:'ui-icon-circle-plus'},
-        text: false,
-    }).click(function(){return false})
-
-    $("button#del_proc").button({
-        icons: {primary:'ui-icon-circle-close'},
-        text: false,
-    }).click(function(){return false})
+    setup_button("button#add_staff", 'ui-icon-circle-plus');
+    setup_button("button#add_proc", 'ui-icon-circle-plus');
+    setup_button("button#del_proc", 'ui-icon-circle-close');
 
     $("#choose").accordion({
         collapsible: true,
@@ -562,7 +551,7 @@ $(function(){
 </div>{# pane_3 #}
 
 
-<div id="pane_5" class="pane">
+<div id="pane_4" class="pane">
 <div class="row">
 
   <div class="four columns"><div id="hoo" class="panel">
@@ -584,7 +573,7 @@ $(function(){
   </div>{# boy #}</div>
 
 </div>{# row #}
-</div>{# pane_5 #}
+</div>{# pane_4 #}
 
 
 </div>{# hull #}
