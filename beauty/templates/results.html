@@ -194,17 +194,18 @@ Results - SpaStalker
 						</tr>
 					</thead>
 					<tbody>
-						{% for s in spas %}
+						{% for spa in spas.businesses %}
 						<tr>
-							<td width="50"><img src="{{ s.3 }}"><br><br></td>
+							<td width="50"><img src="{{ spa.image_url }}"><br><br></td>
 							<td>
-								<h4><a href="../profile">{{ s.0 }}</a></h4>
-								<address>{{ s.2.display_address.0 }}, {{ s.2.display_address.3 }}</address>
-								<img src="{{ s.1 }}">
-							</tr>
+								<h4><a href="../profile">{{ spa.name }}</a></h4>
+								<address>{{ spa.location.address.0 }}, {{ spa.location.city }}, {{ spa.location.state_code }} {{ spa.location.postal_code }}</address>
+								<img src="{{ spa.rating_img_url }}">
+                            </td>
+					    </tr>
 						<tr>
-							<td colspan="4"><p>{{ s.4 }}</p>
-								<p><a href="{{ s.6 }}">Found {{ s.5 }} reviews</a></p>
+							<td colspan="2"><p>{{ spa.snippet_text }}</p>
+								<p><a href="{{ spa.url }}">Found {{ spa.review_count }} reviews</a></p>
 								<hr size="1">
 							</td>
 						</tr>

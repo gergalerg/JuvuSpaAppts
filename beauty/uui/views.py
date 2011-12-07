@@ -30,17 +30,13 @@ def results(request):
         _P(criteria)
         print
 
-    (s, total) = findSpas(criteria['treatment'], criteria['location'], '6')
+    s = YelpApi(criteria['treatment'], criteria['location'], '5')
 
     return render_to_response(
         'results.html',
-        {'spas': s, 'total': total, 'criteria': criteria},
+        {'spas': s.results, 'total': s.total, 'criteria': criteria},
         context_instance=RequestContext(request),
         )
-
-def findSpas(t, l, m):
-    y = YelpApi(t, l, m)
-    return y.x, y.total
 
 def booking(request):
     return render_to_response(

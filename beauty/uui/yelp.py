@@ -1,4 +1,10 @@
 """Formely Yelp's API Python example"""
+"""Now SpaStalker's Yelp class"""
+
+"""YelpApi takes three parameters: a search term, a location, and result limit."""
+"""Class passes back raw JSON data, total item count, region, and parsed results."""
+"""Uses OAuth for handshaking and data request."""
+
 
 import simplejson as json
 import oauth2
@@ -7,25 +13,22 @@ import urllib
 class YelpApi:
     "Gets search results from Yelp"
 
-    def __init__(self, term, location, limit):
+    def __init__(self, search_term, location, result_limit):
         self.api = 'http://api.yelp.com/v2/search?'
-        self.term = term
-        self.location = location
-        self.limit = limit
+        self.search_term, self.location, self.result_limit = search_term, location, result_limit
         self.us_url = self.unsigned_url()
         self.s_url = self.signed_url()
-        self.data = self.load()
-        (self.x, self.providers, self.total, self.region) = self.parse()
+        self.jsondata, self.total, self.region, self.results = self.parse()
 
     def unsigned_url(self):
-        t = '&term=' + self.term
+        t = '&term=' + self.search_term
         l = '&location=' + self.location
-        m = '&limit=' + self.limit
+        m = '&limit=' + self.result_limit
         link = self.api+t+l+m
         return link
 
     def signed_url(self):
-        # My personal Yelp API credentials, revmove before production 
+        # jw: My personal Yelp API keys, remove before production 
         consumer_key = 'KJ6cR0iz4AFgyTiWI3rqVQ'
         consumer_secret = 'ASkzCfW9DJzOwrqJLIOxipeCe40'
         token = 'u5h0Xg8GKxDkld-D0i1A_m5udCxv4ka4'
@@ -48,51 +51,22 @@ class YelpApi:
 
         return signed_url
 
-    def load(self):
-        j = json.load(urllib.urlopen(self.s_url))
-        return j
-
     def parse(self):
         # Yelp JSON result attributes
-        providers = self.data['businesses']
-        total = self.data['total']
-        region = self.data['region']
-        
-        # Yelp Object Data
-        x = []
+        jsondata = json.load(urllib.urlopen(self.s_url))
+        total = jsondata.get('total')
+        region = jsondata.get('region')
 
-        for i in range(len(providers)):
-            y = []
-
-            if 'name' in providers[i] is not None:
-                y.append(providers[i]['name'])
-
-            if 'rating_img_url' in providers[i] is not None:
-                y.append(providers[i]['rating_img_url'])
-
-            if 'location' in providers[i] is not None:
-                y.append(providers[i]['location'])
-
-            if 'image_url' in providers[i] is not None:
-                y.append(providers[i]['image_url'])
-
-            if 'snippet_text' in providers[i] is not None:
-                y.append(providers[i]['snippet_text'])
-
-            if 'review_count' in providers[i] is not None:
-                y.append(providers[i]['review_count'])
-
-            if 'url' in providers[i] is not None:
-                y.append(providers[i]['url'])
-
-            x.append(y)
+        for k, v in jsondata.items():
+            results = dict({k: v})
+        return jsondata, total, region, results 
 
         """
-            ['categories'] # list
-            ['display_phone'] # pretty formatted
+            ['categories'] 
+            ['display_phone']
             ['id']
             ['image_url']
-            ['location'] # querydict
+            ['location']
             ['mobile_url']
             ['name']
             ['phone']
@@ -105,5 +79,3 @@ class YelpApi:
             ['snippet_text']
             ['url']
         """
-
-        return (x, providers, total, region)
