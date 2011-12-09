@@ -2,6 +2,8 @@
 {% load verbatim_templatetag %}
 
 {% block html_head %}
+<script type="text/javascript" src="/static/js/d3/d3.js"></script>
+<script type="text/javascript" src="/static/js/d3/d3.time.js"></script>
 <script src="/static/js/ICanHaz.js" type="text/javascript"></script>
 
 {% verbatim %}
@@ -129,6 +131,15 @@
 <script src="/static/js/less.js" type="text/javascript"></script>
 <script type="text/javascript">
 
+var dformat = d3.time.format("%d/%m/%Y");
+
+function plus_one_day(dstr) {
+    var d = Date.parse(dstr);
+    var dd = new Date();
+    dd.setTime(d + 86400000);
+    return dformat(dd);
+}
+
 $(function() {
 
     $.tablesorter.addWidget({
@@ -149,19 +160,25 @@ $(function() {
 
 //    var foo = {{ results|safe }};
 
-    function make_table_for_reals(identifier, data) {
+    function make_table_for_reals(identifier, data, day) {
         var tile_table = ich.table_shell({
             identifier: identifier,
             });
 
+        var next_day = plus_one_day(day);
+
         $("a.nexting", tile_table).button({
             icons: {secondary: 'ui-icon-circle-triangle-e'},
         }).click(function() {
+            $(".current_table").hide("slide", { direction: 'left', }, 333, function() {
+                $(".current_table").removeClass("current_table");
+                $(".next_table").show("slide", { direction: 'right' }, 333, function() {
+                    $(".next_table").removeClass("next_table").addClass("current_table");
+                        get_results_table(identifier + "_next", next_day); // adds "next_table" class to incoming table.
+                });
+            });
             return false;
-        }).hover(
-            function () { $("#Bun").fadeIn() },
-            function () { $("#Bun").fadeOut() }
-        );
+        });
 
         var tbod = $("tbody", tile_table);
         jQuery.map(data, function(datum, i) {
@@ -203,25 +220,17 @@ $(function() {
                 location: $("#location").val(),
             },
             success: function(data) {
-                var table = make_table_for_reals(identifier, data);
-                header_off(table);
-                $(table).css({
-                    opacity: 0.5,
-                    position: "relative",
-                });
+                var table = make_table_for_reals(identifier, data, day);
+                $(table).addClass("next_table");
                 $("#tables_here").append(table);
-                var a = $("#tables_here").find(".results").last()
-                table.animate({
-                    top: '-=' + a.outerHeight() + 'px',
-                    left: '+=' + a.outerWidth() + 'px',
-                }, 333);
                 table.hide()
-
             },
             dataType: 'json',
         });
     }
 
+    // Initial results, loaded by AJAX call after the page loads.
+    // (FIXME: render initial data directly in the template, maybe?)
     $.ajax({
         type: 'POST',
         url: "{% url ares %}",
@@ -231,13 +240,12 @@ $(function() {
             location: "{{ where }}",
         },
         success: function(data) {
-            $("#tables_here").append(make_table_for_reals("Fun", data));
+            $("#tables_here").append(make_table_for_reals("Fun", data, "{{ this_day }}"));
+            $("#Fun").addClass("current_table");
             get_results_table("Bun", "{{ next_day }}");
         },
         dataType: 'json',
     });
-
-  //  $("#tables_here").append(make_table_for_reals("Bun", foo));
 
 });
 
