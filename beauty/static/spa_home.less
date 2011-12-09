@@ -1,0 +1,20 @@
+@title_font: 'Josefin Sans', sans-serif;
+@body_font: 'Philosopher', serif;
+
+body {
+    font-family: @body_font;
+}
+
+.title {
+    font-family: @title_font;
+    font-weight: 100;
+    color: black;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    .title;
+}
+
+h1, h3 {
+    display: inline-block;
+}
