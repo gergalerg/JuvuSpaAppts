@@ -2,6 +2,7 @@ from django.conf.urls.defaults import patterns, url
 
 
 urlpatterns = patterns('',
+    url(r'^$', 'spasui.views.spa_home', name='spa_home'),
     url(r'^iapi/', 'spasui.views.iapi', name='iapi'),
     url(r'^profile/', 'spasui.views.profile', name='profile'),
     url(r'^calendar/', 'spasui.views.calendar', name='calendar'),

@@ -17,6 +17,14 @@ def _json_boolean(n):
     return ("false", "true")[bool(n)]
 
 
+def spa_home(request):
+    return render_to_response(
+        'spa_home.html',
+        dict(),
+        context_instance=RequestContext(request),
+        )
+
+
 def iapi(request):
     if __debug__:
         print request.POST
