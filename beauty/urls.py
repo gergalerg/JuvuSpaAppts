@@ -19,13 +19,7 @@ urlpatterns = patterns('',
     url(r'^confirmation/', 'uui.views.confirmation', name='confirmation'),
 
     # Spa-facing site.
-    url(r'^iapi/', 'spasui.views.iapi', name='iapi'),
-    url(r'^profile/', 'spasui.views.profile', name='profile'),
-    url(r'^calendar/', 'spasui.views.calendar', name='calendar'),
-    url(r'^dashboard/', 'spasui.views.dashboard', name='dashboard'),
-    url(r'^dongle/', 'spasui.views.dongle', name='dongle'),
-    url(r'^rad/', 'spasui.views.rad', name='rad'),
-    url(r'^gnarl/', 'spasui.views.gnarl', name='gnarl'),
+    url(r'^spa/', include('spasui.urls')),
 
     # Rep's support site, apps.
     url(r'^repui/?$', 'repui.views.index', name='repui'),
