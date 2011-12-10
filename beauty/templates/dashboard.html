@@ -553,8 +553,11 @@ $(function(){
 
 <div id="pane_4" class="pane">
 <div class="row">
+  <div class="twelve columns">
+  <div class="panel">
+  <div class="row">
 
-  <div class="four columns"><div id="hoo" class="panel">
+  <div class="four columns"><div id="hoo">
     <h2>Staff</h2>
     <p data-bind="template: {name:'tile_template', foreach: stuffs}"></p>
     <form class="nice">
@@ -565,13 +568,16 @@ $(function(){
 
   <div class="eight columns"><div id="boy">
     <div class="row"><div class="twelve columns">
-      <div id="aa" class="panel cake">
+      <div id="aa" class="cake">
         <h3>Procedures for <span data-bind="text: current().name"></span></h3>
         <div id="chart"></div>
       </div>{# panel #}
     </div></div>{# columns row #}
   </div>{# boy #}</div>
 
+  </div>{# row #}
+  </div>{# panel #}
+  </div>{# columns  #}
 </div>{# row #}
 </div>{# pane_4 #}
 
