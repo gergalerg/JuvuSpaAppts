@@ -142,7 +142,10 @@ _tree_form_treatments = {
     'children': [
         {
             'name': treatment,
-            'children': [{'name': kind} for kind in kinds],
+            'children': [{
+                'name': kind,
+                'supported': False,
+                } for kind in kinds],
             }
         for treatment, kinds in SORTED_TREATMENTS
         ],

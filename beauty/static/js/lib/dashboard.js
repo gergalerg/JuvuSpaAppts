@@ -7,7 +7,13 @@ var SpaProcedure = function(options) {
     this.name = options.name;
     this.nickname = ko.observable(options.name);
     this.supported = ko.observable(options.supported);
-    this.sub = !!options.sub;
+
+    if (!_.isUndefined(options.children)) {
+        this.children = _.map(
+            options.children,
+            function(n) { return new SpaProcedure(n) }
+        );
+    }
 
     this.price = ko.observable(0.0);
     this.duration = ko.observable(60);
@@ -24,13 +30,6 @@ var SpaProcedure = function(options) {
         viewModel.current_proc(this);
     }
 }
-
-// Convert the (server-embedded) JSON to KO models.
-_.each(TREATMENTS, function(kind) {
-    kind.treats = ko.observableArray(
-        _.map(kind.treats, function(n) { return new SpaProcedure(n); })
-    )
-});
 
 var StaffMember = function(options) {
     this.name = options.name;
@@ -49,7 +48,10 @@ var StaffMember = function(options) {
     }
 }
 
-var availableMeals = _.map([      
+// Convert the (server-embedded) JSON to KO models.
+root.children = _.map(root.children, function(n) { return new SpaProcedure(n); });
+
+var availableMeals = _.map([
         { name: 'Billy', description: 'Dry crusts of bread', extraCost: 0 },
         { name: 'Bob', description: 'Fresh bread with cheese', extraCost: 9.95 },
         { name: 'Billy Jo Bob', description: 'Caviar and vintage Dr Pepper', extraCost: 18.50 },
@@ -61,7 +63,7 @@ var viewModel = {
     stuffs: ko.observableArray(availableMeals),
     current: ko.observable(availableMeals[0]),
 
-    obj_treatments: ko.observableArray(TREATMENTS),
+    obj_treatments: ko.observableArray(root.children),
 
     current_proc: ko.observable({name:'None Selected'}),
 
@@ -153,7 +155,7 @@ var routey = Backbone.Router.extend({
 var routes = new routey();
 
 //-------------------------------------------------------
-// Layout Junk.
+// Tree Layout Junk.
 //
 
 var m = [10, 120, 10, 120],
@@ -168,6 +170,118 @@ var tree = d3.layout.tree()
 var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [d.y, d.x]; });
 
+// Toggle tree children on click.
+function tree_node_click(d) {
+  if (d.children) {
+    d._children = d.children;
+    d.children = null;
+  } else {
+    d.children = d._children;
+    d._children = null;
+  }
+  update(d);
+}
+
+function collapse(d) {
+    if (d.children) {
+      d._children = d.children;
+      _.each(d._children, collapse);
+      d.children = null;
+    }
+}
+
+var vis;
+
+function update(source) {
+
+  // Compute the new tree layout.
+  var nodes = tree.nodes(root).reverse();
+
+  // Normalize for fixed-depth.
+  nodes.forEach(function(d) { d.y = d.depth * 110; });
+
+  // Update the nodes…
+  var node = vis.selectAll("g.node")
+      .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+  // Enter any new nodes at the parent's previous position.
+  var nodeEnter = node.enter().append("svg:g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+      .on("click", tree_node_click);
+
+  nodeEnter.append("svg:circle")
+      .attr("r", 1e-6)
+      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#eef"; });
+
+  nodeEnter.append("svg:text")
+      .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+      .attr("dy", ".35em")
+      .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+      .text(function(d) { return d.name; })
+//      .style("fill", function(d) { return (d.supported && d.supported()) ? "black" : "#ccc"; })
+      .style("fill-opacity", 1e-6);
+
+  // Transition nodes to their new position.
+  var nodeUpdate = node.transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+  nodeUpdate.select("circle")
+      .attr("r", 8)
+      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#eef"; });
+
+  nodeUpdate.select("text")
+      .style("fill-opacity", 1);
+
+  // Transition exiting nodes to the parent's new position.
+  var nodeExit = node.exit().transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+      .remove();
+
+  nodeExit.select("circle")
+      .attr("r", 1e-6);
+
+  nodeExit.select("text")
+      .style("fill-opacity", 1e-6);
+
+  // Update the links…
+  var link = vis.selectAll("path.link")
+      .data(tree.links(nodes), function(d) { return d.target.id; });
+
+  // Enter any new links at the parent's previous position.
+  link.enter().insert("svg:path", "g")
+      .attr("class", "link")
+      .attr("d", function(d) {
+        var o = {x: source.x0, y: source.y0};
+        return diagonal({source: o, target: o});
+      })
+    .transition()
+      .duration(duration)
+      .attr("d", diagonal);
+
+  // Transition links to their new position.
+  link.transition()
+      .duration(duration)
+      .attr("d", diagonal);
+
+  // Transition exiting nodes to the parent's new position.
+  link.exit().transition()
+      .duration(duration)
+      .attr("d", function(d) {
+        var o = {x: source.x, y: source.y};
+        return diagonal({source: o, target: o});
+      })
+      .remove();
+
+  // Stash the old positions for transition.
+  nodes.forEach(function(d) {
+    d.x0 = d.x;
+    d.y0 = d.y;
+  });
+}
+
 //-------------------------------------------------------
 // Fire 'er up!
 //
@@ -179,21 +293,7 @@ $(function(){
 
     ko.applyBindings(viewModel);
 
-//============================================================
-
-    // Toggle children on click.
-    function click(d) {
-      if (d.children) {
-        d._children = d.children;
-        d.children = null;
-      } else {
-        d.children = d._children;
-        d._children = null;
-      }
-      update(d);
-    }
-
-    var vis = d3.select("#chart").append("svg:svg")
+    vis = d3.select("#chart").append("svg:svg")
         .attr("width", w + m[1] + m[3])
         .attr("height", h + m[0] + m[2])
       .append("svg:g")
@@ -201,108 +301,8 @@ $(function(){
 
     root.x0 = h / 2;
     root.y0 = 0;
-
-    function collapse(d) {
-        if (d.children) {
-          d._children = d.children;
-          d._children.forEach(collapse);
-          d.children = null;
-        }
-    }
-
     root.children.forEach(collapse);
     update(root);
-
-    function update(source) {
-
-      // Compute the new tree layout.
-      var nodes = tree.nodes(root).reverse();
-
-      // Normalize for fixed-depth.
-      nodes.forEach(function(d) { d.y = d.depth * 110; });
-
-      // Update the nodes…
-      var node = vis.selectAll("g.node")
-          .data(nodes, function(d) { return d.id || (d.id = ++i); });
-
-      // Enter any new nodes at the parent's previous position.
-      var nodeEnter = node.enter().append("svg:g")
-          .attr("class", "node")
-          .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-          .on("click", click);
-
-      nodeEnter.append("svg:circle")
-          .attr("r", 1e-6)
-          .style("fill", function(d) { return d._children ? "lightsteelblue" : "#eef"; });
-
-      nodeEnter.append("svg:text")
-          .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
-          .attr("dy", ".35em")
-          .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-          .text(function(d) { return d.name; })
-          .style("fill-opacity", 1e-6);
-
-      // Transition nodes to their new position.
-      var nodeUpdate = node.transition()
-          .duration(duration)
-          .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
-
-      nodeUpdate.select("circle")
-          .attr("r", 8)
-          .style("fill", function(d) { return d._children ? "lightsteelblue" : "#eef"; });
-
-      nodeUpdate.select("text")
-          .style("fill-opacity", 1);
-
-      // Transition exiting nodes to the parent's new position.
-      var nodeExit = node.exit().transition()
-          .duration(duration)
-          .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
-          .remove();
-
-      nodeExit.select("circle")
-          .attr("r", 1e-6);
-
-      nodeExit.select("text")
-          .style("fill-opacity", 1e-6);
-
-      // Update the links…
-      var link = vis.selectAll("path.link")
-          .data(tree.links(nodes), function(d) { return d.target.id; });
-
-      // Enter any new links at the parent's previous position.
-      link.enter().insert("svg:path", "g")
-          .attr("class", "link")
-          .attr("d", function(d) {
-            var o = {x: source.x0, y: source.y0};
-            return diagonal({source: o, target: o});
-          })
-        .transition()
-          .duration(duration)
-          .attr("d", diagonal);
-
-      // Transition links to their new position.
-      link.transition()
-          .duration(duration)
-          .attr("d", diagonal);
-
-      // Transition exiting nodes to the parent's new position.
-      link.exit().transition()
-          .duration(duration)
-          .attr("d", function(d) {
-            var o = {x: source.x, y: source.y};
-            return diagonal({source: o, target: o});
-          })
-          .remove();
-
-      // Stash the old positions for transition.
-      nodes.forEach(function(d) {
-        d.x0 = d.x;
-        d.y0 = d.y;
-      });
-    }
-
-//============================================================
 
     setup_button("button#add_staff", 'ui-icon-circle-plus');
     setup_button("button#add_proc", 'ui-icon-circle-plus');

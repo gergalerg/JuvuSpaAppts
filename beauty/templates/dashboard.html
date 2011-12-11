@@ -28,27 +28,27 @@
 {# Treatments Outline Display Steps 2 & 3 ================================================= #}
 <script id="proc_template" type="text/x-jquery-tmpl">
 <div class="proc" data-bind="visible:supported">
-    <span data-bind="text:name, click:make_current, style: { 'paddingLeft': sub ? '1.75em' : '' }"></span>
+    <span data-bind="text:name, click:make_current, style: { 'paddingLeft': '1.75em' }"></span>
 </div>
 </script>
 
 <script id="proc_category_template" type="text/x-jquery-tmpl">
 <div class="proc_display">
     <span data-bind="text:name"></span>
-    <p data-bind="template: {name:'proc_template', foreach: treats}"></p>
+    <p data-bind="template: {name:'proc_template', foreach: children}"></p>
 </div>
 </script>
 
 {# Accordion Display Step 2 ================================================= #}
 <script id="accordion_proc_template" type="text/x-jquery-tmpl">
 <input class="tile" type="checkbox" data-bind="event: {change:toggle}, attr: { id: 'check_' + name, name: 'check_' + name }"/>
-<label for="check_{{ treatment }}" data-bind="attr: { for: 'check_' + name }, text:name"></label>
+<label data-bind="attr: { for: 'check_' + name }, text:name"></label>
 <br>
 </script>
 
 <script id="accordion_proc_category_template" type="text/x-jquery-tmpl">
 <h3><a href="#" data-bind="text:name"></a></h3>
-<div data-bind="template: {name:'accordion_proc_template', foreach: treats}"></div>
+<div data-bind="template: {name:'accordion_proc_template', foreach: children}"></div>
 </script>
 
 {# Full Treatment Menu Step 4 ================================================= #}
@@ -63,7 +63,7 @@
 
 <script id="review_proc_category_template" type="text/x-jquery-tmpl">
 <div class="review_proc_category">
-    <div class="review_procs" data-bind="template: {name:'review_proc_template', foreach: treats}"></p>
+    <div class="review_procs" data-bind="template: {name:'review_proc_template', foreach: children}"></p>
     </div>
 </div>
 </script>
@@ -72,8 +72,6 @@
 //-------------------------------------------------------
 // Static Data
 //
-
-var TREATMENTS = {{ obj_treatments|safe }};
 
 var root = {{ tree_data|safe }};
 
