@@ -4,8 +4,23 @@
 <script src="/static/js/less.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+
+function toc_in() {
+    $("#toc").switchClass("seven", "two", 500, 'easeOutBounce', function() {
+        $("#main_frame").fadeIn();
+    });
+}
+
+function toc_out() {
+    $("#main_frame").fadeOut(function() {
+        $("#toc").switchClass("two", "seven", 500, 'easeOutBounce');
+    });
+}
+
 $(function(){
+    $("#main_frame").hide();
     crambery(3); // Animate color cycle at three minutes per complete rainbow. ;)
+    $("#title_bar").hover(toc_in, toc_out);
 });
 </script>
 {% endblock %}
@@ -18,12 +33,18 @@ $(function(){
 </div>
 {% endblock %}
 
-{% block body %}
-<p><a href="dashboard/#step/0">Set up initial info.</a> procedures, staff, hours, etc...</p>
-<ol>
-    <li><a href="dashboard/#step/1">Services Provided</a></li>
-    <li><a href="dashboard/#d">Staff</a></li>
-</ol>
+{% block toc %}
+    <h3><a id="0_link" href="#step/0">Info</a></h3>
+    <h3><a id="1_link" href="#step/1">Services</a></h3>
+    <h3><a id="2_link" href="#step/2">Customize</a></h3>
+    <h3><a id="3_link" href="#step/3">Staff</a></h3>
+    <h3><a id="dash_link" href="#d">Calendar</a></h3>
+{% endblock %}
 
-<p>Calendar: <a href="rad/#month/11">December</a> | <a href="rad/#year">2011</a></p>
+{% block boc %}
+Yas newb
+{% endblock %}
+
+
+{% block body %}
 {% endblock %}
