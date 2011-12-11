@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "spa_base.html" %}
 {% block html_head %}
 <link rel="stylesheet/less" href="/static/spa_home.less" type="text/css">
 <script src="/static/js/less.js" type="text/javascript"></script>
@@ -9,13 +9,9 @@ $(function(){
 </script>
 {% endblock %}
 
-{% block title %}SpaStalker Spa Home{% endblock %}
+{% block title %}Spa Home{% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="row">
-        <div class="twelve columns">
-            <div class="hull panel">
     			<h3>SpaStalker</h3>
     			<h1>Spa Home</h1>
 
@@ -27,8 +23,4 @@ $(function(){
 
     			<p>Calendar: <a href="rad/#month/11">December</a> | <a href="rad/#year">2011</a></p>
 
-            </div>{# hull panel #}
-        </div>{# columns #}
-    </div>{# row #}
-</div>{# container #}
 {% endblock %}
