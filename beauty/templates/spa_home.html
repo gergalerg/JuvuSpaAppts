@@ -11,16 +11,18 @@ $(function(){
 
 {% block title %}Spa Home{% endblock %}
 
+{% block header %}
+<div id="title_bar">
+  <h1>{{ spa_name|default:"&lt;SPA NAME&gt;" }}</h1> <h3>Home</h3>
+</div>
+{% endblock %}
+
 {% block body %}
-    			<h3>SpaStalker</h3>
-    			<h1>Spa Home</h1>
+<p><a href="dashboard/#step/0">Set up initial info.</a> procedures, staff, hours, etc...</p>
+<ol>
+    <li><a href="dashboard/#step/1">Services Provided</a></li>
+    <li><a href="dashboard/#d">Staff</a></li>
+</ol>
 
-    			<p><a href="dashboard/#step/0">Set up initial info.</a> procedures, staff, hours, etc...</p>
-    			<ol>
-    			    <li><a href="dashboard/#step/1">Services Provided</a></li>
-    			    <li><a href="dashboard/#d">Staff</a></li>
-    			</ol>
-
-    			<p>Calendar: <a href="rad/#month/11">December</a> | <a href="rad/#year">2011</a></p>
-
+<p>Calendar: <a href="rad/#month/11">December</a> | <a href="rad/#year">2011</a></p>
 {% endblock %}
