@@ -60,11 +60,14 @@ viewModel.viewing.subscribe(function(view) {
         // Clear the previous view.
         if (View.previous_view == "toc") {
             toc_in();
+            // Show the chosen pane.
+            $(".current_pane").removeClass("current_pane");
+            $("#pane_" + view).show().addClass("current_pane");
         } else {
-            $(".current_pane").hide("slide").removeClass("current_pane");
+            $(".current_pane").hide("slide", 175, function() {
+                $("#pane_" + view).show("slide", 175).addClass("current_pane");
+            }).removeClass("current_pane");
         }
-        // Show the chosen pane.
-        $("#pane_" + view).show("slide").addClass("current_pane");
     };
 
     // Update history for next call.
@@ -90,9 +93,6 @@ var routey = Backbone.Router.extend({
         num = +num;
         if (num >= 0 && num <= 4) {
             viewModel.viewing(num);
-            $(".current_pane").hide().removeClass("current_pane");
-            $("#pane_" + num).show().addClass("current_pane");
-
         } else {
             routes.navigate("toc", true);
         }
@@ -110,13 +110,10 @@ $(function(){
     $("#main_frame").hide();
     $(".pane").hide();
     ko.applyBindings(viewModel);
-    crambery(3); // Animate color cycle at three minutes per complete rainbow. ;)
-//    $("#title_bar").hover(toc_in, toc_out);
+    crambery(3);
     if (!Backbone.history.start()) {
-        // Default to Step 1.
         routes.navigate("toc", true);
     }
-
 });
 </script>
 {% endblock %}
