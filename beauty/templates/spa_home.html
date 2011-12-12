@@ -222,6 +222,9 @@ var viewModel = {
     staff: ko.observableArray(staff),
     current_staff_member: ko.observable({}),
 
+    // Display the time corresponding to the mouse position on the calendar pane.
+    mouse_time: ko.observableArray(),
+
     // A bit of indirection to allow binding to this callback before current_proc is specified.
     add_subtype: function () {
         viewModel.current_proc().add_subtype();
@@ -238,6 +241,7 @@ var viewModel = {
             this.staff.push(newbie);
             this.current_staff_member(newbie);
             $("#staff_name").val('');
+            setup_bands();
         } else {
             $("#staff_name").effect('highlight');
         }
@@ -363,7 +367,17 @@ $(function(){
         .attr("height", h)
         .attr("id", "uncanny");
     make_timescale(vis);
-
+/*
+    var svg = d3.select("svg");
+    svg.on("mouseover", function() {
+//        console.log(svg);
+        //var y = d3.svg.mouse(vis)[1];
+        var y = d3.event.clientY;
+        var d = line_day(y);
+        viewModel.mouse_time(hour(d));
+        console.log(y+'px', '->', hour(d));
+    });
+*/
     $("#slider").slider({
         max: 0.25,
         min: -0.25,
@@ -495,6 +509,7 @@ $(function(){
     <div id="slider"></div>
 </div>{# columns #}
 <div class="eleven columns">
+    <div data-bind="text:mouse_time"></div>
     <div id="show"></div>
 </div>{# columns #}
 </div>{# row #}
