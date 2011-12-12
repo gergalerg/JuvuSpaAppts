@@ -245,8 +245,20 @@ var viewModel = {
 };
 
 viewModel.someone_selected = ko.dependentObservable(function() {
-    console.log(this.current_staff_member());
     return !_.isEmpty(this.current_staff_member());
+}, viewModel);
+
+viewModel.view_title = ko.dependentObservable(function() {
+    var lookup = {
+        'toc': 'Home',
+        0: 'Info',
+        1: 'Services',
+        2: 'Customize',
+        3: 'Staff',
+        4: 'Calendar',
+    };
+    console.log(this.viewing());
+    return lookup[this.viewing()];
 }, viewModel);
 
 //-------------------------------------------------------
@@ -283,8 +295,8 @@ viewModel.viewing.subscribe(function(view) {
             $(".current_pane").hide().removeClass("current_pane");
             $("#pane_" + view).show().addClass("current_pane");
         } else {
-            $(".current_pane").hide("slide", 175, function() {
-                $("#pane_" + view).show("slide", 175).addClass("current_pane");
+            $(".current_pane").hide("fade", 175, function() {
+                $("#pane_" + view).show("fade", 175).addClass("current_pane");
             }).removeClass("current_pane");
         }
     };
@@ -379,7 +391,7 @@ $(function(){
 
 {% block header %}
 <div id="title_bar">
-  <h1>{{ spa_name|default:"&lt;SPA NAME&gt;" }}</h1> <h3 data-bind="text:viewing">Home</h3>
+  <h1>{{ spa_name|default:"&lt;SPA NAME&gt;" }}</h1> <h3 data-bind="text:view_title">Home</h3>
 </div>
 {% endblock %}
 

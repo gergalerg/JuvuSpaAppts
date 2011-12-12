@@ -25,6 +25,7 @@ def spa_home(request):
     return render_to_response(
         'spa_home.html',
         dict(
+            spa_name='Sports Club LA',
             form=SpaInfoForm(),
             tree_data=TREE,
             staff=STAFF,
