@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 from spasui.models import prepare_trenche_data
 from spasui.api import dispatch
 from spasui.availabilities import create_availabilities
+from spasui.forms import SpaInfoForm
 from beauty.data.treatments import TREE
 
 
@@ -78,6 +79,26 @@ def dashboard(request):
     return render_to_response(
         'dashboard.html',
         dict(tree_data=TREE),
+        context_instance=RequestContext(request),
+        )
+
+
+def info(request):
+
+    if request.method == 'POST':
+        form = SpaInfoForm(request.POST)
+        if form.is_valid():
+            process_form(**form.cleaned_data)
+            return HttpResponse("Form submitted")
+    else:
+        form = SpaInfoForm() # An unbound form
+
+    return render_to_response(
+        'info.html',
+        dict(
+            spa_name = "Barney's",
+            form = form,
+            ),
         context_instance=RequestContext(request),
         )
 

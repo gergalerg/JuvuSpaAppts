@@ -79,3 +79,4 @@ class YelpApi:
             ['snippet_text']
             ['url']
         """
+
