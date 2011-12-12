@@ -2,10 +2,7 @@ from collections import defaultdict
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from spasui.models import prepare_trenche_data
-from beauty.data.treatments import TREATMENTS
-
-
-_t = [(k, TREATMENTS[k]) for k in sorted(TREATMENTS)]
+from beauty.data.treatments import SORTED_TREATMENTS
 
 
 def index(request):
@@ -15,7 +12,7 @@ def index(request):
     return render_to_response(
         'index.html',
         dict(
-            treatments=_t,
+            treatments=SORTED_TREATMENTS,
             trenches=prepare_trenche_data(),
             ),
         context_instance=RequestContext(request),

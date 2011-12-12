@@ -4,15 +4,20 @@
 @logo_color: #7FBA02;
 @logo_hover_color: #5f8b01;
 @call_out: #FFF;
-
+@foundation_link_blue: #2A85E8;
 
 @title_font: 'Josefin Sans', sans-serif;
 @body_font: 'Istok Web', serif;
+@prose_font: 'Philosopher', serif;
 
 .title {
     font-family: @title_font;
     font-weight: 100;
     color: black;
+}
+
+h2, h4, h5 {
+    .title;
 }
 
 .rounded-corners (@radius: 0.5em) {
@@ -21,20 +26,43 @@
     -moz-border-radius: @radius;
 }
 
+.blueman {
+    font-family: @title_font;
+    background-color: @foundation_link_blue;
+	font-size: larger;
+}
+
+.button_bar_bottom {
+    text-align: right;
+    padding-right: 1em;
+    padding-bottom: 1em;
+}
+
 #logotype {
 	font-family: Pacifico; 
 	font-size: 42px;
 	font-size: 4.2rem;	
 	color: @logo_color;
-
     a {
 	    color: @logo_color;
     }
-
     a:hover {
 	    color: @logo_hover_color;
     }
+}
 
+#crumbs {
+    h3 {
+        .title;
+        font-weight: normal;
+        a {
+            padding: 4px;
+        }
+    }
+    .indicate {
+        color: @bg;
+        background-color: @foundation_link_blue;
+    }
 }
 
 #hull {
@@ -42,15 +70,42 @@
     background-color: @bg;
 }
 
+#pane_1 {
+    label {
+        margin-bottom: 2px;
+        span {
+            padding-left: 1em;
+            padding-right: 1em;
+            padding-top: 0.3em;
+            padding-bottom: 0.2em;
+        }
+    }
+}
+
+.pane {
+    div.fpo {
+        text-align: center;
+        padding-top: 20em;
+        padding-bottom: 20em;
+    }
+}
+
 #hoo {
     color: @fg;
-
-    h2 {
-        .title;
-    }
-    
     form {
         margin-bottom: 9px;
+    }
+    .tile {
+        font-family: @body_font;
+        padding: 0.25em;
+        margin-left: -0.25em;
+        border: solid transparent 1px;
+        .rounded-corners;
+        margin-bottom: 0.5em;
+    }
+    .tile:hover {
+        background-color: @call_out;
+        border-color: lighten(@fg, 20%);
     }
 }
 
@@ -58,20 +113,6 @@
 
 #staff_members {
     padding-left: 0.5em;
-}
-
-.tile {
-    font-family: @body_font;
-    padding: 0.25em;
-    margin-left: -0.25em;
-    border: solid transparent 1px;
-    .rounded-corners;
-    margin-bottom: 0.5em;
-}
-
-.tile:hover {
-    background-color: @call_out;
-    border-color: lighten(@fg, 20%);
 }
 
 .clip {
@@ -85,7 +126,49 @@
     }
 }
 
-input#staff_name {
+input[type=text] {
     display: inline-block;
     font-family: @body_font;
 }
+
+input.tile {
+}
+
+label {
+    font-family: @body_font;
+}
+
+.magic {
+    font-family: @prose_font;
+}
+
+.proc_display {
+    font-family: @prose_font;
+}
+
+.proc_detail {
+    h3 {
+        .title;
+    }
+}
+
+.node circle {
+  cursor: pointer;
+  fill: #eef;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  cursor: pointer;
+  font-family: @body_font;
+  font: 14px;
+}
+
+path.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+

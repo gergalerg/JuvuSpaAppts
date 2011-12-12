@@ -1,4 +1,5 @@
 # API service.
+from json import dumps
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -6,10 +7,19 @@ from spasui.models import prepare_trenche_data
 from spasui.api import dispatch
 from spasui.availabilities import create_availabilities
 from spasui.forms import SpaInfoForm
+from beauty.data.treatments import TREE
 
 
 def _json_boolean(n):
     return ("false", "true")[bool(n)]
+
+
+def spa_home(request):
+    return render_to_response(
+        'spa_home.html',
+        dict(),
+        context_instance=RequestContext(request),
+        )
 
 
 def iapi(request):
@@ -68,7 +78,7 @@ def post_calendar(request):
 def dashboard(request):
     return render_to_response(
         'dashboard.html',
-        dict(),
+        dict(tree_data=TREE),
         context_instance=RequestContext(request),
         )
 
@@ -96,6 +106,22 @@ def info(request):
 def dongle(request):
     return render_to_response(
         'dongle.html',
+        dict(),
+        context_instance=RequestContext(request),
+        )
+
+
+def rad(request):
+    return render_to_response(
+        'rad.html',
+        dict(),
+        context_instance=RequestContext(request),
+        )
+
+
+def gnarl(request):
+    return render_to_response(
+        'gnarl.html',
         dict(),
         context_instance=RequestContext(request),
         )

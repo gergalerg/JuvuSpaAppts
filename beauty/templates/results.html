@@ -1,7 +1,75 @@
 {% extends "base.html" %}
-
+{% load verbatim_templatetag %}
 
 {% block html_head %}
+<script type="text/javascript" src="/static/js/d3/d3.js"></script>
+<script type="text/javascript" src="/static/js/d3/d3.time.js"></script>
+<script src="/static/js/ICanHaz.js" type="text/javascript"></script>
+
+{% verbatim %}
+<script id="table_shell" type="text/html">
+<div id="{{ identifier }}" class="results">
+	<table class="tablesorter">
+	<thead>
+		<tr>
+			<th>Spa</th>
+			<th>Rating</th>
+			<th>Distance</th>
+			<th>Price</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+	</table>
+	<div style="width:inherit; text-align:right">
+	<a href="#" class="nexting">next day</a>
+	</div>
+</div>
+</script>
+<script id="tile_template" type="text/html">
+<div class="tile" index="{{ index }}">
+
+<div class="desktop_tile show-on-desktops row">
+  <div class="row"><div class="twelve columns">
+    <div class="three columns">
+        <div class="row"><div class="twelve columns"><div class="logo"><img src="/static/a_logo.png"></div></div></div>
+        <div class="row"><div class="twelve columns"><div class="spa">{{ spa }}</div></div></div>
+    </div>
+    <div class="six columns">
+        <div class="row"><div class="twelve columns"><div class="rating">Rating: {{ rating }}</div></div></div>
+        <div class="row"><div class="twelve columns"><div class="distance" distance="{{ distance }}">Distance: {{ distance_text }}</div></div></div>
+    </div>
+    <div class="three columns">
+        <div class="price">${{ price }}</div>
+    </div>
+  </div></div>
+  <div class="row"><div class="twelve columns">
+        <div class="details" style="display:none">All kinds of info about {{ spa }}!</div>
+  </div></div>
+</div>
+
+<div id="mobile_tile_{{ index }}" class="show-on-phones row">
+    <div class="six columns centered">
+        <div class="logo"><img src="/static/a_logo.png"></div>
+        <div class="row"><div class="twelve columns"><div class="spa">{{ spa }}</div></div></div>
+        <div class="row"><div class="twelve columns"><div class="rating">Rating: {{ rating }}</div></div></div>
+        <div class="row"><div class="twelve columns"><div class="distance" distance="{{ distance }}">Distance: {{ distance_text }}</div></div></div>
+        <div class="row"><div class="twelve columns"><div class="rice">${{ price }}</div></div></div>
+    </div>
+</div>
+
+</div>
+</script>
+<script id="trow_template" type="text/html">
+<tr id="trow_{{ index }}" index="{{ index }}" style="display:none" >
+  <td>{{ spa }}</td>
+  <td>{{ rating }}</td>
+  <td><span distance="{{ distance }}">{{ distance_text }}</span></td>
+  <td>${{ price }}</td>
+</tr>
+</script>
+{% endverbatim %}
+
 <style>
 	@import url(http://fonts.googleapis.com/css?family=Pacifico|Chewy|Dancing+Script:400,700);
 
@@ -55,6 +123,7 @@
 	}
 </style>
 
+<script type="text/javascript" src="/static/js/jquery.hoverIntent.js"></script>
 <script type="text/javascript" src="/static/js/jquery.tablesorter.min.js"></script>
 <link rel="stylesheet" href="/static/tablesorter.css" type="text/css">
 <link rel="stylesheet" href="/static/dealcal.css" type="text/css">
@@ -62,96 +131,120 @@
 <script src="/static/js/less.js" type="text/javascript"></script>
 <script type="text/javascript">
 
+var dformat = d3.time.format("%d/%m/%Y");
+
+function plus_one_day(dstr) {
+    var d = Date.parse(dstr);
+    var dd = new Date();
+    dd.setTime(d + 86400000);
+    return dformat(dd);
+}
+
 $(function() {
 
     $.tablesorter.addWidget({
 	    id: "substitute_tiles",
 	    format: function(table) {
 	        var tiles = {};
-	        $(".tile").each(function() {
+	        var target = $(table).parent();
+	        $(".tile", target).each(function() {
 	            var tile = $(this);
 	            tiles[tile.attr('index')] = tile;
-	            tile.detach()
+	            tile.detach();
 	        });
 		    $("tbody tr", table).each(function() {
-		        var row = $(this);
-			    $("#results").append(tiles[row.attr('index')]);
-			    row.hide();
+			    target.append(tiles[$(this).attr('index')]);
 		    });
 	    }
     });
 
-    $("button#search").button({
-        icons: {primary:'ui-icon-circle-check'},
-    }).click(function() {
-        $("form").submit();
-        return false;
-    });
+//    var foo = {{ results|safe }};
 
-    var foo = {{ results|safe }};
+    function make_table_for_reals(identifier, data, day) {
+        var tile_table = ich.table_shell({
+            identifier: identifier,
+            });
 
-    function make_tile(data, i) {
-        $("div#results").append(
+        var next_day = plus_one_day(day);
 
-'<div id="tile_' + i + '" class="tile" index="' + i + '">' +
+        $("a.nexting", tile_table).button({
+            icons: {secondary: 'ui-icon-circle-triangle-e'},
+        }).click(function() {
+            $(".current_table").hide("slide", { direction: 'left', }, 333, function() {
+                $(".current_table").removeClass("current_table");
+                $(".next_table").show("slide", { direction: 'right' }, 333, function() {
+                    $(".next_table").removeClass("next_table").addClass("current_table");
+                        get_results_table(identifier + "_next", next_day); // adds "next_table" class to incoming table.
+                });
+            });
+            return false;
+        });
 
-'<div id="desktop_tile_' + i + '" class="show-on-desktops row">' +
-'  <div class="row"><div class="twelve columns">' +
-'    <div class="three columns">' +
-'        <div class="row"><div class="twelve columns"><div class="logo"><img src="/static/a_logo.png"></div></div></div>' +
-'        <div class="row"><div class="twelve columns"><div class="spa">' + data.i.0 + '</div></div></div>' +
-'    </div>' +
-'    <div class="six columns">' +
-'        <div class="row"><div class="twelve columns"><div class="rating">Rating: ' + data.rating + '</div></div></div>' +
-'        <div class="row"><div class="twelve columns"><div class="distance" distance="' + data.distance + '">Distance: ' + data.distance_text + '</div></div></div>' +
-'    </div>' +
-'    <div class="three columns">' +
-'        <div class="price">$' + data.price + '</div>' +
-'    </div>' +
-'  </div></div>' +
-'  <div class="row"><div class="twelve columns">' +
-'        <div class="details">All kinds of info about ' + data.spa + '!</div>' +
-'  </div></div>' +
-'</div>' +
+        var tbod = $("tbody", tile_table);
+        jQuery.map(data, function(datum, i) {
 
+            datum['index'] = i;
 
-'<div id="mobile_tile_' + i + '" class="show-on-phones row">' +
-'    <div class="six columns centered">' +
-'        <div class="logo"><img src="/static/a_logo.png"></div>' +
-'        <div class="row"><div class="twelve columns"><div class="spa">' + data.spa + '</div></div></div>' +
-'        <div class="row"><div class="twelve columns"><div class="rating">Rating: ' + data.rating + '</div></div></div>' +
-'        <div class="row"><div class="twelve columns"><div class="distance" distance="' + data.distance + '">Distance: ' + data.distance_text + '</div></div></div>' +
-'        <div class="row"><div class="twelve columns"><div class="rice">$' + data.price + '</div></div></div>' +
-'    </div>' +
-'</div>' +
+            var tile = ich.tile_template(datum);
+            tile_table.append(tile);
+            tbod.append(ich.trow_template(datum));
 
-'</div>');
+            var details = $(".details", tile);
+            $(".desktop_tile", tile).hoverIntent(
+                function () { details.slideDown() },
+                function () { details.slideUp() }
+            );
+        });
 
-        $("#desktop_tile_" + i).hover(
-          function () {
-            $(this).find('.details').slideDown();
-          },
-          function () {
-            $(this).find('.details').slideUp();
-          }
-        );
-
-        $("#desktop_tile_" + i).find('.details').slideUp(1);
-
-        $("table#resultsTable tbody").append(
-'<tr id="trow_' + i + '" index="' + i + '" >' +
-'  <td>' + data.spa + '</td>' +
-'  <td>' + data.rating + '</td>' +
-'  <td><span distance="' + data.distance + '">' + data.distance_text + '</span></td>' +
-'  <td>$' + data.price + '</td>' +
-'</tr>');
-
+        $("table", tile_table).tablesorter({widgets: ['substitute_tiles']});
+        return tile_table;
     }
 
-    jQuery.map(foo, make_tile);
+    function header_on(t) {
+        $(".nexting", t).parent().css({opacity:1});
+        $(".tablesorter", t).css({opacity:1});
+    }
 
-    $("#resultsTable").tablesorter({
-        widgets: ['substitute_tiles']
+    function header_off(t) {
+        $(".nexting", t).parent().css({opacity:0});
+        $(".tablesorter", t).css({opacity:0});
+    }
+
+    function get_results_table(identifier, day) {
+        $.ajax({
+            type: 'POST',
+            url: "{% url ares %}",
+            data: {
+                anotherday: day,
+                treatment: $("#treatment").val(),
+                location: $("#location").val(),
+            },
+            success: function(data) {
+                var table = make_table_for_reals(identifier, data, day);
+                $(table).addClass("next_table");
+                $("#tables_here").append(table);
+                table.hide()
+            },
+            dataType: 'json',
+        });
+    }
+
+    // Initial results, loaded by AJAX call after the page loads.
+    // (FIXME: render initial data directly in the template, maybe?)
+    $.ajax({
+        type: 'POST',
+        url: "{% url ares %}",
+        data: {
+            anotherday: "{{ this_day }}",
+            treatment: "{{ what }}",
+            location: "{{ where }}",
+        },
+        success: function(data) {
+            $("#tables_here").append(make_table_for_reals("Fun", data, "{{ this_day }}"));
+            $("#Fun").addClass("current_table");
+            get_results_table("Bun", "{{ next_day }}");
+        },
+        dataType: 'json',
     });
 
 });
@@ -159,12 +252,7 @@ $(function() {
 </script>
 {% endblock %}
 
-
-{% block title %}
-Results - SpaStalker
-{% endblock %}
-
-
+{% block title %}Results - SpaStalker{% endblock %}
 
 {% block body %}
 <div id="main_outer" class="container">
@@ -180,38 +268,34 @@ Results - SpaStalker
 	<div id="main" class="plumble">
 	<div id="content" class="row">
 
-<br><br>
+		<!-- SEARCHBOX -->
+		<div id="re_search" class="plumble">
+		<div class="row">
+			<div class="one columns"></div>
+			<div class="ten columns"><br><br>
+
+				<center>
+				<form method="POST" action="{% url results %}">{% csrf_token %}
+					<input type="hidden" name="anotherday" value="{{ this_day }}" />
+					<label for="treatment">What:
+					<input style="display: inline;" id="treatment" name="treatment" type="text" value="{{ what }}" />
+					</label>
+					<label for="location">Where:
+					<input id="location" name="location" type="text" value="{{ where }}" />
+					</label>
+					<input id="search" type="submit" value="Search">
+				</form>
+				</center>
+
+			</div>
+			<div class="one columns"></div>
+		</div>
+		</div>
 
 		<div class="row">
 			<div class="one columns"></div>
 
-			<div class="six columns">
-				<div id="results">
-					<table>
-					<thead>
-						<tr>
-							<th colspan="2">Found {{ total }} results...</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for s in spas %}
-						<tr>
-							<td width="50"><img src="{{ s.3 }}"><br><br></td>
-							<td>
-								<h4><a href="../profile">{{ s.0 }}</a></h4>
-								<address>{{ s.2.display_address.0 }}, {{ s.2.display_address.3 }}</address>
-								<img src="{{ s.1 }}">
-							</tr>
-						<tr>
-							<td colspan="4"><p>{{ s.4 }}</p>
-								<p><a href="{{ s.6 }}">Found {{ s.5 }} reviews</a></p>
-								<hr size="1">
-							</td>
-						</tr>
-						{% endfor %}						
-					</tbody>
-					</table>
-				</div>{# "results" #}
+			<div id="tables_here" class="six columns">
 			</div>
 			
 			<div class="four columns">
@@ -227,9 +311,7 @@ Results - SpaStalker
 	    					{% if no_network %}
 	    					<img src="/static/map-FPO.png"/>
 	    					{% else %}
-								<img src="http://placehold.it/400&text=Map+widget">
-								<img src="http://placehold.it/400&text=Calendar+widget">
-<!--	    					<img src="http://maps.google.com/maps/api/staticmap?center={{ lat_long.lat }},{{ lat_long.lng }}&zoom=14&size=400x247&maptype=roadmap&markers=color:green|{{ where|urlencode }}&sensor=false"/> -->
+        					<img src="http://maps.google.com/maps/api/staticmap?center={{ lat_long.lat }},{{ lat_long.lng }}&zoom=14&size=400x247&maptype=roadmap&markers=color:green|{{ where|urlencode }}&sensor=false"/>
 	    					{% endif %}
 	    				</div>{# "location-map" #}
 					</div>
@@ -241,11 +323,5 @@ Results - SpaStalker
 
 	</div>{# "main" and its row DIV #}
 	
-	<div class="row">
-		<div class="twelve columns"><br><br>
-
-		</div>
-	</div>
-	
-</div>{# "main_outer" #}
+</div><!-- container -->{# "main_outer" #}
 {% endblock %}

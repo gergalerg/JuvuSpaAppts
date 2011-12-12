@@ -2,7 +2,7 @@ from datetime import date, timedelta, datetime
 from traceback import print_exc
 from spasui.models import get_avails
 from beauty.data.treatments import lookup_treatment
-from beauty.util.timedate import DATE_FORMAT
+from beauty.util.timedate import DATE_FORMAT, A_DAY
 from beauty.util.geo import geocode_from_address, grok_address
 
 
@@ -20,6 +20,9 @@ def process_POST_params(request):
     data = ensure_fields(dict(request.POST))
     data['lat_long'], data['location_full_text'] = _distance(**data)
     data['dates'] = dates(**data)
+    data['this_day_date'] = this_day = min(data['dates'])
+    data['this_day'] = this_day.strftime(DATE_FORMAT)
+    data['next_day'] = (this_day + A_DAY).strftime(DATE_FORMAT)
     treatment = data['treatment']
     data['treatment_full_text'] = lookup_treatment(treatment) or treatment
     return data
@@ -41,18 +44,23 @@ def dates(today, tomorrow, thenextday, anotherday, **_):
 
     TODO anotherday should be converted by form validation.
     '''
-    days, t, d = [], date.today(), timedelta(days=1)
+    days, t = [], date.today()
     if today:
         days.append(t)
-    t += d
+    t += A_DAY
     if tomorrow:
         days.append(t)
-    t += d
+    t += A_DAY
     if thenextday:
         days.append(t)
     if anotherday:
         t = datetime.strptime(anotherday, DATE_FORMAT).date()
         days.append(t)
+
+    # No date specified? Default to today.
+    if not days:
+        days.append(date.today())
+
     return days
 
 
