@@ -17,7 +17,9 @@ def _json_boolean(n):
 def spa_home(request):
     return render_to_response(
         'spa_home.html',
-        dict(),
+        dict(
+            form = SpaInfoForm(),
+            ),
         context_instance=RequestContext(request),
         )
 
