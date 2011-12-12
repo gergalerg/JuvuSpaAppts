@@ -3,6 +3,25 @@
 <link rel="stylesheet/less" href="/static/spa_home.less" type="text/css">
 <script src="/static/js/less.js" type="text/javascript"></script>
 
+{# StaffMember Procedures ================================================= #}
+<script id="staff_proc_template" type="text/x-jquery-tmpl">
+<div class="staff_proc">
+    <input class="staff_proc_tile" type="checkbox" data-bind="checked:supported, attr: { id: 'check_' + name, name: 'check_' + name }"/>
+    <label data-bind="attr: { for: 'check_' + name }">
+        <span data-bind="text:nickname"></span>
+        <span data-bind="text:duration"></span>
+        <span data-bind="text:formatted_price"></span>
+    </label>
+</div>
+</script>
+
+{# StaffMember ================================================= #}
+<script id="tile_template" type="text/x-jquery-tmpl">
+<div class="tile">
+    <a href="#" data-bind="text:name, click: make_current"></a>
+</div>
+</script>
+
 {# Treatments Outline Display ================================================= #}
 <script id="proc_template2" type="text/x-jquery-tmpl">
 <div class="proc" data-bind="click:make_current">
@@ -40,6 +59,10 @@
 
 <script type="text/javascript">
 
+//-------------------------------------------------------
+// Miscellaneous functions.
+//
+
 function toc_in() {
     $("#toc").switchClass("seven", "two", 500, 'easeOutBounce', function() {
         $("#main_frame").fadeIn();
@@ -56,13 +79,6 @@ function setup_button(sel, ico) {
     $(sel).button({icons: {primary:ico}, text: false })
         .click(function(){return false});
 }
-
-
-//-------------------------------------------------------
-// Static Data
-//
-
-var root = {{ tree_data|safe }};
 
 function params_into_object(d, initial) {
     _.each(d, function(foo) {
@@ -125,8 +141,32 @@ var SpaProcedure = function(options) {
     }
 }
 
+var StaffMember = function(options) {
+    this.name = options.name;
+
+    this.remove = function() {
+        viewModel.stuffs.remove(this);
+        if (viewModel.stuffs().length == 0 || viewModel.current_staff_member() == this) {
+            viewModel.current_staff_member({});
+        }
+    }
+
+    this.make_current = function() {
+        viewModel.current_staff_member(this);
+    }
+}
+
+
+//-------------------------------------------------------
+// Static Data
+//
+
+var root = {{ tree_data|safe }};
+
 // Convert the (server-embedded) JSON to KO models.
 root.children = _.map(root.children, function(n) { return new SpaProcedure(n); });
+
+var staff = _.map({{ staff|safe }}, function(n) { return new StaffMember(n); });
 
 
 //-------------------------------------------------------
@@ -141,15 +181,42 @@ var viewModel = {
     // The currently selected treatment ("proc"edure), if any.
     current_proc: ko.observable({name:'None Selected'}),
 
+    // Array of SpaProcedure objects that a spa supports.
+    supported_procs: ko.observableArray(),
+
     // The master tree of spa procedures.
     obj_treatments: ko.observableArray(root.children),
 
+    // Staff members, and currently selected staff member.
+    staff: ko.observableArray(staff),
+    current_staff_member: ko.observable({}),
+
+    // A bit of indirection to allow binding to this callback before current_proc is specified.
     add_subtype: function () {
         viewModel.current_proc().add_subtype();
     },
 
-    supported_procs: ko.observableArray()
+    add_staff_member: function() {
+        var name = $("#staff_name").val();
+        if (name != "") {
+            var newbie = new StaffMember({
+                name: name,
+                description: 'Bananas and Peanutbutter',
+                extraCost: 0.25,
+            })
+            this.staff.push(newbie);
+            this.current_staff_member(newbie);
+            $("#staff_name").val('');
+        } else {
+            $("#staff_name").effect('highlight');
+        }
+    },
 };
+
+viewModel.someone_selected = ko.dependentObservable(function() {
+    console.log(this.current_staff_member());
+    return !_.isEmpty(this.current_staff_member());
+}, viewModel);
 
 //-------------------------------------------------------
 // View
@@ -243,9 +310,28 @@ $(function(){
     });
     $("input.tile").button();
 
-//    setup_button("button#add_staff", 'ui-icon-circle-plus');
+    setup_button("button#add_staff", 'ui-icon-circle-plus');
     setup_button("button#add_proc", 'ui-icon-circle-plus');
     setup_button("button#del_proc", 'ui-icon-circle-close');
+
+    var vis = d3.select("#show")
+        .append("svg:svg")
+        .attr("width", w)
+        .attr("height", h)
+        .attr("id", "uncanny");
+    make_timescale(vis);
+
+    $("#slider").slider({
+        max: 0.25,
+        min: -0.25,
+        step: 0.015625, // 0.5 / (8 * 4) i.e. by fifteen minutes's.
+        orientation: 'vertical',
+        animate: true,
+        slide: function(event, ui) {
+            slider_offset = ui.value;
+            timescale_updater();
+        },
+    });
 
     crambery(3);
 
@@ -332,11 +418,40 @@ $(function(){
 {% endblock %}
 
 {% block pane_3 %}
-placeholder for staff page
+  <div class="row">
+
+  <div class="four columns"><div id="staff_list">
+    <h2>Staff</h2>
+    <p data-bind="template: {name:'tile_template', foreach: staff}"></p>
+    <form class="nice">
+      <button id="add_staff" data-bind="click: add_staff_member">Add Staff Member</button>
+      <input id="staff_name" name="staff_name" class="input-text small" type="text" placeholder="Add Staff Member">
+    </form>
+  </div>{# staff_list #}</div>
+
+  <div class="eight columns"><div id="boy">
+    <div class="row"><div class="twelve columns">
+      <div id="aa" class="cake">
+        <h3 data-bind="text: current_staff_member().name"></h3>
+        <div data-bind="visible:someone_selected">
+        <div id="chart" data-bind="template: {name:'staff_proc_template', foreach: supported_procs}"></div>
+        </div>
+      </div>{# panel #}
+    </div></div>{# columns row #}
+  </div>{# boy #}</div>
+
+  </div>{# row #}
 {% endblock %}
 
 {% block pane_4 %}
-placeholder for calendar page
+<div class="row">
+<div class="one columns" style="background-color:#eef">
+    <div id="slider"></div>
+</div>{# columns #}
+<div class="eleven columns" style="background-color:#eef">
+    <div id="show"></div>
+</div>{# columns #}
+</div>{# row #}
 {% endblock %}
 
 

@@ -14,12 +14,20 @@ def _json_boolean(n):
     return ("false", "true")[bool(n)]
 
 
+STAFF = [
+    {'name': 'Billy'},
+    {'name': 'Bob'},
+    {'name': 'Billy Jo Bob'},
+    ]
+
+
 def spa_home(request):
     return render_to_response(
         'spa_home.html',
         dict(
-            form = SpaInfoForm(),
-            tree_data = TREE,
+            form=SpaInfoForm(),
+            tree_data=TREE,
+            staff=STAFF,
             ),
         context_instance=RequestContext(request),
         )
