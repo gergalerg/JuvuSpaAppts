@@ -4,6 +4,14 @@
 <script src="/static/js/less.js" type="text/javascript"></script>
 
 {# Treatments Outline Display ================================================= #}
+<script id="proc_template2" type="text/x-jquery-tmpl">
+<div class="proc" data-bind="click:make_current">
+    <span data-bind="text:nickname"></span>
+    <span data-bind="text:duration"></span>
+    <span data-bind="text:formatted_price"></span>
+</div>
+</script>
+
 <script id="proc_template" type="text/x-jquery-tmpl">
 <div class="proc" data-bind="visible:supported">
     <span data-bind="text:name, click:make_current, style: { 'paddingLeft': '1.75em' }"></span>
@@ -56,14 +64,19 @@ function setup_button(sel, ico) {
 
 var root = {{ tree_data|safe }};
 
+function params_into_object(d, initial) {
+    _.each(d, function(foo) {
+        initial[foo.name] = foo.value;
+    });
+}
+
 
 //-------------------------------------------------------
-// View Model
+// View Model Classes
 //
 
 var SpaProcedure = function(options) {
     this.name = options.name;
-    this.nickname = ko.observable(options.name);
     this.supported = ko.observable(options.supported);
 
     if (!_.isUndefined(options.children)) {
@@ -73,8 +86,23 @@ var SpaProcedure = function(options) {
         );
     }
 
-    this.price = ko.observable(0.0);
-    this.duration = ko.observable(60);
+    if (_.isUndefined(options.nickname)) {
+        this.nickname = ko.observable(options.name);
+    } else {
+        this.nickname = ko.observable(options.nickname);
+    }
+
+    if (_.isUndefined(options.price)) {
+        this.price = ko.observable(0.0);
+    } else {
+        this.price = ko.observable(options.price);
+    }
+
+    if (_.isUndefined(options.duration)) {
+        this.duration = ko.observable(60);
+    } else {
+        this.duration = ko.observable(options.duration);
+    }
 
     this.formatted_price = ko.dependentObservable(function() {
         return "$" + (+this.price()).toFixed(2);
@@ -89,7 +117,11 @@ var SpaProcedure = function(options) {
     }
 
     this.add_subtype = function() {
-        console.log(this.name);
+        var new_subtype = $("form#add_subtype").serializeArray()
+        var n = {name: this.name, supported:true};
+        params_into_object(new_subtype, n);
+        console.log(n);
+        viewModel.supported_procs.push(new  SpaProcedure(n));
     }
 }
 
@@ -114,7 +146,9 @@ var viewModel = {
 
     add_subtype: function () {
         viewModel.current_proc().add_subtype();
-    }
+    },
+
+    supported_procs: ko.observableArray()
 };
 
 //-------------------------------------------------------
@@ -271,7 +305,7 @@ $(function(){
   <p data-bind="template: {name:'proc_category_template', foreach: obj_treatments}"></p>
 </div>{# columns #}
 
-<div class="nine columns">
+<div class="five columns">
 <div class="proc_detail">
     <h3 data-bind="text: current_proc().name"></h3>
     <h5>Details</h5>
@@ -280,16 +314,19 @@ $(function(){
             <span data-bind="text:current_proc().formatted_price"></span>
             <span data-bind="text:current_proc().duration"></span>
         </div>
-        <form class="nice">
-            <label for="aka_name">A.k.a.:</label><input name="aka_name" class="input-text" type="text" data-bind="value:current_proc().nickname" placeholder="None Selected"><br>
+        <form id="add_subtype" class="nice">
+            <label for="nickname">A.k.a.:</label><input name="nickname" class="input-text" type="text" data-bind="value:current_proc().nickname" placeholder="None Selected"><br>
             <label for="price">Price:</label><input name="price" class="input-text" type="text" data-bind="value:current_proc().price" placeholder="Price"><br>
             <label for="duration">Minutes:</label><input name="duration" class="input-text" type="text" data-bind="value:current_proc().duration" placeholder="Duration"><br>
             <button id="add_proc" data-bind="click: add_subtype">Add</button>
             <button id="del_proc">Delete</button>
         </form>
-
 </div>
 </div>{# columns #}
+
+<div class="four columns" data-bind="template: {name:'proc_template2', foreach: supported_procs}">
+</div>{# columns #}
+
 
 </div>{# row #}
 {% endblock %}
