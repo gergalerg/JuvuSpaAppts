@@ -22,6 +22,11 @@
 </div>
 </script>
 
+{# StaffMember under Calendar on TOC =============================== #}
+<script id="toc_staff_template" type="text/x-jquery-tmpl">
+<h5 data-bind="text:name, style: {backgroundColor:tag_color()}"></h5>
+</script>
+
 {# Treatments Outline Display ================================================= #}
 <script id="proc_template2" type="text/x-jquery-tmpl">
 <div class="proc" data-bind="click:make_current">
@@ -58,6 +63,31 @@
 {# ================================================= #}
 
 <script type="text/javascript">
+
+//-------------------------------------------------------
+// Staff member calendar view support.
+//
+
+var color_of = d3.scale.linear()
+        .domain([0, 1])
+        .range(["hsl(0, 50%, 70%)", "hsl(360, 50%, 70%)"])
+        .interpolate(d3.interpolateHsl);
+
+function setup_bands() {
+    var R = _.range(viewModel.staff().length);
+    var x = d3.scale.ordinal()
+        .domain(R)
+        .rangeBands([20, 645]);
+    var col = d3.scale.ordinal()
+        .domain(R)
+        .rangePoints([0.0, 1.0], 0.5);
+
+    _.each(viewModel.staff(), function(n, i) {
+        n.tag_color(color_of(col(i)));
+    });
+
+}
+
 
 //-------------------------------------------------------
 // Miscellaneous functions.
@@ -143,6 +173,7 @@ var SpaProcedure = function(options) {
 
 var StaffMember = function(options) {
     this.name = options.name;
+    this.tag_color = ko.observable('#fff');
 
     this.remove = function() {
         viewModel.stuffs.remove(this);
@@ -333,6 +364,8 @@ $(function(){
         },
     });
 
+    setup_bands();
+
     crambery(3);
 
     if (!Backbone.history.start()) {
@@ -356,6 +389,7 @@ $(function(){
     <h3><a id="2_link" href="#step/2">Customize</a></h3>
     <h3><a id="3_link" href="#step/3">Staff</a></h3>
     <h3><a id="4_link" href="#step/4">Calendar</a></h3>
+      <div data-bind="visible:viewing()==4, template: {name:'toc_staff_template', foreach: staff}"></div>
 {% endblock %}
 
 {% block pane_0 %}
@@ -445,10 +479,10 @@ $(function(){
 
 {% block pane_4 %}
 <div class="row">
-<div class="one columns" style="background-color:#eef">
+<div class="one columns">
     <div id="slider"></div>
 </div>{# columns #}
-<div class="eleven columns" style="background-color:#eef">
+<div class="eleven columns">
     <div id="show"></div>
 </div>{# columns #}
 </div>{# row #}
