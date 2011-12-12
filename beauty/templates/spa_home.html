@@ -17,10 +17,77 @@ function toc_out() {
     });
 }
 
+
+
+//-------------------------------------------------------
+// View Model
+//
+
+var viewModel = {
+
+    // Track the current "view" the user is looking at.
+    viewing: ko.observable()
+
+};
+
+// Update the "indicate" CSS class.
+viewModel.viewing.subscribe(function(view) {
+    $(".indicate").removeClass("indicate");
+    $("#" + view + "_link").addClass("indicate");
+});
+
+// 
+viewModel.viewing.subscribe(function(view) {
+    if (view == "toc") { toc_out() } else { toc_in() };
+});
+
+//-------------------------------------------------------
+// Route URLs.
+//
+
+var routey = Backbone.Router.extend({
+
+    routes: {
+        "toc": "toc",
+        "step/:num": "step",
+    },
+
+    toc: function() {
+        viewModel.viewing("toc");
+    },
+
+    step: function(num) {
+        num = +num;
+        if (num >= 0 && num <= 4) {
+            viewModel.viewing(num);
+            $(".current_pane").hide();
+            $("#pane_" + num).show().addClass("current_pane");
+
+        } else {
+            routes.navigate("toc", true);
+        }
+    },
+
+});
+
+var routes = new routey();
+
+//-------------------------------------------------------
+// Initial bootstrap.
+//
+
 $(function(){
     $("#main_frame").hide();
+    $(".pane").hide();
+    $("#pane_0").show();
+    ko.applyBindings(viewModel);
     crambery(3); // Animate color cycle at three minutes per complete rainbow. ;)
-    $("#title_bar").hover(toc_in, toc_out);
+//    $("#title_bar").hover(toc_in, toc_out);
+    if (!Backbone.history.start()) {
+        // Default to Step 1.
+        routes.navigate("toc", true);
+    }
+
 });
 </script>
 {% endblock %}
@@ -29,7 +96,7 @@ $(function(){
 
 {% block header %}
 <div id="title_bar">
-  <h1>{{ spa_name|default:"&lt;SPA NAME&gt;" }}</h1> <h3>Home</h3>
+  <h1>{{ spa_name|default:"&lt;SPA NAME&gt;" }}</h1> <h3 data-bind="text:viewing">Home</h3>
 </div>
 {% endblock %}
 
@@ -38,11 +105,27 @@ $(function(){
     <h3><a id="1_link" href="#step/1">Services</a></h3>
     <h3><a id="2_link" href="#step/2">Customize</a></h3>
     <h3><a id="3_link" href="#step/3">Staff</a></h3>
-    <h3><a id="dash_link" href="#d">Calendar</a></h3>
+    <h3><a id="4_link" href="#step/4">Calendar</a></h3>
 {% endblock %}
 
-{% block boc %}
-Yas newb
+{% block pane_0 %}
+placeholder for info page
+{% endblock %}
+
+{% block pane_1 %}
+placeholder for services page
+{% endblock %}
+
+{% block pane_2 %}
+placeholder for customize page
+{% endblock %}
+
+{% block pane_3 %}
+placeholder for staff page
+{% endblock %}
+
+{% block pane_4 %}
+placeholder for calendar page
 {% endblock %}
 
 
