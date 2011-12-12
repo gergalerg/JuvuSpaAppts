@@ -19,6 +19,7 @@ def spa_home(request):
         'spa_home.html',
         dict(
             form = SpaInfoForm(),
+            tree_data = TREE,
             ),
         context_instance=RequestContext(request),
         )
