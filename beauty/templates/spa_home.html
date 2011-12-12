@@ -44,6 +44,11 @@ function toc_out() {
     });
 }
 
+function setup_button(sel, ico) {
+    $(sel).button({icons: {primary:ico}, text: false })
+        .click(function(){return false});
+}
+
 
 //-------------------------------------------------------
 // Static Data
@@ -82,6 +87,10 @@ var SpaProcedure = function(options) {
     this.make_current = function() {
         viewModel.current_proc(this);
     }
+
+    this.add_subtype = function() {
+        console.log(this.name);
+    }
 }
 
 // Convert the (server-embedded) JSON to KO models.
@@ -97,9 +106,15 @@ var viewModel = {
     // Track the current "view" the user is looking at.
     viewing: ko.observable(),
 
-    // The master tree of spa procedures.
-    obj_treatments: ko.observableArray(root.children)
+    // The currently selected treatment ("proc"edure), if any.
+    current_proc: ko.observable({name:'None Selected'}),
 
+    // The master tree of spa procedures.
+    obj_treatments: ko.observableArray(root.children),
+
+    add_subtype: function () {
+        viewModel.current_proc().add_subtype();
+    }
 };
 
 //-------------------------------------------------------
@@ -179,9 +194,12 @@ var routes = new routey();
 //
 
 $(function(){
+
     $("#main_frame").hide();
     $(".pane").hide();
+
     ko.applyBindings(viewModel);
+
     $("#choose").accordion({
         collapsible: true,
         autoHeight: false,
@@ -190,7 +208,13 @@ $(function(){
         }
     });
     $("input.tile").button();
+
+//    setup_button("button#add_staff", 'ui-icon-circle-plus');
+    setup_button("button#add_proc", 'ui-icon-circle-plus');
+    setup_button("button#del_proc", 'ui-icon-circle-close');
+
     crambery(3);
+
     if (!Backbone.history.start()) {
         routes.navigate("toc", true);
     }
@@ -241,8 +265,33 @@ $(function(){
 </div>{# row #}
 {% endblock %}
 
-{% block pane_2 %}
-placeholder for customize page
+{% block pane_2 %}<div class="row">
+
+<div class="three columns">
+  <p data-bind="template: {name:'proc_category_template', foreach: obj_treatments}"></p>
+</div>{# columns #}
+
+<div class="nine columns">
+<div class="proc_detail">
+    <h3 data-bind="text: current_proc().name"></h3>
+    <h5>Details</h5>
+        <div class="sub_proc" data-bind="visible:current_proc().supported">
+            <span data-bind="text:current_proc().nickname"></span>
+            <span data-bind="text:current_proc().formatted_price"></span>
+            <span data-bind="text:current_proc().duration"></span>
+        </div>
+        <form class="nice">
+            <label for="aka_name">A.k.a.:</label><input name="aka_name" class="input-text" type="text" data-bind="value:current_proc().nickname" placeholder="None Selected"><br>
+            <label for="price">Price:</label><input name="price" class="input-text" type="text" data-bind="value:current_proc().price" placeholder="Price"><br>
+            <label for="duration">Minutes:</label><input name="duration" class="input-text" type="text" data-bind="value:current_proc().duration" placeholder="Duration"><br>
+            <button id="add_proc" data-bind="click: add_subtype">Add</button>
+            <button id="del_proc">Delete</button>
+        </form>
+
+</div>
+</div>{# columns #}
+
+</div>{# row #}
 {% endblock %}
 
 {% block pane_3 %}
