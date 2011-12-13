@@ -22,10 +22,6 @@ function day_line(d) {
     return n_to_y(day_to_n(d) + slider_offset) - 400 * slider_offset;
 }
 
-function line_day(px) {
-    return day_to_n.invert(n_to_y.invert(px + 400 * slider_offset) - slider_offset);
-}
-
 var ticks = day_to_n.ticks(d3.time.minutes, 15);
 var m = 4; // Special format every mth line to highlight hour.
 
@@ -40,12 +36,9 @@ function make_timescale(svg_el) {
         .attr("y2", day_line)
         .attr("stroke", function(d, i) { return (i % m == 0) ? "#787D78" : "#ccc" })
         .attr("stroke-dasharray", function(d, i) { return (i % m == 0) ? "" : "2,1" })
-    .on("mouseover", function(d, i) {
-//        var y = d3.event.clientY;
-//        var d = line_day(y);
-        viewModel.mouse_time(hour(d));
-//        console.log('line', hour(d));
-    });
+        .on("mouseover", function(d) {
+            viewModel.mouse_time(hour(d));
+        });
 
     svg_el.selectAll("text.date_rule")
         .data(ticks)

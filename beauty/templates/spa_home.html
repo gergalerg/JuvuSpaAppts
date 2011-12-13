@@ -367,17 +367,7 @@ $(function(){
         .attr("height", h)
         .attr("id", "uncanny");
     make_timescale(vis);
-/*
-    var svg = d3.select("svg");
-    svg.on("mouseover", function() {
-//        console.log(svg);
-        //var y = d3.svg.mouse(vis)[1];
-        var y = d3.event.clientY;
-        var d = line_day(y);
-        viewModel.mouse_time(hour(d));
-        console.log(y+'px', '->', hour(d));
-    });
-*/
+
     $("#slider").slider({
         max: 0.25,
         min: -0.25,
