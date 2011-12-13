@@ -56,13 +56,19 @@ var timescale_updater = _.throttle(function() {
     d3.selectAll("line")
         .transition()
         .delay(0)
-        .duration(0)
+        .duration(50)
         .attr("y1", day_line)
         .attr("y2", day_line);
     d3.selectAll("text.date_rule")
         .transition()
         .delay(0)
-        .duration(0)
+        .duration(50)
         .attr("y", day_line);
-}, 100);
+    d3.selectAll("rect")
+        .transition()
+        .delay(0)
+        .duration(50)
+        .attr("y", function(d) { return day_line(d.start) })
+        .attr("height", function(d) { return day_line(d.end) - day_line(d.start) });
+}, 50);
 
