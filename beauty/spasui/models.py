@@ -31,6 +31,7 @@ from beauty.util.URIs import (
   WHERE,
   FROM_TIME,
   TO_TIME,
+  EMPLOYS,
   )
 
 
@@ -76,6 +77,18 @@ def add_thing(name, label, kind):
 
 def add_provider(name, label):
   return add_thing(name, label, PROVIDER)
+
+
+def add_staff_member(spa, staffmember):
+    T = get_spa_from_label(spa)
+    spa = T[0] if T else add_provider(spa, spa)
+    s = Node()
+    for s in (
+        Statement(s, LABEL, staffmember),
+        Statement(spa, EMPLOYS, s),
+        ):
+        M.add_statement(s)
+    return s
 
 
 def add_treatment(name, label=None):
@@ -134,6 +147,18 @@ def create_availability_with_trenche(trenche, day):
   M.add_statement(Statement(avail, SUPPORTS, trenche))
   M.add_statement(Statement(avail, DATE, day))
   return avail
+
+
+def get_spa_from_label(label):
+  return [
+    t['spa'] for t in _query("""
+SELECT distinct ?spa
+WHERE {
+    ?spa rdfs:label "%(label)s" .
+}
+""",
+  label=label,
+  )]
 
 
 def get_treatment_from_label(label):

@@ -17,6 +17,7 @@ DATE = Uri(OUR_LAND + 'Date')
 WHERE = Uri(OUR_LAND + 'Location')
 FROM_TIME = Uri(OUR_LAND + 'from_time')
 TO_TIME = Uri(OUR_LAND + 'to_time')
+EMPLOYS = Uri(OUR_LAND + 'Employs')
 
 NAME = Uri('http://xmlns.com/foaf/0.1/name')
 LABEL = Uri('http://www.w3.org/2000/01/rdf-schema#label')

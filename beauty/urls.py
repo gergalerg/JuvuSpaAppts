@@ -24,6 +24,9 @@ urlpatterns = patterns('',
     # Rep's support site, apps.
     url(r'^repui/?$', 'repui.views.index', name='repui'),
 
+    # Semantic REST API.
+    url(r'^ref/', include('semui.urls')),
+
     # Static media (should be served directly by the web server in production.)
     (
         r'^static/(?P<path>.*)$',
