@@ -76,6 +76,14 @@ function random_apts(staff_member) {
     ];
 }
 
+function post_new_staff_member(who) {
+    $.ajax(
+        url: "{% url staff 'Larry' %}",
+        contentType: 'application/rdf+xml',
+        
+    );
+}
+
 //-------------------------------------------------------
 // Staff member calendar view support.
 //
