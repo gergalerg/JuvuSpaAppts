@@ -4,6 +4,7 @@ from RDF import (
     Statement,
     Node,
     Uri,
+    Parser,
     SPARQLQuery,
     RDFXMLSerializer,
 )
@@ -126,4 +127,13 @@ def GET_staff_member(spa, staff_tag):
 
 ##print S.serialize_model_to_string(M)
 ##print; print; print
+
+def POST_staff(spa, rdf):
+    parser = Parser(mime_type="application/rdf+xml")
+    for statement in parser.parse_string_as_stream(rdf, OUR_LAND):
+        print statement
+    return rdf
+
+
+
 

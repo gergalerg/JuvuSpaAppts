@@ -1,6 +1,6 @@
 from django.http import HttpResponse, Http404
 from beauty.util.restful_resource import RESTResource
-from semui.models import GET_staff, GET_staff_member
+from semui.models import GET_staff, GET_staff_member, POST_staff
 
 
 def spa_only(f):
@@ -27,8 +27,11 @@ class SpaStaff(RESTResource):
 
     @spa_only
     def POST(self, request, spa, *args, **kw):
+        print 'POST', spa, repr(request.raw_post_data)
         response = HttpResponse(
-            content_type = 'application/rdf+xml'
+            POST_staff(spa, request.raw_post_data),
+            status=201,
+            content_type = 'application/rdf+xml',
             )
         response['Location'] = 'new url'
         return response
