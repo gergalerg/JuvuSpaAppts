@@ -188,6 +188,12 @@ function post_new_staff_member(who) {
         contentType: 'application/rdf+xml',
         data: payload,
         processData: false,
+        success: function(data, textStatus, jqXHR) {
+            console.log(data);
+            var K = new_triplestore();
+            K.load(data);
+            console.log(K.dump());
+        },
     });
 }
 

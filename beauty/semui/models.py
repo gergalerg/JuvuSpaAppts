@@ -57,6 +57,8 @@ def serialize_stream(stream):
 ##
 add_provider("Larry's Spa", "Larry")
 add_staff_member("Larry", "Barry")
+add_staff_member("Larry", "Carrie")
+add_staff_member("Larry", "Gary")
 
 
 def expect(*fields):
@@ -105,7 +107,6 @@ def get_staff(spa):
       ?staffmember rdfs:label ?name.
     }
     """ % {'spa':str(spa)}
-##    print sparql
     query = SPARQLQuery(sparql)
 ##    import pdb; pdb.set_trace()
     res = query.execute(M)
@@ -132,7 +133,7 @@ def POST_staff(spa, rdf):
     parser = Parser(mime_type="application/rdf+xml")
     for statement in parser.parse_string_as_stream(rdf, OUR_LAND):
         print statement
-    return rdf
+    return rdf, 'staff_member_name'
 
 
 

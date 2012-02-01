@@ -28,12 +28,13 @@ class SpaStaff(RESTResource):
     @spa_only
     def POST(self, request, spa, *args, **kw):
         print 'POST', spa, repr(request.raw_post_data)
+        response_data, url_slug = POST_staff(spa, request.raw_post_data)
         response = HttpResponse(
-            POST_staff(spa, request.raw_post_data),
+            response_data,
             status=201,
             content_type = 'application/rdf+xml',
             )
-        response['Location'] = 'new url'
+        response['Location'] = 'staff/' + url_slug
         return response
 
     @spa_only
