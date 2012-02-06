@@ -65,60 +65,6 @@
 <script type="text/javascript">
 
 
-function random_apts(staff_member) {
-    var res = [Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random()];
-    res.sort();
-    res = _.map(res, day_to_n.invert);
-    return [
-        { start: res[0], end: res[1], staff_member: staff_member },
-        { start: res[2], end: res[3], staff_member: staff_member },
-        { start: res[4], end: res[5], staff_member: staff_member }
-    ];
-}
-
-
-//-------------------------------------------------------
-// Staff member calendar view support.
-//
-
-var color_of = d3.scale.linear()
-        .domain([0, 1])
-        .range(["hsl(0, 50%, 70%)", "hsl(360, 50%, 70%)"])
-        .interpolate(d3.interpolateHsl);
-
-function setup_bands() {
-    var R = _.range(viewModel.staff().length);
-    var x = d3.scale.ordinal()
-        .domain(R)
-        .rangeBands([80, 645], 0.125);
-    var col = d3.scale.ordinal()
-        .domain(R)
-        .rangePoints([0.0, 1.0], 0.5);
-
-    _.each(viewModel.staff(), function(n, i) {
-        n.tag_color(color_of(col(i)));
-    });
-
-    var Apointments = _.flatten(_.map(viewModel.staff(), random_apts));
-
-    d3.select("svg")
-      .selectAll("rect")
-      .remove();
-
-    d3.select("svg")
-      .selectAll("rect")
-      .data(Apointments)
-      .enter().append("svg:rect")
-        .attr("x", function(d) { return x(_.indexOf(viewModel.staff(), d.staff_member)) })
-        .attr("width", x.rangeBand())
-        .attr("y", function(d) { return day_line(d.start) })
-        .attr("height", function(d) { return day_line(d.end) - day_line(d.start) })
-        .attr("fill", function(d) { return d.staff_member.tag_color() })
-        .on("mouseover", function(d) {
-            viewModel.mouse_time(hour(d.start));
-        });
-
-}
 
 
 //-------------------------------------------------------
@@ -126,14 +72,14 @@ function setup_bands() {
 //
 
 function toc_in() {
-    $("#toc").switchClass("seven", "two", 500, 'easeOutBounce', function() {
+    $("#toc").fadeOut(150, 'easeOutBounce', function() {
         $("#main_frame").fadeIn();
     });
 }
 
 function toc_out() {
     $("#main_frame").fadeOut(150, function() {
-        $("#toc").switchClass("two", "seven", 150);
+        $("#toc").fadeIn(150);
     });
 }
 
@@ -327,6 +273,18 @@ var viewModel = {
             $("#staff_name").effect('highlight');
         }
     },
+
+    current: ko.observable(""),
+    current_el: ko.observable(),
+    pointed_at: ko.observable("Wants Pawn Term, "),
+    pointed_at_el: ko.observable(),
+    
+    viewing: ko.observable("year"),
+
+	is_current: function(d) {
+	    return viewModel.current() == d.label;
+	},
+
 };
 
 viewModel.someone_selected = ko.dependentObservable(function() {
@@ -354,13 +312,9 @@ var View = {
     // This is the last view the user was looking at, used for determining correct transition to a new view.
     previous_view: "toc",
 
+    previous: false,
+    pointed_at: false,
 };
-
-// Update the "indicate" CSS class.
-viewModel.viewing.subscribe(function(view) {
-    $(".indicate").removeClass("indicate");
-    $("#" + view + "_link").addClass("indicate");
-});
 
 // Track and update visible pane and TOC width.
 viewModel.viewing.subscribe(function(view) {
@@ -388,6 +342,33 @@ viewModel.viewing.subscribe(function(view) {
 
     // Update history for next call.
     View.previous_view = view;
+});
+
+
+viewModel.pointed_at_el.subscribe(function(it) {
+    if (it) {
+        it = d3.select(it);
+        it.transition().call(embiggen);
+    } else if (View.pointed_at) {
+        // Don't shrink current day.
+        View.pointed_at.filter(function(d) { return !viewModel.is_current(d) })
+            .transition().call(shrink);
+    }
+    View.pointed_at = it;
+});
+
+viewModel.current_el.subscribe(function(it) {
+    var circ = d3.select(it);
+    circ.transition().call(swell);
+    if (View.previous) {
+        View.previous.transition().call(shrink).attr("fill-opacity", 0.5);
+    }
+    View.previous = circ;
+});
+
+viewModel.viewing.subscribe(function(view) {
+    $(".indicate").removeClass("indicate");
+    $("#" + view + "_link").addClass("indicate");
 });
 
 //-------------------------------------------------------
@@ -419,6 +400,350 @@ var routey = Backbone.Router.extend({
 var routes = new routey();
 
 //-------------------------------------------------------
+// Tree Layout Junk.
+//
+
+var m = [10, 120, 10, 120],
+    w = 914 - m[1] - m[3],
+    h = 800 - m[0] - m[2],
+    i = 0,
+    duration = 500;
+
+var tree = d3.layout.tree()
+    .size([h, w]);
+
+var diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.y, d.x]; });
+
+// Toggle tree children on click.
+function tree_node_click(d) {
+  if (d.children) {
+    d._children = d.children;
+    d.children = null;
+  } else {
+    d.children = d._children;
+    d._children = null;
+  }
+  update(d);
+}
+
+function collapse(d) {
+    if (d.children) {
+      d._children = d.children;
+      _.each(d._children, collapse);
+      d.children = null;
+    }
+}
+
+var vis2;
+
+function update(source) {
+
+  // Compute the new tree layout.
+  var nodes = tree.nodes(root).reverse();
+
+  // Normalize for fixed-depth.
+  nodes.forEach(function(d) { d.y = d.depth * 110; });
+
+  // Update the nodes…
+  var node = vis2.selectAll("g.node")
+      .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+  // Enter any new nodes at the parent's previous position.
+  var nodeEnter = node.enter().append("svg:g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+      .on("click", tree_node_click);
+
+  nodeEnter.append("svg:circle")
+      .attr("r", 1e-6)
+      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#eef"; });
+
+  nodeEnter.append("svg:text")
+      .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+      .attr("dy", ".35em")
+      .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+      .text(function(d) { return d.name; })
+//      .style("fill", function(d) { return (d.supported && d.supported()) ? "black" : "#ccc"; })
+      .style("fill-opacity", 1e-6);
+
+  // Transition nodes to their new position.
+  var nodeUpdate = node.transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+  nodeUpdate.select("circle")
+      .attr("r", 8)
+      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#eef"; });
+
+  nodeUpdate.select("text")
+      .style("fill-opacity", 1);
+
+  // Transition exiting nodes to the parent's new position.
+  var nodeExit = node.exit().transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+      .remove();
+
+  nodeExit.select("circle")
+      .attr("r", 1e-6);
+
+  nodeExit.select("text")
+      .style("fill-opacity", 1e-6);
+
+  // Update the links…
+  var link = vis2.selectAll("path.link")
+      .data(tree.links(nodes), function(d) { return d.target.id; });
+
+  // Enter any new links at the parent's previous position.
+  link.enter().insert("svg:path", "g")
+      .attr("class", "link")
+      .attr("d", function(d) {
+        var o = {x: source.x0, y: source.y0};
+        return diagonal({source: o, target: o});
+      })
+    .transition()
+      .duration(duration)
+      .attr("d", diagonal);
+
+  // Transition links to their new position.
+  link.transition()
+      .duration(duration)
+      .attr("d", diagonal);
+
+  // Transition exiting nodes to the parent's new position.
+  link.exit().transition()
+      .duration(duration)
+      .attr("d", function(d) {
+        var o = {x: source.x, y: source.y};
+        return diagonal({source: o, target: o});
+      })
+      .remove();
+
+  // Stash the old positions for transition.
+  nodes.forEach(function(d) {
+    d.x0 = d.x;
+    d.y0 = d.y;
+  });
+}
+
+
+//-------------------------------------------------------
+// Date Formatting and Scales.
+//
+
+var day = d3.time.format("%w"),
+    week = d3.time.format("%U"),
+    _month = d3.time.format("%m"),
+    mday = d3.time.format("%d"),
+    yday = d3.time.format("%j"),
+    format = d3.time.format("%A, %B %d %Y");
+
+function month(d) { return _month(d) - 1 }
+
+var dh = 250, w = 1024;
+var x0 = 10, x1 = 914;
+
+var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
+    y = d3.scale.linear().domain([0,7]).range([20,dh]),
+
+    r = d3.scale.linear().domain([0,1]).range([5,10]),
+    r_med = d3.scale.linear().domain([0,1]).range([15,30]),
+    r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
+
+    c0 = d3.scale.linear().domain([0,1]).range(
+        ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
+        ).interpolate(d3.interpolateHsl);
+    c1 = d3.scale.linear().domain([0,1]).range(
+        ["hsl(150, 50%, 50%)", "hsl(250, 100%, 50%)"]
+        ).interpolate(d3.interpolateHsl);
+
+var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
+    ym = d3.scale.linear().domain([0,4]).range([45, dh * 1.618]);
+
+var xmselector = d3.scale.linear().domain([1, 12]).range([x0, x1]);
+
+//-------------------------------------------------------
+// Teh Year Data.
+//
+
+var year = d3.time.days(new Date(2012, 0, 1), new Date(2013, 0, 1));
+var data = jQuery.map(year, function(d, i) {
+    var datum = {
+        "month": month(d),
+        "week_of_year": +week(d),
+        "day_of_week": day(d),
+        "day_of_month": mday(d),
+        "day_of_year": +yday(d),
+        "label": format(d),
+        "date": d,
+    };
+    var months_week = week(new Date(2011, datum.month, 1));
+    datum.week_of_month = datum.week_of_year - months_week;
+    return datum;
+});
+
+//-------------------------------------------------------
+// Arrange day-circles in various interesting patterns.
+//
+
+function select_year() {
+    d3.selectAll("circle")
+        .transition()
+        .delay(function(d) { return 230 * Math.random() })
+        .duration(1200)
+        .call(year_style);
+    d3.selectAll("text").transition().call(hidey);
+}
+
+function select_month(m) {
+    var in_month = function(d) { return d.month == m };
+    var circles = d3.selectAll("circle");
+    circles.filter(in_month).transition().call(month_style);
+    clear_unmatching(circles, in_month, fade_drop);
+
+    var texts = d3.selectAll("text")
+    texts.filter(in_month).transition()
+        .delay(600)
+        .duration(300)
+        .attr("x", function(d) { return xm(d.day_of_week) })
+        .attr("y", function(d) { return ym(d.week_of_month) })
+        .attr("fill-opacity", 1)
+    clear_unmatching(texts, in_month, hidey);
+}
+
+function select_week(w) {
+    var in_week = function(d) { return d.week_of_year == w };
+    var circles = d3.selectAll("circle");
+
+    circles.filter(in_week).transition().call(week_style);
+    clear_unmatching(circles, in_week, fade_drop);
+
+    var texts = d3.selectAll("text")
+    texts.filter(in_week).transition()
+        .duration(function(d) { return 500 + (500 * Math.random()) })
+        .attr("x", function(d) { return xm(d.day_of_week) })
+        .attr("y", function(d) { return ym(0) })
+        .attr("fill-opacity", 1)
+    clear_unmatching(texts, in_week, hidey);
+}
+
+function select_day(day) {
+    var in_day = function(d) { return d.day_of_year == day };
+    clear_unmatching(
+        d3.selectAll("circle"),
+        in_day,
+        fade_drop);
+}
+
+function clear_unmatching(selection, predicate, effect) {
+    selection.filter(function(d) { return !predicate(d) })
+        .transition().call(effect);
+}
+
+//-------------------------------------------------------
+// Effects bundles (used with .call(<effect>).)
+//
+
+function shiny(T) { T
+    .attr("fill", function(d) {
+        return (d.month % 2 == 0)
+            ? c1(Math.random())
+            : c0(Math.random());
+    })
+    .attr("fill-opacity", 0.5)
+}
+
+function hidey(T) { T
+    .duration(300)
+    .attr("fill-opacity", 0.01)
+}
+
+function fade_drop(T) { T
+    .duration(1200)
+    .attr("fill-opacity", 0.01)
+  .transition()
+    .delay(function(d) { return 680 * Math.random() })
+    .attr("cx", function(d) { return x(d.week_of_year) })
+    .attr("cy", h * 2)
+    .ease("quad");
+}
+
+function embiggen(T) { T
+    .attr("r", function(d) {
+        return (viewModel.is_current(d))
+            ? r_big(Math.random())
+            : (viewModel.viewing() == "year")
+                ? r_med(Math.random())
+                : r_big(Math.random());
+    })
+    .duration(2500)
+    .ease("elastic", 3, 0.3)
+}
+
+function shrink(T) { T
+    .attr("r", function() {
+        return (viewModel.viewing() == "year")
+            ? r(Math.random())
+            :  r_big(Math.random())
+    })
+    .delay(100)
+    .duration(333)
+}
+
+function swell(T) { T
+    .attr("r", 2000)
+    .delay(100)
+    .duration(1333)
+    .attr("fill-opacity", 0.01)
+}
+
+function week_style(T) { T
+    .call(month_style)
+    .attr("cy", function(d) { return ym(0) })
+}
+
+function month_style(T) { T
+    .delay(function(d) { return 75 * Math.random() })
+    .duration(function(d) { return 500 + (500 * Math.random()) })
+    .attr("cx", function(d) { return xm(d.day_of_week) })
+    .attr("cy", function(d) { return ym(d.week_of_month) })
+    .attr("r", function() { return r_big(Math.random()) })
+    .call(shiny)
+}
+
+function year_style(S) { S
+    .attr("cx", function(d) { return x(d.week_of_year) })
+    .attr("cy", function(d) { return y(d.day_of_week) })
+    .attr("r", function() { return r(Math.random()) })
+    .call(shiny)
+}
+
+//-------------------------------------------------------
+// Mouse bindings for the day-circles.
+// Mostly to de-couple the viewModel logic from the d3 transitions that
+// animate it.
+
+function mouse_bindings(T) { T
+	.on("mouseover", function(d) {
+        viewModel.pointed_at(d.label);
+        viewModel.pointed_at_el(this);
+    })
+	.on("mouseout", function(d) {
+        var c = viewModel.current();
+        viewModel.pointed_at((c != "") ? c : "Select Date");
+        viewModel.pointed_at_el(false);
+    })
+	.on("click", function(d) {
+        if (!viewModel.is_current(d)) {
+            viewModel.current(d.label);
+            viewModel.current_el(this);
+            routes.navigate("day/" + d.day_of_year, true);
+        }
+    });
+}
+
+//-------------------------------------------------------
 // Initial bootstrap.
 //
 
@@ -429,14 +754,29 @@ $(function(){
 
     ko.applyBindings(viewModel);
 
-    $("#choose").accordion({
-        collapsible: true,
-        autoHeight: false,
-        create: function(event, ui) {
-            $(this).accordion("activate", false);
-        }
-    });
-    $("input.tile").button();
+    vis2 = d3.select("#chart").append("svg:svg")
+        .attr("width", w + m[1] + m[3])
+        .attr("height", h + m[0] + m[2])
+      .append("svg:g")
+        .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+    root.x0 = h / 2;
+    root.y0 = 0;
+    root.children.forEach(collapse);
+    update(root);
+
+    var vis3 = d3.select("#show")
+        .append("svg:svg")
+        .attr("width", w)
+        .attr("height", 2.6 * h)
+        .attr("id", "uncanny");
+
+    var circles = vis3.selectAll("circle")
+        .data(data)
+    .enter().append("svg:circle")
+        .attr("stroke-width", "none")
+        .call(year_style)
+        .call(mouse_bindings);
 
     setup_button("button#add_staff", 'ui-icon-circle-plus');
     setup_button("button#add_proc", 'ui-icon-circle-plus');
@@ -461,8 +801,6 @@ $(function(){
         },
     });
 
-    setup_bands();
-
     crambery(3);
 
     if (!Backbone.history.start()) {
@@ -475,45 +813,40 @@ $(function(){
 {% block title %}Spa Home{% endblock %}
 
 {% block header %}
-<div id="title_bar">
-  <h1>{{ spa_name|default:"&lt;SPA NAME&gt;" }}</h1> <h3 data-bind="text:view_title">Home</h3>
-</div>
 {% endblock %}
 
 {% block toc %}
-    <h3><a id="0_link" href="#step/0">Info</a></h3>
-    <h3><a id="1_link" href="#step/1">Services</a></h3>
-    <h3><a id="2_link" href="#step/2">Customize</a></h3>
-    <h3><a id="3_link" href="#step/3">Staff</a></h3>
-    <h3><a id="4_link" href="#step/4">Calendar</a></h3>
-      <div data-bind="visible:viewing()==4, template: {name:'toc_staff_template', foreach: staff}"></div>
+	<h1 id="logotype"><a href="/">Ju<span class="davee">V</span>uu</a></h1>
+	<h2 id="tagline">This is our subtitle!</h2>
+
+	<center>
+	
+	<form method="POST" action="#step/1">
+      <table> 
+      <tr><th rowspan="2"><h3>Login</h3></th>
+        <td><label for="id_email">email</label></td><td><input type="text" name="email" id="id_email" class="input-text" /></td>
+      </tr>
+      <tr>
+        <td><label for="id_pass">password</label></td><td><input type="password" name="hours" id="id_pass" class="input-text" /></td>
+      </tr>
+      </table>
+      <input id="search" type="submit" value="Sign Up">
+      <h3><a id="0_link" href="#step/0">Me</a></h3> 
+		<input value="Spas" id="treatment" name="treatment" type="hidden" placeholder="Looking for... a spa?"> 
+		<input value="355 Bryant St, SF" id="location" name="location" type="hidden" placeholder="Where are you?"> 
+		<input type="hidden" name="today" value="on" />
+    </form>
+    </center>
 {% endblock %}
 
 {% block pane_0 %}
-<table><form class="nice">{{ form }}</form></table>
+<div id="chart"></div>
 {% endblock %}
 
-{% block pane_1 %}<div class="row">
-
-<div class="seven columns">
-    <form>
-    <div id="choose" data-bind="template: {name:'accordion_proc_category_template', foreach: obj_treatments}">
-    </div>{# "choose" DIV #}
-    </form>
-</div>{# columns #}
-
-<div class="five columns"><div class="magic">
-  <h4>Wants pawn term, </h4>
-  <p>
-    ..dare worsted ladle gull hoe lift wetter murder inner
-    ladle cordage, honor itch offer lodge dock florist. Disk ladle gull
-    orphan worry ladle cluck wetter putty ladle rat hut, an fur disk
-    raisin pimple colder Ladle Rat Rotten Hut.
-  </p>
-  <p data-bind="template: {name:'proc_category_template', foreach: obj_treatments}"></p>
-</div>{#  magic #}</div>{# columns #}
-
-</div>{# row #}
+{% block pane_1 %}
+<div class="row"><div class="twelve columns">
+<div id="show"></div>
+</div>{# columns #}</div>{# row #}
 {% endblock %}
 
 {% block pane_2 %}<div class="row">

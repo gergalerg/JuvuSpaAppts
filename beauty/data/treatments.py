@@ -137,7 +137,7 @@ def lookup_treatment(term):
     # i.e. return None
 
 
-_tree_form_treatments = {
+TREEd = {
     'name': 'Enjoy',
     'children': [
         {
@@ -150,4 +150,5 @@ _tree_form_treatments = {
         for treatment, kinds in SORTED_TREATMENTS
         ],
     }
-TREE = dumps(_tree_form_treatments, indent=2)
+TREE = dumps(TREEd, indent=2)
+

@@ -6,14 +6,25 @@ from django.http import HttpResponse
 from spasui.search import process_POST_params, search_for_availabilities
 from beauty.util.dealcal import DealCalendar
 from yelp import YelpApi
+from spasui.forms import SpaInfoForm
+from beauty.data.treatments import TREEd
+from simplejson import dumps
 
 
 def search(request):
     '''
     Search page.
     '''
+    tree = TREEd.copy()
+    tree['name'] = 'Your Name!'
     return render_to_response(
-        'search.html',
+        'search_home.html',
+        dict(
+            spa_name='Yo!',
+            form=SpaInfoForm(),
+            tree_data=dumps(tree),
+            staff=[],
+            ),
         context_instance=RequestContext(request),
         )
 
