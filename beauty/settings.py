@@ -15,6 +15,12 @@ MANAGERS = ADMINS = (
 
 DATABASE_ENGINE = 'sqlite3'
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'users.sqlite3',
+    }
+}
 
 TRIPLE_STORES = {
     'default': dict(
