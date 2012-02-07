@@ -133,9 +133,10 @@ function embiggen(T) { T
 
 function shrink(T) { T
     .attr("r", function() {
-        return (viewModel.viewing() == "year")
+        return r(Math.random());
+        /*(viewModel.viewing() == "year")
             ? r(Math.random())
-            :  r_big(Math.random())
+            :  r_big(Math.random() */
     })
     .delay(100)
     .duration(333)

@@ -23,7 +23,6 @@ def search(request):
             spa_name='Yo!',
             form=SpaInfoForm(),
             tree_data=dumps(tree),
-            staff=[],
             ),
         context_instance=RequestContext(request),
         )

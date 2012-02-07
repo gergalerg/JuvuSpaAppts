@@ -2,70 +2,8 @@
 {% block html_head %}
 <link rel="stylesheet/less" href="/static/search_home.less" type="text/css">
 <script src="/static/js/less.js" type="text/javascript"></script>
-
-{# StaffMember Procedures ================================================= #}
-<script id="staff_proc_template" type="text/x-jquery-tmpl">
-<div class="staff_proc">
-    <input class="staff_proc_tile" type="checkbox" data-bind="checked:supported, attr: { id: 'check_' + name, name: 'check_' + name }"/>
-    <label data-bind="attr: { for: 'check_' + name }">
-        <span data-bind="text:nickname"></span>
-        <span data-bind="text:duration"></span>
-        <span data-bind="text:formatted_price"></span>
-    </label>
-</div>
-</script>
-
-{# StaffMember ================================================= #}
-<script id="tile_template" type="text/x-jquery-tmpl">
-<div class="tile">
-    <a href="#" data-bind="text:name, click: make_current"></a>
-</div>
-</script>
-
-{# StaffMember under Calendar on TOC =============================== #}
-<script id="toc_staff_template" type="text/x-jquery-tmpl">
-<h5 data-bind="text:name, style: {backgroundColor:tag_color()}"></h5>
-</script>
-
-{# Treatments Outline Display ================================================= #}
-<script id="proc_template2" type="text/x-jquery-tmpl">
-<div class="proc" data-bind="click:make_current">
-    <span data-bind="text:nickname"></span>
-    <span data-bind="text:duration"></span>
-    <span data-bind="text:formatted_price"></span>
-</div>
-</script>
-
-<script id="proc_template" type="text/x-jquery-tmpl">
-<div class="proc" data-bind="visible:supported">
-    <span data-bind="text:name, click:make_current, style: { 'paddingLeft': '1.75em' }"></span>
-</div>
-</script>
-
-<script id="proc_category_template" type="text/x-jquery-tmpl">
-<div class="proc_display">
-    <span data-bind="text:name"></span>
-    <p data-bind="template: {name:'proc_template', foreach: children}"></p>
-</div>
-</script>
-
-{# Accordion Display ================================================= #}
-<script id="accordion_proc_template" type="text/x-jquery-tmpl">
-<input class="tile" type="checkbox" data-bind="event: {change:toggle}, attr: { id: 'check_' + name, name: 'check_' + name }"/>
-<label data-bind="attr: { for: 'check_' + name }, text:name"></label>
-<br>
-</script>
-
-<script id="accordion_proc_category_template" type="text/x-jquery-tmpl">
-<h3><a href="#" data-bind="text:name"></a></h3>
-<div data-bind="template: {name:'accordion_proc_template', foreach: children}"></div>
-</script>
-{# ================================================= #}
-
+<script src="/static/js/lib/dotscal.js" type="text/javascript"></script>
 <script type="text/javascript">
-
-
-
 
 //-------------------------------------------------------
 // Miscellaneous functions.
@@ -124,26 +62,6 @@ var Q = $.rdf({databank: TRIPLESTORE})
     });
 
 
-function post_new_staff_member(who) {
-    var trip = new_triplestore();
-    trip.add('_:newb rdfs:label "' + who + '"');
-    var payload = trip.dump({format:'application/rdf+xml'})
-    $.ajax({
-        url: "{% url staff 'Larry' %}",
-        type: 'POST',
-        contentType: 'application/rdf+xml',
-        data: payload,
-        processData: false,
-        success: function(data, textStatus, jqXHR) {
-            console.log(data);
-            var K = new_triplestore();
-            K.load(data);
-            console.log(K.dump());
-        },
-    });
-}
-
-
 //-------------------------------------------------------
 // View Model Classes
 //
@@ -188,30 +106,6 @@ var SpaProcedure = function(options) {
     this.make_current = function() {
         viewModel.current_proc(this);
     }
-
-    this.add_subtype = function() {
-        var new_subtype = $("form#add_subtype").serializeArray()
-        var n = {name: this.name, supported:true};
-        params_into_object(new_subtype, n);
-        console.log(n);
-        viewModel.supported_procs.push(new  SpaProcedure(n));
-    }
-}
-
-var StaffMember = function(options) {
-    this.name = options.name;
-    this.tag_color = ko.observable('#fff');
-
-    this.remove = function() {
-        viewModel.stuffs.remove(this);
-        if (viewModel.stuffs().length == 0 || viewModel.current_staff_member() == this) {
-            viewModel.current_staff_member({});
-        }
-    }
-
-    this.make_current = function() {
-        viewModel.current_staff_member(this);
-    }
 }
 
 
@@ -223,8 +117,6 @@ var root = {{ tree_data|safe }};
 
 // Convert the (server-embedded) JSON to KO models.
 root.children = _.map(root.children, function(n) { return new SpaProcedure(n); });
-
-var staff = _.map({{ staff|safe }}, function(n) { return new StaffMember(n); });
 
 
 //-------------------------------------------------------
@@ -239,85 +131,36 @@ var viewModel = {
     // The currently selected treatment ("proc"edure), if any.
     current_proc: ko.observable({name:'None Selected'}),
 
-    // Array of SpaProcedure objects that a spa supports.
-    supported_procs: ko.observableArray(),
-
-    // The master tree of spa procedures.
-    obj_treatments: ko.observableArray(root.children),
-
-    // Staff members, and currently selected staff member.
-    staff: ko.observableArray(staff),
-    current_staff_member: ko.observable({}),
-
-    // Display the time corresponding to the mouse position on the calendar pane.
-    mouse_time: ko.observableArray(),
-
-    // A bit of indirection to allow binding to this callback before current_proc is specified.
-    add_subtype: function () {
-        viewModel.current_proc().add_subtype();
-    },
-
-    add_staff_member: function() {
-        var name = $("#staff_name").val();
-        if (name != "") {
-            var newbie = new StaffMember({
-                name: name,
-                description: 'Bananas and Peanutbutter',
-                extraCost: 0.25,
-            })
-            this.staff.push(newbie);
-            this.current_staff_member(newbie);
-            $("#staff_name").val('');
-            setup_bands();
-        } else {
-            $("#staff_name").effect('highlight');
-        }
-    },
-
     current: ko.observable(""),
     current_el: ko.observable(),
+
     pointed_at: ko.observable("Wants Pawn Term, "),
     pointed_at_el: ko.observable(),
-    
-    viewing: ko.observable("year"),
 
 	is_current: function(d) {
 	    return viewModel.current() == d.label;
 	},
-
 };
 
-viewModel.someone_selected = ko.dependentObservable(function() {
-    return !_.isEmpty(this.current_staff_member());
-}, viewModel);
-
-viewModel.view_title = ko.dependentObservable(function() {
-    var lookup = {
-        'toc': 'Home',
-        0: 'Info',
-        1: 'Services',
-        2: 'Customize',
-        3: 'Staff',
-        4: 'Calendar',
-    };
-    console.log(this.viewing());
-    return lookup[this.viewing()];
-}, viewModel);
 
 //-------------------------------------------------------
 // View
 //
 
 var View = {
-    // This is the last view the user was looking at, used for determining correct transition to a new view.
+    // This is the last view the user was looking at, used for determining
+    // correct transition to a new view.
     previous_view: "toc",
 
     previous: false,
     pointed_at: false,
 };
 
-// Track and update visible pane and TOC width.
+// Track and update visible pane and TOC width.  This links viewModel.viewing
+// and View.previous_view.
 viewModel.viewing.subscribe(function(view) {
+
+    console.log("Track and update visible pane and TOC width =>", view);
 
     // I think this is prevented by the routes thingy, but it can't hurt.
     if (view == View.previous_view) { return };
@@ -346,12 +189,19 @@ viewModel.viewing.subscribe(function(view) {
 
 
 viewModel.pointed_at_el.subscribe(function(it) {
+//	    console.log("Yes, I exist!", it);
     if (it) {
         it = d3.select(it);
         it.transition().call(embiggen);
+//	    console.log("embiggen it!", it);
     } else if (View.pointed_at) {
+//	    console.log("disembiggen it!", View.pointed_at);
         // Don't shrink current day.
-        View.pointed_at.filter(function(d) { return !viewModel.is_current(d) })
+        View.pointed_at.filter(function(d) {
+//            console.log("k it!", d);
+//            console.log("hmm?", viewModel.is_current(d));
+            return !viewModel.is_current(d);
+        })
             .transition().call(shrink);
     }
     View.pointed_at = it;
@@ -391,7 +241,7 @@ var routey = Backbone.Router.extend({
         if (num >= 0 && num <= 4) {
             viewModel.viewing(num);
         } else {
-            routes.navigate("toc", true);
+            this.navigate("toc", true);
         }
     },
 
@@ -529,41 +379,6 @@ function update(source) {
 
 
 //-------------------------------------------------------
-// Date Formatting and Scales.
-//
-
-var day = d3.time.format("%w"),
-    week = d3.time.format("%U"),
-    _month = d3.time.format("%m"),
-    mday = d3.time.format("%d"),
-    yday = d3.time.format("%j"),
-    format = d3.time.format("%A, %B %d %Y");
-
-function month(d) { return _month(d) - 1 }
-
-var dh = 250, w = 1024;
-var x0 = 10, x1 = 914;
-
-var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
-    y = d3.scale.linear().domain([0,7]).range([20,dh]),
-
-    r = d3.scale.linear().domain([0,1]).range([5,10]),
-    r_med = d3.scale.linear().domain([0,1]).range([15,30]),
-    r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
-
-    c0 = d3.scale.linear().domain([0,1]).range(
-        ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
-        ).interpolate(d3.interpolateHsl);
-    c1 = d3.scale.linear().domain([0,1]).range(
-        ["hsl(150, 50%, 50%)", "hsl(250, 100%, 50%)"]
-        ).interpolate(d3.interpolateHsl);
-
-var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
-    ym = d3.scale.linear().domain([0,4]).range([45, dh * 1.618]);
-
-var xmselector = d3.scale.linear().domain([1, 12]).range([x0, x1]);
-
-//-------------------------------------------------------
 // Teh Year Data.
 //
 
@@ -582,142 +397,6 @@ var data = jQuery.map(year, function(d, i) {
     datum.week_of_month = datum.week_of_year - months_week;
     return datum;
 });
-
-//-------------------------------------------------------
-// Arrange day-circles in various interesting patterns.
-//
-
-function select_year() {
-    d3.selectAll("circle")
-        .transition()
-        .delay(function(d) { return 230 * Math.random() })
-        .duration(1200)
-        .call(year_style);
-    d3.selectAll("text").transition().call(hidey);
-}
-
-function select_month(m) {
-    var in_month = function(d) { return d.month == m };
-    var circles = d3.selectAll("circle");
-    circles.filter(in_month).transition().call(month_style);
-    clear_unmatching(circles, in_month, fade_drop);
-
-    var texts = d3.selectAll("text")
-    texts.filter(in_month).transition()
-        .delay(600)
-        .duration(300)
-        .attr("x", function(d) { return xm(d.day_of_week) })
-        .attr("y", function(d) { return ym(d.week_of_month) })
-        .attr("fill-opacity", 1)
-    clear_unmatching(texts, in_month, hidey);
-}
-
-function select_week(w) {
-    var in_week = function(d) { return d.week_of_year == w };
-    var circles = d3.selectAll("circle");
-
-    circles.filter(in_week).transition().call(week_style);
-    clear_unmatching(circles, in_week, fade_drop);
-
-    var texts = d3.selectAll("text")
-    texts.filter(in_week).transition()
-        .duration(function(d) { return 500 + (500 * Math.random()) })
-        .attr("x", function(d) { return xm(d.day_of_week) })
-        .attr("y", function(d) { return ym(0) })
-        .attr("fill-opacity", 1)
-    clear_unmatching(texts, in_week, hidey);
-}
-
-function select_day(day) {
-    var in_day = function(d) { return d.day_of_year == day };
-    clear_unmatching(
-        d3.selectAll("circle"),
-        in_day,
-        fade_drop);
-}
-
-function clear_unmatching(selection, predicate, effect) {
-    selection.filter(function(d) { return !predicate(d) })
-        .transition().call(effect);
-}
-
-//-------------------------------------------------------
-// Effects bundles (used with .call(<effect>).)
-//
-
-function shiny(T) { T
-    .attr("fill", function(d) {
-        return (d.month % 2 == 0)
-            ? c1(Math.random())
-            : c0(Math.random());
-    })
-    .attr("fill-opacity", 0.5)
-}
-
-function hidey(T) { T
-    .duration(300)
-    .attr("fill-opacity", 0.01)
-}
-
-function fade_drop(T) { T
-    .duration(1200)
-    .attr("fill-opacity", 0.01)
-  .transition()
-    .delay(function(d) { return 680 * Math.random() })
-    .attr("cx", function(d) { return x(d.week_of_year) })
-    .attr("cy", h * 2)
-    .ease("quad");
-}
-
-function embiggen(T) { T
-    .attr("r", function(d) {
-        return (viewModel.is_current(d))
-            ? r_big(Math.random())
-            : (viewModel.viewing() == "year")
-                ? r_med(Math.random())
-                : r_big(Math.random());
-    })
-    .duration(2500)
-    .ease("elastic", 3, 0.3)
-}
-
-function shrink(T) { T
-    .attr("r", function() {
-        return (viewModel.viewing() == "year")
-            ? r(Math.random())
-            :  r_big(Math.random())
-    })
-    .delay(100)
-    .duration(333)
-}
-
-function swell(T) { T
-    .attr("r", 2000)
-    .delay(100)
-    .duration(1333)
-    .attr("fill-opacity", 0.01)
-}
-
-function week_style(T) { T
-    .call(month_style)
-    .attr("cy", function(d) { return ym(0) })
-}
-
-function month_style(T) { T
-    .delay(function(d) { return 75 * Math.random() })
-    .duration(function(d) { return 500 + (500 * Math.random()) })
-    .attr("cx", function(d) { return xm(d.day_of_week) })
-    .attr("cy", function(d) { return ym(d.week_of_month) })
-    .attr("r", function() { return r_big(Math.random()) })
-    .call(shiny)
-}
-
-function year_style(S) { S
-    .attr("cx", function(d) { return x(d.week_of_year) })
-    .attr("cy", function(d) { return y(d.day_of_week) })
-    .attr("r", function() { return r(Math.random()) })
-    .call(shiny)
-}
 
 //-------------------------------------------------------
 // Mouse bindings for the day-circles.
@@ -778,28 +457,8 @@ $(function(){
         .call(year_style)
         .call(mouse_bindings);
 
-    setup_button("button#add_staff", 'ui-icon-circle-plus');
     setup_button("button#add_proc", 'ui-icon-circle-plus');
     setup_button("button#del_proc", 'ui-icon-circle-close');
-
-    var vis = d3.select("#show")
-        .append("svg:svg")
-        .attr("width", w)
-        .attr("height", h)
-        .attr("id", "uncanny");
-    make_timescale(vis);
-
-    $("#slider").slider({
-        max: 0.25,
-        min: -0.25,
-        step: 0.015625, // 0.5 / (8 * 4) i.e. by fifteen minutes's.
-        orientation: 'vertical',
-        animate: true,
-        slide: function(event, ui) {
-            slider_offset = ui.value;
-            timescale_updater();
-        },
-    });
 
     crambery(3);
 
@@ -820,7 +479,6 @@ $(function(){
 	<h2 id="tagline">This is our subtitle!</h2>
 
 	<center>
-	
 	<form method="POST" action="#step/1">
       <table> 
       <tr><th rowspan="2"><h3>Login</h3></th>
@@ -849,76 +507,27 @@ $(function(){
 </div>{# columns #}</div>{# row #}
 {% endblock %}
 
-{% block pane_2 %}<div class="row">
-
-<div class="three columns">
-  <p data-bind="template: {name:'proc_category_template', foreach: obj_treatments}"></p>
-</div>{# columns #}
-
-<div class="five columns">
-<div class="proc_detail">
-    <h3 data-bind="text: current_proc().name"></h3>
-    <h5>Details</h5>
-        <div class="sub_proc" data-bind="visible:current_proc().supported">
-            <span data-bind="text:current_proc().nickname"></span>
-            <span data-bind="text:current_proc().formatted_price"></span>
-            <span data-bind="text:current_proc().duration"></span>
-        </div>
-        <form id="add_subtype" class="nice">
-            <label for="nickname">A.k.a.:</label><input name="nickname" class="input-text" type="text" data-bind="value:current_proc().nickname" placeholder="None Selected"><br>
-            <label for="price">Price:</label><input name="price" class="input-text" type="text" data-bind="value:current_proc().price" placeholder="Price"><br>
-            <label for="duration">Minutes:</label><input name="duration" class="input-text" type="text" data-bind="value:current_proc().duration" placeholder="Duration"><br>
-            <button id="add_proc" data-bind="click: add_subtype">Add</button>
-            <button id="del_proc">Delete</button>
-        </form>
-</div>
-</div>{# columns #}
-
-<div class="four columns" data-bind="template: {name:'proc_template2', foreach: supported_procs}">
-</div>{# columns #}
-
-
+{% block pane_2 %}
+<div class="row">
+<div class="three columns"></div>{# columns #}
+<div class="five columns"></div>{# columns #}
+<div class="four columns"></div>{# columns #}
 </div>{# row #}
 {% endblock %}
 
 {% block pane_3 %}
   <div class="row">
-
-  <div class="four columns"><div id="staff_list">
-    <h2>Staff</h2>
-    <p data-bind="template: {name:'tile_template', foreach: staff}"></p>
-    <form class="nice">
-      <button id="add_staff" data-bind="click: add_staff_member">Add Staff Member</button>
-      <input id="staff_name" name="staff_name" class="input-text small" type="text" placeholder="Add Staff Member">
-    </form>
-  </div>{# staff_list #}</div>
-
-  <div class="eight columns"><div id="boy">
-    <div class="row"><div class="twelve columns">
-      <div id="aa" class="cake">
-        <h3 data-bind="text: current_staff_member().name"></h3>
-        <div data-bind="visible:someone_selected">
-        <div id="chart" data-bind="template: {name:'staff_proc_template', foreach: supported_procs}"></div>
-        </div>
-      </div>{# panel #}
-    </div></div>{# columns row #}
-  </div>{# boy #}</div>
-
+  <div class="four columns"></div>
+  <div class="eight columns"></div>
   </div>{# row #}
 {% endblock %}
 
 {% block pane_4 %}
 <div class="row">
-<div class="one columns">
-    <div id="slider"></div>
-</div>{# columns #}
-<div class="eleven columns">
-    <div data-bind="text:mouse_time"></div>
-    <div id="show"></div>
-</div>{# columns #}
+<div class="one columns"></div>{# columns #}
+<div class="eleven columns"></div>{# columns #}
 </div>{# row #}
 {% endblock %}
-
 
 {% block body %}
 {% endblock %}
