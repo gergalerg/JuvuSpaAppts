@@ -68,6 +68,12 @@ def _get_results(request):
     return results, criteria
 
 
+def signup(request):
+    return render_to_response(
+        'signup.html',
+        )
+
+
 def booking(request):
     return render_to_response(
         'booking.html',

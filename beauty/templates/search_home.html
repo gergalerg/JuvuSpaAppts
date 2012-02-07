@@ -479,13 +479,16 @@ $(function(){
 	<h2 id="tagline">This is our subtitle!</h2>
 
 	<center>
-	<form method="POST" action="#step/1">
+	<form method="POST" action="{% url signup %}">
+	  {% csrf_token %}
       <table> 
       <tr><th rowspan="2"><h3>Login</h3></th>
-        <td><label for="id_email">email</label></td><td><input type="text" name="email" id="id_email" class="input-text" /></td>
+        <td><label for="id_email">email</label></td>
+        <td><input type="text" name="email" id="id_email" class="input-text" /></td>
       </tr>
       <tr>
-        <td><label for="id_pass">password</label></td><td><input type="password" name="hours" id="id_pass" class="input-text" /></td>
+        <td><label for="id_pass">password</label></td>
+        <td><input type="password" name="hours" id="id_pass" class="input-text" /></td>
       </tr>
       </table>
       <input id="search" type="submit" value="Sign Up">

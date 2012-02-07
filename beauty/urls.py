@@ -11,6 +11,8 @@ urlpatterns = patterns('',
     # Django Admin (unused so far.)
     (r'^admin/', include(admin.site.urls)),
 
+    url(r'^signup/?', 'uui.views.signup', name='signup'),
+
     # User-facing site, 'uui' app.
     url(r'^$', 'uui.views.search', name='search'),
     url(r'^results/', 'uui.views.results', name='results'),
