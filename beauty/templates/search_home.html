@@ -267,7 +267,9 @@ var diagonal = d3.svg.diagonal()
 
 // Toggle tree children on click.
 function tree_node_click(d) {
-  if (d.children) {
+  if (!_.has(d, "children")) {
+    d.supported(!d.supported());
+  } else if (d.children) {
     d._children = d.children;
     d.children = null;
   } else {
@@ -306,15 +308,13 @@ function update(source) {
       .on("click", tree_node_click);
 
   nodeEnter.append("svg:circle")
-      .attr("r", 1e-6)
-      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#eef"; });
+      .attr("r", 1e-6);
 
   nodeEnter.append("svg:text")
       .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
       .attr("dy", ".35em")
       .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
       .text(function(d) { return d.name; })
-//      .style("fill", function(d) { return (d.supported && d.supported()) ? "black" : "#ccc"; })
       .style("fill-opacity", 1e-6);
 
   // Transition nodes to their new position.
@@ -324,7 +324,12 @@ function update(source) {
 
   nodeUpdate.select("circle")
       .attr("r", 8)
-      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#eef"; });
+      .style("fill", function(d) {
+          if (d.children || _.has(d, "supported") && d.supported()) {
+              return "lightsteelblue";
+          }
+          return "#eef";
+      });
 
   nodeUpdate.select("text")
       .style("fill-opacity", 1);
