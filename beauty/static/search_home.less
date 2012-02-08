@@ -3,8 +3,8 @@
 @foundation_link_blue: #2A85E8;
 @call_out: #FFF;
 @title_font: 'Josefin Sans', sans-serif;
-@body_font: 'Philosopher', serif;
-@widget_font: 'Istok Web', serif;
+@body_font: 'Istok Web', serif;
+@widget_font: 'Philosopher', serif;
 @button_blue: #99CCFF;
 @button_blue_hover: #015f8a;
 @davee_color: #FF0066;
@@ -79,7 +79,9 @@ h1, h2, h3, h4, h5, h6 {
 	background-color: @button_blue;
 	border: 0;
 	padding: 5px 15px !important;
-    font-family: @widget_font;
+    font-family: @body_font;
+    margin-top: 3em;
+    margin-bottom: 3em;
 }
 
 #search:hover{
@@ -139,18 +141,6 @@ h1, h2, h3, h4, h5, h6 {
     padding-bottom: 2.5em;
 }
 
-text {
-    fill: @fg;
-    font-family: @title_font;
-    font-size: 18px;
-}
-
-#slider {
-    height: 700px;
-    background: transparent;
-}
-
-
 select,
 input.input-text.oversize {
 	color: @input_color;
@@ -170,8 +160,9 @@ input.input-text.oversize {
 
 .node text {
   cursor: pointer;
+  fill: @fg;
   font-family: @body_font;
-  font: 14px;
+  font: 12px;
 }
 
 path.link {

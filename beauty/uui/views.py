@@ -1,12 +1,15 @@
 from pprint import pprint as _P
 from json import dumps
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from spasui.search import process_POST_params, search_for_availabilities
 from beauty.util.dealcal import DealCalendar
 from yelp import YelpApi
 from spasui.forms import SpaInfoForm
+from beauty.uui.forms import UserSignupForm
 from beauty.data.treatments import TREEd
 from simplejson import dumps
 
@@ -15,12 +18,16 @@ def search(request):
     '''
     Search page.
     '''
+    if request.user.is_authenticated():
+        name = request.user.first_name
+    else:
+        name = 'Me'
     tree = TREEd.copy()
-    tree['name'] = 'Your Name!'
+    tree['name'] = name
     return render_to_response(
         'search_home.html',
         dict(
-            spa_name='Yo!',
+            name=name,
             form=SpaInfoForm(),
             tree_data=dumps(tree),
             ),
@@ -69,8 +76,32 @@ def _get_results(request):
 
 
 def signup(request):
+    if request.method != 'POST':
+        form = UserSignupForm()
+    else:
+        form = UserSignupForm(request.POST)
+        if form.is_valid():
+            user = User.objects.create_user(
+                form.cleaned_data['email'],
+                form.cleaned_data['email'],
+                form.cleaned_data['password'],
+                )
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.save()
+            user = authenticate(
+                username=form.cleaned_data['email'],
+                password=form.cleaned_data['password'],
+                )
+            login(request, user)
+            return HttpResponseRedirect('/#step/0')
+        else:
+            pass
+
     return render_to_response(
         'signup.html',
+        dict(form=form),
+        context_instance=RequestContext(request),
         )
 
 

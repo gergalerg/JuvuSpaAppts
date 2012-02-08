@@ -491,8 +491,12 @@ $(function(){
         <td><input type="password" name="hours" id="id_pass" class="input-text" /></td>
       </tr>
       </table>
-      <input id="search" type="submit" value="Sign Up">
-      <h3><a id="0_link" href="#step/0">Me</a></h3> 
+      <br>
+      <a id="search" href="{% url signup %}">Sign Up</a>
+      <br>
+      <br>
+      <br>
+      <h3><a id="0_link" href="#step/0">{{ name }}</a></h3>
 		<input value="Spas" id="treatment" name="treatment" type="hidden" placeholder="Looking for... a spa?"> 
 		<input value="355 Bryant St, SF" id="location" name="location" type="hidden" placeholder="Where are you?"> 
 		<input type="hidden" name="today" value="on" />

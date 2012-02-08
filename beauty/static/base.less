@@ -1,183 +1,53 @@
 @fg: #787D78;
-@bg: #fff;
+@bg: #eee;
 @foundation_link_blue: #2A85E8;
 @call_out: #FFF;
+
 @title_font: 'Josefin Sans', sans-serif;
-@body_font: 'Philosopher', serif;
-@widget_font: 'Istok Web', serif;
+@body_font: 'Istok Web', serif;
+@widget_font: 'Philosopher', serif;
+
 @button_blue: #99CCFF;
 @button_blue_hover: #015f8a;
 @davee_color: #FF0066;
 @input_color: #7f7f7f;
 @input_border_color: #bbbbbb;
 
+
 body {
     font-family: @body_font;
-}
-
-#logotype {
-    font-family: @title_font;
-    font-size: 120px;
-	font-size: 12.0rem;
-	color: @button_blue;
-    text-align: center;
-	text-shadow: 1px 1px 1px #000;
-	margin-top: 160px;
-    margin-bottom: 36px;
-
-    a {
-	    color: @button_blue;
-    }
-
-    a:hover {
-	    color: @button_blue_hover;
-    }
-
-    span.davee {
-        color: @davee_color;
-    }
-
-}
-
-.hull {
-    min-height: 565px;
+    color: @fg;
+    background-color: @bg;
 }
 
 .title {
     font-family: @title_font;
     font-weight: 100;
-    color: black;
+    color: @fg;
 }
 
 h1, h2, h3, h4, h5, h6 {
     .title;
 }
 
-#title_bar {
-    h1, h3 {
-        display: inline-block;
-    }
-}
-
-#toc {
-    text-align: center;
-    a {
-        padding: 4px;
-    }
-    .indicate {
-        color: @bg;
-        background-color: @foundation_link_blue;
-        font-weight: 400;
-    }
-}
-
-#search {
+.buttonish {
 	font-size: 22px;
 	font-size: 2.2rem;
-	color: #fff;
+	color: @call_out;
 	text-transform: uppercase;
 	background-color: @button_blue;
 	border: 0;
 	padding: 5px 15px !important;
+    font-family: @body_font;
+}
+
+.buttonish:hover{
+	background-color: @button_blue_hover;
+	color: @call_out;
+}
+
+
+.sosumi {
     font-family: @widget_font;
 }
-
-#search:hover{
-	background-color: @button_blue_hover;
-}
-
-#pane_1 {
-    label {
-        font-size: smaller;
-        margin-bottom: 2px;
-        span {
-            padding-left: 1em;
-            padding-right: 1em;
-            padding-top: 0.3em;
-            padding-bottom: 0.2em;
-        }
-    }
-}
-
-#pane_2 {
-    input[type=text] {
-        display: inline-block;
-        font-family: @widget_font;
-    }
-}
-
-.rounded-corners (@radius: 0.5em) {
-    border-radius: @radius;
-    -webkit-border-radius: @radius;
-    -moz-border-radius: @radius;
-}
-
-#staff_list {
-    color: @fg;
-    form {
-        margin-bottom: 9px;
-    }
-    .tile {
-        font-family: @widget_font;
-        padding: 0.25em;
-        margin-left: -0.25em;
-        border: solid transparent 1px;
-        .rounded-corners;
-        margin-bottom: 0.5em;
-    }
-    .tile:hover {
-        background-color: @call_out;
-        border-color: lighten(@fg, 20%);
-    }
-    input[type=text] {
-        display: inline-block;
-        font-family: @widget_font;
-    }
-}
-
-#pane_4 {
-    padding-bottom: 2.5em;
-}
-
-text {
-    fill: @fg;
-    font-family: @title_font;
-    font-size: 18px;
-}
-
-#slider {
-    height: 700px;
-    background: transparent;
-}
-
-
-select,
-input.input-text.oversize {
-	color: @input_color;
-	font-size:  20px !important;
-	padding:  4px 5px !important;
-	border:  solid 1px @input_border_color;
-}
-
-
-
-.node circle {
-  cursor: pointer;
-  fill: #eef;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
-
-.node text {
-  cursor: pointer;
-  font-family: @body_font;
-  font: 14px;
-}
-
-path.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 1.5px;
-}
-
 
