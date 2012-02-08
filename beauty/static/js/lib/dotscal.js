@@ -11,7 +11,7 @@ var day = d3.time.format("%w"),
 
 function month(d) { return _month(d) - 1 }
 
-var dh = 250, w = 1024;
+var dh = 250, dw = 1024;
 var x0 = 10, x1 = 914;
 
 var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
