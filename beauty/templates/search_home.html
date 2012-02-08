@@ -176,10 +176,17 @@ viewModel.viewing.subscribe(function(view) {
             toc_in();
             $(".current_pane").hide().removeClass("current_pane");
             $("#pane_" + view).show().addClass("current_pane");
+        } else if (view[0] == 'm') {
+            // switch to month.
+            if (!(View.previous_view == '1' || View.previous_view[0] == 'm')) {
+                switch_pane(1);
+            }
+            select_month(view.substr(1))
+        } else if (view == "1" && View.previous_view && View.previous_view[0] == 'm') {
+            // month to year view switch
+            select_year();
         } else {
-            $(".current_pane").hide("fade", 175, function() {
-                $("#pane_" + view).show("fade", 175).addClass("current_pane");
-            }).removeClass("current_pane");
+            switch_pane(view);
         }
     };
 
@@ -187,6 +194,30 @@ viewModel.viewing.subscribe(function(view) {
     View.previous_view = view;
 });
 
+function switch_pane(pane) {
+    $(".current_pane").hide("fade", 175, function() {
+        $("#pane_" + pane).show("fade", 175).addClass("current_pane");
+    }).removeClass("current_pane");
+}
+
+
+viewModel.viewing.subscribe(function(view) {
+    $(".indicate").removeClass("indicate");
+    $("#" + view + "_link").addClass("indicate");
+});
+/*
+viewModel.viewing.subscribe(function(view) {
+    if (view == "year") {
+        select_year();
+    } else if (view[0] == 'w') {
+        select_week(view.slice(1));
+    } else if (view[0] == 'd') {
+        select_day(view.slice(1));
+    } else {
+        select_month(view);
+    }
+});
+*/
 
 viewModel.pointed_at_el.subscribe(function(it) {
 //	    console.log("Yes, I exist!", it);
@@ -230,6 +261,7 @@ var routey = Backbone.Router.extend({
     routes: {
         "toc": "toc",
         "step/:num": "step",
+        "month/:mnum": "month",
     },
 
     toc: function() {
@@ -242,6 +274,13 @@ var routey = Backbone.Router.extend({
             viewModel.viewing(num);
         } else {
             this.navigate("toc", true);
+        }
+    },
+
+    month: function(mnum) {
+        mnum = +mnum;
+        if (mnum >= 0 && mnum < 12) {
+            viewModel.viewing('m' + mnum);
         }
     },
 
@@ -452,7 +491,7 @@ $(function(){
     var vis3 = d3.select("#show")
         .append("svg:svg")
         .attr("width", dw)
-        .attr("height", 2.6 * dh)
+        .attr("height", 1.9 * dh)
         .attr("id", "uncanny");
 
     var circles = vis3.selectAll("circle")
@@ -515,6 +554,23 @@ $(function(){
 {% endblock %}
 
 {% block pane_1 %}
+
+<div class="row"><div class="twelve columns">
+    <a id="1_link" href="#step/1">2012</a>
+    <a id="m0_link" href="#month/0" class="month_link">J</a>
+    <a id="m1_link" href="#month/1" class="month_link">F</a>
+    <a id="m2_link" href="#month/2" class="month_link">M</a>
+    <a id="m3_link" href="#month/3" class="month_link">A</a>
+    <a id="m4_link" href="#month/4" class="month_link">M</a>
+    <a id="m5_link" href="#month/5" class="month_link">J</a>
+    <a id="m6_link" href="#month/6" class="month_link">J</a>
+    <a id="m7_link" href="#month/7" class="month_link">A</a>
+    <a id="m8_link" href="#month/8" class="month_link">S</a>
+    <a id="m9_link" href="#month/9" class="month_link">O</a>
+    <a id="m10_link" href="#month/10" class="month_link">N</a>
+    <a id="m11_link" href="#month/11" class="month_link">D</a>
+</div>{# columns #}</div>{# row #}
+
 <div class="row"><div class="twelve columns">
 <div id="show"></div>
 </div>{# columns #}</div>{# row #}
