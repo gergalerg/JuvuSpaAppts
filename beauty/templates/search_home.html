@@ -470,10 +470,23 @@ function mouse_bindings(T) { T
 // Initial bootstrap.
 //
 
+function date_selected () {
+    $("#miles_criteria").fadeOut();
+    $("#distance_criteria > h3").fadeOut();
+    $("#distance_criteria > h2");
+
+    var from_date = $("#from_date_cal").datepicker("getDate");
+    var to_date = $("#to_date_cal").datepicker("getDate");
+    if (!(_.isNull(from_date) || _.isNull(to_date))) {
+        select_date_range(from_date, to_date);
+    }
+}
+
 $(function(){
 
     $("#main_frame").hide();
     $(".pane").hide();
+    $("#miles_criteria").hide();
 
     ko.applyBindings(viewModel);
 
@@ -486,18 +499,24 @@ $(function(){
         }
     });
 
-    $( "#from_date_cal" ).datepicker({
-        minDate: "+0D",
-        showOtherMonths: true,
-        selectOtherMonths: true,
-        altField: '#from_date'
+    $("#dist_link").click(function () {
+        $("#miles_criteria").fadeIn();
     });
 
-    $( "#to_date_cal" ).datepicker({
+    $("#from_date_cal").datepicker({
         minDate: "+0D",
         showOtherMonths: true,
         selectOtherMonths: true,
-        altField: '#to_date'
+        altField: '#from_date',
+        onSelect: date_selected
+    });
+
+    $("#to_date_cal").datepicker({
+        minDate: "+0D",
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        altField: '#to_date',
+        onSelect: date_selected
     });
 
     vis2 = d3.select("#chart").append("svg:svg")
@@ -523,6 +542,8 @@ $(function(){
         .attr("stroke-width", "none")
         .call(year_style)
         .call(mouse_bindings);
+
+//    setup_month_tabs(vis3);
 
     setup_button("button#add_proc", 'ui-icon-circle-plus');
     setup_button("button#del_proc", 'ui-icon-circle-close');
@@ -602,7 +623,7 @@ $(function(){
 <div class="criteria">
 
 <div id="distance_criteria">
-<h2 id="where">Where?</h2><h3><a href="#">Distance</a></h3><h3><a href="#">Neighborhood</a></h3>
+<h2 id="where">Where?</h2><h3><a href="#" id="dist_link">Distance</a></h3><h3><a href="#">Neighborhood</a></h3>
 <div id="miles_criteria">
   <input type="text" name="miles" id="id_miles" class="input-text" size="4" />
   miles from [ADDRESS] <a href="#">Change Address</a>

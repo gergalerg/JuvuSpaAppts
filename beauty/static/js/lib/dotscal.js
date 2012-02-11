@@ -29,9 +29,116 @@ var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
         ).interpolate(d3.interpolateHsl);
 
 var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
-    ym = d3.scale.linear().domain([0,4]).range([45, dh * 1.618]);
+    ym = d3.scale.linear().domain([0,4]).range([45, dh * 1.618]),
+    xr = d3.scale.linear().domain([0,7]).range([0, 200]),
+    yr = d3.scale.linear().domain([0,4]).range([45, dh * 1.618])
+    xmh = d3.scale.linear().domain([0,7]).range([0, 300]);
 
 var xmselector = d3.scale.linear().domain([1, 12]).range([x0, x1]);
+
+
+
+
+function setup_month_tabs(V) {
+    var months = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+    var R = _.range(12);
+    var xscale = d3.scale.ordinal()
+        .domain(R)
+        .rangeBands([0, 900], 0.125);
+
+    V.selectAll("rect")
+      .remove();
+
+    V.selectAll("rect")
+      .data(R)
+      .enter().append("svg:rect")
+        .attr("x", xscale)
+        .attr("width", xscale.rangeBand())
+        .attr("y", 100)
+        .attr("height", 5)
+        .attr("rx", 5)
+        .attr("ry", 2)
+        .attr("fill", function(d) {
+            console.log(d);
+            return (d % 2 == 0)
+            ? c1(Math.random())
+            : c0(Math.random()) })
+        .attr("fill-opacity", 0.5);
+//        .on("mouseover", function(d) {
+//            viewModel.mouse_time(hour(d.start));
+//        });
+
+}
+
+
+
+
+function select_date_range(to, from) {
+    var style;
+    var N = days_between(to, from);
+    var in_range = function(d) {
+        return (to <= d.date) && (d.date <= from);
+    };
+    var circles = d3.selectAll("circle");
+    if (N < 7) {
+        style = daysish(N + 1);
+        indexer = function (d, i) {
+            d.selection_index = i;
+            return d;
+        }
+    } else if (N <= 60) {
+        style = monthsish;
+        indexer = function (d, i) {
+            d.selection_index = d.month - month(to);
+            console.log(d.selection_index)
+            return d;
+        }
+    } else {
+        style = year_style;
+    }
+
+    circles.filter(in_range)
+    .map(indexer)
+    .transition()
+    .delay(function(d) { return 75 * Math.random() })
+    .duration(function(d) { return 500 + (500 * Math.random()) })
+    .call(style);
+    clear_unmatching(circles, in_range, fade_drop);
+
+}
+
+
+function daysish(n) {
+    console.log(n);
+    var xscale = d3.scale.ordinal()
+        .domain(_.range(n))
+        .rangePoints([0, 900], 0.125);
+    var f = function (T) { T
+        .attr("cx", function(d) {
+//            console.log(d.selection_index, xscale(d.selection_index), d.date);
+            return xscale(d.selection_index)
+        })
+        .attr("cy", dh)
+        .attr("r", function() { return r_big(Math.random()) })
+        .call(shiny)
+    }
+    return f;
+}
+
+function monthsish(T) { T
+    .delay(function(d) { return 75 * Math.random() })
+    .duration(function(d) { return 500 + (500 * Math.random()) })
+    .attr("cx", function(d) { return 100 + 330 * d.selection_index + xmh(d.day_of_week) })
+    .attr("cy", function(d) { return ym(d.week_of_month) })
+    .attr("r", function() { return r_big(Math.random()) })
+    .call(shiny)
+}
+
+
+
+
+
+
 
 //-------------------------------------------------------
 // Arrange day-circles in various interesting patterns.
@@ -133,10 +240,9 @@ function embiggen(T) { T
 
 function shrink(T) { T
     .attr("r", function() {
-        return r(Math.random());
-        /*(viewModel.viewing() == "year")
+        return (viewModel.viewing() == "1")
             ? r(Math.random())
-            :  r_big(Math.random() */
+            :  r_big(Math.random());
     })
     .delay(100)
     .duration(333)
@@ -165,9 +271,27 @@ function month_style(T) { T
 
 function year_style(S) { S
     .attr("cx", function(d) { return x(d.week_of_year) })
-    .attr("cy", function(d) { return y(d.day_of_week) })
+    .attr("cy", function(d) { return 100 + y(d.day_of_week) })
     .attr("r", function() { return r(Math.random()) })
     .call(shiny)
 }
 
+function rangey_style(T) { T
+    .delay(function(d) { return 75 * Math.random() })
+    .duration(function(d) { return 500 + (500 * Math.random()) })
+    .attr("cx", function(d) {
+        return d.month * 200 + xr(d.day_of_week)
+    })
+    .attr("cy", function(d) { return yr(d.week_of_month) })
+    .attr("r", function() { return r_big(Math.random()) })
+    .call(shiny)
+}
 
+
+// Cribbed and modified from: http://www.mcfedries.com/javascript/daysbetween.asp
+function days_between(date1, date2) {
+    var date1_ms = date1.getTime()
+    var date2_ms = date2.getTime()
+    return Math.round(Math.abs(date1_ms - date2_ms) / 86400000)
+
+}

@@ -113,6 +113,6 @@ def booking(request):
 
 def confirmation(request):
     return render_to_response(
-        'confirmation.html',
+        'visibits.html',
         )
 
