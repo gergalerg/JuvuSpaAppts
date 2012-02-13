@@ -230,7 +230,7 @@ function embiggen(T) { T
     .attr("r", function(d) {
         return (viewModel.is_current(d))
             ? r_big(Math.random())
-            : (viewModel.viewing() == "year")
+            : (viewModel.time_mode() == "year")
                 ? r_med(Math.random())
                 : r_big(Math.random());
     })
@@ -240,9 +240,9 @@ function embiggen(T) { T
 
 function shrink(T) { T
     .attr("r", function() {
-        return (viewModel.viewing() == "1")
+        return (viewModel.time_mode() == "year")
             ? r(Math.random())
-            :  r_big(Math.random());
+            : r_big(Math.random());
     })
     .delay(100)
     .duration(333)
