@@ -168,10 +168,11 @@ viewModel.time_mode.subscribe(function(tmode) {
     switch (tmode[0]) {
         case 'y': // switch to year.
             select_year();
+            month_tabs_unfade(vis3)
             break;
         case 'm': // switch to month.
             select_month(tmode.substr(1));
-            month_tabs_verticalize(vis3)
+            month_tabs_fade(vis3)
             break;
         case 's': // switch to selection.
             select_dates()
@@ -514,10 +515,6 @@ function select_dates() {
     }
 }
 
-function month_link_click(tmode) {
-    viewModel.time_mode(tmode);
-}
-
 function date_selected() {
     CriteriaControls.hide_miles();
     $("#distance_criteria > h3").fadeOut();
@@ -531,6 +528,11 @@ function date_selected() {
 
 
 var CriteriaControls = {
+    show_where: function () {
+        $("#when_criteria").fadeIn();
+    },
+    hide_where: function () { $("#when_criteria").fadeOut(); },
+
     show_when: function () { $("#when_criteria").fadeIn(); },
     hide_when: function () { $("#when_criteria").fadeOut(); },
 
@@ -681,7 +683,10 @@ $(function(){
 {% endblock %}
 
 {% block pane_1 %}
-
+<a
+  data-bind="click: function() { viewModel.time_mode('year');select_year() }"
+  style="cursor:pointer"
+  >Year</a>
 <div class="row"><div class="twelve columns">
 <div id="show"></div>
 </div>{# columns #}</div>{# row #}

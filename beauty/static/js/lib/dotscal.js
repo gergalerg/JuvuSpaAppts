@@ -52,6 +52,7 @@ function setup_month_tabs(V) {
     V.selectAll("rect")
       .data(R)
       .enter().append("svg:rect")
+        .style("cursor", "pointer")
         .attr("x", xscale)
         .attr("width", xscale.rangeBand())
         .attr("y", 100)
@@ -69,7 +70,7 @@ function setup_month_tabs(V) {
     	    .transition()
             .duration(200)
             .attr("height", 25)
-            .attr("y", 80) // technically bad to bind to "this", should wrap it in a function, but not gonna. ('cause it's only being used by the mouseover callback anyway...)
+            .attr("y", 80)
             .attr("ry", 5);
         })
         .on("mouseout", function(d) {
@@ -77,25 +78,30 @@ function setup_month_tabs(V) {
     	    .transition()
             .duration(200)
             .attr("height", 5)
-            .attr("y", 100) // technically bad to bind to "this", should wrap it in a function, but not gonna. ('cause it's only being used by the mouseover callback anyway...)
+            .attr("y", 100)
             .attr("ry", 2);
         })
         .on("click", function(d) {
-            month_link_click('m' + d)
+            viewModel.time_mode('m' + d)
         });
 
 }
 
-function month_tabs_verticalize(V) {
+function month_tabs_fade(V) {
 console.log("butt");
     V.selectAll("rect")
     .transition()
     .duration(400)
-    .attr("x", 0)
-    .attr("y", function (d, i) { return 50 + i * 11 })
-    .attr("height", 5);
+    .attr("fill-opacity", 0);
 }
 
+function month_tabs_unfade(V) {
+console.log("butt");
+    V.selectAll("rect")
+    .transition()
+    .duration(400)
+    .attr("fill-opacity", 0.5);
+}
 
 
 function select_date_range(to, from) {
