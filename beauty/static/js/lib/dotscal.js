@@ -63,13 +63,38 @@ function setup_month_tabs(V) {
             return (d % 2 == 0)
             ? c1(Math.random())
             : c0(Math.random()) })
-        .attr("fill-opacity", 0.5);
-//        .on("mouseover", function(d) {
-//            viewModel.mouse_time(hour(d.start));
-//        });
+        .attr("fill-opacity", 0.5)
+        .on("mouseover", function(d) {
+    	    d3.select(this)
+    	    .transition()
+            .duration(200)
+            .attr("height", 25)
+            .attr("y", 80) // technically bad to bind to "this", should wrap it in a function, but not gonna. ('cause it's only being used by the mouseover callback anyway...)
+            .attr("ry", 5);
+        })
+        .on("mouseout", function(d) {
+    	    d3.select(this)
+    	    .transition()
+            .duration(200)
+            .attr("height", 5)
+            .attr("y", 100) // technically bad to bind to "this", should wrap it in a function, but not gonna. ('cause it's only being used by the mouseover callback anyway...)
+            .attr("ry", 2);
+        })
+        .on("click", function(d) {
+            month_link_click('m' + d)
+        });
 
 }
 
+function month_tabs_verticalize(V) {
+console.log("butt");
+    V.selectAll("rect")
+    .transition()
+    .duration(400)
+    .attr("x", 0)
+    .attr("y", function (d, i) { return 50 + i * 11 })
+    .attr("height", 5);
+}
 
 
 

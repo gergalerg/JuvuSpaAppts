@@ -127,8 +127,10 @@ var viewModel = {
 
     // Track the current "view" the user is looking at.
     viewing: ko.observable(),
+
     // Track which time display mode user is using (month, week, year, etc...)
     time_mode: ko.observable('year'),
+
     // Displayed criteria/options.
     criteria_mode: ko.observable(),
 
@@ -160,7 +162,6 @@ var View = {
     pointed_at: false,
 };
 
-
 viewModel.time_mode.subscribe(function(tmode) {
     console.log("Time mode:", tmode);
 
@@ -170,6 +171,7 @@ viewModel.time_mode.subscribe(function(tmode) {
             break;
         case 'm': // switch to month.
             select_month(tmode.substr(1));
+            month_tabs_verticalize(vis3)
             break;
         case 's': // switch to selection.
             select_dates()
@@ -336,6 +338,7 @@ function collapse(d) {
 }
 
 var vis2;
+var vis3;
 
 function update(source) {
 
@@ -476,6 +479,30 @@ function mouse_bindings(T) { T
 }
 
 //-------------------------------------------------------
+// Mouse bindings for the Month Tabs.
+// Mostly to de-couple the viewModel logic from the d3 transitions that
+// animate it.
+
+function month_mouse_bindings(T) { T
+	.on("mouseover", function(d) {
+	    console.log(this);
+/*    })
+	.on("mouseout", function(d) {
+        var c = viewModel.current();
+        viewModel.pointed_at((c != "") ? c : "Select Date");
+        viewModel.pointed_at_el(false);
+    })
+	.on("click", function(d) {
+        if (!viewModel.is_current(d)) {
+            viewModel.current(d.label);
+            viewModel.current_el(this);
+            routes.navigate("day/" + d.day_of_year, true);
+        }
+*/    });
+}
+
+
+//-------------------------------------------------------
 // Initial bootstrap.
 //
 
@@ -492,7 +519,7 @@ function month_link_click(tmode) {
 }
 
 function date_selected() {
-    $("#miles_criteria").fadeOut();
+    CriteriaControls.hide_miles();
     $("#distance_criteria > h3").fadeOut();
     $("#distance_criteria > h2");
     if (viewModel.time_mode() != 'selection') {
@@ -502,26 +529,65 @@ function date_selected() {
     }
 }
 
+
+var CriteriaControls = {
+    show_when: function () { $("#when_criteria").fadeIn(); },
+    hide_when: function () { $("#when_criteria").fadeOut(); },
+
+    show_miles: function () { $("#miles_criteria").fadeIn(); },
+    hide_miles: function () { $("#miles_criteria").fadeOut(); },
+
+    show_distance: function () { $("#distance_criteria > h3").fadeIn(); },
+    hide_distance: function () { $("#distance_criteria > h3").fadeOut(); },
+
+    show_price: function () {
+        $("#price_options").toggle("slide");
+        $("#price_header").toggleClass("elbowroom");
+        
+    },
+    show_discount: function () {
+        $("#discount_options").toggle("slide");
+        $("#discount_header").toggleClass("elbowroom");
+    },
+    show_meplus: function () {
+        $("#meplus_options").toggle("slide");
+        $("#meplus_header").toggleClass("elbowroom");
+    },
+
+    toggle_amenities: function () {
+        $("#amenities").toggle("fold");
+    },
+}
+
+
 $(function(){
 
     $("#main_frame").hide();
     $(".pane").hide();
     $("#miles_criteria").hide();
+    $("#when_criteria").hide();
+    $("#amenities").hide();
+    $(".option_box").hide();
+    $("#price_options").hide();
+    $("#discount_options").hide();
+    $("#meplus_options").hide();
 
     ko.applyBindings(viewModel);
 
-    $("#when_criteria").hide();
     $("#id_miles").keyup(function () {
         if ($(this).val().length > 0) {
-            $("#when_criteria").fadeIn();
+            CriteriaControls.show_when()
         } else {
-            $("#when_criteria").fadeOut();
+            CriteriaControls.hide_when()
         }
     });
 
-    $("#dist_link").click(function () {
-        $("#miles_criteria").fadeIn();
-    });
+    $("#dist_link").click(CriteriaControls.show_miles);
+
+    $(".bool_opt").click(function() {
+        console.log("Hey!")
+        $(this).toggleClass("selected");
+    })
 
     $("#from_date_cal").datepicker({
         minDate: "+0D",
@@ -550,7 +616,7 @@ $(function(){
     root.children.forEach(collapse);
     update(root);
 
-    var vis3 = d3.select("#show")
+    vis3 = d3.select("#show")
         .append("svg:svg")
         .attr("width", dw)
         .attr("height", 1.9 * dh)
@@ -563,7 +629,7 @@ $(function(){
         .call(year_style)
         .call(mouse_bindings);
 
-//    setup_month_tabs(vis3);
+    setup_month_tabs(vis3);
 
     crambery(3);
 
@@ -617,27 +683,15 @@ $(function(){
 {% block pane_1 %}
 
 <div class="row"><div class="twelve columns">
-    <a id="1_link" href="#step/1">2012</a>
-    <a id="m0_link" href="#" class="month_link" data-bind="click: function () { month_link_click('m0') }">J</a>
-    <a id="m1_link" href="#" class="month_link" data-bind="click: function () { month_link_click('m1') }">F</a>
-    <a id="m2_link" href="#" class="month_link" data-bind="click: function () { month_link_click('m2') }">M</a>
-    <a id="m3_link" href="#" class="month_link" data-bind="click: function () { month_link_click('m3') }">A</a>
-    <a id="m4_link" href="#" class="month_link" data-bind="click: function () { month_link_click('m4') }">M</a>
-    <a id="m5_link" href="#" class="month_link" data-bind="click: function () { month_link_click('m5') }">J</a>
-    <a id="m6_link" href="#" class="month_link" data-bind="click: function () { month_link_click('m6') }">J</a>
-    <a id="m7_link" href="#" class="month_link" data-bind="click: function () { month_link_click('m7') }">A</a>
-    <a id="m8_link" href="#" class="month_link" data-bind="click: function () { month_link_click('m8') }">S</a>
-    <a id="m9_link" href="#" class="month_link" data-bind="click: function () { month_link_click('m9') }">O</a>
-    <a id="m10_link" href="#" class="month_link" data-bind="click: function () { month_link_click('m10') }">N</a>
-    <a id="m11_link" href="#" class="month_link" data-bind="click: function () { month_link_click('m11') }">D</a>
-</div>{# columns #}</div>{# row #}
-
-<div class="row"><div class="twelve columns">
 <div id="show"></div>
 </div>{# columns #}</div>{# row #}
 
 <div class="row"><div class="twelve columns">
 <div class="criteria">
+
+
+
+
 
 <div id="distance_criteria">
 <h2 id="where">Where?</h2><h3><a href="#" id="dist_link">Distance</a></h3><h3><a href="#">Neighborhood</a></h3>
@@ -647,6 +701,10 @@ $(function(){
 </div>
 </div>{# distance_criteria #}
 
+
+
+
+
 <div id="when_criteria">
 <h2 id="when">When?</h2><h3><a href="#">Today</a></h3><h3><a href="#">Date Range</a></h3>
 <div id="date_criteria">
@@ -654,6 +712,63 @@ $(function(){
 <input name="to_date" id="to_date_cal"/>
 </div>{# date_criteria #}
 </div>{# when_criteria #}
+
+
+
+
+
+<div id="options_criteria">
+<h2 id="when">Options</h2>
+<div>
+
+
+
+
+
+<h4 id="price_header" class="elbowroom"><a href="#" data-bind="click: CriteriaControls.show_price">Price</a></h4>
+<div style="display:inline-block">
+<div id="price_options">
+  <input type="text" name="from_price" id="from_price"/>
+  to
+  <input type="text" name="to_price" id="to_price"/>
+</div>
+</div>
+
+
+
+<h4 id="discount_header" class="elbowroom"><a href="#" data-bind="click: CriteriaControls.show_discount">Discount</a></h4>
+<div style="display:inline-block">
+<div id="discount_options">
+  <input type="text" name="discount" id="discount"/>%
+</div>
+</div>
+
+
+
+<h4 class="elbowroom"><a data-bind="click: CriteriaControls.toggle_amenities">Amenities</a></h4>
+<h4 class="elbowroom"><a class="bool_opt">Credit Cards</a></h4>
+<h4 class="elbowroom"><a class="bool_opt">Public Trans</a></h4>
+<h4 class="elbowroom"><a class="bool_opt">Parking</a></h4>
+<h4 id="meplus_header" class="elbowroom"><a data-bind="click: CriteriaControls.show_meplus">Me+</a></h4>
+<div style="display:inline-block">
+<div id="meplus_options">
+  <input type="text" name="meplus" id="meplus"/>
+</div>
+</div>
+
+
+
+<div id="amenities">
+  <h4 class="elbowroom"><a class="bool_opt">Lockers/Robes</a></h4>
+  <h4 class="elbowroom"><a class="bool_opt">Steam</a></h4>
+  <h4 class="elbowroom"><a class="bool_opt">Sauna</a></h4>
+  <h4 class="elbowroom"><a class="bool_opt">Lounges</a></h4>
+  <h4 class="elbowroom"><a class="bool_opt">Pool</a></h4>
+  <h4 class="elbowroom"><a class="bool_opt">Whirlpool</a></h4>
+</div>
+
+</div>
+</div>{# options_criteria #}
 
 </div>{# criteria #}
 </div>{# columns #}</div>{# row #}

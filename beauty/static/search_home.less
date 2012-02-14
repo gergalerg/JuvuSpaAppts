@@ -94,6 +94,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: smaller;
 }
 
+
 #pane_1 {
     label {
         font-size: smaller;
@@ -110,11 +111,31 @@ h1, h2, h3, h4, h5, h6 {
             display: inline-block;
             margin-right: 4em;
         }
+        h4 {
+            display: inline-block;
+            line-height: 200%;
+
+            &:hover {
+                font-weight: 400;
+            }
+            .selected {
+                font-weight: 400;
+                background-color: #ddf;
+            }
+            a {
+                cursor: pointer;
+                padding: 3px;
+            }
+        }
+        h4.elbowroom {
+            margin-right: 1.5em;
+        }
+        div.option_box {
+            display: inline-block;
+        }
         input[type=text] {
             display: inline-block;
             font-family: @widget_font;
-        }
-        #id_miles {
             width: 40px;
         }
         #miles_criteria {
@@ -132,45 +153,6 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-#pane_2 {
-    input[type=text] {
-        display: inline-block;
-        font-family: @widget_font;
-    }
-}
-
-.rounded-corners (@radius: 0.5em) {
-    border-radius: @radius;
-    -webkit-border-radius: @radius;
-    -moz-border-radius: @radius;
-}
-
-#staff_list {
-    color: @fg;
-    form {
-        margin-bottom: 9px;
-    }
-    .tile {
-        font-family: @widget_font;
-        padding: 0.25em;
-        margin-left: -0.25em;
-        border: solid transparent 1px;
-        .rounded-corners;
-        margin-bottom: 0.5em;
-    }
-    .tile:hover {
-        background-color: @call_out;
-        border-color: lighten(@fg, 20%);
-    }
-    input[type=text] {
-        display: inline-block;
-        font-family: @widget_font;
-    }
-}
-
-#pane_4 {
-    padding-bottom: 2.5em;
-}
 
 select,
 input.input-text.oversize {
@@ -179,8 +161,6 @@ input.input-text.oversize {
 	padding:  4px 5px !important;
 	border:  solid 1px @input_border_color;
 }
-
-
 
 .node circle {
   cursor: pointer;
