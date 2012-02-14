@@ -46,37 +46,23 @@
   <div class="row">
 
   <div id="toc" class="seven columns centered">
-{% block toc %}{% endblock %}
+  {% block toc %}{% endblock %}
   </div>{# columns #}
 
   <div id="main_frame" class="twelve columns">
 
     <div class="row"><div class="twelve columns"><div id="pane_0" class="pane">
-{% block pane_0 %}{% endblock %}
+    {% block pane_0 %}{% endblock %}
     </div>{# pane_0 #}</div>{# columns #}</div>{# row #}
 
     <div class="row"><div class="twelve columns"><div id="pane_1" class="pane">
-{% block pane_1 %}{% endblock %}
+    {% block pane_1 %}{% endblock %}
     </div>{# pane_1 #}</div>{# columns #}</div>{# row #}
-
-    <div class="row"><div class="twelve columns"><div id="pane_2" class="pane">
-{% block pane_2 %}{% endblock %}
-    </div>{# pane_2 #}</div>{# columns #}</div>{# row #}
-
-    <div class="row"><div class="twelve columns"><div id="pane_3" class="pane">
-{% block pane_3 %}{% endblock %}
-    </div>{# pane_3 #}</div>{# columns #}</div>{# row #}
-
-    <div class="row"><div class="twelve columns"><div id="pane_4" class="pane">
-{% block pane_4 %}{% endblock %}
-    </div>{# pane_4 #}</div>{# columns #}</div>{# row #}
 
   </div>{# columns #}
 
   </div>{# row #}
 </div>{# columns #}</div>{# row #}
-
-{% block body %}{% endblock %}
 
 </div>{# hull panel #}</div>{# columns #}</div>{# row #}</div>{# container #}
 </body>

@@ -496,11 +496,12 @@ function select_dates() {
     var to_date = $("#to_date_cal").datepicker("getDate");
     if (!(_.isNull(from_date) || _.isNull(to_date))) {
         select_date_range(from_date, to_date);
+        $("#options_criteria").fadeIn(function () { CriteriaControls.show_options() });
     }
 }
 
 function date_selected() {
-    CriteriaControls.hide_miles();
+    CriteriaControls.hide_where();
     $("#distance_criteria > h3").fadeOut();
     $("#distance_criteria > h2");
     if (viewModel.time_mode() != 'selection') {
@@ -511,14 +512,39 @@ function date_selected() {
 }
 
 
+
+function show_it(first, second) {
+    $(first).animate({
+        opacity: 1,
+        fontSize: '35px',
+        },
+        function () { $(second).fadeIn() }
+     );
+}
+
+function hide_it(first, second, third) {
+    $(first).fadeOut(function () {
+        $(second).fadeOut(function () {
+            $(third).animate({
+              opacity: .5,
+              fontSize: '150%',
+            });
+        });
+    });
+}
+
+
+
+
 var CriteriaControls = {
-    show_where: function () {
-        $("#when_criteria").fadeIn();
-    },
-    hide_where: function () { $("#when_criteria").fadeOut(); },
+    show_where: function () { show_it("#where", "#where_criteria > h3") },
+    hide_where: function () { hide_it("#miles_criteria", "#where_criteria > h3", "#where") },
 
     show_when: function () { $("#when_criteria").fadeIn(); },
-    hide_when: function () { $("#when_criteria").fadeOut(); },
+    hide_when: function () { hide_it("#date_criteria", "#when_criteria > h3", "#when") },
+
+    show_options: function () { show_it("#options", "#options_interior") },
+    hide_options: function () { hide_it("#amenities", "#options_interior", "#options") },
 
     show_miles: function () { $("#miles_criteria").fadeIn(); },
     hide_miles: function () { $("#miles_criteria").fadeOut(); },

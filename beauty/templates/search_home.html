@@ -22,10 +22,16 @@ $(function(){
     $("#miles_criteria").hide();
     $("#when_criteria").hide();
     $("#amenities").hide();
+    $("#options_criteria").hide();
+//    CriteriaControls.hide_options()
     $(".option_box").hide();
     $("#price_options").hide();
     $("#discount_options").hide();
     $("#meplus_options").hide();
+
+    $("#options_interior").find("a").click(function () { 
+      CriteriaControls.hide_when();
+    });
 
     ko.applyBindings(viewModel);
 
@@ -40,7 +46,6 @@ $(function(){
     $("#dist_link").click(CriteriaControls.show_miles);
 
     $(".bool_opt").click(function() {
-        console.log("Hey!")
         $(this).toggleClass("selected");
     })
 
@@ -130,10 +135,12 @@ $(function(){
     </center>
 {% endblock %}
 
+
 {% block pane_0 %}
 <div id="chart"></div>
 <div style="text-align:right"><a href="/#step/1" class="blue_button">Go</a></div>
 {% endblock %}
+
 
 {% block pane_1 %}
 <a
@@ -151,13 +158,15 @@ $(function(){
 
 
 
-<div id="distance_criteria">
-<h2 id="where">Where?</h2><h3><a href="#" id="dist_link">Distance</a></h3><h3><a href="#">Neighborhood</a></h3>
+<div id="where_criteria">
+<h2 id="where">Where?</h2>
+  <h3><a style="cursor:pointer" id="dist_link">Distance</a></h3>
+  <h3><a style="cursor:pointer">Neighborhood</a></h3>
 <div id="miles_criteria">
   <input type="text" name="miles" id="id_miles" class="input-text" size="4" />
   miles from [ADDRESS] <a href="#">Change Address</a>
 </div>
-</div>{# distance_criteria #}
+</div>{# where_criteria #}
 
 
 
@@ -176,43 +185,40 @@ $(function(){
 
 
 <div id="options_criteria">
-<h2 id="when">Options</h2>
-<div>
+<h2 id="options">Options</h2>
+<div id="options_interior">
+
+    <h4 id="price_header" class="elbowroom"><a href="#" data-bind="click: CriteriaControls.show_price">Price</a></h4>
+    <div style="display:inline-block">
+    <div id="price_options">
+      <input type="text" name="from_price" id="from_price"/>
+      to
+      <input type="text" name="to_price" id="to_price"/>
+    </div>
+    </div>
 
 
 
-
-
-<h4 id="price_header" class="elbowroom"><a href="#" data-bind="click: CriteriaControls.show_price">Price</a></h4>
-<div style="display:inline-block">
-<div id="price_options">
-  <input type="text" name="from_price" id="from_price"/>
-  to
-  <input type="text" name="to_price" id="to_price"/>
-</div>
-</div>
+    <h4 id="discount_header" class="elbowroom"><a href="#" data-bind="click: CriteriaControls.show_discount">Discount</a></h4>
+    <div style="display:inline-block">
+    <div id="discount_options">
+      <input type="text" name="discount" id="discount"/>%
+    </div>
+    </div>
 
 
 
-<h4 id="discount_header" class="elbowroom"><a href="#" data-bind="click: CriteriaControls.show_discount">Discount</a></h4>
-<div style="display:inline-block">
-<div id="discount_options">
-  <input type="text" name="discount" id="discount"/>%
-</div>
-</div>
+    <h4 class="elbowroom"><a data-bind="click: CriteriaControls.toggle_amenities">Amenities</a></h4>
 
-
-
-<h4 class="elbowroom"><a data-bind="click: CriteriaControls.toggle_amenities">Amenities</a></h4>
-<h4 class="elbowroom"><a class="bool_opt">Credit Cards</a></h4>
-<h4 class="elbowroom"><a class="bool_opt">Public Trans</a></h4>
-<h4 class="elbowroom"><a class="bool_opt">Parking</a></h4>
-<h4 id="meplus_header" class="elbowroom"><a data-bind="click: CriteriaControls.show_meplus">Me+</a></h4>
-<div style="display:inline-block">
-<div id="meplus_options">
-  <input type="text" name="meplus" id="meplus"/>
-</div>
-</div>
+    <h4 class="elbowroom"><a class="bool_opt">Credit Cards</a></h4>
+    <h4 class="elbowroom"><a class="bool_opt">Public Trans</a></h4>
+    <h4 class="elbowroom"><a class="bool_opt">Parking</a></h4>
+    <h4 id="meplus_header" class="elbowroom"><a data-bind="click: CriteriaControls.show_meplus">Me+</a></h4>
+    <div style="display:inline-block">
+    <div id="meplus_options">
+      <input type="text" name="meplus" id="meplus"/>
+    </div>
+    </div>
 
 
 
@@ -225,34 +231,10 @@ $(function(){
   <h4 class="elbowroom"><a class="bool_opt">Whirlpool</a></h4>
 </div>
 
-</div>
+</div>{# options_interior #}
 </div>{# options_criteria #}
 
 </div>{# criteria #}
 </div>{# columns #}</div>{# row #}
 {% endblock %}
 
-{% block pane_2 %}
-<div class="row">
-<div class="three columns"></div>{# columns #}
-<div class="five columns"></div>{# columns #}
-<div class="four columns"></div>{# columns #}
-</div>{# row #}
-{% endblock %}
-
-{% block pane_3 %}
-  <div class="row">
-  <div class="four columns"></div>
-  <div class="eight columns"></div>
-  </div>{# row #}
-{% endblock %}
-
-{% block pane_4 %}
-<div class="row">
-<div class="one columns"></div>{# columns #}
-<div class="eleven columns"></div>{# columns #}
-</div>{# row #}
-{% endblock %}
-
-{% block body %}
-{% endblock %}
