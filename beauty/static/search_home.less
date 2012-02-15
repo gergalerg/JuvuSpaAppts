@@ -66,7 +66,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-.blue_button {
+a.blue_button {
 	font-size: 22px;
 	font-size: 2.2rem;
 	color: @call_out;
@@ -79,12 +79,31 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 3em;
 }
 
-.blue_button:hover{
+a.blue_button:hover{
     color: @call_out;
     background-color: @button_blue_hover;
 }
 
-.indicate {
+div.blue_button {
+	font-size: 22px;
+	font-size: 2.2rem;
+	color: @call_out;
+	text-transform: uppercase;
+	background-color: @button_blue;
+	border: 0;
+	padding-top: 15px;
+	padding-bottom: 15px;
+    font-family: @body_font;
+    margin: 0.5em;
+    cursor: pointer;
+}
+
+div.blue_button:hover {
+    color: @call_out;
+    background-color: @button_blue_hover;
+}
+
+div.indicate {
     color: @bg;
     background-color: @foundation_link_blue;
     font-weight: 400;
