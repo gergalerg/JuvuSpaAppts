@@ -1,39 +1,45 @@
 {% extends "base.html" %}
 {% block html_head %}
 <link rel="stylesheet/less" href="/static/base.less" type="text/css">
+<style>
+select {
+    color: @input_color;
+    padding:  4px 5px !important;
+    border:  solid 1px #bbbbbb;
+}
+</style>
 <script src="/static/js/less.js" type="text/javascript"></script>
 {% endblock %}
-{% block title %}JuVuu User Signup{% endblock %}
+{% block title %}JuVuu Signup{% endblock %}
 {% block body %}
 <div class="container">
 
 <div id="header" class="row"><div class="twelve columns">
-    <h1>JuVuu User Signup</h1>
+<center><h1>JuVuu Signup</h1></center>
 </div></div>{# header #}
 
 <div id="content" class="row">
-	<div class="one columns">
-	    HAI!
-	    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla sem sed nibh venenatis placerat. Mauris eu nulla eu tellus pulvinar aliquet in ac metus. Proin scelerisque pellentesque eros, nec porta purus convallis in. Sed pellentesque tempor neque id imperdiet. Phasellus cursus lacinia augue eu eleifend.</p>
-	</div>
-	<div class="ten columns">
-		<h2>YO!</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla sem sed nibh venenatis placerat. Mauris eu nulla eu tellus pulvinar aliquet in ac metus.</p>
-	<form method="POST" action="{% url signup %}">
-	  {% csrf_token %}
-		<table>
-        {{ form }}
-		</table>
-		<p>Proin scelerisque pellentesque eros, nec porta purus convallis in. Sed pellentesque tempor neque id imperdiet. Phasellus cursus lacinia augue eu eleifend.</p>
-
-		<center><input class="buttonish" type="submit" value="Yeah, sign me up!"></center>
+    <div class="one columns">
+    </div>
+    <div class="ten columns">
+        <p style="font-size:larger">You're just a few steps away from the hottest options in Beauty & Wellness</p>
+    <form method="POST" action="{% url signup %}">
+        {% csrf_token %}
+        <table>
+        <tr><th><label for="id_first_name">First name:</label></th><td><input id="id_first_name" type="text" name="first_name" maxlength="30" /></td></tr>
+        <tr><th><label for="id_last_name">Last name:</label></th><td><input id="id_last_name" type="text" name="last_name" maxlength="30" /></td></tr>
+        <tr><th><label for="id_email">E-mail address:</label></th><td><input id="id_email" type="text" name="email" maxlength="75" /></td></tr>
+        <tr><th><label for="id_password">Password:</label></th><td><input id="id_password" type="text" name="password" maxlength="128" /></td></tr>
+        <tr><th><label for="id_area">Choose Area:</label></th><td>
+        <select id="id_area" name="area">
+          <option value="SanFrancisco">San Francisco</option>
+        </select>
+        </td></tr>
+        </table>
+        <center><input class="buttonish" type="submit" value="Begin my Journey"></center>
     </form>
-
-		<hr>
-
-		<p class="sosumi">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla sem sed nibh venenatis placerat. Mauris eu nulla eu tellus pulvinar aliquet in ac metus. Proin scelerisque pellentesque eros, nec porta purus convallis in. Sed pellentesque tempor neque id imperdiet. Phasellus cursus lacinia augue eu eleifend. Vestibulum vitae sapien vel leo ornare ultrices. Vivamus id tortor tortor. Vestibulum tempus, libero at pretium euismod, turpis velit mollis erat, vitae suscipit sapien neque vitae mi.</p>
-		</div>
-	<div class="one columns"></div>
+    </div>
+    <div class="one columns"></div>
 </div>
 
 </div>{# container #}
