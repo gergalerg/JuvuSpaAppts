@@ -106,24 +106,42 @@ $(function(){
 {% endblock %}
 
 {% block toc %}
+<div class="row">
+  <div id="toc_head" class="twelve columns">
 	<h1 id="logotype"><a href="/">Ju<span class="davee">V</span>uu</a></h1>
-	<h2 id="tagline">This is our subtitle!</h2>
+    <form>
+      <select>
+        <option value="SanFrancisco">San Francisco</option>
+      </select>
+    </form>
+    <a href="#">About</a>
+  </div>{# columns #}
+</div>{# row #}
 
+<div class="row">
+  <div id="toc" class="five columns centered">
 	<center>
+	<h3><a href="#">Login</a></h3>
 	<form method="POST" action="{% url signup %}">
 	  {% csrf_token %}
-      <table> 
-      <tr><th rowspan="2"><h3>Login</h3></th>
-        <td><label for="id_email">email</label></td>
-        <td><input type="text" name="email" id="id_email" class="input-text" /></td>
+      <table id="login_box"> 
+      <tr>
+        <td>
+        	<center>
+            <input placeholder="email" type="text" name="email" id="id_email" class="input-text small" />
+        	</center>
+        </td>
       </tr>
       <tr>
-        <td><label for="id_pass">password</label></td>
-        <td><input type="password" name="hours" id="id_pass" class="input-text" /></td>
+        <td>
+        	<center>
+            <input placeholder="password" type="password" name="hours" id="id_pass" class="input-text small" />
+        	</center>
+        </td>
       </tr>
       </table>
       <br>
-      <a id="search" href="{% url signup %}" class="blue_button">Sign Up</a>
+      <h3><a id="search" href="{% url signup %}">Sign Up</a></h3>
       <br>
       <br>
       <br>
@@ -133,6 +151,8 @@ $(function(){
 		<input type="hidden" name="today" value="on" />
     </form>
     </center>
+  </div>{# columns #}
+</div>{# row #}
 {% endblock %}
 
 

@@ -15,6 +15,21 @@ body {
     font-family: @body_font;
 }
 
+#toc_head {
+    h1, form {
+        display: inline-block;
+    }
+}
+
+#toc {
+    text-align: center;
+	margin-top: 4em;
+    a {
+        padding: 4px;
+        font-weight: 400;
+    }
+}
+
 #logotype {
     font-family: @title_font;
     font-size: 120px;
@@ -22,22 +37,32 @@ body {
 	color: @button_blue;
     text-align: center;
 	text-shadow: 1px 1px 1px #000;
-	margin-top: 160px;
-    margin-bottom: 36px;
-
+    margin-bottom: 0px;
     a {
 	    color: @button_blue;
     }
-
     a:hover {
 	    color: @button_blue_hover;
     }
-
     span.davee {
         color: @davee_color;
     }
-
 }
+
+#login_box {
+    width: 50%;
+    background-color: transparent;
+    tbody{
+        background: inherit !important;
+        tr {
+            background: inherit !important;
+            td {
+                text-align: center;
+            }
+        }
+    }
+}
+
 
 .hull {
     min-height: 565px;
@@ -56,13 +81,6 @@ h1, h2, h3, h4, h5, h6 {
 #title_bar {
     h1, h3 {
         display: inline-block;
-    }
-}
-
-#toc {
-    text-align: center;
-    a {
-        padding: 4px;
     }
 }
 
@@ -172,11 +190,15 @@ div.indicate {
     }
 }
 
-
-select,
 input.input-text.oversize {
 	color: @input_color;
 	font-size:  20px !important;
+	padding:  4px 5px !important;
+	border:  solid 1px @input_border_color;
+}
+
+select {
+	color: @input_color;
 	padding:  4px 5px !important;
 	border:  solid 1px @input_border_color;
 }
@@ -192,7 +214,7 @@ input.input-text.oversize {
   cursor: pointer;
   fill: @fg;
   font-family: @body_font;
-  font: 12px;
+  font-size: 16px;
 }
 
 path.link {

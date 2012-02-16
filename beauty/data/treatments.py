@@ -196,19 +196,6 @@ TREEd = {
          },
 
 
-
-
-  
-              {'children': [{'name': 'Pedicure', 'supported': False},
-                            {'name': 'Manicure', 'supported': False},
-                            {'name': 'Mani/pedi', 'supported': False},
-                            {'name': 'Polish Change', 'supported': False},
-				{'name': 'Gels', 'supported': False},                            	
-				{'name': 'Acrylics', 'supported': False}],
-               'name': 'Nails'},
-
-
-
               {'children': [
                   {'name': 'Waxing',
                    'children': [
@@ -226,6 +213,19 @@ TREEd = {
                   ],
                'name': 'Hair Removal'
                },
+
+
+
+
+  
+              {'children': [{'name': 'Pedicure', 'supported': False},
+                            {'name': 'Manicure', 'supported': False},
+                            {'name': 'Mani/pedi', 'supported': False},
+                            {'name': 'Polish Change', 'supported': False},
+				{'name': 'Gels', 'supported': False},                            	
+				{'name': 'Acrylics', 'supported': False}],
+               'name': 'Nails'},
+
 
 
               {'children': [{'name': 'Yoga', 'supported': False},
