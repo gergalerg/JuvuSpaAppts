@@ -40,7 +40,18 @@ var xmselector = d3.scale.linear().domain([1, 12]).range([x0, x1]);
 
 
 function setup_month_tabs(V) {
-    var months = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+    var months = ['January',
+                  'February',
+                  'March',
+                  'April',
+                  'May',
+                  'June',
+                  'July',
+                  'August',
+                  'September',
+                  'October',
+                  'November',
+                  'December'];
     var R = _.range(12);
     var xscale = d3.scale.ordinal()
         .domain(R)
@@ -50,7 +61,7 @@ function setup_month_tabs(V) {
       .remove();
 
     V.selectAll("rect")
-      .data(R)
+      .data(months)
       .enter().append("svg:rect")
         .style("cursor", "pointer")
         .attr("x", xscale)
@@ -59,9 +70,8 @@ function setup_month_tabs(V) {
         .attr("height", 5)
         .attr("rx", 5)
         .attr("ry", 2)
-        .attr("fill", function(d) {
-            console.log(d);
-            return (d % 2 == 0)
+        .attr("fill", function(d, i) {
+            return (i % 2 == 0)
             ? c1(Math.random())
             : c0(Math.random()) })
         .attr("fill-opacity", 0.5)
@@ -72,6 +82,8 @@ function setup_month_tabs(V) {
             .attr("height", 25)
             .attr("y", 80)
             .attr("ry", 5);
+            
+            
         })
         .on("mouseout", function(d) {
     	    d3.select(this)
@@ -81,14 +93,31 @@ function setup_month_tabs(V) {
             .attr("y", 100)
             .attr("ry", 2);
         })
-        .on("click", function(d) {
-            viewModel.time_mode('m' + d)
+        .on("click", function(d, i) {
+            viewModel.time_mode('m' + i)
         });
 
+
+       V.selectAll("text")
+         .data(months)
+       .enter().append("text")
+         .attr("x", function(d, i) { return xscale(i) + xscale.rangeBand() / 2; })
+         .attr("y", 100)
+        .attr("fill", function(d, i) {
+            return (i % 2 == 0)
+            ? c1(Math.random())
+            : c0(Math.random()) })
+        .attr("fill-opacity", 0.5)
+         .text("wtf");
+
+/*
+         .attr("dx", -3) // padding-right
+         .attr("dy", ".35em") // vertical-align: middle
+         .attr("text-anchor", "end") // text-align: right
+*/
 }
 
 function month_tabs_fade(V) {
-console.log("butt");
     V.selectAll("rect")
     .transition()
     .duration(400)
@@ -96,7 +125,6 @@ console.log("butt");
 }
 
 function month_tabs_unfade(V) {
-console.log("butt");
     V.selectAll("rect")
     .transition()
     .duration(400)
@@ -189,7 +217,7 @@ function select_month(m) {
     var circles = d3.selectAll("circle");
     circles.filter(in_month).transition().call(month_style);
     clear_unmatching(circles, in_month, fade_drop);
-
+/*
     var texts = d3.selectAll("text")
     texts.filter(in_month).transition()
         .delay(600)
@@ -198,6 +226,7 @@ function select_month(m) {
         .attr("y", function(d) { return ym(d.week_of_month) })
         .attr("fill-opacity", 1)
     clear_unmatching(texts, in_month, hidey);
+*/
 }
 
 function select_week(w) {
@@ -206,7 +235,7 @@ function select_week(w) {
 
     circles.filter(in_week).transition().call(week_style);
     clear_unmatching(circles, in_week, fade_drop);
-
+/*
     var texts = d3.selectAll("text")
     texts.filter(in_week).transition()
         .duration(function(d) { return 500 + (500 * Math.random()) })
@@ -214,6 +243,7 @@ function select_week(w) {
         .attr("y", function(d) { return ym(0) })
         .attr("fill-opacity", 1)
     clear_unmatching(texts, in_week, hidey);
+*/
 }
 
 function select_day(day) {
