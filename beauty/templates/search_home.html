@@ -89,7 +89,9 @@ $(function(){
         .call(year_style)
         .call(mouse_bindings);
 
-    setup_month_tabs(vis3);
+    setup_month_tabs(vis3)
+        .transition()
+        .attr("fill-opacity", 0.5);
 
     crambery(3);
 

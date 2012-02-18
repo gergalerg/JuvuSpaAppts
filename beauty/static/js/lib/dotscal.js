@@ -57,14 +57,47 @@ function setup_month_tabs(V) {
         .domain(R)
         .rangeBands([0, 900], 0.125);
 
-    V.selectAll("rect")
-      .remove();
+    var mtabs = V.selectAll("g.mtab")
+        .data(months);
 
-    V.selectAll("rect")
-      .data(months)
-      .enter().append("svg:rect")
+    var mtabs_enter = mtabs.enter().append("svg:g")
+        .attr("class", "mtab")
         .style("cursor", "pointer")
-        .attr("x", xscale)
+        .on("click", function(d, i) {
+            viewModel.time_mode('m' + i)
+        })
+        .on("mouseover", function(d) {
+    	    var it = d3.select(this)
+    	    it.select("rect")
+        	    .transition()
+                .duration(200)
+                .attr("height", 25)
+                .attr("y", 80)
+                .attr("ry", 5);
+            it.select("text")
+        	    .transition()
+                .delay(100)
+                .duration(200)
+                .attr("fill-opacity", 0.5)
+        })
+        .on("mouseout", function(d) {
+    	    var it = d3.select(this)
+    	    it.select("rect")
+         	    .transition()
+                .delay(200)
+                .duration(200)
+                .attr("height", 5)
+                .attr("y", 100)
+                .attr("ry", 2);
+            it.select("text")
+        	    .transition()
+                .duration(200)
+                .attr("fill-opacity", 0)
+        })
+        ;
+
+   var rects = mtabs_enter.append("svg:rect")
+        .attr("x", function (d, i) { return xscale(i) })
         .attr("width", xscale.rangeBand())
         .attr("y", 100)
         .attr("height", 5)
@@ -74,61 +107,37 @@ function setup_month_tabs(V) {
             return (i % 2 == 0)
             ? c1(Math.random())
             : c0(Math.random()) })
-        .attr("fill-opacity", 0.5)
-        .on("mouseover", function(d) {
-    	    d3.select(this)
-    	    .transition()
-            .duration(200)
-            .attr("height", 25)
-            .attr("y", 80)
-            .attr("ry", 5);
-            
-            
-        })
-        .on("mouseout", function(d) {
-    	    d3.select(this)
-    	    .transition()
-            .duration(200)
-            .attr("height", 5)
-            .attr("y", 100)
-            .attr("ry", 2);
-        })
-        .on("click", function(d, i) {
-            viewModel.time_mode('m' + i)
-        });
+        .attr("fill-opacity", 0)
+        ;
 
 
-       V.selectAll("text")
-         .data(months)
-       .enter().append("text")
-         .attr("x", function(d, i) { return xscale(i) + xscale.rangeBand() / 2; })
+       mtabs_enter.append("svg:text")
+         .attr("x", function(d, i) { return xscale(i) + xscale.rangeBand() / 2 })
          .attr("y", 100)
-        .attr("fill", function(d, i) {
-            return (i % 2 == 0)
-            ? c1(Math.random())
-            : c0(Math.random()) })
-        .attr("fill-opacity", 0.5)
-         .text("wtf");
+         .attr("fill-opacity", 0)
+         .attr("text-anchor", "middle")
+         .text(function(d) { return "" + d; })
+         ;
 
 /*
          .attr("dx", -3) // padding-right
          .attr("dy", ".35em") // vertical-align: middle
          .attr("text-anchor", "end") // text-align: right
 */
+
+    return rects;
 }
 
 function month_tabs_fade(V) {
-    V.selectAll("rect")
-    .transition()
-    .duration(400)
-    .attr("fill-opacity", 0);
+    V.selectAll("g.mtab").remove();
 }
 
 function month_tabs_unfade(V) {
-    V.selectAll("rect")
-    .transition()
-    .duration(400)
-    .attr("fill-opacity", 0.5);
+    setup_month_tabs(V)
+        .transition()
+        .delay(1200)
+        .duration(500)
+        .attr("fill-opacity", 0.5)
 }
 
 
@@ -209,7 +218,7 @@ function select_year() {
         .delay(function(d) { return 230 * Math.random() })
         .duration(1200)
         .call(year_style);
-    d3.selectAll("text").transition().call(hidey);
+ //   d3.selectAll("text").transition().call(hidey);
 }
 
 function select_month(m) {

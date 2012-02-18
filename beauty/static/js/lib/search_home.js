@@ -148,6 +148,9 @@ var View = {
 
 viewModel.time_mode.subscribe(function(tmode) {
     console.log("Time mode:", tmode);
+    if (tmode != 'year') {
+        month_tabs_fade(vis3);
+    }
 
     switch (tmode[0]) {
         case 'y': // switch to year.
@@ -156,7 +159,6 @@ viewModel.time_mode.subscribe(function(tmode) {
             break;
         case 'm': // switch to month.
             select_month(tmode.substr(1));
-            month_tabs_fade(vis3)
             break;
         case 's': // switch to selection.
             select_dates()
