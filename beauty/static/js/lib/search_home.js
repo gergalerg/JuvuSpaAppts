@@ -26,6 +26,56 @@ function params_into_object(d, initial) {
     });
 }
 
+function show_tree() {
+    $("#toc_inner").hide("blind", function() {
+        $("#goey").fadeIn();
+    });
+
+    tree_node_click(root);
+
+    var s = d3.select("#tree").select("svg")
+    s.transition()
+    .attr("height", w + m[1] + m[3])
+    ;
+
+    s.selectAll("g.treebox")
+    .transition()
+    .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+    ;
+}
+
+function hide_tree() {
+    var s = d3.select("#tree").select("svg")
+    s.transition()
+    .attr("height", 150)
+    ;
+    collapse(root);
+    update(root);
+    s.selectAll("g.treebox")
+    .transition()
+    .attr("transform", function(d) { return "translate(225,-300)" })
+    ;
+//    _.delay(50, );
+
+    $("#goey").fadeOut(function() {
+        $("#toc_inner").show("blind");
+    });
+}
+
+function change_me_node() {
+    var s = d3.select("#tree").select("svg")
+    var node = s.selectAll("g.node")
+    node.selectAll("circle")
+    .transition()
+    .duration(0)
+    .attr("r", 0)
+    ;
+    node.selectAll("text")
+    .transition()
+    .duration(0)
+    .attr("font-weight", 400)
+    ;
+}
 
 //-------------------------------------------------------
 // RDF Processing.
@@ -193,6 +243,10 @@ viewModel.viewing.subscribe(function(view) {
     // Are we going to the TOC?
     if (view == "toc") {
         toc_out(); // The rest of the UI remains static,
+    } else if (view == "tree") {
+        // hide login and sign up
+
+        // expand tree and morph name/"me"
 
     // No, we're going to one of the panes.
     } else {
@@ -253,11 +307,6 @@ viewModel.current_el.subscribe(function(it) {
     View.previous = circ;
 });
 
-viewModel.viewing.subscribe(function(view) {
-    $(".indicate").removeClass("indicate");
-    $("#" + view + "_link").addClass("indicate");
-});
-
 //-------------------------------------------------------
 // Route URLs.
 //
@@ -291,13 +340,13 @@ var routes = new routey();
 //
 
 var m = [10, 120, 10, 120],
-    w = 914 - m[1] - m[3],
-    h = 800 - m[0] - m[2],
+    w = 714 - m[1] - m[3],
+    h = 400 - m[0] - m[2],
     i = 0,
     duration = 500;
 
 var tree = d3.layout.tree()
-    .size([h, w]);
+    .size([700, w]);
 
 var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [d.y, d.x]; });

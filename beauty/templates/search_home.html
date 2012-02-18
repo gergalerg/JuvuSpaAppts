@@ -14,11 +14,11 @@ var root = {{ tree_data|safe }};
 // Convert the (server-embedded) JSON to KO models.
 root.children = _.map(root.children, function(n) { return new SpaProcedure(n); });
 
-
 $(function(){
 
     $("#main_frame").hide();
     $(".pane").hide();
+    $("#goey").hide();
     $("#miles_criteria").hide();
     $("#when_criteria").hide();
     $("#amenities").hide();
@@ -65,15 +65,18 @@ $(function(){
         onSelect: date_selected
     });
 
-    vis2 = d3.select("#chart").append("svg:svg")
+    vis2 = d3.select("#tree").append("svg:svg")
         .attr("width", w + m[1] + m[3])
-        .attr("height", h + m[0] + m[2])
+        .attr("height", 1024)//h + m[0] + m[2])
+        .attr("fill", "red")
       .append("svg:g")
+        .attr("class", "treebox")
         .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
     root.x0 = h / 2;
     root.y0 = 0;
     root.children.forEach(collapse);
+    collapse(root);
     update(root);
 
     vis3 = d3.select("#show")
@@ -94,6 +97,8 @@ $(function(){
         .attr("fill-opacity", 0.5);
 
     crambery(3);
+
+    hide_tree()
 
     if (!Backbone.history.start()) {
         routes.navigate("toc", true);
@@ -122,6 +127,7 @@ $(function(){
 
 <div class="row">
   <div id="toc" class="five columns centered">
+   <div id="toc_inner">
 	<center>
 	<h3><a href="#">Login</a></h3>
 	<form method="POST" action="{% url signup %}">
@@ -144,25 +150,14 @@ $(function(){
       </table>
       <br>
       <h3><a id="search" href="{% url signup %}">Sign Up</a></h3>
-      <br>
-      <br>
-      <br>
-      <h3><a id="0_link" href="#step/0">{{ name }}</a></h3>
-		<input value="Spas" id="treatment" name="treatment" type="hidden" placeholder="Looking for... a spa?"> 
-		<input value="355 Bryant St, SF" id="location" name="location" type="hidden" placeholder="Where are you?"> 
-		<input type="hidden" name="today" value="on" />
     </form>
     </center>
+   </div>
+<div id="tree"></div>
+<div id="goey" style="text-align:right"><a href="/#step/1" class="blue_button">Go</a></div>
   </div>{# columns #}
 </div>{# row #}
 {% endblock %}
-
-
-{% block pane_0 %}
-<div id="chart"></div>
-<div style="text-align:right"><a href="/#step/1" class="blue_button">Go</a></div>
-{% endblock %}
-
 
 {% block pane_1 %}
 <a
