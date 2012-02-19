@@ -42,6 +42,8 @@ function show_tree() {
     .transition()
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
     ;
+
+    s.selectAll("g.node").on("click", tree_node_click);
 }
 
 function hide_tree() {
@@ -53,9 +55,9 @@ function hide_tree() {
     update(root);
     s.selectAll("g.treebox")
     .transition()
-    .attr("transform", function(d) { return "translate(225,-300)" })
+    .attr("transform", function(d) { return "translate(240,-300)" })
     ;
-//    _.delay(50, );
+    _.delay(change_me_node, 200);
 
     $("#goey").fadeOut(function() {
         $("#toc_inner").show("blind");
@@ -65,16 +67,14 @@ function hide_tree() {
 function change_me_node() {
     var s = d3.select("#tree").select("svg")
     var node = s.selectAll("g.node")
+
     node.selectAll("circle")
     .transition()
     .duration(0)
     .attr("r", 0)
     ;
-    node.selectAll("text")
-    .transition()
-    .duration(0)
-    .attr("font-weight", 400)
-    ;
+
+    node.on("click", show_tree);
 }
 
 //-------------------------------------------------------
@@ -280,20 +280,15 @@ viewModel.viewing.subscribe(function(view) {
 });
 
 viewModel.pointed_at_el.subscribe(function(it) {
-//	    console.log("Yes, I exist!", it);
     if (it) {
         it = d3.select(it);
         it.transition().call(embiggen);
-//	    console.log("embiggen it!", it);
     } else if (View.pointed_at) {
-//	    console.log("disembiggen it!", View.pointed_at);
         // Don't shrink current day.
         View.pointed_at.filter(function(d) {
-//            console.log("k it!", d);
-//            console.log("hmm?", viewModel.is_current(d));
             return !viewModel.is_current(d);
         })
-            .transition().call(shrink);
+        .transition().call(shrink);
     }
     View.pointed_at = it;
 });
