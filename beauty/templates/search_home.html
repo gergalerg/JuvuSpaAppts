@@ -20,6 +20,7 @@ $(function(){
     $(".pane").hide();
     $("#goey").hide();
     $("#miles_criteria").hide();
+    $("#date_criteria").hide();
     $("#when_criteria").hide();
     $("#amenities").hide();
     $("#options_criteria").hide();
@@ -44,6 +45,12 @@ $(function(){
     });
 
     $("#dist_link").click(CriteriaControls.show_miles);
+    $("#date_range").click(CriteriaControls.show_date_range);
+    $("#today").click(function() {
+        CriteriaControls.hide_date_range();
+        CriteriaControls.hide_where();
+        select_today();
+        });
 
     $(".bool_opt").click(function() {
         $(this).toggleClass("selected");
@@ -190,7 +197,9 @@ $(function(){
 
 
 <div id="when_criteria">
-<h2 id="when">When?</h2><h3><a href="#">Today</a></h3><h3><a href="#">Date Range</a></h3>
+<h2 id="when">When?</h2>
+  <h3><a id="today">Today</a></h3>
+  <h3><a id="date_range">Date Range</a></h3>
 <div id="date_criteria">
 <input name="from_date" id="from_date_cal"/>
 <input name="to_date" id="to_date_cal"/>

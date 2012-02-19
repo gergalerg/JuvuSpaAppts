@@ -141,11 +141,11 @@ function month_tabs_unfade(V) {
 }
 
 
-function select_date_range(to, from) {
+function select_date_range(from, to) {
     var style;
-    var N = days_between(to, from);
+    var N = days_between(from, to);
     var in_range = function(d) {
-        return (to <= d.date) && (d.date <= from);
+        return (from <= d.date) && (d.date <= to);
     };
     var circles = d3.selectAll("circle");
     if (N < 7) {

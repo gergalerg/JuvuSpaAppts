@@ -537,13 +537,24 @@ function month_mouse_bindings(T) { T
 // Initial bootstrap.
 //
 
+
 function select_dates() {
     var from_date = $("#from_date_cal").datepicker("getDate");
     var to_date = $("#to_date_cal").datepicker("getDate");
     if (!(_.isNull(from_date) || _.isNull(to_date))) {
         select_date_range(from_date, to_date);
-        $("#options_criteria").fadeIn(function () { CriteriaControls.show_options() });
+        $("#options_criteria").fadeIn(CriteriaControls.show_options);
     }
+}
+
+function select_today() {
+    var today_date = new Date();
+    today_date.setMilliseconds(0);
+    today_date.setSeconds(0);
+    today_date.setMinutes(0);
+    today_date.setHours(0);
+    select_date_range(today_date, today_date);
+    $("#options_criteria").fadeIn(CriteriaControls.show_options);
 }
 
 function date_selected() {
@@ -594,6 +605,9 @@ var CriteriaControls = {
 
     show_miles: function () { $("#miles_criteria").fadeIn(); },
     hide_miles: function () { $("#miles_criteria").fadeOut(); },
+
+    show_date_range: function () { $("#date_criteria").fadeIn(); },
+    hide_date_range: function () { $("#date_criteria").fadeOut(); },
 
     show_distance: function () { $("#distance_criteria > h3").fadeIn(); },
     hide_distance: function () { $("#distance_criteria > h3").fadeOut(); },
