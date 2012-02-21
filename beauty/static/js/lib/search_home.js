@@ -548,19 +548,18 @@ function select_dates() {
 }
 
 function select_today() {
-    var today_date = new Date();
-    today_date.setMilliseconds(0);
-    today_date.setSeconds(0);
-    today_date.setMinutes(0);
-    today_date.setHours(0);
-    select_date_range(today_date, today_date);
-    $("#options_criteria").fadeIn(CriteriaControls.show_options);
+    $("#from_date_cal").datepicker("setDate", "+0")
+    $("#to_date_cal").datepicker("setDate", "+0")
+    if (viewModel.time_mode() != 'selection') {
+        viewModel.time_mode('selection');
+    } else {
+        select_dates();
+    }
 }
 
 function date_selected() {
     CriteriaControls.hide_where();
     $("#distance_criteria > h3").fadeOut();
-    $("#distance_criteria > h2");
     if (viewModel.time_mode() != 'selection') {
         viewModel.time_mode('selection');
     } else {

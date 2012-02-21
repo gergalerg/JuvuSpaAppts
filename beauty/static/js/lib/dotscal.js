@@ -21,6 +21,13 @@ var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
     r_med = d3.scale.linear().domain([0,1]).range([15,30]),
     r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
 
+    r_days_1 = d3.scale.linear().domain([0,1]).range([300, 320]),
+    r_days_2 = d3.scale.linear().domain([0,1]).range([250, 260]),
+    r_days_3 = d3.scale.linear().domain([0,1]).range([200, 210]),
+    r_days_4 = d3.scale.linear().domain([0,1]).range([140, 143]),
+    r_days_5 = d3.scale.linear().domain([0,1]).range([100, 110]),
+    r_days_6 = d3.scale.linear().domain([0,1]).range([65, 70]),
+
     c0 = d3.scale.linear().domain([0,1]).range(
         ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
         ).interpolate(d3.interpolateHsl);
@@ -178,16 +185,51 @@ function select_date_range(from, to) {
 
 function daysish(n) {
     console.log(n);
+    var radius;
+    var range;
+    var margin = 0.125;
+    switch (n) {
+      case 1:
+        radius = r_days_1;
+        range = [0, 900];
+        break;
+      case 2:
+        radius = r_days_2;
+        range = [100, 800];
+        margin = 0.75;
+        break;
+      case 3:
+        radius = r_days_3;
+        range = [100, 800];
+        break;
+      case 4:
+        radius = r_days_4;
+        range = [100, 800];
+        break;
+      case 5:
+        radius = r_days_5;
+        range = [100, 800];
+        break;
+      case 6:
+        radius = r_days_6;
+        range = [100, 800];
+        break;
+      default:
+        radius = r_big;
+        range = [100, 800];
+        margin = 0.125;
+    }
+
     var xscale = d3.scale.ordinal()
         .domain(_.range(n))
-        .rangePoints([0, 900], 0.125);
+        .rangePoints(range, margin);
+
     var f = function (T) { T
         .attr("cx", function(d) {
-//            console.log(d.selection_index, xscale(d.selection_index), d.date);
             return xscale(d.selection_index)
         })
         .attr("cy", dh)
-        .attr("r", function() { return r_big(Math.random()) })
+        .attr("r", function() { return radius(Math.random()) })
         .call(shiny)
     }
     return f;
