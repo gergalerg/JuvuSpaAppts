@@ -154,7 +154,7 @@ function select_date_range(from, to) {
     var in_range = function(d) {
         return (from <= d.date) && (d.date <= to);
     };
-    var circles = d3.selectAll("circle");
+    var circles = vis3.selectAll("circle");
     if (N < 7) {
         style = daysish(N + 1);
         indexer = function (d, i) {
@@ -255,21 +255,21 @@ function monthsish(T) { T
 //
 
 function select_year() {
-    d3.selectAll("circle")
+    vis3.selectAll("circle")
         .transition()
         .delay(function(d) { return 230 * Math.random() })
         .duration(1200)
         .call(year_style);
- //   d3.selectAll("text").transition().call(hidey);
+ //   vis3.selectAll("text").transition().call(hidey);
 }
 
 function select_month(m) {
     var in_month = function(d) { return d.month == m };
-    var circles = d3.selectAll("circle");
+    var circles = vis3.selectAll("circle");
     circles.filter(in_month).transition().call(month_style);
     clear_unmatching(circles, in_month, fade_drop);
 /*
-    var texts = d3.selectAll("text")
+    var texts = vis3.selectAll("text")
     texts.filter(in_month).transition()
         .delay(600)
         .duration(300)
@@ -282,12 +282,12 @@ function select_month(m) {
 
 function select_week(w) {
     var in_week = function(d) { return d.week_of_year == w };
-    var circles = d3.selectAll("circle");
+    var circles = vis3.selectAll("circle");
 
     circles.filter(in_week).transition().call(week_style);
     clear_unmatching(circles, in_week, fade_drop);
 /*
-    var texts = d3.selectAll("text")
+    var texts = vis3.selectAll("text")
     texts.filter(in_week).transition()
         .duration(function(d) { return 500 + (500 * Math.random()) })
         .attr("x", function(d) { return xm(d.day_of_week) })
@@ -300,7 +300,7 @@ function select_week(w) {
 function select_day(day) {
     var in_day = function(d) { return d.day_of_year == day };
     clear_unmatching(
-        d3.selectAll("circle"),
+        vis3.selectAll("circle"),
         in_day,
         fade_drop);
 }
