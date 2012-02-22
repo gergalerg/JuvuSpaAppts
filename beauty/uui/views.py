@@ -116,3 +116,8 @@ def confirmation(request):
         'visibits.html',
         )
 
+def login(request):
+    return render_to_response(
+        'login.html',
+        )
+

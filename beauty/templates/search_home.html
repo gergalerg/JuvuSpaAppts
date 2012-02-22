@@ -29,6 +29,7 @@ $(function(){
     $("#price_options").hide();
     $("#discount_options").hide();
     $("#meplus_options").hide();
+    $("#login_head").hide();
 
     $("#options_interior").find("a").click(function () { 
       CriteriaControls.hide_when();
@@ -51,6 +52,10 @@ $(function(){
         CriteriaControls.hide_where();
         select_today();
         });
+    $("#log_me_in").click(function() {
+        $("form#home_login_box")[0].submit();
+        return false;
+    });
 
     $(".bool_opt").click(function() {
         $(this).toggleClass("selected");
@@ -105,7 +110,7 @@ $(function(){
 
     crambery(3);
 
-    hide_tree()
+    hide_tree();
 
     if (!Backbone.history.start()) {
         routes.navigate("toc", true);
@@ -121,7 +126,7 @@ $(function(){
 
 {% block toc %}
 <div class="row">
-  <div id="toc_head" class="twelve columns">
+  <div id="toc_head" class="nine columns">
 	<h1 id="logotype"><a href="/">Ju<span class="davee">V</span>uu</a></h1>
     <form>
       <select>
@@ -130,16 +135,25 @@ $(function(){
     </form>
     <a href="#">About</a>
   </div>{# columns #}
+  <div class="three columns">
+    <div id="login_head">
+{% if user.is_authenticated %}
+	{{ user.first_name }} {{ user.last_name }} | <a href="{% url logout %}">logout</a>
+{% else %}
+    <a href="{% url login %}">Login</a> | <a href="{% url signup %}">Sign Up</a>
+{% endif %}
+    </div>{# login_head #}
+  </div>{# columns #}
 </div>{# row #}
 
 <div class="row">
   <div id="toc" class="five columns centered">
    <div id="toc_inner">
 	<center>
-	<h3><a href="#">Login</a></h3>
-	<form method="POST" action="{% url signup %}">
+	<form method="POST" action="{% url login %}" id="home_login_box">
+	<h3><a id="log_me_in" href="#">Login</a></h3>
 	  {% csrf_token %}
-      <table id="login_box"> 
+      <table id="login_box">
       <tr>
         <td>
         	<center>
@@ -156,8 +170,8 @@ $(function(){
       </tr>
       </table>
       <br>
-      <h3><a id="search" href="{% url signup %}">Sign Up</a></h3>
     </form>
+    <h3><a id="search" href="{% url signup %}">Sign Up</a></h3>
     </center>
    </div>
 <div id="tree"></div>

@@ -19,6 +19,15 @@ urlpatterns = patterns('',
     url(r'^res/', 'uui.views.ajax_results', name='ares'),
     url(r'^booking/', 'uui.views.booking', name='booking'),
     url(r'^confirmation/', 'uui.views.confirmation', name='confirmation'),
+    url(r'^logout/',
+        'django.contrib.auth.views.logout',
+        {'next_page': '/'},
+        name='logout'),
+
+    url(r'^login/',
+        'django.contrib.auth.views.login',
+        {'template_name': 'login.html'},
+        name='login'),
 
     # Spa-facing site.
     url(r'^spa/', include('spasui.urls')),

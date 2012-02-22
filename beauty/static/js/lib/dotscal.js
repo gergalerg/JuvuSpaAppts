@@ -21,12 +21,12 @@ var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
     r_med = d3.scale.linear().domain([0,1]).range([15,30]),
     r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
 
-    r_days_1 = d3.scale.linear().domain([0,1]).range([300, 320]),
-    r_days_2 = d3.scale.linear().domain([0,1]).range([250, 260]),
-    r_days_3 = d3.scale.linear().domain([0,1]).range([200, 210]),
-    r_days_4 = d3.scale.linear().domain([0,1]).range([140, 143]),
-    r_days_5 = d3.scale.linear().domain([0,1]).range([100, 110]),
-    r_days_6 = d3.scale.linear().domain([0,1]).range([65, 70]),
+    r_days_1 = d3.scale.linear().domain([0,1]).range([215, 225]),
+    r_days_2 = d3.scale.linear().domain([0,1]).range([155, 175]),
+    r_days_3 = d3.scale.linear().domain([0,1]).range([125, 145]),
+    r_days_4 = d3.scale.linear().domain([0,1]).range([95, 115]),
+    r_days_5 = d3.scale.linear().domain([0,1]).range([70, 90]),
+    r_days_6 = d3.scale.linear().domain([0,1]).range([50, 70]),
 
     c0 = d3.scale.linear().domain([0,1]).range(
         ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
@@ -38,8 +38,7 @@ var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
 var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
     ym = d3.scale.linear().domain([0,4]).range([45, dh * 1.618]),
     xr = d3.scale.linear().domain([0,7]).range([0, 200]),
-    yr = d3.scale.linear().domain([0,4]).range([45, dh * 1.618])
-    xmh = d3.scale.linear().domain([0,7]).range([0, 300]);
+    yr = d3.scale.linear().domain([0,4]).range([45, dh * 1.618]);
 
 var xmselector = d3.scale.linear().domain([1, 12]).range([x0, x1]);
 
@@ -164,7 +163,7 @@ function select_date_range(from, to) {
     } else if (N <= 60) {
         style = monthsish;
         indexer = function (d, i) {
-            d.selection_index = d.month - month(to);
+            d.selection_index = d.month - month(from);
             console.log(d.selection_index)
             return d;
         }
@@ -196,11 +195,12 @@ function daysish(n) {
       case 2:
         radius = r_days_2;
         range = [100, 800];
-        margin = 0.75;
+        margin = 1;
         break;
       case 3:
         radius = r_days_3;
         range = [100, 800];
+        margin = .35;
         break;
       case 4:
         radius = r_days_4;
@@ -235,12 +235,14 @@ function daysish(n) {
     return f;
 }
 
+var xmh = d3.scale.linear().domain([0,7]).range([25, 300]);
+
 function monthsish(T) { T
     .delay(function(d) { return 75 * Math.random() })
     .duration(function(d) { return 500 + (500 * Math.random()) })
-    .attr("cx", function(d) { return 100 + 330 * d.selection_index + xmh(d.day_of_week) })
+    .attr("cx", function(d) { return 300 * d.selection_index + xmh(d.day_of_week) })
     .attr("cy", function(d) { return ym(d.week_of_month) })
-    .attr("r", function() { return r_big(Math.random()) })
+    .attr("r", function() { return 18 })
     .call(shiny)
 }
 

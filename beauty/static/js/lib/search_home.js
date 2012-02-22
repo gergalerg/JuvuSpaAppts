@@ -27,23 +27,38 @@ function params_into_object(d, initial) {
 }
 
 function show_tree() {
-    $("#toc_inner").hide("blind", function() {
+    var upper = 300000;
+
+    $("#toc_inner").hide("blind", upper, function() {
         $("#goey").fadeIn();
+        $("#login_head").fadeIn();
     });
 
     tree_node_click(root);
 
     var s = d3.select("#tree").select("svg")
     s.transition()
+    .duration(duration)
     .attr("height", w + m[1] + m[3])
     ;
 
     s.selectAll("g.treebox")
     .transition()
+    .duration(duration)
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
     ;
 
     s.selectAll("g.node").on("click", tree_node_click);
+
+    s.selectAll("text")
+    .transition()
+    .duration(duration)
+    .style("fill-opacity", 0.5)
+    .attr("font-weight", 100)
+    .attr("fill", 'black')
+    .attr("font-size", 16)
+    ;
+
 }
 
 function hide_tree() {
@@ -62,6 +77,15 @@ function hide_tree() {
     $("#goey").fadeOut(function() {
         $("#toc_inner").show("blind");
     });
+
+    s.selectAll("text")
+    .transition()
+    .duration(0)
+    .attr("font-size", 28)
+    .attr("font-weight", 400)
+    .attr("fill", '#2A85E8')
+    .style("fill-opacity", 1)
+    ;
 }
 
 function change_me_node() {
@@ -282,13 +306,13 @@ viewModel.viewing.subscribe(function(view) {
 viewModel.pointed_at_el.subscribe(function(it) {
     if (it) {
         it = d3.select(it);
-        it.transition().call(embiggen);
+        //it.transition().call(embiggen);
     } else if (View.pointed_at) {
         // Don't shrink current day.
         View.pointed_at.filter(function(d) {
             return !viewModel.is_current(d);
         })
-        .transition().call(shrink);
+        //.transition().call(shrink);
     }
     View.pointed_at = it;
 });
@@ -297,7 +321,9 @@ viewModel.current_el.subscribe(function(it) {
     var circ = d3.select(it);
     circ.transition().call(swell);
     if (View.previous) {
-        View.previous.transition().call(shrink).attr("fill-opacity", 0.5);
+        View.previous.transition()
+        //.call(shrink)
+        .attr("fill-opacity", 0.5);
     }
     View.previous = circ;
 });
@@ -338,7 +364,7 @@ var m = [10, 120, 10, 120],
     w = 714 - m[1] - m[3],
     h = 400 - m[0] - m[2],
     i = 0,
-    duration = 500;
+    duration = 300000;
 
 var tree = d3.layout.tree()
     .size([700, w]);
