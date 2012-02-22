@@ -447,6 +447,7 @@ function update(source) {
       .style("fill-opacity", 1);
 
   node.exit().map(function(d) {
+    collapse(d);
     if (_.has(d, "supported")) { d.supported(false) }
     return d;
   });
