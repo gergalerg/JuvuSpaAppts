@@ -27,7 +27,7 @@ function params_into_object(d, initial) {
 }
 
 function show_tree() {
-    var upper = 300000;
+    var upper = duration / 1.16;
 
     $("#toc_inner").hide("blind", upper, function() {
         $("#goey").fadeIn();
@@ -38,14 +38,16 @@ function show_tree() {
 
     var s = d3.select("#tree").select("svg")
     s.transition()
+    .ease("linear")
     .duration(duration)
     .attr("height", w + m[1] + m[3])
     ;
 
     s.selectAll("g.treebox")
     .transition()
-    .duration(duration)
-    .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+    .ease("linear")
+    .duration(duration / 1.8193)
+    .attr("transform", "translate(120,10)");
     ;
 
     s.selectAll("g.node").on("click", tree_node_click);
@@ -53,7 +55,7 @@ function show_tree() {
     s.selectAll("text")
     .transition()
     .duration(duration)
-    .style("fill-opacity", 0.5)
+    .style("fill-opacity", 1)
     .attr("font-weight", 100)
     .attr("fill", 'black')
     .attr("font-size", 16)
@@ -364,7 +366,7 @@ var m = [10, 120, 10, 120],
     w = 714 - m[1] - m[3],
     h = 400 - m[0] - m[2],
     i = 0,
-    duration = 300000;
+    duration = 500;
 
 var tree = d3.layout.tree()
     .size([700, w]);
@@ -423,6 +425,8 @@ function update(source) {
       .attr("dy", ".35em")
       .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
       .text(function(d) { return d.name; })
+      .attr("fill", 'black')
+      .attr("font-size", 16)
       .style("fill-opacity", 1e-6);
 
   // Transition nodes to their new position.
