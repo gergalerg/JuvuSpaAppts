@@ -446,6 +446,11 @@ function update(source) {
   nodeUpdate.select("text")
       .style("fill-opacity", 1);
 
+  node.exit().map(function(d) {
+    if (_.has(d, "supported")) { d.supported(false) }
+    return d;
+  });
+
   // Transition exiting nodes to the parent's new position.
   var nodeExit = node.exit().transition()
       .duration(duration)
