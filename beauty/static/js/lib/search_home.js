@@ -107,10 +107,14 @@ function show_inventory() {
 
     var crit_p = $(".criteria").parent()
 
-    crit_p.switchClass("twelve", "three"); // Shrink the criteria.
+    crit_p.switchClass("twelve", "three");
     $("#show").hide("blind");
-    $("#buts").hide("blind");
-    crit_p.after('<div id="inv" class="six columns">Hi!</div>')
+    $("#buts").hide("blind", function() {
+        crit_p.after('<div id="inv" class="nine columns"></div>')
+        $("#inv").append('<div class="row"> <div class="three columns"> <div class="logo"><img src="/static/a_logo.png"></div> </div> <div class="nine columns"> <div class="row"> <div class="six columns"><div class="spa_name">Barney\'s Spa</div></div> <div class="six columns"><div class="rating">Rating: 7/7</div></div> </div> <div class="row"><div class="twelve columns"> Results!! </div></div> </div> </div>');
+        $("#inv").append('<div class="row"> <div class="three columns"> <div class="logo"><img src="/static/a_logo.png"></div> </div> <div class="nine columns"> <div class="row"> <div class="six columns"><div class="spa_name">Barney\'s Spa</div></div> <div class="six columns"><div class="rating">Rating: 3/7</div></div> </div> <div class="row"><div class="twelve columns"> Results!! </div></div> </div> </div>');
+        $("#inv").append('<div class="row"> <div class="three columns"> <div class="logo"><img src="/static/a_logo.png"></div> </div> <div class="nine columns"> <div class="row"> <div class="six columns"><div class="spa_name">Barney\'s Spa</div></div> <div class="six columns"><div class="rating">Rating: 1/7</div></div> </div> <div class="row"><div class="twelve columns"> Results!! </div></div> </div> </div>');
+    });
 
 }
 
