@@ -4,6 +4,37 @@
 <script src="/static/js/less.js" type="text/javascript"></script>
 <script src="/static/js/lib/dotscal.js" type="text/javascript"></script>
 <script src="/static/js/lib/search_home.js" type="text/javascript"></script>
+
+{# Inventory Display ================================================= #}
+<script id="inv_template" type="text/x-jquery-tmpl">
+<div class="row">
+  <div class="three columns">
+    <div class="logo"><img src="/static/a_logo.png"></div>
+  </div>
+  <div class="nine columns">
+    <div class="row">
+      <div class="six columns"><div class="spa_name">Barneys Spa</div></div>
+      <div class="six columns"><div class="rating">Rating: 3/7</div></div>
+    </div>
+    <div class="row"><div class="twelve columns">
+      <div data-bind="template: {name:'inv_result_template', foreach: results}"></div>
+    </div></div>
+  </div>
+</div>
+</script>
+
+<script id="inv_result_template" type="text/x-jquery-tmpl">
+<div class="row">
+  <div class="four columns"><div class="">Heyo!</div></div>
+  <div class="two columns"><div class="">$1.50</div></div>
+  <div class="two columns"><div class="">137%</div></div>
+  <div class="four columns"><div class="blue-button" data-bind="click:show_inv_cal">Book</div></div>
+</div>
+</script>
+{# ================================================= #}
+
+
+
 <script type="text/javascript">
 //-------------------------------------------------------
 // Static Data
@@ -32,6 +63,8 @@ $(function(){
     $("#discount_options").hide();
     $("#meplus_options").hide();
     $("#login_head").hide();
+    $("#inv").hide();
+    $("#inv_cal").hide();
 
     $("#options_interior").find("a").click(function () { 
       CriteriaControls.hide_when();
@@ -148,6 +181,7 @@ $(function(){
   </div>{# columns #}
 </div>{# row #}
 
+
 <div class="row">
   <div id="toc" class="five columns centered">
    <div id="toc_inner">
@@ -182,105 +216,101 @@ $(function(){
 </div>{# row #}
 {% endblock %}
 
+
+
+
+
 {% block pane_1 %}
-<a
-  data-bind="click: function() { viewModel.time_mode('year');select_year() }"
-  style="cursor:pointer"
-  >Year</a>
+<a data-bind="click: function() { viewModel.time_mode('year');select_year() }"
+  style="cursor:pointer" >Year</a>
 
 <a data-bind="click:show_inventory" style="cursor:pointer" >Inv</a>
 
 <div class="row"><div class="twelve columns">
-<div id="show"></div>
+  <div id="show"></div>
 </div>{# columns #}</div>{# row #}
 
 <div class="row"><div class="twelve columns">
+
 <div class="criteria">
 
+    <div id="where_criteria">
+      <h2 id="where">Where?</h2>
+      <h3><a style="cursor:pointer" id="dist_link">Distance</a></h3>
+      <h3><a style="cursor:pointer">Neighborhood</a></h3>
+      <div id="miles_criteria">
+        <input type="text" name="miles" id="id_miles" class="input-text" size="4" />
+        miles from [ADDRESS] <a href="#">Change Address</a>
+      </div>
+    </div>{# where_criteria #}
 
+    <div id="when_criteria">
+      <h2 id="when">When?</h2>
+      <h3><a id="today">Today</a></h3>
+      <h3><a id="date_range">Date Range</a></h3>
+      <div id="date_criteria">
+        <input name="from_date" id="from_date_cal"/>
+        <input name="to_date" id="to_date_cal"/>
+      </div>{# date_criteria #}
+    </div>{# when_criteria #}
 
+    <div id="options_criteria">
+      <h2 id="options">Options</h2>
+      <div id="options_interior">
 
+        <h4 id="price_header" class="elbowroom"><a href="#" data-bind="click: CriteriaControls.show_price">Price</a></h4>
+        <div style="display:inline-block">
+          <div id="price_options">
+            <input type="text" name="from_price" id="from_price"/>
+            to
+            <input type="text" name="to_price" id="to_price"/>
+          </div>
+        </div>
 
-<div id="where_criteria">
-<h2 id="where">Where?</h2>
-  <h3><a style="cursor:pointer" id="dist_link">Distance</a></h3>
-  <h3><a style="cursor:pointer">Neighborhood</a></h3>
-<div id="miles_criteria">
-  <input type="text" name="miles" id="id_miles" class="input-text" size="4" />
-  miles from [ADDRESS] <a href="#">Change Address</a>
-</div>
-</div>{# where_criteria #}
+        <h4 id="discount_header" class="elbowroom"><a href="#" data-bind="click: CriteriaControls.show_discount">Discount</a></h4>
+        <div style="display:inline-block">
+          <div id="discount_options">
+            <input type="text" name="discount" id="discount"/>%
+          </div>
+        </div>
 
+        <h4 class="elbowroom"><a data-bind="click: CriteriaControls.toggle_amenities">Amenities</a></h4>
 
+        <h4 class="elbowroom"><a class="bool_opt">Credit Cards</a></h4>
+        <h4 class="elbowroom"><a class="bool_opt">Public Trans</a></h4>
+        <h4 class="elbowroom"><a class="bool_opt">Parking</a></h4>
 
+        <h4 id="meplus_header" class="elbowroom"><a data-bind="click: CriteriaControls.show_meplus">Me+</a></h4>
+        <div style="display:inline-block">
+          <div id="meplus_options">
+            <input type="text" name="meplus" id="meplus"/>
+          </div>
+        </div>
 
+      <div id="amenities">
+        <h4 class="elbowroom"><a class="bool_opt">Lockers/Robes</a></h4>
+        <h4 class="elbowroom"><a class="bool_opt">Steam</a></h4>
+        <h4 class="elbowroom"><a class="bool_opt">Sauna</a></h4>
+        <h4 class="elbowroom"><a class="bool_opt">Lounges</a></h4>
+        <h4 class="elbowroom"><a class="bool_opt">Pool</a></h4>
+        <h4 class="elbowroom"><a class="bool_opt">Whirlpool</a></h4>
+      </div>
 
-<div id="when_criteria">
-<h2 id="when">When?</h2>
-  <h3><a id="today">Today</a></h3>
-  <h3><a id="date_range">Date Range</a></h3>
-<div id="date_criteria">
-<input name="from_date" id="from_date_cal"/>
-<input name="to_date" id="to_date_cal"/>
-</div>{# date_criteria #}
-</div>{# when_criteria #}
-
-
-
-
-
-<div id="options_criteria">
-<h2 id="options">Options</h2>
-<div id="options_interior">
-
-    <h4 id="price_header" class="elbowroom"><a href="#" data-bind="click: CriteriaControls.show_price">Price</a></h4>
-    <div style="display:inline-block">
-    <div id="price_options">
-      <input type="text" name="from_price" id="from_price"/>
-      to
-      <input type="text" name="to_price" id="to_price"/>
-    </div>
-    </div>
-
-
-
-    <h4 id="discount_header" class="elbowroom"><a href="#" data-bind="click: CriteriaControls.show_discount">Discount</a></h4>
-    <div style="display:inline-block">
-    <div id="discount_options">
-      <input type="text" name="discount" id="discount"/>%
-    </div>
-    </div>
-
-
-
-    <h4 class="elbowroom"><a data-bind="click: CriteriaControls.toggle_amenities">Amenities</a></h4>
-
-    <h4 class="elbowroom"><a class="bool_opt">Credit Cards</a></h4>
-    <h4 class="elbowroom"><a class="bool_opt">Public Trans</a></h4>
-    <h4 class="elbowroom"><a class="bool_opt">Parking</a></h4>
-    <h4 id="meplus_header" class="elbowroom"><a data-bind="click: CriteriaControls.show_meplus">Me+</a></h4>
-    <div style="display:inline-block">
-    <div id="meplus_options">
-      <input type="text" name="meplus" id="meplus"/>
-    </div>
-    </div>
-
-
-
-<div id="amenities">
-  <h4 class="elbowroom"><a class="bool_opt">Lockers/Robes</a></h4>
-  <h4 class="elbowroom"><a class="bool_opt">Steam</a></h4>
-  <h4 class="elbowroom"><a class="bool_opt">Sauna</a></h4>
-  <h4 class="elbowroom"><a class="bool_opt">Lounges</a></h4>
-  <h4 class="elbowroom"><a class="bool_opt">Pool</a></h4>
-  <h4 class="elbowroom"><a class="bool_opt">Whirlpool</a></h4>
-</div>
-
-</div>{# options_interior #}
-</div>{# options_criteria #}
+    </div>{# options_interior #}
+  </div>{# options_criteria #}
 
 </div>{# criteria #}
+</div>{# columns #}
 
+<div id="inv" class="columns">
+<div data-bind="template: {name:'inv_template', foreach: fake_results}"></div>
+</div>{# inv #}
+
+<div id="inv_cal" class="columns">
+Yo! Ima result!!
+</div>{# inv_cal #}
+
+</div>{# row #}
 <div class="row">
 <div class="nine columns"></div>
 <div class="three columns">

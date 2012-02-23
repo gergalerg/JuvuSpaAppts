@@ -104,18 +104,21 @@ function change_me_node() {
 }
 
 function show_inventory() {
-
-    var crit_p = $(".criteria").parent()
-
+    var crit_p = $(".criteria").parent();
+    var inv = $("#inv");
     crit_p.switchClass("twelve", "three");
     $("#show").hide("blind");
     $("#buts").hide("blind", function() {
-        crit_p.after('<div id="inv" class="nine columns"></div>')
-        $("#inv").append('<div class="row"> <div class="three columns"> <div class="logo"><img src="/static/a_logo.png"></div> </div> <div class="nine columns"> <div class="row"> <div class="six columns"><div class="spa_name">Barney\'s Spa</div></div> <div class="six columns"><div class="rating">Rating: 7/7</div></div> </div> <div class="row"><div class="twelve columns"> Results!! </div></div> </div> </div>');
-        $("#inv").append('<div class="row"> <div class="three columns"> <div class="logo"><img src="/static/a_logo.png"></div> </div> <div class="nine columns"> <div class="row"> <div class="six columns"><div class="spa_name">Barney\'s Spa</div></div> <div class="six columns"><div class="rating">Rating: 3/7</div></div> </div> <div class="row"><div class="twelve columns"> Results!! </div></div> </div> </div>');
-        $("#inv").append('<div class="row"> <div class="three columns"> <div class="logo"><img src="/static/a_logo.png"></div> </div> <div class="nine columns"> <div class="row"> <div class="six columns"><div class="spa_name">Barney\'s Spa</div></div> <div class="six columns"><div class="rating">Rating: 1/7</div></div> </div> <div class="row"><div class="twelve columns"> Results!! </div></div> </div> </div>');
+        inv.show("blind");
+        inv.addClass("nine", 500);
     });
+}
 
+function show_inv_cal() {
+    var inv = $("#inv");
+    inv.hide("slide", function() {
+        $("#inv_cal").fadeIn();
+    });
 }
 
 //-------------------------------------------------------
@@ -198,6 +201,13 @@ var SpaProcedure = function(options) {
 // View Model
 //
 
+var fake_results = [
+    {results: [5, 3]},
+    {results: [ 1, 2, 3]},
+    {results: [ 2, 3]},
+    {results: [ 2, 3, 4, 5, 6, 7]},
+];
+
 var viewModel = {
 
     // Track the current "view" the user is looking at.
@@ -221,6 +231,8 @@ var viewModel = {
 	is_current: function(d) {
 	    return viewModel.current() == d.label;
 	},
+
+	fake_results: ko.observableArray(fake_results),
 };
 
 
