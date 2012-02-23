@@ -376,17 +376,42 @@ var diagonal = d3.svg.diagonal()
 
 // Toggle tree children on click.
 function tree_node_click(d) {
+
   if (!_.has(d, "children")) {
     d.supported(!d.supported());
+    if (_.has(d, "parent")) { unselect_other(d.parent, d); };
+
   } else if (d.children) {
+    d.supported(!d.supported());
+    if (_.has(d, "parent")) { unselect_other(d.parent, d); };
     d._children = d.children;
     d.children = null;
+
   } else {
     d.children = d._children;
     d._children = null;
   }
+
   update(d);
 }
+
+function attach_parents(n) {
+    if (!_.has(n, "children")) { return };
+    _.map(n.children, function(child) { child.parent = n; });
+}
+
+function unselect_other(me, d) {
+    var ginger = _.filter(me.children, function(child) { return (d !== child) })
+    _.map(ginger, unselecty);
+    if (_.has(me, "parent")) { unselect_other(me.parent, me); };
+}
+
+function unselecty(d) {
+    d.supported(false);
+    if (_.has(d, "children")) { _.map(d.children, unselecty); };
+}
+
+
 
 function collapse(d) {
     if (d.children) {
@@ -437,7 +462,7 @@ function update(source) {
   nodeUpdate.select("circle")
       .attr("r", 8)
       .style("fill", function(d) {
-          if (d.children || _.has(d, "supported") && d.supported()) {
+          if (_.has(d, "supported") && d.supported()) {
               return "lightsteelblue";
           }
           return "#eef";

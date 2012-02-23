@@ -14,6 +14,8 @@ var root = {{ tree_data|safe }};
 // Convert the (server-embedded) JSON to KO models.
 root.children = _.map(root.children, function(n) { return new SpaProcedure(n); });
 
+attach_parents(root);
+
 $(function(){
 
     $("#main_frame").hide();
