@@ -103,6 +103,17 @@ function change_me_node() {
     node.on("click", show_tree);
 }
 
+function show_inventory() {
+
+    var crit_p = $(".criteria").parent()
+
+    crit_p.switchClass("twelve", "three"); // Shrink the criteria.
+    $("#show").hide("blind");
+    $("#buts").hide("blind");
+    crit_p.after('<div id="inv" class="six columns">Hi!</div>')
+
+}
+
 //-------------------------------------------------------
 // RDF Processing.
 //
