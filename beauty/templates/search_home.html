@@ -33,6 +33,24 @@
 </script>
 {# ================================================= #}
 
+{# Inventory Calendar Display ================================================= #}
+<script id="inv_cal_template" type="text/x-jquery-tmpl">
+<div class="three columns">
+  <div class="date" data-bind="text:date_str"></div>
+  <div class="inv_cal_res_details" data-bind="template: {name:'inv_cal_result_template', foreach: results}"></div>
+</div>
+</script>
+
+<script id="inv_cal_result_template" type="text/x-jquery-tmpl">
+<div class="row">
+<div class="twelve columns">
+  <div class="timey" data-bind="text:time"></div>
+  <div class="pricey" data-bind="text:price"></div>
+</div>
+</div>
+</script>
+{# ================================================= #}
+
 
 
 <script type="text/javascript">
@@ -306,8 +324,8 @@ $(function(){
 <div data-bind="template: {name:'inv_template', foreach: fake_results}"></div>
 </div>{# inv #}
 
-<div id="inv_cal" class="columns">
-Yo! Ima result!!
+<div id="inv_cal" class="nine columns">
+<div data-bind="template: {name:'inv_cal_template', foreach: fake_cal_results}"></div>
 </div>{# inv_cal #}
 
 </div>{# row #}

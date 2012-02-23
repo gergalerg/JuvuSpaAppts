@@ -208,6 +208,29 @@ var fake_results = [
     {results: [ 2, 3, 4, 5, 6, 7]},
 ];
 
+var fake_cal_results = [
+    {date_str: 'Monday 2/20', results: [
+        {time: '9:30am', price: '$1.42'},
+        {time: '10:30am', price: '$1.42'},
+        {time: '10:32am', price: '$1.42'},
+        {time: '10:37am', price: '$1.42'},
+        {time: '4:30pm', price: '$1000.00'},
+        ]
+    },
+    {date_str: 'Tuesday 2/21', results: [
+        {time: '9:30am', price: '$1.42'},
+        {time: '4:30pm', price: '$1000.00'},
+        ]
+    },
+    {date_str: 'Wednesday 2/22', results: [
+        {time: '9:30am', price: '$1.42'},
+        {time: '10:30am', price: '$1.42'},
+        {time: '4:30pm', price: '$1000.00'},
+        {time: '5:30pm', price: '$1000.00'},
+        ]
+    },
+];
+
 var viewModel = {
 
     // Track the current "view" the user is looking at.
@@ -233,6 +256,7 @@ var viewModel = {
 	},
 
 	fake_results: ko.observableArray(fake_results),
+	fake_cal_results: ko.observableArray(fake_cal_results),
 };
 
 
