@@ -359,13 +359,13 @@ viewModel.viewing.subscribe(function(view) {
 viewModel.pointed_at_el.subscribe(function(it) {
     if (it) {
         it = d3.select(it);
-        //it.transition().call(embiggen);
+        it.transition().call(embiggen);
     } else if (View.pointed_at) {
         // Don't shrink current day.
         View.pointed_at.filter(function(d) {
             return !viewModel.is_current(d);
         })
-        //.transition().call(shrink);
+        .transition().call(shrink);
     }
     View.pointed_at = it;
 });
@@ -375,7 +375,7 @@ viewModel.current_el.subscribe(function(it) {
     circ.transition().call(swell);
     if (View.previous) {
         View.previous.transition()
-        //.call(shrink)
+        .call(shrink)
         .attr("fill-opacity", 0.5);
     }
     View.previous = circ;
