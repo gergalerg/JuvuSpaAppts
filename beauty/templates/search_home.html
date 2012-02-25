@@ -83,6 +83,7 @@ $(function(){
     $("#login_head").hide();
     $("#inv").hide();
     $("#inv_cal").hide();
+    $("#buts").hide();
 
     $("#options_interior").find("a").click(function () { 
       CriteriaControls.hide_when();
@@ -243,6 +244,8 @@ $(function(){
   style="cursor:pointer" >Year</a>
 
 <a data-bind="click:show_inventory" style="cursor:pointer" >Inv</a>
+
+<span id="date_label"></span>
 
 <div class="row"><div class="twelve columns">
   <div id="show"></div>

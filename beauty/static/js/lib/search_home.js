@@ -370,6 +370,12 @@ viewModel.pointed_at_el.subscribe(function(it) {
     View.pointed_at = it;
 });
 
+viewModel.pointed_at.subscribe(function(date_label) {
+    if (!!date_label && viewModel.time_mode() == "selection") {
+        $("#date_label").html(date_label)
+    }
+});
+
 viewModel.current_el.subscribe(function(it) {
     var circ = d3.select(it);
     circ.transition().call(swell);
@@ -609,7 +615,7 @@ function mouse_bindings(T) { T
     })
 	.on("mouseout", function(d) {
         var c = viewModel.current();
-        viewModel.pointed_at((c != "") ? c : "Select Date");
+        viewModel.pointed_at(c);
         viewModel.pointed_at_el(false);
     })
 	.on("click", function(d) {
@@ -711,7 +717,10 @@ var CriteriaControls = {
     show_when: function () { $("#when_criteria").fadeIn(); },
     hide_when: function () { hide_it("#date_criteria", "#when_criteria > h3", "#when") },
 
-    show_options: function () { show_it("#options", "#options_interior") },
+    show_options: function () {
+        show_it("#options", "#options_interior");
+        $("#buts").fadeIn();
+    },
     hide_options: function () { hide_it("#amenities", "#options_interior", "#options") },
 
     show_miles: function () { $("#miles_criteria").fadeIn(); },
