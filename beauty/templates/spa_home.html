@@ -148,6 +148,10 @@ function params_into_object(d, initial) {
     });
 }
 
+function toggle_resources() {
+    $("#resource_picker_inner").toggle("blind");
+};
+
 
 //-------------------------------------------------------
 // RDF Processing.
@@ -433,6 +437,7 @@ $(function(){
 
     $("#main_frame").hide();
     $(".pane").hide();
+    $("#resource_picker_inner").hide();
 
     ko.applyBindings(viewModel);
 
@@ -526,6 +531,15 @@ $(function(){
         <label for="nickname">Name:</label><input name="nickname" class="input-text" type="text" data-bind="value:current_proc().nickname" placeholder="None Selected"><br>
         <label for="price">Price:</label><input name="price" class="input-text" type="text" data-bind="value:current_proc().price" placeholder="Price"><br>
         <label for="duration">Minutes:</label><input name="duration" class="input-text" type="text" data-bind="value:current_proc().duration" placeholder="Duration"><br>
+        <div id="resource_picker">
+          <a style="cursor:pointer" data-bind="click:toggle_resources">resources</a>
+          <div id="resource_picker_inner">
+            <input type="checkbox" class="" id="id_Tissue" name="Tissue"><label for="id_Tissue">Tissue</label><br>
+            <input type="checkbox" class="" id="id_Wax" name="Wax"><label for="id_Wax">Wax</label><br>
+            <input type="checkbox" class="" id="id_Towel" name="Towel"><label for="id_Towel">Towel</label><br>
+          </div>
+        </div>
+        <br>
         <button id="add_proc" data-bind="click: add_subtype">Add</button>
         <button id="del_proc">Delete</button>
     </form>
