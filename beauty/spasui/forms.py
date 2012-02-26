@@ -11,3 +11,8 @@ class SpaInfoForm(forms.Form):
     email_contact = forms.EmailField()
     pictures = forms.CharField(max_length=100)
     description = forms.CharField(max_length=100)
+    cancel_policy = forms.CharField(
+        max_length=2000,
+        label="Cancellation Policy",
+        widget=forms.Textarea,
+        )
