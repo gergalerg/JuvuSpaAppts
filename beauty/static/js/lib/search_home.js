@@ -367,14 +367,12 @@ viewModel.pointed_at_el.subscribe(function(it) {
             return !viewModel.is_current(d);
         })
         .transition().call(shrink);
-        /**/
         if (viewModel.time_mode() == "selection") {
             vis3.selectAll("text.date_label")
             .transition()
             .attr("fill-opacity", 0)
             .remove();
         }
-        
     }
     View.pointed_at = it;
 });
@@ -419,12 +417,6 @@ function date_labelize(S) { S
         .attr("x", x)
         .attr("dy", 20)
         ;
-
-/*
-         .attr("dx", -3) // padding-right
-         .attr("dy", ".35em") // vertical-align: middle
-         .attr("text-anchor", "end") // text-align: right
-*/
 }
 
 
