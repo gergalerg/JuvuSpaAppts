@@ -62,6 +62,15 @@
 </script>
 {# ================================================= #}
 
+{# Staff Classes Display ================================================= #}
+<script id="staff_classes_template" type="text/x-jquery-tmpl">
+<li data-bind="text:name"></li>
+</script>
+<script id="staff_classes_checkbox_template" type="text/x-jquery-tmpl">
+<input type="checkbox" data-bind="attr:{id:('id_'+name), name:name}" ><label data-bind="text:name, attr:{for:('id_'+name)}"></label><br>
+</script>
+{# ================================================= #}
+
 <script type="text/javascript">
 
 
@@ -150,6 +159,10 @@ function params_into_object(d, initial) {
 
 function toggle_resources() {
     $("#resource_picker_inner").toggle("blind");
+};
+
+function toggle_staff_classs() {
+    $("#staff_class_picker_inner").toggle("blind");
 };
 
 
@@ -307,6 +320,7 @@ var viewModel = {
     // Staff members, and currently selected staff member.
     staff: ko.observableArray(staff),
     current_staff_member: ko.observable({}),
+    staff_classes: ko.observableArray(),
 
     // Display the time corresponding to the mouse position on the calendar pane.
     mouse_time: ko.observableArray(),
@@ -336,7 +350,7 @@ var viewModel = {
     add_class: function() {
         var new_class = $("#id_add_class").val();
         if (!new_class) { return }
-        $("#staff_classes").append("<li>" + new_class + "</li>");
+        viewModel.staff_classes.push({name:new_class});
     },
 };
 
@@ -437,7 +451,7 @@ $(function(){
 
     $("#main_frame").hide();
     $(".pane").hide();
-    $("#resource_picker_inner").hide();
+    $(".picker_inner").hide();
 
     ko.applyBindings(viewModel);
 
@@ -509,7 +523,7 @@ $(function(){
   <td>
     <input id="id_add_class" type="text" name="add_class_name" maxlength="100" />
     <button id="add_class" data-bind="click: add_class">Add</button>
-    <ul id="staff_classes"></ul>
+    <ul id="staff_classes" data-bind="template: {name:'staff_classes_template', foreach: staff_classes}"></ul>
   </td>
 </tr>
 </form></table>
@@ -533,11 +547,15 @@ $(function(){
         <label for="duration">Minutes:</label><input name="duration" class="input-text" type="text" data-bind="value:current_proc().duration" placeholder="Duration"><br>
         <div id="resource_picker">
           <a style="cursor:pointer" data-bind="click:toggle_resources">resources</a>
-          <div id="resource_picker_inner">
+          <div id="resource_picker_inner" class="picker_inner">
             <input type="checkbox" class="" id="id_Tissue" name="Tissue"><label for="id_Tissue">Tissue</label><br>
             <input type="checkbox" class="" id="id_Wax" name="Wax"><label for="id_Wax">Wax</label><br>
             <input type="checkbox" class="" id="id_Towel" name="Towel"><label for="id_Towel">Towel</label><br>
           </div>
+        </div>
+        <div id="staff_class_picker">
+          <a style="cursor:pointer" data-bind="click:toggle_staff_classs">staff_classs</a>
+          <div id="staff_class_picker_inner" class="picker_inner" data-bind="template: {name:'staff_classes_checkbox_template', foreach: staff_classes}"></div>
         </div>
         <br>
         <button id="add_proc" data-bind="click: add_subtype">Add</button>
