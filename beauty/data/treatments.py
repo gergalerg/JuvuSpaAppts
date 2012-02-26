@@ -13,7 +13,6 @@ TREEd = {'children': [
         {'supported': False, 'name': 'Deep Tissue'},
         {'supported': False, 'name': 'Hot Stone'},
         {'supported': False, 'name': 'Reflexology'},
-        {'supported': False, 'name': 'Happy Ending'},
         ],
      'name': 'Massage'
      },
