@@ -237,6 +237,7 @@ var SpaProcedure = function(options) {
 
     this.toggle = function() {
         this.supported(!this.supported());
+        this.make_current();
     }
 
     this.make_current = function() {
