@@ -327,6 +327,12 @@ var viewModel = {
             $("#staff_name").effect('highlight');
         }
     },
+
+    add_class: function() {
+        var new_class = $("#id_add_class").val();
+        if (!new_class) { return }
+        $("#staff_classes").append("<li>" + new_class + "</li>");
+    },
 };
 
 viewModel.someone_selected = ko.dependentObservable(function() {
@@ -441,6 +447,7 @@ $(function(){
     setup_button("button#add_staff", 'ui-icon-circle-plus');
     setup_button("button#add_proc", 'ui-icon-circle-plus');
     setup_button("button#del_proc", 'ui-icon-circle-close');
+    setup_button("button#add_class", 'ui-icon-circle-plus');
 
     var vis = d3.select("#show")
         .append("svg:svg")
@@ -490,7 +497,16 @@ $(function(){
 {% endblock %}
 
 {% block pane_0 %}
-<table><form class="nice">{{ form }}</form></table>
+<table><form class="nice">{{ form }}
+<tr>
+  <th><label for="id_add_class">Add Staff Class:</label></th>
+  <td>
+    <input id="id_add_class" type="text" name="add_class_name" maxlength="100" />
+    <button id="add_class" data-bind="click: add_class">Add</button>
+    <ul id="staff_classes"></ul>
+  </td>
+</tr>
+</form></table>
 {% endblock %}
 
 {% block pane_1 %}<div class="row">
