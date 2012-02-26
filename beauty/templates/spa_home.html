@@ -522,19 +522,13 @@ $(function(){
 <div class="five columns"><div class="magic">
 <div class="proc_detail">
     <h3 data-bind="text: current_proc().name"></h3>
-    <h5>Details</h5>
-        <div class="sub_proc" data-bind="visible:current_proc().supported">
-            <span data-bind="text:current_proc().nickname"></span>
-            <span data-bind="text:current_proc().formatted_price"></span>
-            <span data-bind="text:current_proc().duration"></span>
-        </div>
-        <form id="add_subtype" class="nice">
-            <label for="nickname">A.k.a.:</label><input name="nickname" class="input-text" type="text" data-bind="value:current_proc().nickname" placeholder="None Selected"><br>
-            <label for="price">Price:</label><input name="price" class="input-text" type="text" data-bind="value:current_proc().price" placeholder="Price"><br>
-            <label for="duration">Minutes:</label><input name="duration" class="input-text" type="text" data-bind="value:current_proc().duration" placeholder="Duration"><br>
-            <button id="add_proc" data-bind="click: add_subtype">Add</button>
-            <button id="del_proc">Delete</button>
-        </form>
+    <form id="add_subtype" class="nice">
+        <label for="nickname">Name:</label><input name="nickname" class="input-text" type="text" data-bind="value:current_proc().nickname" placeholder="None Selected"><br>
+        <label for="price">Price:</label><input name="price" class="input-text" type="text" data-bind="value:current_proc().price" placeholder="Price"><br>
+        <label for="duration">Minutes:</label><input name="duration" class="input-text" type="text" data-bind="value:current_proc().duration" placeholder="Duration"><br>
+        <button id="add_proc" data-bind="click: add_subtype">Add</button>
+        <button id="del_proc">Delete</button>
+    </form>
 </div>{# proc_detail #}
 </div>{# magic #}</div>{# columns #}
 
