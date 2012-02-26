@@ -360,12 +360,21 @@ viewModel.pointed_at_el.subscribe(function(it) {
     if (it) {
         it = d3.select(it);
         it.transition().call(embiggen);
+        if (viewModel.time_mode() == "selection") { date_labelize(it) };
     } else if (View.pointed_at) {
         // Don't shrink current day.
         View.pointed_at.filter(function(d) {
             return !viewModel.is_current(d);
         })
         .transition().call(shrink);
+        /**/
+        if (viewModel.time_mode() == "selection") {
+            vis3.selectAll("text.date_label")
+            .transition()
+            .attr("fill-opacity", 0)
+            .remove();
+        }
+        
     }
     View.pointed_at = it;
 });
@@ -386,6 +395,63 @@ viewModel.current_el.subscribe(function(it) {
     }
     View.previous = circ;
 });
+
+function date_labelize(S) { S
+    var x = S.attr("cx");
+    var y = 100 + 1 * S.attr("cy");
+    var weekday_label, day_label;
+    S.map(function(d) {
+        weekday_label = d.weekday_label;
+        day_label = d.day_label;
+        return d;
+    });
+    console.log(x, y, weekday_label, day_label);
+    var text = vis3.append("svg:text");
+    text.attr("class", "date_label")
+        .attr("x", x)
+        .attr("y", y)
+        .attr("font-size", 16)
+        .attr("fill-opacity", 1)
+        .attr("text-anchor", "middle")
+        ;
+    text.append("svg:tspan").text(weekday_label);
+    text.append("svg:tspan").text(day_label)
+        .attr("x", x)
+        .attr("dy", 20)
+        ;
+
+/*
+         .attr("dx", -3) // padding-right
+         .attr("dy", ".35em") // vertical-align: middle
+         .attr("text-anchor", "end") // text-align: right
+*/
+}
+
+
+//-------------------------------------------------------
+// Mouse bindings for the day-circles.
+// Mostly to de-couple the viewModel logic from the d3 transitions that
+// animate it.
+
+function mouse_bindings(T) { T
+	.on("mouseover", function(d) {
+        viewModel.pointed_at(d.label);
+        viewModel.pointed_at_el(this);
+    })
+	.on("mouseout", function(d) {
+        var c = viewModel.current();
+        viewModel.pointed_at(c);
+        viewModel.pointed_at_el(false);
+    })
+	.on("click", function(d) {
+        if (!viewModel.is_current(d)) {
+            viewModel.current(d.label);
+            viewModel.current_el(this);
+            routes.navigate("day/" + d.day_of_year, true);
+        }
+    });
+}
+
 
 //-------------------------------------------------------
 // Route URLs.
@@ -596,6 +662,8 @@ var data = jQuery.map(year, function(d, i) {
         "day_of_month": mday(d),
         "day_of_year": +yday(d),
         "label": format(d),
+        "weekday_label": wday_format(d),
+        "day_label": day_format(d),
         "date": d,
     };
     var months_week = week(new Date(2012, datum.month, 1));
@@ -604,55 +672,7 @@ var data = jQuery.map(year, function(d, i) {
 });
 
 //-------------------------------------------------------
-// Mouse bindings for the day-circles.
-// Mostly to de-couple the viewModel logic from the d3 transitions that
-// animate it.
-
-function mouse_bindings(T) { T
-	.on("mouseover", function(d) {
-        viewModel.pointed_at(d.label);
-        viewModel.pointed_at_el(this);
-    })
-	.on("mouseout", function(d) {
-        var c = viewModel.current();
-        viewModel.pointed_at(c);
-        viewModel.pointed_at_el(false);
-    })
-	.on("click", function(d) {
-        if (!viewModel.is_current(d)) {
-            viewModel.current(d.label);
-            viewModel.current_el(this);
-            routes.navigate("day/" + d.day_of_year, true);
-        }
-    });
-}
-
-//-------------------------------------------------------
-// Mouse bindings for the Month Tabs.
-// Mostly to de-couple the viewModel logic from the d3 transitions that
-// animate it.
-
-function month_mouse_bindings(T) { T
-	.on("mouseover", function(d) {
-	    console.log(this);
-/*    })
-	.on("mouseout", function(d) {
-        var c = viewModel.current();
-        viewModel.pointed_at((c != "") ? c : "Select Date");
-        viewModel.pointed_at_el(false);
-    })
-	.on("click", function(d) {
-        if (!viewModel.is_current(d)) {
-            viewModel.current(d.label);
-            viewModel.current_el(this);
-            routes.navigate("day/" + d.day_of_year, true);
-        }
-*/    });
-}
-
-
-//-------------------------------------------------------
-// Initial bootstrap.
+// 
 //
 
 

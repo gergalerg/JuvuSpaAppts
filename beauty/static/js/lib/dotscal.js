@@ -7,7 +7,9 @@ var day = d3.time.format("%w"),
     _month = d3.time.format("%m"),
     mday = d3.time.format("%d"),
     yday = d3.time.format("%j"),
-    format = d3.time.format("%A, %B %d %Y");
+    format = d3.time.format("%A\n%B %d %Y"),
+    wday_format = d3.time.format("%A"),
+    day_format = d3.time.format("%B %d %Y");
 
 function month(d) { return _month(d) - 1 }
 
