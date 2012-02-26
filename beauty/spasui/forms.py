@@ -11,5 +11,3 @@ class SpaInfoForm(forms.Form):
     email_contact = forms.EmailField()
     pictures = forms.CharField(max_length=100)
     description = forms.CharField(max_length=100)
-    wheelchair_accessible = forms.BooleanField(required=False)
-    espanol = forms.BooleanField(required=False)
