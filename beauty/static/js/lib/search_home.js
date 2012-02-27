@@ -121,6 +121,28 @@ function show_inv_cal() {
     });
 }
 
+function update_amenities(amenities) {
+    switch (amenities.length) {
+        case 0:
+            viewModel.bok("");
+            viewModel.clack([]);
+            break;
+        case 1:
+            viewModel.bok(amenities[0]);
+            viewModel.clack([]);
+            break;
+        default:
+            viewModel.bok("Amenities");
+            viewModel.clack(amenities);
+    }
+}
+
+function setup_bool_opt(elements) {
+    $(elements).find(".bool_opt").click(function() {
+        $(this).toggleClass("selected");
+    })
+}
+
 //-------------------------------------------------------
 // RDF Processing.
 //
@@ -183,6 +205,10 @@ var SpaProcedure = function(options) {
         this.duration = ko.observable(options.duration);
     }
 
+    if (!_.isUndefined(options.amenities)) {
+        this.amenities = options.amenities;
+    }
+
     this.formatted_price = ko.dependentObservable(function() {
         return "$" + (+this.price()).toFixed(2);
     }, this);
@@ -233,6 +259,9 @@ var fake_cal_results = [
 
 var viewModel = {
 
+	clack: ko.observableArray([]),
+	bok: ko.observable(""),
+
     // Track the current "view" the user is looking at.
     viewing: ko.observable(),
 
@@ -257,6 +286,7 @@ var viewModel = {
 
 	fake_results: ko.observableArray(fake_results),
 	fake_cal_results: ko.observableArray(fake_cal_results),
+
 };
 
 
@@ -491,7 +521,6 @@ var diagonal = d3.svg.diagonal()
 
 // Toggle tree children on click.
 function tree_node_click(d) {
-
   if (!_.has(d, "children")) {
     d.supported(!d.supported());
     if (_.has(d, "parent")) { unselect_other(d.parent, d); };
@@ -507,6 +536,7 @@ function tree_node_click(d) {
     d._children = null;
   }
 
+  set_amenities(d)
   update(d);
 }
 
@@ -526,7 +556,14 @@ function unselecty(d) {
     if (_.has(d, "children")) { _.map(d.children, unselecty); };
 }
 
-
+function set_amenities(d) {
+  console.log("set_amenities", d);
+  if (_.has(d, "amenities")) {
+    update_amenities(d.amenities)
+  } else {
+    if (_.has(d, "parent")) { set_amenities(d.parent); };
+  }
+}
 
 function collapse(d) {
     if (d.children) {
@@ -759,9 +796,17 @@ var CriteriaControls = {
     },
 
     toggle_amenities: function () {
-        $("#amenities").toggle("fold");
+        if (viewModel.bok() == "Amenities") {
+            $("#amenities").toggle("fold");
+        } else {
+            $("#amenities_tab").find("a").toggleClass("selected");
+        }
     },
 }
 
-
+viewModel.bok.subscribe(function(t) {
+    if (t == "Amenities") {
+        $("#amenities_tab").find("a").removeClass("selected");
+    }
+});
 

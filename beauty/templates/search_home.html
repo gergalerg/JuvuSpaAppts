@@ -51,6 +51,12 @@
 </script>
 {# ================================================= #}
 
+{# Amenity Display ================================================= #}
+<script id="amenity_template" type="text/x-jquery-tmpl">
+<h4 class="elbowroom"><a class="bool_opt" data-bind="text: $data"></a></h4>
+</script>
+{# ================================================= #}
+
 
 
 <script type="text/javascript">
@@ -295,7 +301,7 @@ $(function(){
           </div>
         </div>
 
-        <h4 class="elbowroom"><a data-bind="click: CriteriaControls.toggle_amenities">Amenities</a></h4>
+        <h4 id="amenities_tab" class="elbowroom" data-bind="visible:bok"><a data-bind="text:bok, click: CriteriaControls.toggle_amenities">Amenities</a></h4>
 
         <h4 class="elbowroom"><a class="bool_opt">Credit Cards</a></h4>
         <h4 class="elbowroom"><a class="bool_opt">Public Trans</a></h4>
@@ -308,14 +314,7 @@ $(function(){
           </div>
         </div>
 
-      <div id="amenities">
-        <h4 class="elbowroom"><a class="bool_opt">Lockers/Robes</a></h4>
-        <h4 class="elbowroom"><a class="bool_opt">Steam</a></h4>
-        <h4 class="elbowroom"><a class="bool_opt">Sauna</a></h4>
-        <h4 class="elbowroom"><a class="bool_opt">Lounges</a></h4>
-        <h4 class="elbowroom"><a class="bool_opt">Pool</a></h4>
-        <h4 class="elbowroom"><a class="bool_opt">Whirlpool</a></h4>
-      </div>
+      <div id="amenities" data-bind="template: {name:'amenity_template', foreach: clack, afterRender: setup_bool_opt}"></div>
 
     </div>{# options_interior #}
   </div>{# options_criteria #}

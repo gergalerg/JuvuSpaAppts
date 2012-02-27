@@ -14,10 +14,17 @@ TREEd = {'children': [
         {'supported': False, 'name': 'Hot Stone'},
         {'supported': False, 'name': 'Reflexology'},
         ],
-     'name': 'Massage'
+     'name': 'Massage',
+     'amenities': [
+         'Lockers/Robes',
+         'Steam/Sauna',
+         'Showers',
+         'Pool',
+         ]
      },
 
-    {'name': 'Face', 'children': [
+    {'name': 'Face',
+     'children': [
         {'supported': False, 'name': 'Facials'},
         {'name': 'Lashes & Brows', 'children': [
             {'supported': False, 'name': 'Lash Extensions'},
@@ -41,7 +48,8 @@ TREEd = {'children': [
             {'supported': False, 'name': 'Permanent Makeup'}
             ]
          }
-        ]
+        ],
+     'amenities': ['Lockers/Robes']
      },
 
     {'children': [
@@ -53,7 +61,8 @@ TREEd = {'children': [
         {'supported': False, 'name': 'Straightening'},
         {'supported': False, 'name': 'Mens Cut'}
         ],
-     'name': 'Hair'
+     'name': 'Hair',
+     'amenities': ['Wine']
      },
 
     {'children': [
@@ -70,7 +79,8 @@ TREEd = {'children': [
         {'supported': False, 'name': 'Sugaring'},
         {'supported': False, 'name': 'Electrolysis'}
         ],
-     'name': 'Hair Removal'
+     'name': 'Hair Removal',
+     'amenities': ['Wine']
      },
 
     {'children': [
@@ -81,7 +91,8 @@ TREEd = {'children': [
         {'supported': False, 'name': 'Gels'},
         {'supported': False, 'name': 'Acrylics'}
         ],
-     'name': 'Nails'
+     'name': 'Nails',
+     'amenities': ['Wine']
      },
 
     {'children': [
@@ -95,7 +106,13 @@ TREEd = {'children': [
         {'supported': False, 'name': 'Abs & Targeted Area Classes'},
         {'supported': False, 'name': 'Personal Training'}
         ],
-     'name': 'Fitness'
+     'name': 'Fitness',
+     'amenities': [
+         'Lockers/Robes',
+         'Steam/Sauna',
+         'Showers',
+         'Pool',
+         ]
      },
 
     {'children': [
@@ -104,7 +121,8 @@ TREEd = {'children': [
         {'supported': False, 'name': 'Colonics'},
         {'supported': False, 'name': 'Weight Loss'}
         ],
-     'name': 'Alternative Wellness'
+     'name': 'Alternative Wellness',
+     'amenities': []
      },
 
     {'children': [
@@ -117,14 +135,16 @@ TREEd = {'children': [
         {'supported': False, 'name': 'Wraps'},
         {'supported': False, 'name': 'Back Facials'}
         ],
-     'name': 'Body Treatments'
+     'name': 'Body Treatments',
+     'amenities': ['Showers']
      },
 
     {'children': [
         {'supported': False, 'name': 'Cleaning'},
         {'supported': False, 'name': 'Whitening'}
         ],
-     'name': 'Dental'
+     'name': 'Dental',
+     'amenities': []
      }
 
     ],
