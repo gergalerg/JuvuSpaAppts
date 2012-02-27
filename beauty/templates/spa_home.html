@@ -28,6 +28,14 @@
 </script>
 
 {# Treatments Outline Display ================================================= #}
+<script id="proc_template3" type="text/x-jquery-tmpl">
+<div class="proc">
+  <input type="checkbox" data-bind="attr:{id:('id_'+nickname()), name:nickname}" />
+  <label data-bind="text:nickname, attr:{for:('id_'+nickname())}"></label>
+  <a style="cursor:pointer" data-bind="click:make_current">@</a>
+</div>
+</script>
+
 <script id="proc_template2" type="text/x-jquery-tmpl">
 <div class="proc" data-bind="click:make_current">
     <span data-bind="text:nickname"></span>
@@ -163,6 +171,10 @@ function toggle_resources() {
 
 function toggle_staff_classs() {
     $("#staff_class_picker_inner").toggle("blind");
+};
+
+function toggle_addon_procs() {
+    $("#addon_procs_picker_inner").toggle("blind");
 };
 
 
@@ -554,9 +566,15 @@ $(function(){
           </div>
         </div>
         <div id="staff_class_picker">
-          <a style="cursor:pointer" data-bind="click:toggle_staff_classs">staff_classs</a>
+          <a style="cursor:pointer" data-bind="click:toggle_staff_classs">staff class</a>
           <div id="staff_class_picker_inner" class="picker_inner" data-bind="template: {name:'staff_classes_checkbox_template', foreach: staff_classes}"></div>
         </div>
+
+        <div id="addon_procs_picker">
+          <a style="cursor:pointer" data-bind="click:toggle_addon_procs">add-on services</a>
+          <div id="addon_procs_picker_inner" class="picker_inner" data-bind="template: {name:'proc_template3', foreach: supported_procs}"></div>
+        </div>
+
         <br>
         <button id="add_proc" data-bind="click: add_subtype">Add</button>
         <button id="del_proc">Delete</button>
