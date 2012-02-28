@@ -67,8 +67,8 @@
 
 {# Accordion Display ================================================= #}
 <script id="accordion_proc_template" type="text/x-jquery-tmpl">
-<input class="tile" type="checkbox" data-bind="event: {change:toggle}, attr: { id: 'check_' + name, name: 'check_' + name }"/>
-<label data-bind="attr: { for: 'check_' + name }, text:name"></label>
+<input class="tile" type="radio" data-bind="event: {change:toggle}, attr: { id: 'rad_' + name, value: name, name: 'proctastic' }"/>
+<label data-bind="attr: { for: 'rad_' + name }, text:name"></label>
 <br>
 </script>
 
