@@ -70,6 +70,7 @@
 <input class="tile" type="radio" data-bind="event: {change:toggle}, attr: { id: 'rad_' + name, value: name, name: 'proctastic' }"/>
 <label data-bind="attr: { for: 'rad_' + name }, text:name"></label>
 <br>
+<div style="padding-left:1.5em" data-bind="template: {name:'accordion_proc_template', foreach: children}"></div>
 </script>
 
 <script id="accordion_proc_category_template" type="text/x-jquery-tmpl">
@@ -260,6 +261,8 @@ var SpaProcedure = function(options) {
             options.children,
             function(n) { return new SpaProcedure(n) }
         );
+    } else {
+        this.children = null;
     }
 
     if (_.isUndefined(options.nickname)) {
