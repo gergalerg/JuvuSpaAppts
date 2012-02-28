@@ -183,32 +183,23 @@ $(function(){
 {% block title %}Spa Home{% endblock %}
 
 {% block header %}
-{% endblock %}
-
-{% block toc %}
-<div class="row">
-  <div id="toc_head" class="nine columns">
-	<h1 id="logotype"><a href="/">Ju<span class="davee">V</span>uu</a></h1>
-    <form>
-      <select>
-        <option value="SanFrancisco">San Francisco</option>
-      </select>
-    </form>
-    <a href="#">About</a>
-  </div>{# columns #}
-  <div class="three columns">
-    <div id="login_head">
+<div id="toc_head" class="nine columns">
+  <h1 id="logotype"><a href="/">Ju<span class="davee">V</span>uu</a></h1>
+  <form><select><option value="SanFrancisco">San Francisco</option></select></form>
+  <a href="#">About</a>
+</div>{# columns #}
+<div class="three columns">
+  <div id="login_head">
 {% if user.is_authenticated %}
 	{{ user.first_name }} {{ user.last_name }} | <a href="{% url logout %}">logout</a>
 {% else %}
-    <a href="{% url login %}">Login</a> | <a href="{% url signup %}">Sign Up</a>
+  <a href="{% url login %}">Login</a> | <a href="{% url signup %}">Sign Up</a>
 {% endif %}
-    </div>{# login_head #}
-  </div>{# columns #}
-</div>{# row #}
+  </div>{# login_head #}
+</div>{# columns #}
+{% endblock %}
 
-
-<div class="row">
+{% block toc %}
   <div id="toc" class="five columns centered">
    <div id="toc_inner">
 	<center>
@@ -236,10 +227,9 @@ $(function(){
     <h3><a id="search" href="{% url signup %}">Sign Up</a></h3>
     </center>
    </div>
-<div id="tree"></div>
-<div id="goey" style="text-align:right"><a href="/#step/1" class="blue_button">Go</a></div>
+  <div id="tree"></div>
+  <div id="goey" style="text-align:right"><a href="/#step/1" class="blue_button">Go</a></div>
   </div>{# columns #}
-</div>{# row #}
 {% endblock %}
 
 

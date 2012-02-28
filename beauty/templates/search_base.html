@@ -37,15 +37,15 @@
 <body>
 <div class="container"><div class="row"><div class="twelve columns"><div class="hull">
 
-<div class="row"><div class="twelve columns">
-{% block header %}{% endblock %}
-</div>{# columns #}</div>{# row #}
+<div class="row">{% block header %}{% endblock %}</div>{# row #}
 
 <div class="row"><div class="twelve columns">
+
   <div class="row">
-
   {% block toc %}{% endblock %}
+  </div>{# row #}
 
+  <div class="row">
   <div id="main_frame" class="twelve columns">
 
     <div class="row"><div class="twelve columns"><div id="pane_0" class="pane">
@@ -57,8 +57,8 @@
     </div>{# pane_1 #}</div>{# columns #}</div>{# row #}
 
   </div>{# columns #}
-
   </div>{# row #}
+
 </div>{# columns #}</div>{# row #}
 
 </div>{# hull panel #}</div>{# columns #}</div>{# row #}</div>{# container #}
