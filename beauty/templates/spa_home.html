@@ -263,7 +263,7 @@ var SpaProcedure = function(options) {
     }
 
     if (_.isUndefined(options.nickname)) {
-        this.nickname = ko.observable(options.name);
+        this.nickname = ko.observable("");
     } else {
         this.nickname = ko.observable(options.nickname);
     }
@@ -281,7 +281,7 @@ var SpaProcedure = function(options) {
     }
 
     this.formatted_price = ko.dependentObservable(function() {
-        return "$" + (+this.price()).toFixed(2);
+        return "$" + (+this.price()).toFixed(0);
     }, this);
 
     this.toggle = function() {
@@ -293,15 +293,21 @@ var SpaProcedure = function(options) {
         viewModel.current_proc(this);
     }
 
-    this.subtypes = ko.observableArray([]);
+    if (_.isUndefined(options.subtypes)) {
+        this.subtypes = ko.observableArray([]);
+    } else {
+        this.subtypes = options.subtypes;
+    }
+
     this.add_subtype = function() {
         var new_subtype = $("form#add_subtype").serializeArray();
-        var n = {name: this.name, supported:true};
+        var n = {name: this.name, supported:true, subtypes:this.subtypes};
         params_into_object(new_subtype, n);
         console.log(n);
         var newb = new SpaProcedure(n);
         this.subtypes.push(newb);
         viewModel.supported_procs.push(newb);
+        this.nickname("");
     }
 }
 
