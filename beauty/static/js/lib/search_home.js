@@ -407,12 +407,6 @@ viewModel.pointed_at_el.subscribe(function(it) {
     View.pointed_at = it;
 });
 
-viewModel.pointed_at.subscribe(function(date_label) {
-    if (!!date_label && viewModel.time_mode() == "selection") {
-        $("#date_label").html(date_label)
-    }
-});
-
 viewModel.current_el.subscribe(function(it) {
     var circ = d3.select(it);
     circ.transition().call(swell);
