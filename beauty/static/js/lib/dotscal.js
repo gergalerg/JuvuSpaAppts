@@ -37,6 +37,16 @@ var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
         ["hsl(150, 50%, 50%)", "hsl(250, 100%, 50%)"]
         ).interpolate(d3.interpolateHsl);
 
+var radii = {
+    current: r,
+    small: r,
+    large: r_med,
+    set_sizes: function(sm, lg) {
+        radii.large = lg;
+        radii.small = sm;
+    },
+};
+
 var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
     ym = d3.scale.linear().domain([0,4]).range([45, dh * 1.618]),
     xr = d3.scale.linear().domain([0,7]).range([0, 200]),
@@ -191,32 +201,39 @@ function daysish(n) {
     var margin = 0.125;
     switch (n) {
       case 1:
+        radii.set_sizes(r_days_1, r_days_1);
         radius = r_days_1;
         range = [0, 900];
         break;
       case 2:
+        radii.set_sizes(r_days_2, r_days_2);
         radius = r_days_2;
         range = [100, 800];
         margin = 1;
         break;
       case 3:
+        radii.set_sizes(r_days_3, r_days_3);
         radius = r_days_3;
         range = [100, 800];
         margin = .35;
         break;
       case 4:
+        radii.set_sizes(r_days_4, r_days_4);
         radius = r_days_4;
         range = [100, 800];
         break;
       case 5:
+        radii.set_sizes(r_days_5, r_days_5);
         radius = r_days_5;
         range = [100, 800];
         break;
       case 6:
+        radii.set_sizes(r_days_5, r_days_5);
         radius = r_days_6;
         range = [100, 800];
         break;
       default:
+        radii.set_sizes(r_big, r_big);
         radius = r_big;
         range = [100, 800];
         margin = 0.125;
@@ -259,6 +276,8 @@ function monthsish(T) { T
 //
 
 function select_year() {
+    radii.large = r_med;
+    radii.small = r;
     vis3.selectAll("circle")
         .transition()
         .delay(function(d) { return 230 * Math.random() })
@@ -268,6 +287,8 @@ function select_year() {
 }
 
 function select_month(m) {
+    radii.large = r_big;
+    radii.small = r_big;
     var in_month = function(d) { return d.month == m };
     var circles = vis3.selectAll("circle");
     circles.filter(in_month).transition().call(month_style);
@@ -345,21 +366,15 @@ function fade_drop(T) { T
 function embiggen(T) { T
     .attr("r", function(d) {
         return (viewModel.is_current(d))
-            ? r_big(Math.random())
-            : (viewModel.time_mode() == "year")
-                ? r_med(Math.random())
-                : r_big(Math.random());
+            ? radii.current(Math.random())
+            : radii.large(Math.random());
     })
     .duration(2500)
     .ease("elastic", 3, 0.3)
 }
 
 function shrink(T) { T
-    .attr("r", function() {
-        return (viewModel.time_mode() == "year")
-            ? r(Math.random())
-            : r_big(Math.random());
-    })
+    .attr("r", function() { return radii.small(Math.random()) })
     .delay(100)
     .duration(333)
 }
