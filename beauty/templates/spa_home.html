@@ -554,7 +554,6 @@ $(function(){
 {% block toc %}
     <h3><a id="0_link" href="#step/0">Info</a></h3>
     <h3><a id="1_link" href="#step/1">Services</a></h3>
-    <h3><a id="2_link" href="#step/2">Customize</a></h3>
     <h3><a id="3_link" href="#step/3">Staff</a></h3>
     <h3><a id="4_link" href="#step/4">Calendar</a></h3>
       <div data-bind="visible:viewing()==4, template: {name:'toc_staff_template', foreach: staff}"></div>
@@ -680,20 +679,7 @@ $(function(){
 </div>{# row #}
 {% endblock %}
 
-{% block pane_2 %}<div class="row">
-
-<div class="three columns">
-</div>{# columns #}
-
-<div class="five columns">
-</div>{# columns #}
-
-<div class="four columns" data-bind="template: {name:'proc_template2', foreach: supported_procs}">
-</div>{# columns #}
-
-
-</div>{# row #}
-{% endblock %}
+{# no pane 2 #}
 
 {% block pane_3 %}
   <div class="row">
