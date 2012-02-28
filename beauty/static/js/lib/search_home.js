@@ -392,11 +392,10 @@ viewModel.pointed_at_el.subscribe(function(it) {
         it.transition().call(embiggen);
         if (viewModel.time_mode() == "selection") { date_labelize(it) };
     } else if (View.pointed_at) {
-        // Don't shrink current day.
-        View.pointed_at.filter(function(d) {
-            return !viewModel.is_current(d);
-        })
-        .transition().call(shrink);
+        View.pointed_at
+        .filter(function(d) { return !viewModel.is_current(d); }) // Don't shrink current day.
+        .transition()
+        .call(shrink);
         if (viewModel.time_mode() == "selection") {
             vis3.selectAll("text.date_label")
             .transition()
