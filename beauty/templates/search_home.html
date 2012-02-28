@@ -78,6 +78,7 @@ $(function(){
     $(".pane").hide();
     $("#goey").hide();
     $("#miles_criteria").hide();
+    $("#neighb_criteria").hide();
     $("#date_criteria").hide();
     $("#when_criteria").hide();
     $("#amenities").hide();
@@ -107,6 +108,8 @@ $(function(){
     });
 
     $("#dist_link").click(CriteriaControls.show_miles);
+    $("#neighb_link").click(CriteriaControls.show_neighb);
+
     $("#date_range").click(CriteriaControls.show_date_range);
     $("#today").click(function() {
         CriteriaControls.hide_date_range();
@@ -234,8 +237,6 @@ $(function(){
 
 
 
-
-
 {% block pane_1 %}
 <a data-bind="click: function() { viewModel.time_mode('year');select_year() }"
   style="cursor:pointer" >Year</a>
@@ -253,11 +254,17 @@ $(function(){
     <div id="where_criteria">
       <h2 id="where">Where?</h2>
       <h3><a style="cursor:pointer" id="dist_link">Distance</a></h3>
-      <h3><a style="cursor:pointer">Neighborhood</a></h3>
+      <h3><a style="cursor:pointer" id="neighb_link">Neighborhood</a></h3>
       <div id="miles_criteria">
         <input type="text" name="miles" id="id_miles" class="input-text" size="4" />
         miles from [ADDRESS] <a href="#">Change Address</a>
       </div>
+      <div id="neighb_criteria">
+        Select your Neighborhood
+        <ul class="block-grid five-up">
+          {% include "sf_neighborhoods.html" %}
+        </ul>
+
     </div>{# where_criteria #}
 
     <div id="when_criteria">

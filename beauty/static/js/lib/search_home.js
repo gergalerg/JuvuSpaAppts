@@ -765,8 +765,23 @@ var CriteriaControls = {
     },
     hide_options: function () { hide_it("#amenities", "#options_interior", "#options") },
 
-    show_miles: function () { $("#miles_criteria").fadeIn(); },
+    show_miles: function () {
+        if ($("#neighb_criteria").is(":visible")) {
+            $("#neighb_criteria").fadeOut(CriteriaControls.show_miles);
+        } else {
+            $("#miles_criteria").fadeIn();
+        }
+    },
     hide_miles: function () { $("#miles_criteria").fadeOut(); },
+
+    show_neighb: function () {
+        if ($("#miles_criteria").is(":visible")) {
+            $("#miles_criteria").fadeOut(CriteriaControls.show_neighb);
+        } else {
+            $("#neighb_criteria").fadeIn();
+        }
+    },
+    hide_neighb: function () { $("#neighb_criteria").fadeOut(); },
 
     show_date_range: function () { $("#date_criteria").fadeIn(); },
     hide_date_range: function () { $("#date_criteria").fadeOut(); },
