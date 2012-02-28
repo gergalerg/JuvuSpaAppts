@@ -87,6 +87,14 @@
 </script>
 {# ================================================= #}
 
+{# Subtypes Display ================================================= #}
+<script id="subtypes_template" type="text/x-jquery-tmpl">
+<a style="cursor:pointer" data-bind="click:make_current, text:nickname, attr:{href:name}"></a><br>
+</script>
+{# ================================================= #}
+
+
+
 <script type="text/javascript">
 
 
@@ -285,12 +293,15 @@ var SpaProcedure = function(options) {
         viewModel.current_proc(this);
     }
 
+    this.subtypes = ko.observableArray([]);
     this.add_subtype = function() {
-        var new_subtype = $("form#add_subtype").serializeArray()
+        var new_subtype = $("form#add_subtype").serializeArray();
         var n = {name: this.name, supported:true};
         params_into_object(new_subtype, n);
         console.log(n);
-        viewModel.supported_procs.push(new  SpaProcedure(n));
+        var newb = new SpaProcedure(n);
+        this.subtypes.push(newb);
+        viewModel.supported_procs.push(newb);
     }
 }
 
@@ -333,7 +344,7 @@ var viewModel = {
     viewing: ko.observable(),
 
     // The currently selected treatment ("proc"edure), if any.
-    current_proc: ko.observable({name:'None Selected'}),
+    current_proc: ko.observable({name:'None Selected', subtypes:[]}),
 
     // Array of SpaProcedure objects that a spa supports.
     supported_procs: ko.observableArray(),
@@ -565,6 +576,9 @@ $(function(){
 <div class="five columns"><div class="magic">
 <div class="proc_detail">
     <h3 data-bind="text: current_proc().name"></h3>
+
+    <div id="subtypes_listing"  data-bind="template: {name:'subtypes_template', foreach: current_proc().subtypes}"></div>
+
     <form id="add_subtype" class="nice">
         <label for="nickname">Name:</label><input name="nickname" class="input-text" type="text" data-bind="value:current_proc().nickname" placeholder="None Selected"><br>
         <label for="price">Price:</label><input name="price" class="input-text" type="text" data-bind="value:current_proc().price" placeholder="Price"><br>
