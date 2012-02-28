@@ -395,6 +395,7 @@ var viewModel = {
         var new_class = $("#id_add_class").val();
         if (!new_class) { return }
         viewModel.staff_classes.push({name:new_class});
+        $("#id_add_class").val("");
     },
 };
 
