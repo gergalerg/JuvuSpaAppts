@@ -1,5 +1,5 @@
 
-var h = 714, w = 1024;
+var h = 714, w = 400;
 var y0 = 10, y1 = 914;
 
 var left = 20, right = 645;

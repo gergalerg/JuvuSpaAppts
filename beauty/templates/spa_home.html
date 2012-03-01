@@ -124,7 +124,7 @@ function setup_bands() {
     var R = _.range(viewModel.staff().length);
     var x = d3.scale.ordinal()
         .domain(R)
-        .rangeBands([80, 645], 0.125);
+        .rangeBands([80, 335], 0.125);
     var col = d3.scale.ordinal()
         .domain(R)
         .rangePoints([0.0, 1.0], 0.5);
@@ -535,6 +535,28 @@ $(function(){
 
     setup_bands();
 
+    $("#from_date_cal").datepicker({
+        minDate: "+0D",
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        altField: '#from_date',
+//        onSelect: date_selected
+    });
+    $("#from_date2_cal").datepicker({
+        minDate: "+0D",
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        altField: '#from_date2',
+//        onSelect: date_selected
+    });
+    $("#to_date_cal").datepicker({
+        minDate: "+0D",
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        altField: '#to_date',
+//        onSelect: date_selected
+    });
+
     crambery(3);
 
     if (!Backbone.history.start()) {
@@ -711,12 +733,99 @@ $(function(){
 
 {% block pane_4 %}
 <div class="row">
-<div class="one columns">
-    <div id="slider"></div>
+<div class="four columns">
+    <div id="discounts">
+
+<form class="nice">
+    <input name="from_date" id="from_date_cal" class="input-text small" type="text"placeholder="Start Date"/>
+    <h3>Create Discount</h3>
+
+    <label for="id_discount_name">Name:</label>
+    <input type="text" id="id_discount_name" name="discount_name" class="input-text oogy"/>
+
+    <label for="id_discount_time_from">Time:</label>
+    <input type="text" id="id_discount_time_from" name="discount_time_from" class="input-text small"/>
+
+    <label for="id_discount_time_to">to:</label>
+    <input type="text" id="id_discount_time_to" name="discount_time_to" class="input-text small"/>
+
+    <input name="from_date2" id="from_date2_cal" class="input-text small" type="text" placeholder="Start Date"/>
+    <input name="to_date" id="to_date_cal" class="input-text small" type="text" placeholder="End Date"/>
+
+
+    <ul class="block-grid four-up" style="margin-bottom: 0px;">
+        <li>
+        <label for="id_day_0">M:</label>
+        <input type="checkbox" id="id_day_0" name="day_0"/>
+        </li>
+        <li>
+        <label for="id_day_1">Tu:</label>
+        <input type="checkbox" id="id_day_1" name="day_1"/>
+        </li>
+        <li>
+        <label for="id_day_2">W:</label>
+        <input type="checkbox" id="id_day_2" name="day_2"/>
+        </li>
+        <li>
+        <label for="id_day_3">Th:</label>
+        <input type="checkbox" id="id_day_3" name="day_3"/>
+        </li>
+        <li>
+        <label for="id_day_4">F:</label>
+        <input type="checkbox" id="id_day_4" name="day_4"/>
+        </li>
+        <li>
+        <label for="id_day_5">Sa:</label>
+        <input type="checkbox" id="id_day_5" name="day_5"/>
+        </li>
+        <li>
+        <label for="id_day_6">Su:</label>
+        <input type="checkbox" id="id_day_6" name="day_6"/>
+        </li>
+    </ul>
+    <div id="ddddd">
+    <label for="id_discount_a">Juvu Purple:</label>
+    <input type="checkbox" id="id_discount_a" name="discount_a"/>
+    <input type="text" name="discount_a_percent" class="input-text small"/>
+    <br/>
+    <label for="id_discount_b">Juvu Blue:</label>
+    <input type="checkbox" id="id_discount_b" name="discount_b"/>
+    <input type="text" name="discount_b_percent" class="input-text small"/>
+    <br/>
+    <label for="id_discount_c">Juvu Green:</label>
+    <input type="checkbox" id="id_discount_c" name="discount_c"/>
+    <input type="text" name="discount_c_percent" class="input-text small"/>
+    <br/>
+    <label for="id_discount_d">No Status:</label>
+    <input type="checkbox" id="id_discount_d" name="discount_d"/>
+    <input type="text" name="discount_d_percent" class="input-text small"/>
+    <br/>
+    <label for="id_discount_e">Repeat Clients 3:</label>
+    <input type="checkbox" id="id_discount_e" name="discount_e"/>
+    <input type="text" name="discount_e_percent" class="input-text small"/>
+    <br/>
+    <label for="id_discount_f">Repeat Clients 2:</label>
+    <input type="checkbox" id="id_discount_f" name="discount_f"/>
+    <input type="text" name="discount_f_percent" class="input-text small"/>
+    <br/>
+    <label for="id_discount_g">All Repeat Clients:</label>
+    <input type="checkbox" id="id_discount_g" name="discount_g"/>
+    <input type="text" name="discount_g_percent" class="input-text small"/>
+    </div>
+
+    <button id="add_staff" data-bind="click: add_staff_member">Add Staff Member</button>
+
+    <h3>Active Discounts</h3>
+</form>
+
+    </div>
 </div>{# columns #}
-<div class="eleven columns">
+<div class="seven columns">
     <div data-bind="text:mouse_time"></div>
     <div id="show"></div>
+</div>{# columns #}
+<div class="one columns">
+    <div id="slider"></div>
 </div>{# columns #}
 </div>{# row #}
 {% endblock %}
