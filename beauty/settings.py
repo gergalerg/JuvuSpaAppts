@@ -28,6 +28,11 @@ TRIPLE_STORES = {
         name="test",
         options_string="new='yes',hash-type='memory',dir='.'",
         ),
+    'testdata': dict(
+        storage_name="file",
+        name=join(PROJECT_ROOT, '../testdata/testdata.rdf.xml'),
+        options_string="new='yes',dir='.'",
+        ),
     }
 
 # Local time zone for this installation. Choices can be found here:

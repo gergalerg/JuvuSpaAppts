@@ -102,8 +102,8 @@ def get_treatment(cat, subtype, treat):
     return t
 
 
-def filter_unbooked(i):
-    for d in i:
+def filter_unbooked(I):
+    for i, d in enumerate(I):
         if d['Booked'] == 'n' and d['Date'] == '3-2-2012':
             yield d
 
@@ -134,6 +134,9 @@ class DataIterator:
         res.append(
             Statement(node, PROVIDER, Merchants.get_merchant(Merchant))
             )
+
+        # Normalize date.
+        Date = datetime.strptime(Date, DATE_FORMAT).date().strftime(DATE_FORMAT)
 
         res.extend((
             Statement(node, DATE, Date),

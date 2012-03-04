@@ -12,6 +12,7 @@ from spasui.forms import SpaInfoForm
 from beauty.uui.forms import UserSignupForm
 from beauty.data.treatments import TREEd
 from simplejson import dumps
+from beauty.spasui.models import q0
 
 
 def search(request):
@@ -57,10 +58,46 @@ def results(request):
         )
 
 
+def _process_result(spa, time):
+    return {'spa':str(spa.uri), 'time':str(time)}
+
+
+from itertools import groupby
+from operator import itemgetter
+from random import choice
+
+K = itemgetter('spa')
+
+def foo(results):
+    R = []
+    results.sort(key=K)
+    for spa, group in groupby(results, K):
+        res = []
+        S = dict(
+            spa=str(spa.uri),
+            rating=choice((4, 5)),
+            results=res,
+            )
+        R.append(S)
+        for n in group:
+            res.append(dict(
+                spec_treat=n.get('spec_treat') or 'Hey!',
+                price=n.get('price', 23),
+                discount=n.get('discount') or choice((10, 20, 0)),
+                ))
+    return R
+
+
 def ajax_results(request):
     assert request.method == 'POST'
-    results, _ = _get_results(request)
-    return HttpResponse(results, mimetype="application/json")
+    proc, date = request.POST['proc'], request.POST['date']
+    date = date.replace('/', '-')
+    print repr(proc), repr(date)
+    results = q0(proc, date)
+    print repr(results)
+    results = foo(results)
+    _P(results)
+    return HttpResponse(dumps(results), mimetype="application/json")
 
 
 def _get_results(request):

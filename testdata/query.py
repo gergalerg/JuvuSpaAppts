@@ -44,13 +44,32 @@ M.M = m = Model(Storage(
 @plain_query
 def q0(proc, date):
   """
-  SELECT distinct ?a
+  SELECT distinct ?spa ?time
   WHERE {
       ?t rdf:type cd:Treatment .
       ?t foaf:name "%(proc)s" .
       ?a cd:Treatment ?t .
       ?a cd:Date "%(date)s" .
+      ?a cd:Provider ?spa .
+      ?a cd:from_time ?time .
   }
   """
 
 
+@plain_query
+def q1(proc, date):
+  """
+  SELECT distinct ?spa ?time ?t
+  WHERE {
+      ?pt foaf:name "%(proc)s" .
+      ?pt rdf:type cd:ProcedureType .
+      ?t cd:SubCategory ?pt .
+      ?t rdf:type cd:Treatment .
+      ?a cd:Treatment ?t .
+      ?a cd:Date "%(date)s" .
+      ?a cd:Provider ?spa .
+      ?a cd:from_time ?time .
+  }
+  """
+
+u'Womens Cut', u'03-03-2012'

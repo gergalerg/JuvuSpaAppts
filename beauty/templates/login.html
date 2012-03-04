@@ -1,0 +1,52 @@
+{% extends "search_base.html" %}
+{% block html_head %}
+<link rel="stylesheet/less" href="/static/login.less" type="text/css">
+<script src="/static/js/less.js" type="text/javascript"></script>
+<script src="/static/js/lib/dotscal.js" type="text/javascript"></script>
+<script src="/static/js/lib/search_home.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+
+});
+</script>
+{% endblock %}
+
+{% block title %}Spa Home{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block toc %}
+<div class="row">
+  <div id="toc_head" class="nine columns">
+	<h1 id="logotype"><a href="/">Ju<span class="davee">V</span>uu</a></h1>
+    <form>
+      <select>
+        <option value="SanFrancisco">San Francisco</option>
+      </select>
+    </form>
+    <a href="#">About</a>
+  </div>{# columns #}
+</div>{# row #}
+
+<div class="row">
+  <div id="toc" class="five columns centered">
+    <form action="{% url login }" method="post" id="login-form">
+    {% csrf_token %}
+
+      <div style='display:none'><input type='hidden' name='next' value='/' /></div>
+
+      <div class="form-row">
+        <label for="id_username">Username:</label> <input type="text" name="username" id="id_username" />
+      </div>
+
+      <div class="form-row">
+        <label for="id_password">Password:</label> <input type="password" name="password" id="id_password" />
+      </div>
+      <div class="submit-row">
+        <label>&nbsp;</label><input type="submit" value="Log in" />
+      </div>
+    </form>
+  </div>{# columns #}
+</div>{# row #}
+{% endblock %}

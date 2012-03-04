@@ -172,6 +172,12 @@ var Q = $.rdf({databank: TRIPLESTORE})
     });
 
 
+function click_on_me() {
+    var date = $("#from_date_cal").val();
+    var proc = "Womens Cut";
+    query0(proc, date);
+}
+
 //-------------------------------------------------------
 // View Model Classes
 //
@@ -228,10 +234,7 @@ var SpaProcedure = function(options) {
 //
 
 var fake_results = [
-    {results: [5, 3]},
-    {results: [ 1, 2, 3]},
-    {results: [ 2, 3]},
-    {results: [ 2, 3, 4, 5, 6, 7]},
+    {spa: "Butt", rating: "Tuesday", results: []},
 ];
 
 var fake_cal_results = [

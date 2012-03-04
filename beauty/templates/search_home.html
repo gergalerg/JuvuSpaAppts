@@ -13,8 +13,8 @@
   </div>
   <div class="nine columns">
     <div class="row">
-      <div class="six columns"><div class="spa_name">Barneys Spa</div></div>
-      <div class="six columns"><div class="rating">Rating: 3/7</div></div>
+      <div class="six columns"><div class="spa_name" data-bind="text:spa">Barneys Spa</div></div>
+      <div class="six columns"><div class="rating" data-bind="text:rating">Rating: 3/7</div></div>
     </div>
     <div class="row"><div class="twelve columns">
       <div data-bind="template: {name:'inv_result_template', foreach: results}"></div>
@@ -25,9 +25,9 @@
 
 <script id="inv_result_template" type="text/x-jquery-tmpl">
 <div class="row">
-  <div class="four columns"><div class="">Heyo!</div></div>
-  <div class="two columns"><div class="">$1.50</div></div>
-  <div class="two columns"><div class="">137%</div></div>
+  <div class="four columns"><div class="" data-bind="text:spec_treat">Heyo!</div></div>
+  <div class="two columns"><div class="" data-bind="text:price">$1.50</div></div>
+  <div class="two columns"><div class="" data-bind="text:discount">137%</div></div>
   <div class="two columns"><div class="blue_button little_blue" data-bind="click:show_inv_cal">Book</div></div>
   <div class="two columns"><div class="blue_button little_blue" data-bind="click:show_inv_cal">Bid</div></div>
 </div>
@@ -64,6 +64,13 @@
 //-------------------------------------------------------
 // Static Data
 //
+function query0(proc, date) {
+    console.log("hey", proc, date);
+    $.post("{% url ares %}", {proc:proc, date:date}, function(data, textStatus, jqXHR) {
+        viewModel.fake_results(data);
+            console.log("hey", data);
+    }, "json");
+}
 
 var root = {{ tree_data|safe }};
 
@@ -73,6 +80,10 @@ root.children = _.map(root.children, function(n) { return new SpaProcedure(n); }
 attach_parents(root);
 
 $(function(){
+
+    $("body").ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
+        console.log("AJAX Error", event, jqXHR, ajaxSettings, thrownError);
+    });
 
     $("#main_frame").hide();
     $(".pane").hide();
@@ -331,7 +342,7 @@ $(function(){
 <div class="nine columns"></div>
 <div class="three columns">
 <div id="buts">
-<div class="blue_button">Jvuvv Me!</div>
+<div class="blue_button" data-bind="click:click_on_me">Jvuvv Me!</div>
 </div>
 </div>{# columns #}</div>{# row #}
 

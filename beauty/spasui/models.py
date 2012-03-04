@@ -36,11 +36,12 @@ from beauty.util.URIs import (
 
 
 # One big ol' internal in-memory store. New on each restart.
-M = Model(Storage(**settings.TRIPLE_STORES['default']))
+M = Model(Storage(**settings.TRIPLE_STORES['testdata']))
 
 
 def _query(sparql, **args):
   sparql = PREFIX + sparql
+  print sparql
   return list(SPARQLQuery(str(sparql % args)).execute(M))
 
 
@@ -48,6 +49,7 @@ def plain_query(f):
   query = f.__doc__
   arg_names = getargspec(f).args
   def g(*args):
+    print args
     return _query(query, **dict(zip(arg_names, args)))
   return g
 
@@ -245,6 +247,23 @@ def prepare_trenche_data():
         res.append((k + '_also', v))
     return res
 
+
+
+@plain_query
+def q0(proc, date):
+  """
+  SELECT distinct ?spa ?time ?t
+  WHERE {
+      ?pt foaf:name "%(proc)s" .
+      ?pt rdf:type cd:ProcedureType .
+      ?t cd:SubCategory ?pt .
+      ?t rdf:type cd:Treatment .
+      ?a cd:Treatment ?t .
+      ?a cd:Date "%(date)s" .
+      ?a cd:Provider ?spa .
+      ?a cd:from_time ?time .
+  }
+  """
 
 
 ##add_treatment("Acupuncture", "Acupuncture is Fun")
