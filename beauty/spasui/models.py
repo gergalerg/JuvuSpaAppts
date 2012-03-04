@@ -252,12 +252,13 @@ def prepare_trenche_data():
 @plain_query
 def q0(proc, date):
   """
-  SELECT distinct ?spa ?time ?t
+  SELECT distinct ?spa ?time ?tname
   WHERE {
       ?pt foaf:name "%(proc)s" .
       ?pt rdf:type cd:ProcedureType .
       ?t cd:SubCategory ?pt .
       ?t rdf:type cd:Treatment .
+      ?t foaf:name ?tname .
       ?a cd:Treatment ?t .
       ?a cd:Date "%(date)s" .
       ?a cd:Provider ?spa .

@@ -174,8 +174,12 @@ var Q = $.rdf({databank: TRIPLESTORE})
 
 function click_on_me() {
     var date = $("#from_date_cal").val();
-    var proc = "Womens Cut";
-    query0(proc, date);
+    var proc = viewModel.current_proc().name;
+    if (!!proc) {
+        query0(proc, date);
+    } else {
+        console.log("No selected Procedure Type");
+    }
 }
 
 //-------------------------------------------------------
@@ -220,7 +224,7 @@ var SpaProcedure = function(options) {
     }, this);
 
     this.toggle = function() {
-        this.supported(!this.supported());
+       // this.supported(!this.supported());
     }
 
     this.make_current = function() {
@@ -275,7 +279,7 @@ var viewModel = {
     criteria_mode: ko.observable(),
 
     // The currently selected treatment ("proc"edure), if any.
-    current_proc: ko.observable({name:'None Selected'}),
+    current_proc: ko.observable({name:''}),
 
     current: ko.observable(""),
     current_el: ko.observable(),
@@ -519,6 +523,11 @@ var diagonal = d3.svg.diagonal()
 function tree_node_click(d) {
   if (!_.has(d, "children")) {
     d.supported(!d.supported());
+    if (d.supported()) { 
+        d.make_current();
+    } else {
+        viewModel.current_proc({name:''});
+    };
     if (_.has(d, "parent")) { unselect_other(d.parent, d); };
 
   } else if (d.children) {
@@ -756,6 +765,15 @@ function hide_it(first, second, third) {
 
 
 var CriteriaControls = {
+    hide_all: function () {
+        CriteriaControls.hide_where();
+        CriteriaControls.hide_when();
+        CriteriaControls.hide_options();
+        CriteriaControls.hide_miles();
+        CriteriaControls.hide_neighb();
+        CriteriaControls.hide_date_range();
+        CriteriaControls.hide_distance();
+    },
     show_where: function () { show_it("#where", "#where_criteria > h3") },
     hide_where: function () { hide_it("#miles_criteria", "#where_criteria > h3", "#where") },
 

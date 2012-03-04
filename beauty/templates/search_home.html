@@ -66,9 +66,11 @@
 //
 function query0(proc, date) {
     console.log("hey", proc, date);
+    CriteriaControls.hide_all();
     $.post("{% url ares %}", {proc:proc, date:date}, function(data, textStatus, jqXHR) {
         viewModel.fake_results(data);
-            console.log("hey", data);
+        console.log("hey", data);
+        show_inventory();
     }, "json");
 }
 

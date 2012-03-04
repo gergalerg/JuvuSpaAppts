@@ -58,8 +58,12 @@ def results(request):
         )
 
 
-def _process_result(spa, time):
-    return {'spa':str(spa.uri), 'time':str(time)}
+def _process_result(spa, time, tname):
+    return {
+        'spa': str(spa.uri),
+        'time': str(time),
+        'spec_treat': str(tname),
+        }
 
 
 from itertools import groupby
@@ -67,6 +71,7 @@ from operator import itemgetter
 from random import choice
 
 K = itemgetter('spa')
+J = itemgetter('spec_treat')
 
 def foo(results):
     R = []
@@ -74,7 +79,7 @@ def foo(results):
     for spa, group in groupby(results, K):
         res = []
         S = dict(
-            spa=str(spa.uri),
+            spa=spa[3:] if spa.startswith('cd:') else spa,
             rating=choice((4, 5)),
             results=res,
             )
@@ -95,6 +100,8 @@ def ajax_results(request):
     print repr(proc), repr(date)
     results = q0(proc, date)
     print repr(results)
+    results = [_process_result(**r) for r in results]
+    _P(results)
     results = foo(results)
     _P(results)
     return HttpResponse(dumps(results), mimetype="application/json")
