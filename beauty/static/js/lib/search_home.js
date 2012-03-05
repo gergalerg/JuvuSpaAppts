@@ -30,7 +30,6 @@ function show_tree() {
     var upper = duration / 1.16;
 
     $("#toc_inner").hide("blind", upper, function() {
-        $("#goey").fadeIn();
         $("#login_head").fadeIn();
     });
 
@@ -142,6 +141,7 @@ function setup_bool_opt(elements) {
         $(this).toggleClass("selected");
     })
 }
+
 
 //-------------------------------------------------------
 // RDF Processing.
@@ -329,6 +329,14 @@ viewModel.time_mode.subscribe(function(tmode) {
             break;
     }
 });
+
+viewModel.current_proc.subscribe(function(proc) {
+    if (!!proc.name) {
+        $("#goey").fadeIn();
+    } else {
+        $("#goey").fadeOut();
+    }
+})
 
 /*
 viewModel.viewing.subscribe(function(view) {
