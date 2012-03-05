@@ -413,17 +413,6 @@ viewModel.pointed_at_el.subscribe(function(it) {
     View.pointed_at = it;
 });
 
-viewModel.current_el.subscribe(function(it) {
-    var circ = d3.select(it);
-    circ.transition().call(swell);
-    if (View.previous) {
-        View.previous.transition()
-        .call(shrink)
-        .attr("fill-opacity", 0.5);
-    }
-    View.previous = circ;
-});
-
 function date_labelize(S) { S
     var x = S.attr("cx");
     var y = 100 + 1 * S.attr("cy");
@@ -469,7 +458,6 @@ function mouse_bindings(T) { T
         if (!viewModel.is_current(d)) {
             viewModel.current(d.label);
             viewModel.current_el(this);
-            routes.navigate("day/" + d.day_of_year, true);
         }
     });
 }
