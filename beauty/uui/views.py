@@ -58,11 +58,12 @@ def results(request):
         )
 
 
-def _process_result(spa, time, tname):
+def _process_result(spa, time, tname, price):
     return {
         'spa': str(spa.uri),
         'time': str(time),
         'spec_treat': str(tname),
+        'price': str(price),
         }
 
 
@@ -72,6 +73,7 @@ from random import choice
 
 K = itemgetter('spa')
 J = itemgetter('spec_treat')
+P = itemgetter('price')
 
 def foo(results):
     R = []
@@ -86,10 +88,11 @@ def foo(results):
             )
         R.append(S)
         for spec_treat, variants in groupby(group, J):
-            n = list(variants)[0]
+            variants = list(variants)
+            n = variants[0]
             res.append(dict(
                 spec_treat=spec_treat,
-                price=n.get('price', 23),
+                price=min(map(P, variants)),
                 discount=n.get('discount') or choice((10, 20, 0)),
                 ))
     return R
