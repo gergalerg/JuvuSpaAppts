@@ -104,7 +104,15 @@ def get_treatment(cat, subtype, treat):
 
 def filter_unbooked(I):
     for i, d in enumerate(I):
-        if d['Booked'] == 'n' and d['Date'] == '3-2-2012':
+        if d['Booked'] == 'n' and d['Date'] in (
+            '3-4-2012',
+            '3-5-2012',
+            '3-6-2012',
+            '3-7-2012',
+            '3-8-2012',
+            '3-9-2012',
+            '3-10-2012',
+            ):
             yield d
 
 class DataIterator:
@@ -155,6 +163,7 @@ m = Model(Storage(
     name="testdata.rdf.xml",
     options_string="new='yes',dir='.'",
     ))
+
 
 n = 0
 def I():

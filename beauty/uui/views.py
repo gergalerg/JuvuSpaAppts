@@ -78,15 +78,17 @@ def foo(results):
     results.sort(key=K)
     for spa, group in groupby(results, K):
         res = []
+        group = sorted(group, key=J)
         S = dict(
             spa=spa[3:] if spa.startswith('cd:') else spa,
             rating=choice((4, 5)),
             results=res,
             )
         R.append(S)
-        for n in group:
+        for spec_treat, variants in groupby(group, J):
+            n = list(variants)[0]
             res.append(dict(
-                spec_treat=n.get('spec_treat') or 'Hey!',
+                spec_treat=spec_treat,
                 price=n.get('price', 23),
                 discount=n.get('discount') or choice((10, 20, 0)),
                 ))
