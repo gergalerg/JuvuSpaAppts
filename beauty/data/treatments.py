@@ -67,9 +67,8 @@ TREEd = {'children': [
 
     {'children': [
         {'name': 'Waxing', 'children': [
-            {'supported': False, 'name': 'Brows'},
+            {'supported': False, 'name': 'Brows/Face'},
             {'supported': False, 'name': 'Bikini/Brazilian'},
-            {'supported': False, 'name': 'Face'},
             {'supported': False, 'name': 'Body'},
             {'supported': False, 'name': "Mens"}
             ]
