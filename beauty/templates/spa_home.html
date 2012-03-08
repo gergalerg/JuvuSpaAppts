@@ -22,6 +22,10 @@
 </div>
 </script>
 
+<script id="staff_option_template" type="text/x-jquery-tmpl">
+    <option data-bind="text:name, attr:{value:name}"></option>
+</script>
+
 {# StaffMember under Calendar on TOC =============================== #}
 <script id="toc_staff_template" type="text/x-jquery-tmpl">
 <h5 data-bind="text:name, style: {backgroundColor:tag_color()}"></h5>
@@ -171,8 +175,9 @@ function toc_out() {
     });
 }
 
-function setup_button(sel, ico) {
-    $(sel).button({icons: {primary:ico}, text: false })
+function setup_button(sel, ico, show_text) {
+    show_text = show_text || false;
+    $(sel).button({icons: {secondary:ico}, text: show_text })
         .click(function(){return false});
 }
 
@@ -247,7 +252,6 @@ function post_new_staff_member(who) {
     });
 }
 
-
 //-------------------------------------------------------
 // View Model Classes
 //
@@ -317,6 +321,7 @@ var SpaProcedure = function(options) {
 var StaffMember = function(options) {
     this.name = options.name;
     this.tag_color = ko.observable('#fff');
+    this.staff_classes = ko.observableArray([]);
 
     this.remove = function() {
         viewModel.stuffs.remove(this);
@@ -328,6 +333,7 @@ var StaffMember = function(options) {
     this.make_current = function() {
         viewModel.current_staff_member(this);
     }
+
 }
 
 
@@ -347,7 +353,7 @@ var staff = _.map({{ staff|safe }}, function(n) { return new StaffMember(n); });
 // View Model
 //
 
-var viewModel = {
+viewModel = {
 
     // Track the current "view" the user is looking at.
     viewing: ko.observable(),
@@ -364,7 +370,10 @@ var viewModel = {
     // Staff members, and currently selected staff member.
     staff: ko.observableArray(staff),
     current_staff_member: ko.observable({}),
+
     staff_classes: ko.observableArray(),
+    current_staff_class: ko.observable({name:''}),
+    staff_with_class: ko.observableArray(staff),
 
     // Display the time corresponding to the mouse position on the calendar pane.
     mouse_time: ko.observableArray(),
@@ -513,6 +522,8 @@ $(function(){
     setup_button("button#add_proc", 'ui-icon-circle-plus');
     setup_button("button#del_proc", 'ui-icon-circle-close');
     setup_button("button#add_class", 'ui-icon-circle-plus');
+    setup_button("button#post_staff", 'ui-icon-circle-check', true);
+    setup_button("button#delete_staff", 'ui-icon-circle-close', true);
 
     var vis = d3.select("#show")
         .append("svg:svg")
@@ -555,6 +566,25 @@ $(function(){
         selectOtherMonths: true,
         altField: '#to_date',
 //        onSelect: date_selected
+    });
+
+    $("#current_staff_class").change(function() {
+        var csc = $(this).val();
+        console.log(csc);
+        var staff = viewModel.staff();
+        if (!!csc) {
+            csc = _.find(viewModel.staff_classes(), function (staff_class) {
+                return csc == staff_class.name;
+            });
+            console.log(csc);
+
+            var filtered_staff = _.filter(staff, function(staff_member){
+                return _.include(staff_member.staff_classes, csc);
+            });
+            viewModel.staff_with_class(filtered_staff);
+        } else {
+            viewModel.staff_with_class(staff);
+        }
     });
 
     crambery(3);
@@ -703,33 +733,150 @@ $(function(){
 </div>{# row #}
 {% endblock %}
 
-{# no pane 2 #}
+{# no pane 2 #######################################################################  #}
+{#  ################################################################################  #}
+{#  ################################################################################  #}
+{#  ################################################################################  #}
+{#  ################################################################################  #}
+
+
+
 
 {% block pane_3 %}
   <div class="row">
 
   <div class="four columns"><div id="staff_list">
-    <h2>Staff</h2>
-    <p data-bind="template: {name:'tile_template', foreach: staff}"></p>
     <form class="nice">
-      <button id="add_staff" data-bind="click: add_staff_member">Add Staff Member</button>
+      <select id="current_staff_class" data-bind="template: {name:'staff_option_template', foreach: staff_classes}">
+          <option value="">---</option>
+      </select>
+      <div data-bind="template: {name:'tile_template', foreach: staff_with_class}"></div>
+      <button id="add_staff" data-bind="click: add_staff_member">Create New Staff Member</button>
       <input id="staff_name" name="staff_name" class="input-text small" type="text" placeholder="Add Staff Member">
     </form>
-  </div>{# staff_list #}</div>
+  </div>{# staff_list #}</div>{# columns #}
 
   <div class="eight columns"><div id="boy">
     <div class="row"><div class="twelve columns">
       <div id="aa" class="cake">
-        <h3 data-bind="text: current_staff_member().name"></h3>
+    <form class="nice">
+      <input id="staff_f_name" name="staff_f_name" class="input-text small" type="text" placeholder="first name" data-bind="attr: {value:current_staff_member().name}">
+      <input id="staff_l_name" name="staff_l_name" class="input-text small" type="text" placeholder="last name" data-bind="attr: {value:current_staff_member().name}">
+      <input class="input-text small" type="text" placeholder="email">
+      <input class="input-text small" type="text" placeholder="Mobile #">
+      <input class="input-text small" type="text" placeholder="Mobile Provider">
         <div data-bind="visible:someone_selected">
-        <div id="chart" data-bind="template: {name:'staff_proc_template', foreach: supported_procs}"></div>
+          <div id="chart" data-bind="template: {name:'staff_proc_template', foreach: supported_procs}"></div>
         </div>
-      </div>{# panel #}
+
+      <select id="current_staff_member_staff_class" data-bind="template: {name:'staff_option_template', foreach: staff_classes}">
+          <option value="">---</option>
+      </select>
+
+
+
+<TABLE>
+<TR>
+  <TH></TH>
+  <TH>Shift Start</TH>
+  <TH>Shift End</TH>
+  <TH>Lunch Start</TH>
+  <TH>Lunch End</TH>
+  <TH>Scheduled Until</TH>
+</TR>
+<TR>
+  <TH>Monday</TH>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+</TR>
+<TR>
+  <TH>Tuesday</TH>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+</TR>
+<TR>
+  <TH>Wednesday</TH>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+</TR>
+<TR>
+  <TH>Thursday</TH>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+</TR>
+<TR>
+  <TH>Friday</TH>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+</TR>
+<TR>
+  <TH>Saturday</TH>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+</TR>
+<TR>
+  <TH>Sunday</TH>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+</TR>
+
+</TABLE>
+
+    <label for="qwer" style="display:inline-block">Mask Time</label>
+    <input type="text" id="qwer" name="qwer" class="input-text small" style="display:inline-block"/>
+    <br/>
+
+    <select id="current_staff_member_gender">
+        <option value="f">female</option>
+        <option value="m">male</option>
+    </select>
+
+    <label for="active_chbx" style="display:inline-block">Active</label>
+    <input type="checkbox" id="active_chbx" name="active_chbx" style="display:inline-block"/>
+    <br/>
+
+    <button id="post_staff">Save Changes</button>
+    <button id="delete_staff">Delete Staff</button>
+
+
+
+    </form>
+      </div>{# aa cake #}
     </div></div>{# columns row #}
   </div>{# boy #}</div>
 
   </div>{# row #}
 {% endblock %}
+
+
+
+{#  ################################################################################  #}
+{#  ################################################################################  #}
+{#  ################################################################################  #}
+{#  ################################################################################  #}
+
+
 
 {% block pane_4 %}
 <div class="row">
