@@ -748,7 +748,7 @@ $(function(){
   <div class="four columns"><div id="staff_list">
     <form class="nice">
       <select id="current_staff_class" data-bind="template: {name:'staff_option_template', foreach: staff_classes}">
-          <option value="">---</option>
+          <option value="">All</option>
       </select>
       <div data-bind="template: {name:'tile_template', foreach: staff_with_class}"></div>
       <button id="add_staff" data-bind="click: add_staff_member">Create New Staff Member</button>
