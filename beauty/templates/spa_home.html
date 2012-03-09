@@ -371,7 +371,7 @@ viewModel = {
     staff: ko.observableArray(staff),
     current_staff_member: ko.observable({}),
 
-    staff_classes: ko.observableArray(),
+    staff_classes: ko.observableArray([{name:'but'}, {name:'sects'}]),
     current_staff_class: ko.observable({name:''}),
     staff_with_class: ko.observableArray(staff),
 
@@ -524,6 +524,8 @@ $(function(){
     setup_button("button#add_class", 'ui-icon-circle-plus');
     setup_button("button#post_staff", 'ui-icon-circle-check', true);
     setup_button("button#delete_staff", 'ui-icon-circle-close', true);
+    setup_button("button#expando_staff_class", 'ui-icon-circle-triangle-s');
+    setup_button("button#del_staff_class", 'ui-icon-circle-close');
 
     var vis = d3.select("#show")
         .append("svg:svg")
@@ -568,14 +570,23 @@ $(function(){
 //        onSelect: date_selected
     });
 
+
+function lookup_staff_class(class_name) {
+    SC = _.find(viewModel.staff_classes(), function (staff_class) {
+        return class_name == staff_class.name;
+    });
+    // TODO: handle non-found class_name.
+    console.log(SC);
+    return SC;
+}
+
+
     $("#current_staff_class").change(function() {
         var csc = $(this).val();
         console.log(csc);
         var staff = viewModel.staff();
         if (!!csc) {
-            csc = _.find(viewModel.staff_classes(), function (staff_class) {
-                return csc == staff_class.name;
-            });
+            csc = lookup_staff_class(csc);
             console.log(csc);
 
             var filtered_staff = _.filter(staff, function(staff_member){
@@ -584,6 +595,14 @@ $(function(){
             viewModel.staff_with_class(filtered_staff);
         } else {
             viewModel.staff_with_class(staff);
+        }
+    });
+
+    $("#current_staff_member_staff_class").change(function() {
+        var csc = $(this).val();
+        console.log(csc);
+        if (!!csc) {
+        } else {
         }
     });
 
@@ -773,6 +792,11 @@ $(function(){
           <option value="">---</option>
       </select>
 
+  <div style="margin-bottom: 9px;">
+    <span>Cosmetician</span>
+    <button id="expando_staff_class">Expand</button>
+    <button id="del_staff_class">Delete</button>
+  </div>
 
 
 <TABLE>
