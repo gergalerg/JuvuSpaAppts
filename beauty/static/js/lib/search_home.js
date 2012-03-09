@@ -117,6 +117,7 @@ function show_inv_cal() {
     var inv = $("#inv");
     inv.hide("slide", function() {
         $("#inv_cal").fadeIn();
+        $(".criteria").fadeOut();
     });
 }
 
