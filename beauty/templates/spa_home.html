@@ -62,14 +62,10 @@ $(function(){
         showOtherMonths: true,
         selectOtherMonths: true,
         altField: '#from_date',
-//        onSelect: date_selected
-    });
-    $("#from_date2_cal").datepicker({
-        minDate: "+0D",
-        showOtherMonths: true,
-        selectOtherMonths: true,
-        altField: '#from_date2',
-//        onSelect: date_selected
+        onSelect: function () {
+            var d = $(this).datepicker("getDate").toDateString();
+            $("#put_from_date_here").text(d + " to ");
+        }
     });
     $("#to_date_cal").datepicker({
         minDate: "+0D",
@@ -444,7 +440,7 @@ function lookup_staff_class(class_name) {
     <label for="id_discount_time_to">to:</label>
     <input type="text" id="id_discount_time_to" name="discount_time_to" class="input-text small"/>
 
-    <input name="from_date2" id="from_date2_cal" class="input-text small" type="text" placeholder="Start Date"/>
+    <label for="to_date_cal"><span id="put_from_date_here"><span> - </label>
     <input name="to_date" id="to_date_cal" class="input-text small" type="text" placeholder="End Date"/>
 
 
