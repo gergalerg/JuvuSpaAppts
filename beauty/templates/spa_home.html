@@ -103,6 +103,10 @@ function lookup_staff_class(class_name) {
     });
 
     $("#current_staff_member_staff_class").change(function() {
+        if (!_.has(viewModel.current_staff_member(), "name")) {
+            $(this).val("");
+            return;
+        }
         var csc = $(this).val();
         console.log(csc);
         if (!!csc) {
@@ -111,7 +115,9 @@ function lookup_staff_class(class_name) {
             if (!_.include(scs, csc)) {
                 // Staff member doesn't have that staff class, add it.
                 scs.push(csc);
+                display_staff_members_staff_classes(scs)
                 console.log("adding", csc);
+                
             }
         }
     });
@@ -302,22 +308,7 @@ function lookup_staff_class(class_name) {
           <option value="">---</option>
       </select>
 
-
-  <div data-bind="template: {name:'staff_classes_edit_template', data: current_staff_member_staff_classes()}">
-  </div>
-
-
-  <div data-bind="with: current_staff_member">
-    <div data-bind="text:name"></div>
-    <div data-bind="foreach: staff_classes">
-      <div style="margin-bottom: 9px;">
-        <span data-bind="text:name"></span>
-        <button id="expando_staff_class">Expand</button>
-        <button id="del_staff_class">Delete</button>
-      </div>
-    </div>
-  </div>
-
+  <div id="put_it_here"></div>
 
 <TABLE>
 <TR>
