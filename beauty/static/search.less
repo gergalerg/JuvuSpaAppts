@@ -1,7 +1,84 @@
 @logo_color: #7FBA02;
 @logo_hover_color: #5f8b01;
-@input_color: #7f7f7f;
-@input_border_color: #bbbbbb;
+
+@title_font: 'Josefin Sans', sans-serif;
+@body_font: 'Istok Web', serif;
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	background-color: #eee;
+	font-family: @body_font;
+}
+
+h3 {
+    font-family: @title_font;
+    font-weight: normal;
+}
+
+table {
+    width: 45%;
+    font-family: @body_font;
+    h3 {
+    	padding: 1em;
+    }
+}
+
+#tagline {
+	font-size: 30px;
+	font-size: 3.0rem;
+	color: @button_blue;
+	margin-top: -20px;
+	margin-bottom: 36px;
+	text-align: center;
+}
+
+	#treatment {
+		font-size: 22px !important;
+		font-size: 2.2rem !important;
+		color: #7f7f7f;
+		width: 160px;
+		padding:  5px 15px !important;
+		border:  solid 1px #bbbbbb;
+	}
+
+    #location {
+		font-size: 22px !important;
+		font-size: 2.2rem !important;
+		color: #7f7f7f;
+		width: 220px;
+		padding:  5px 15px !important;
+		border:  solid 1px #bbbbbb;
+    }
+
+	#datepicker {
+		font-size: 22px !important;
+		font-size: 2.2rem !important;
+		color: #7f7f7f;
+		width: 160px;
+		padding:  5px 5px !important;
+		border:  solid 1px #bbbbbb;
+	}
+
+	select {
+		font-size: 22px !important;
+		font-size: 2.2rem;
+		color: #7f7f7f;
+		padding: 4px 5px !important;
+		border: solid 1px #bbbbbb;
+		display: inline;
+	}
+
+	option {
+		font-style: italic;
+	}
+	
+	#adv_search {
+	    border: 1px solid black;
+	    padding: 0.5em;
+	}
 
 #background {
     width: 100%;
@@ -13,42 +90,10 @@
     opacity: .8;
 }
 
-#logotype {
-    font-size: 100px;
-	font-size: 10.0rem;
-    text-align: center;
-	margin-top: 160px;
-    margin-bottom: 36px;
-	font-family: Pacifico; 
-	text-shadow: 1px 1px 1px #000; 
-	color: @logo_color;
-
-    a {
-	    color: @logo_color;
-    }
-
-    a:hover {
-	    color: @logo_hover_color;
-    }
-
-}
-
-form input[type=text] {
-	width: 40%;
-}
 
 #datepicker {
 	width: 50%;
 }
-
-select,
-input.input-text.oversize {
-	color: @input_color;
-	font-size:  20px !important;
-	padding:  4px 5px !important;
-	border:  solid 1px @input_border_color;
-}
-
 option {
 	font-style: italic;
 }

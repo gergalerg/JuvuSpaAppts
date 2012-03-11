@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta name="language" content="en">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="author" content="ChoiceDocs.com">
+	<meta name="publisher" content="Agora Health Networks, Inc.">
+	<meta name="copyright" content="©2011 Agora Health Networks, Inc. All rights reserved worldwide.">
+	<meta http-equiv="pragma" content="no-cache">
+    <link type="text/css" href="/static/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+    <style>
+	    @import url(http://fonts.googleapis.com/css?family=Josefin+Sans:400,100|Istok+Web|Philosopher);
+    </style>
+    <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.tmpl.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.rdfquery.core-1.0.js"></script>
+    <script type="text/javascript" src="/static/keyswitch.js"></script>
+    <script type="text/javascript" src="/static/js/bbone/underscore.js"></script>
+    <script type="text/javascript" src="/static/js/bbone/backbone.js"></script>
+    <script type="text/javascript" src="/static/js/d3/d3.js"></script>
+    <script type="text/javascript" src="/static/js/d3/d3.time.js"></script>
+    <script type="text/javascript" src="/static/js/d3/d3.layout.js"></script>
+    <script type="text/javascript" src="/static/js/knockout-2.0.0.debug.js"></script>
+    <script type="text/javascript" src="/static/js/crambery.js"></script>
+    <script type="text/javascript" src="/static/js/timescale.js"></script>
+	<link rel="stylesheet" href="/static/foundation/globals.css">
+	<link rel="stylesheet" href="/static/foundation/ui.css">
+	<link rel="stylesheet" href="/static/foundation/forms.css">
+	<link rel="stylesheet" href="/static/foundation/orbit.css">
+	<link rel="stylesheet" href="/static/foundation/reveal.css">
+	<link rel="stylesheet" href="/static/foundation/app.css">
+	<link rel="stylesheet" href="/static/foundation/mobile.css">
+	<title>SpaStalker {% block title %}{% endblock %}</title>
+{% block html_head %}{% endblock %}
+</head>
+<body>
+<div class="container"><div class="row"><div class="twelve columns"><div class="hull">
+
+<div class="row">{% block header %}{% endblock %}</div>{# row #}
+
+<div class="row"><div class="twelve columns">
+
+  <div class="row">
+  {% block toc %}{% endblock %}
+  </div>{# row #}
+
+  <div class="row">
+  <div id="main_frame" class="twelve columns">
+
+    <div class="row"><div class="twelve columns"><div id="pane_0" class="pane">
+    {% block pane_0 %}{% endblock %}
+    </div>{# pane_0 #}</div>{# columns #}</div>{# row #}
+
+    <div class="row"><div class="twelve columns"><div id="pane_1" class="pane">
+    {% block pane_1 %}{% endblock %}
+    </div>{# pane_1 #}</div>{# columns #}</div>{# row #}
+
+  </div>{# columns #}
+  </div>{# row #}
+
+</div>{# columns #}</div>{# row #}
+
+</div>{# hull panel #}</div>{# columns #}</div>{# row #}</div>{# container #}
+</body>
+</html>

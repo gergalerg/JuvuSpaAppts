@@ -1,0 +1,242 @@
+@fg: #787D78;
+@bg: #fff;
+@foundation_link_blue: #2A85E8;
+@call_out: #FFF;
+@title_font: 'Josefin Sans', sans-serif;
+@body_font: 'Istok Web', serif;
+@widget_font: 'Philosopher', serif;
+@button_blue: #99CCFF;
+@button_blue_hover: #015f8a;
+@davee_color: #FF0066;
+@input_color: #7f7f7f;
+@input_border_color: #bbbbbb;
+
+body {
+    font-family: @body_font;
+}
+
+#toc_head {
+    h1, form {
+        display: inline-block;
+    }
+}
+
+#toc {
+    text-align: center;
+    a {
+        padding: 4px;
+        font-family: @body_font;
+    }
+}
+
+#toc_inner {
+    margin-top: 4em;
+}
+
+#logotype {
+    font-family: @title_font;
+    font-size: 120px;
+    font-size: 12.0rem;
+    color: @button_blue;
+    text-align: center;
+    text-shadow: 1px 1px 1px #000;
+    margin-bottom: 0px;
+    a {
+        color: @button_blue;
+    }
+    a:hover {
+        color: @button_blue_hover;
+    }
+    span.davee {
+        color: @davee_color;
+    }
+}
+
+#login_box {
+    width: 50%;
+    background-color: transparent;
+    tbody{
+        background: inherit !important;
+        tr {
+            background: inherit !important;
+            td {
+                text-align: center;
+            }
+        }
+    }
+}
+
+
+.hull {
+    min-height: 565px;
+}
+
+.title {
+    font-family: @title_font;
+    font-weight: 100;
+    color: black;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    .title;
+}
+
+#title_bar {
+    h1, h3 {
+        display: inline-block;
+    }
+}
+
+a.blue_button {
+    font-size: 22px;
+    font-size: 2.2rem;
+    color: @call_out;
+    text-transform: uppercase;
+    background-color: @button_blue;
+    border: 0;
+    padding: 5px 15px !important;
+    font-family: @body_font;
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+
+a.blue_button:hover{
+    color: @call_out;
+    background-color: @button_blue_hover;
+}
+
+div.blue_button {
+    font-size: 22px;
+    font-size: 2.2rem;
+    color: @call_out;
+    text-transform: uppercase;
+    background-color: @button_blue;
+    border: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-family: @body_font;
+    margin: 0.5em;
+    cursor: pointer;
+}
+
+div.blue_button:hover {
+    color: @call_out;
+    background-color: @button_blue_hover;
+}
+
+div.indicate {
+    color: @bg;
+    background-color: @foundation_link_blue;
+    font-weight: 400;
+}
+
+.shrinky {
+    font-size: smaller;
+}
+
+
+#pane_1 {
+    label {
+        font-size: smaller;
+        margin-bottom: 2px;
+        span {
+            padding-left: 1em;
+            padding-right: 1em;
+            padding-top: 0.3em;
+            padding-bottom: 0.2em;
+        }
+    }
+    .criteria {
+        h2, h3 {
+            display: inline-block;
+            margin-right: 4em;
+        }
+        h4 {
+            display: inline-block;
+            line-height: 200%;
+
+            &:hover {
+                font-weight: 400;
+            }
+            .selected {
+                font-weight: 400;
+                background-color: #ddf;
+            }
+            a {
+                cursor: pointer;
+                padding: 3px;
+            }
+        }
+        h4.elbowroom {
+            margin-right: 1.5em;
+        }
+        div.option_box {
+            display: inline-block;
+        }
+        input[type=text] {
+            display: inline-block;
+            font-family: @widget_font;
+            width: 40px;
+        }
+        #miles_criteria {
+            padding-top: 1em;
+            padding-left: 20em;
+        }
+        #date_criteria {
+            padding-top: 1em;
+            padding-left: 30em;
+        }
+    }
+    .month_link {
+        margin-left: 2em;
+        margin-right: 2em;
+    }
+}
+
+#when_criteria {
+  h3 {
+    a {
+      cursor: pointer;
+    }
+  }
+}
+
+input.input-text.oversize {
+    color: @input_color;
+    font-size:  20px !important;
+    padding:  4px 5px !important;
+    border:  solid 1px @input_border_color;
+}
+
+select {
+    color: @input_color;
+    padding:  4px 5px !important;
+    border:  solid 1px @input_border_color;
+}
+
+.node circle {
+  cursor: pointer;
+  fill: #eef;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  cursor: pointer;
+  fill: @fg;
+  font-family: @body_font;
+  font-size: 28px;
+    padding: 4px;
+    font-weight: 400;
+    fill: #2A85E8;
+}
+
+path.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+.me_text {
+}
+

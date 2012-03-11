@@ -1,19 +1,37 @@
 from pprint import pprint as _P
 from json import dumps
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from spasui.search import process_POST_params, search_for_availabilities
 from beauty.util.dealcal import DealCalendar
 from yelp import YelpApi
+from spasui.forms import SpaInfoForm
+from beauty.uui.forms import UserSignupForm
+from beauty.data.treatments import TREEd
+from simplejson import dumps
+from beauty.spasui.models import q0
 
 
 def search(request):
     '''
     Search page.
     '''
+    if request.user.is_authenticated():
+        name = request.user.first_name
+    else:
+        name = 'Me'
+    tree = TREEd.copy()
+    tree['name'] = name
     return render_to_response(
-        'search.html',
+        'search_home.html',
+        dict(
+            name=name,
+            form=SpaInfoForm(),
+            tree_data=dumps(tree),
+            ),
         context_instance=RequestContext(request),
         )
 
@@ -40,10 +58,58 @@ def results(request):
         )
 
 
+def _process_result(spa, time, tname, price):
+    return {
+        'spa': str(spa.uri),
+        'time': str(time),
+        'spec_treat': str(tname),
+        'price': str(price),
+        }
+
+
+from itertools import groupby
+from operator import itemgetter
+from random import choice
+
+K = itemgetter('spa')
+J = itemgetter('spec_treat')
+P = itemgetter('price')
+
+def foo(results):
+    R = []
+    results.sort(key=K)
+    for spa, group in groupby(results, K):
+        res = []
+        group = sorted(group, key=J)
+        S = dict(
+            spa=spa[3:] if spa.startswith('cd:') else spa,
+            rating=choice((4, 5)),
+            results=res,
+            )
+        R.append(S)
+        for spec_treat, variants in groupby(group, J):
+            variants = list(variants)
+            n = variants[0]
+            res.append(dict(
+                spec_treat=spec_treat,
+                price=min(map(P, variants)),
+                discount=n.get('discount') or choice((10, 20, 0)),
+                ))
+    return R
+
+
 def ajax_results(request):
     assert request.method == 'POST'
-    results, _ = _get_results(request)
-    return HttpResponse(results, mimetype="application/json")
+    proc, date = request.POST['proc'], request.POST['date']
+    date = date.replace('/', '-')
+    print repr(proc), repr(date)
+    results = q0(proc, date)
+    print repr(results)
+    results = [_process_result(**r) for r in results]
+    _P(results)
+    results = foo(results)
+    _P(results)
+    return HttpResponse(dumps(results), mimetype="application/json")
 
 
 def _get_results(request):
@@ -58,6 +124,36 @@ def _get_results(request):
     return results, criteria
 
 
+def signup(request):
+    if request.method != 'POST':
+        form = UserSignupForm()
+    else:
+        form = UserSignupForm(request.POST)
+        if form.is_valid():
+            user = User.objects.create_user(
+                form.cleaned_data['email'],
+                form.cleaned_data['email'],
+                form.cleaned_data['password'],
+                )
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.save()
+            user = authenticate(
+                username=form.cleaned_data['email'],
+                password=form.cleaned_data['password'],
+                )
+            login(request, user)
+            return HttpResponseRedirect('/#step/0')
+        else:
+            pass
+
+    return render_to_response(
+        'signup.html',
+        dict(form=form),
+        context_instance=RequestContext(request),
+        )
+
+
 def booking(request):
     return render_to_response(
         'booking.html',
@@ -66,6 +162,11 @@ def booking(request):
 
 def confirmation(request):
     return render_to_response(
-        'confirmation.html',
+        'visibits.html',
+        )
+
+def login(request):
+    return render_to_response(
+        'login.html',
         )
 

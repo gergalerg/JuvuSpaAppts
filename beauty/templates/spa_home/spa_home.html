@@ -1,0 +1,517 @@
+{% extends "spa_base.html" %}
+{% block html_head %}
+<link rel="stylesheet/less" href="/static/spa_home.less" type="text/css">
+<script src="/static/js/less.js" type="text/javascript"></script>
+{% include "templates.spa_home.html" %}
+<script type="text/javascript">
+    var root = {{ tree_data|safe }};
+    var staff = {{ staff|safe }};
+</script>
+<script src="/static/js/lib/spa_home.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+$(function(){
+
+    $("#main_frame").hide();
+    $(".pane").hide();
+    $(".picker_inner").hide();
+
+    ko.applyBindings(viewModel);
+
+    $("#choose").accordion({
+        collapsible: true,
+        autoHeight: false,
+        create: function(event, ui) {
+            $(this).accordion("activate", false);
+        }
+    });
+    $("input.tile").button();
+
+    setup_button("button#add_staff", 'ui-icon-circle-plus');
+    setup_button("button#add_proc", 'ui-icon-circle-plus');
+    setup_button("button#del_proc", 'ui-icon-circle-close');
+    setup_button("button#add_class", 'ui-icon-circle-plus');
+    setup_button("button#post_staff", 'ui-icon-circle-check', true);
+    setup_button("button#delete_staff", 'ui-icon-circle-close', true);
+    setup_button("button#expando_staff_class", 'ui-icon-circle-triangle-s');
+    setup_button("button#del_staff_class", 'ui-icon-circle-close');
+
+    var vis = d3.select("#show")
+        .append("svg:svg")
+        .attr("width", w)
+        .attr("height", h)
+        .attr("id", "uncanny");
+    make_timescale(vis);
+
+    $("#slider").slider({
+        max: 0.25,
+        min: -0.25,
+        step: 0.015625, // 0.5 / (8 * 4) i.e. by fifteen minutes's.
+        orientation: 'vertical',
+        animate: true,
+        slide: function(event, ui) {
+            slider_offset = ui.value;
+            timescale_updater();
+        },
+    });
+
+    setup_bands();
+
+    $("#from_date_cal").datepicker({
+        minDate: "+0D",
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        altField: '#from_date',
+        onSelect: function () {
+            var d = $(this).datepicker("getDate").toDateString();
+            $("#put_from_date_here").text(d + " to ");
+        }
+    });
+    $("#to_date_cal").datepicker({
+        minDate: "+0D",
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        altField: '#to_date',
+//        onSelect: date_selected
+    });
+
+
+function lookup_staff_class(class_name) {
+    SC = _.find(viewModel.staff_classes(), function (staff_class) {
+        return class_name == staff_class.name;
+    });
+    // TODO: handle non-found class_name.
+    console.log(SC);
+    return SC;
+}
+
+
+    $("#current_staff_class").change(function() {
+        var csc = $(this).val();
+        console.log(csc);
+        var staff = viewModel.staff();
+        if (!!csc) {
+            csc = lookup_staff_class(csc);
+
+            var filtered_staff = _.filter(staff, function(staff_member){
+                return _.include(staff_member.staff_classes, csc);
+            });
+            viewModel.staff_with_class(filtered_staff);
+        } else {
+            viewModel.staff_with_class(staff);
+        }
+    });
+
+    $("#current_staff_member_staff_class").change(function() {
+        if (!_.has(viewModel.current_staff_member(), "name")) {
+            $(this).val("");
+            return;
+        }
+        var csc = $(this).val();
+        console.log(csc);
+        if (!!csc) {
+            csc = lookup_staff_class(csc);
+            var scs = viewModel.current_staff_member().staff_classes();
+            if (!_.include(scs, csc)) {
+                // Staff member doesn't have that staff class, add it.
+                scs.push(csc);
+                display_staff_members_staff_classes(scs)
+                console.log("adding", csc);
+                
+            }
+        }
+    });
+
+    crambery(3);
+
+    if (!Backbone.history.start()) {
+        routes.navigate("toc", true);
+    }
+});
+</script>
+{% endblock %}
+
+{% block title %}Spa Home{% endblock %}
+
+{% block header %}
+<div id="title_bar">
+  <h1>{{ spa_name|default:"&lt;SPA NAME&gt;" }}</h1> <h3 data-bind="text:view_title">Home</h3>
+</div>
+{% endblock %}
+
+{% block toc %}
+    <h3><a id="0_link" href="#step/0">Info</a></h3>
+    <h3><a id="1_link" href="#step/1">Services</a></h3>
+    <h3><a id="3_link" href="#step/3">Staff</a></h3>
+    <h3><a id="4_link" href="#step/4">Calendar</a></h3>
+      <div data-bind="visible:viewing()==4, template: {name:'toc_staff_template', foreach: staff}"></div>
+{% endblock %}
+
+{% block pane_0 %}
+<table><form class="nice">
+{{ form }}
+<tr>
+  <th><label for="id_add_class">Add Staff Class:</label></th>
+  <td>
+    <input id="id_add_class" type="text" name="add_class_name" maxlength="100" />
+    <button id="add_class" data-bind="click: add_class">Add</button>
+    <ul id="staff_classes" data-bind="template: {name:'staff_classes_template', foreach: staff_classes}"></ul>
+  </td>
+</tr>
+
+<tr>
+  <th><label for="id_juvunoti">Juvu Notification:</label></th>
+  <td>
+    <p>This area not applicable for merchants using software that Juvu integrates with or using Juvu as their primary booking solution.
+  </td>
+</tr>
+
+<tr>
+  <th><label>Email:</label></th>
+  <td>
+    <input id="id_email_0" type="text" name="email_name_0" maxlength="100" />
+    <input id="id_email_1" type="text" name="email_name_1" maxlength="100" />
+    <input id="id_email_2" type="text" name="email_name_2" maxlength="100" />
+  </td>
+</tr>
+
+<tr>
+  <th><label for="id_">SMS Text Messages:</label></th>
+  <td>
+    <input id="id_sms_0" type="text" name="sms_name_0" maxlength="100" />
+    <input id="id_sms_1" type="text" name="sms_name_1" maxlength="100" />
+    <input id="id_sms_2" type="text" name="sms_name_2" maxlength="100" />
+  </td>
+</tr>
+
+<tr>
+  <th><label>Payment Types Accepted:</label></th>
+  <td>
+    <input type="checkbox" id="id_Cash" name="" />
+    <label for="id_Cash">Cash</label>
+    <br>
+    <input type="checkbox" id="id_VisaMC" name="" />
+    <label for="id_VisaMC">Visa/MC</label>
+    <br>
+    <input type="checkbox" id="id_Amex" name="" />
+    <label for="id_Amex">Amex</label>
+    <br>
+    <input type="checkbox" id="id_Discover" name="" />
+    <label for="id_Discover">Discover</label>
+    <br>
+    <input type="checkbox" id="id_pcheck" name="" />
+    <label for="id_pcheck">Personal Check</label>
+    <br>
+    <input type="checkbox" id="id_spafinderaccept" name="" />
+    <label for="id_spafinderaccept">Spa Finder</label>
+    <br>
+  </td>
+</tr>
+</form></table>
+{% endblock %}
+
+{% block pane_1 %}<div class="row">
+
+<div class="seven columns">
+    <form>
+    <div id="choose" data-bind="template: {name:'accordion_proc_category_template', foreach: obj_treatments}">
+    </div>{# "choose" DIV #}
+    </form>
+</div>{# columns #}
+
+<div class="five columns"><div class="magic">
+<div class="proc_detail">
+    <h3 data-bind="text: current_proc().name"></h3>
+
+    <div id="subtypes_listing"  data-bind="template: {name:'subtypes_template', foreach: current_proc().subtypes}"></div>
+
+    <form id="add_subtype" class="nice">
+        <label for="nickname">Name:</label><input name="nickname" class="input-text" type="text" data-bind="value:current_proc().nickname" placeholder="None Selected"><br>
+        <label for="price">Price:</label><input name="price" class="input-text" type="text" data-bind="value:current_proc().price" placeholder="Price"><br>
+        <label for="duration">Minutes:</label><input name="duration" class="input-text" type="text" data-bind="value:current_proc().duration" placeholder="Duration"><br>
+        <div id="resource_picker">
+          <a style="cursor:pointer" data-bind="click:toggle_resources">resources</a>
+          <div id="resource_picker_inner" class="picker_inner">
+            <input type="checkbox" class="" id="id_Tissue" name="Tissue"><label for="id_Tissue">Tissue</label><br>
+            <input type="checkbox" class="" id="id_Wax" name="Wax"><label for="id_Wax">Wax</label><br>
+            <input type="checkbox" class="" id="id_Towel" name="Towel"><label for="id_Towel">Towel</label><br>
+          </div>
+        </div>
+        <div id="staff_class_picker">
+          <a style="cursor:pointer" data-bind="click:toggle_staff_classs">staff class</a>
+          <div id="staff_class_picker_inner" class="picker_inner" data-bind="template: {name:'staff_classes_checkbox_template', foreach: staff_classes}"></div>
+        </div>
+
+        <div id="options_procs_picker">
+          <a style="cursor:pointer" data-bind="click:toggle_options_procs">options</a>
+          <div id="addon_options_picker_inner" class="picker_inner" data-bind="template: {name:'proc_template3', foreach: supported_procs}"></div>
+        </div>
+
+        <div id="addon_procs_picker">
+          <a style="cursor:pointer" data-bind="click:toggle_addon_procs">add-on services</a>
+          <div id="addon_procs_picker_inner" class="picker_inner" data-bind="template: {name:'proc_template4', foreach: supported_procs}"></div>
+        </div>
+
+        <label for="id_description">Description:</label>
+        <textarea name="Description" cols="40" rows="4" id="id_description"></textarea>
+
+        <label for="id_Appointment_411">Appointment 411:</label>
+        <textarea name="Appointment_411" cols="40" rows="4" id="id_Appointment_411"></textarea>
+
+        <br>
+        <button id="add_proc" data-bind="click: add_subtype">Add</button>
+        <button id="del_proc">Delete</button>
+    </form>
+</div>{# proc_detail #}
+</div>{# magic #}</div>{# columns #}
+
+</div>{# row #}
+{% endblock %}
+
+{# no pane 2 #######################################################################  #}
+{#  ################################################################################  #}
+{#  ################################################################################  #}
+{#  ################################################################################  #}
+{#  ################################################################################  #}
+
+
+
+
+{% block pane_3 %}
+  <div class="row">
+
+  <div class="four columns"><div id="staff_list">
+    <form class="nice">
+      <select id="current_staff_class" data-bind="template: {name:'staff_option_template', foreach: staff_classes}">
+          <option value="">All</option>
+      </select>
+      <div data-bind="template: {name:'tile_template', foreach: staff_with_class}"></div>
+      <button id="add_staff" data-bind="click: add_staff_member">Create New Staff Member</button>
+      <input id="staff_name" name="staff_name" class="input-text small" type="text" placeholder="Add Staff Member">
+    </form>
+  </div>{# staff_list #}</div>{# columns #}
+
+  <div class="eight columns"><div id="boy">
+    <div class="row"><div class="twelve columns">
+      <div id="aa" class="cake">
+    <form class="nice">
+      <input id="staff_f_name" name="staff_f_name" class="input-text small" type="text" placeholder="first name" data-bind="attr: {value:current_staff_member().name}">
+      <input id="staff_l_name" name="staff_l_name" class="input-text small" type="text" placeholder="last name" data-bind="attr: {value:current_staff_member().name}">
+      <input class="input-text small" type="text" placeholder="email">
+      <input class="input-text small" type="text" placeholder="Mobile #">
+      <input class="input-text small" type="text" placeholder="Mobile Provider">
+        <div data-bind="visible:someone_selected">
+          <div id="chart" data-bind="template: {name:'staff_proc_template', foreach: supported_procs}"></div>
+        </div>
+
+      <select id="current_staff_member_staff_class" data-bind="template: {name:'staff_option_template', foreach: staff_classes}">
+          <option value="">---</option>
+      </select>
+
+  <div id="put_it_here"></div>
+
+<TABLE>
+<TR>
+  <TH></TH>
+  <TH>Shift Start</TH>
+  <TH>Shift End</TH>
+  <TH>Lunch Start</TH>
+  <TH>Lunch End</TH>
+  <TH>Scheduled Until</TH>
+</TR>
+<TR>
+  <TH>Monday</TH>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+</TR>
+<TR>
+  <TH>Tuesday</TH>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+</TR>
+<TR>
+  <TH>Wednesday</TH>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+</TR>
+<TR>
+  <TH>Thursday</TH>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+</TR>
+<TR>
+  <TH>Friday</TH>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+</TR>
+<TR>
+  <TH>Saturday</TH>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+</TR>
+<TR>
+  <TH>Sunday</TH>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+  <TD><input class="input-text bitty" type="text"></TD>
+</TR>
+
+</TABLE>
+
+    <label for="qwer" style="display:inline-block">Mask Time</label>
+    <input type="text" id="qwer" name="qwer" class="input-text small" style="display:inline-block"/>
+    <br/>
+
+    <select id="current_staff_member_gender">
+        <option value="f">female</option>
+        <option value="m">male</option>
+    </select>
+
+    <label for="active_chbx" style="display:inline-block">Active</label>
+    <input type="checkbox" id="active_chbx" name="active_chbx" style="display:inline-block"/>
+    <br/>
+
+    <button id="post_staff">Save Changes</button>
+    <button id="delete_staff">Delete Staff</button>
+
+
+
+    </form>
+      </div>{# aa cake #}
+    </div></div>{# columns row #}
+  </div>{# boy #}</div>
+
+  </div>{# row #}
+{% endblock %}
+
+
+
+{#  ################################################################################  #}
+{#  ################################################################################  #}
+{#  ################################################################################  #}
+{#  ################################################################################  #}
+
+
+
+{% block pane_4 %}
+<div class="row">
+<div class="four columns">
+    <div id="discounts">
+
+<form class="nice">
+    <input name="from_date" id="from_date_cal" class="input-text small" type="text"placeholder="Start Date"/>
+    <h3>Create Discount</h3>
+
+    <label for="id_discount_name">Name:</label>
+    <input type="text" id="id_discount_name" name="discount_name" class="input-text oogy"/>
+
+    <label for="id_discount_time_from">Time:</label>
+    <input type="text" id="id_discount_time_from" name="discount_time_from" class="input-text small"/>
+
+    <label for="id_discount_time_to">to:</label>
+    <input type="text" id="id_discount_time_to" name="discount_time_to" class="input-text small"/>
+
+    <label for="to_date_cal"><span id="put_from_date_here"><span> - </label>
+    <input name="to_date" id="to_date_cal" class="input-text small" type="text" placeholder="End Date"/>
+
+
+    <ul class="block-grid four-up" style="margin-bottom: 0px;">
+        <li>
+        <label for="id_day_0">M:</label>
+        <input type="checkbox" id="id_day_0" name="day_0"/>
+        </li>
+        <li>
+        <label for="id_day_1">Tu:</label>
+        <input type="checkbox" id="id_day_1" name="day_1"/>
+        </li>
+        <li>
+        <label for="id_day_2">W:</label>
+        <input type="checkbox" id="id_day_2" name="day_2"/>
+        </li>
+        <li>
+        <label for="id_day_3">Th:</label>
+        <input type="checkbox" id="id_day_3" name="day_3"/>
+        </li>
+        <li>
+        <label for="id_day_4">F:</label>
+        <input type="checkbox" id="id_day_4" name="day_4"/>
+        </li>
+        <li>
+        <label for="id_day_5">Sa:</label>
+        <input type="checkbox" id="id_day_5" name="day_5"/>
+        </li>
+        <li>
+        <label for="id_day_6">Su:</label>
+        <input type="checkbox" id="id_day_6" name="day_6"/>
+        </li>
+    </ul>
+    <div id="ddddd">
+    <label for="id_discount_a">Juvu Purple:</label>
+    <input type="checkbox" id="id_discount_a" name="discount_a"/>
+    <input type="text" name="discount_a_percent" class="input-text small"/>
+    <br/>
+    <label for="id_discount_b">Juvu Blue:</label>
+    <input type="checkbox" id="id_discount_b" name="discount_b"/>
+    <input type="text" name="discount_b_percent" class="input-text small"/>
+    <br/>
+    <label for="id_discount_c">Juvu Green:</label>
+    <input type="checkbox" id="id_discount_c" name="discount_c"/>
+    <input type="text" name="discount_c_percent" class="input-text small"/>
+    <br/>
+    <label for="id_discount_d">No Status:</label>
+    <input type="checkbox" id="id_discount_d" name="discount_d"/>
+    <input type="text" name="discount_d_percent" class="input-text small"/>
+    <br/>
+    <label for="id_discount_e">Repeat Clients 3:</label>
+    <input type="checkbox" id="id_discount_e" name="discount_e"/>
+    <input type="text" name="discount_e_percent" class="input-text small"/>
+    <br/>
+    <label for="id_discount_f">Repeat Clients 2:</label>
+    <input type="checkbox" id="id_discount_f" name="discount_f"/>
+    <input type="text" name="discount_f_percent" class="input-text small"/>
+    <br/>
+    <label for="id_discount_g">All Repeat Clients:</label>
+    <input type="checkbox" id="id_discount_g" name="discount_g"/>
+    <input type="text" name="discount_g_percent" class="input-text small"/>
+    </div>
+
+    <button id="add_staff" data-bind="click: add_staff_member">Add Staff Member</button>
+
+    <h3>Active Discounts</h3>
+</form>
+
+    </div>
+</div>{# columns #}
+<div class="seven columns">
+    <div data-bind="text:mouse_time"></div>
+    <div id="show"></div>
+</div>{# columns #}
+<div class="one columns">
+    <div id="slider"></div>
+</div>{# columns #}
+</div>{# row #}
+{% endblock %}
+
+
+{% block body %}
+{% endblock %}

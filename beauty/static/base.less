@@ -1,0 +1,53 @@
+@fg: #787D78;
+@bg: #eee;
+@foundation_link_blue: #2A85E8;
+@call_out: #FFF;
+
+@title_font: 'Josefin Sans', sans-serif;
+@body_font: 'Istok Web', serif;
+@widget_font: 'Philosopher', serif;
+
+@button_blue: #99CCFF;
+@button_blue_hover: #015f8a;
+@davee_color: #FF0066;
+@input_color: #7f7f7f;
+@input_border_color: #bbbbbb;
+
+
+body {
+    font-family: @body_font;
+    color: @fg;
+    background-color: @bg;
+}
+
+.title {
+    font-family: @title_font;
+    font-weight: 100;
+    color: @fg;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    .title;
+}
+
+.buttonish {
+	font-size: 22px;
+	font-size: 2.2rem;
+	color: @call_out;
+	text-transform: uppercase;
+	background-color: @button_blue;
+	border: 0;
+	padding: 5px 15px !important;
+    font-family: @body_font;
+}
+
+.buttonish:hover{
+	background-color: @button_blue_hover;
+	color: @call_out;
+}
+
+
+.sosumi {
+    font-family: @widget_font;
+}
+

@@ -15,12 +15,23 @@ MANAGERS = ADMINS = (
 
 DATABASE_ENGINE = 'sqlite3'
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'users.sqlite3',
+    }
+}
 
 TRIPLE_STORES = {
     'default': dict(
         storage_name="hashes",
         name="test",
         options_string="new='yes',hash-type='memory',dir='.'",
+        ),
+    'testdata': dict(
+        storage_name="file",
+        name=join(PROJECT_ROOT, '../testdata/testdata.rdf.xml'),
+        options_string="new='yes',dir='.'",
         ),
     }
 
@@ -86,6 +97,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     join(PROJECT_ROOT, 'templates'),
+    join(PROJECT_ROOT, 'templates', 'spa_home'),
 )
 
 INSTALLED_APPS = (

@@ -31,15 +31,17 @@ from beauty.util.URIs import (
   WHERE,
   FROM_TIME,
   TO_TIME,
+  EMPLOYS,
   )
 
 
 # One big ol' internal in-memory store. New on each restart.
-M = Model(Storage(**settings.TRIPLE_STORES['default']))
+M = Model(Storage(**settings.TRIPLE_STORES['testdata']))
 
 
 def _query(sparql, **args):
   sparql = PREFIX + sparql
+  print sparql
   return list(SPARQLQuery(str(sparql % args)).execute(M))
 
 
@@ -47,6 +49,7 @@ def plain_query(f):
   query = f.__doc__
   arg_names = getargspec(f).args
   def g(*args):
+    print args
     return _query(query, **dict(zip(arg_names, args)))
   return g
 
@@ -76,6 +79,18 @@ def add_thing(name, label, kind):
 
 def add_provider(name, label):
   return add_thing(name, label, PROVIDER)
+
+
+def add_staff_member(spa, staffmember):
+    T = get_spa_from_label(spa)
+    spa = T[0] if T else add_provider(spa, spa)
+    s = Node()
+    for s in (
+        Statement(s, LABEL, staffmember),
+        Statement(spa, EMPLOYS, s),
+        ):
+        M.add_statement(s)
+    return s
 
 
 def add_treatment(name, label=None):
@@ -134,6 +149,18 @@ def create_availability_with_trenche(trenche, day):
   M.add_statement(Statement(avail, SUPPORTS, trenche))
   M.add_statement(Statement(avail, DATE, day))
   return avail
+
+
+def get_spa_from_label(label):
+  return [
+    t['spa'] for t in _query("""
+SELECT distinct ?spa
+WHERE {
+    ?spa rdfs:label "%(label)s" .
+}
+""",
+  label=label,
+  )]
 
 
 def get_treatment_from_label(label):
@@ -220,6 +247,25 @@ def prepare_trenche_data():
         res.append((k + '_also', v))
     return res
 
+
+
+@plain_query
+def q0(proc, date):
+  """
+  SELECT distinct ?spa ?time ?tname ?price
+  WHERE {
+      ?pt foaf:name "%(proc)s" .
+      ?pt rdf:type cd:ProcedureType .
+      ?t cd:SubCategory ?pt .
+      ?t rdf:type cd:Treatment .
+      ?t foaf:name ?tname .
+      ?a cd:Treatment ?t .
+      ?a cd:Date "%(date)s" .
+      ?a cd:Provider ?spa .
+      ?a cd:from_time ?time .
+      ?a cd:Price ?price .
+  }
+  """
 
 
 ##add_treatment("Acupuncture", "Acupuncture is Fun")
