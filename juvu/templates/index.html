@@ -51,8 +51,11 @@
             <form method="POST" action="{% url record_email %}">
                 {% csrf_token %}
                 <input name="record_email" id="record_email" type="text" class="landing_input" placeholder="email"/>
-                <input type="submit" class="landing_sub"/>
+                <input type="submit" class="landing_sub" value="Submit"/>
             </form>
+            {% if second_visit %}
+            put new markup here!
+            {% endif %}
         </div>
 
     </div>
