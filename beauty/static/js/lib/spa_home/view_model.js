@@ -163,5 +163,3 @@ viewModel.viewing.subscribe(function(view) {
     View.previous_view = view;
 });
 
-var routes = new routey();
-

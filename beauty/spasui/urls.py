@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     url(r'^dongle/', 'spasui.views.dongle', name='dongle'),
     url(r'^rad/', 'spasui.views.rad', name='rad'),
     url(r'^gnarl/', 'spasui.views.gnarl', name='gnarl'),
+    url(r'^post_sched/', 'spasui.views.post_sched', name='post_sched'),
     )
