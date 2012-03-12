@@ -1,5 +1,5 @@
 # API service.
-from datetime import datetime
+from datetime import datetime, date
 from pprint import pprint as _P
 from itertools import groupby
 from json import dumps
@@ -144,38 +144,54 @@ def gnarl(request):
 def _keyf((key, value)):
     return key.split('_', 1)[0]
 
+_fithly_hack = date(2011, 1, 1)
+
 def _timey(t):
     try:
-        return datetime.strptime(t, '%H:%M').time().strftime('%H:%M')
+        t = datetime.strptime(t, '%H:%M').time()
+        t = datetime.combine(_fithly_hack, t)
+        t = t.isoformat()
+        return t
     except ValueError:
         pass # i.e. return None
 
-def _times_to_intervals(shift_start, shift_end, lunch_start, lunch_end):
+def _times_to_intervals(shift_start, shift_end, lunch_start, lunch_end, day):
+    D = _day_of_week(day)
     if not (shift_start and shift_end):
         return ()
     if not (lunch_start and lunch_end):
-        return ((shift_start, shift_end),)
-    return ((shift_start, lunch_start), (lunch_end, shift_end))
+        return (
+            dict(day=day, day_of_week=D, start=shift_start, end=shift_end),
+            )
+    return (
+        dict(day=day, day_of_week=D, start=shift_start, end=lunch_start),
+        dict(day=day, day_of_week=D, start=lunch_end, end=shift_end),
+        )
+
+def _day_of_week(d):
+    return 'monday tuesday wednesday thursday friday saturday sunday'.split().index(d)
 
 def post_sched(request):
     data = []
     for f in (
-        "monday_shift_start","monday_shift_end","monday_lunch_start","monday_lunch_end",
-        "tuesday_shift_start","tuesday_shift_end","tuesday_lunch_start","tuesday_lunch_end",
-        "wednesday_shift_start","wednesday_shift_end","wednesday_lunch_start","wednesday_lunch_end",
-        "thursday_shift_start","thursday_shift_end","thursday_lunch_start","thursday_lunch_end",
-        "friday_shift_start","friday_shift_end","friday_lunch_start","friday_lunch_end",
-        "saturday_shift_start","saturday_shift_end","saturday_lunch_start","saturday_lunch_end",
-        "sunday_shift_start","sunday_shift_end","sunday_lunch_start","sunday_lunch_end",
+        "monday_shift_start", "monday_shift_end", "monday_lunch_start", "monday_lunch_end",
+        "tuesday_shift_start", "tuesday_shift_end", "tuesday_lunch_start", "tuesday_lunch_end",
+        "wednesday_shift_start", "wednesday_shift_end", "wednesday_lunch_start", "wednesday_lunch_end",
+        "thursday_shift_start", "thursday_shift_end", "thursday_lunch_start", "thursday_lunch_end",
+        "friday_shift_start", "friday_shift_end", "friday_lunch_start", "friday_lunch_end",
+        "saturday_shift_start", "saturday_shift_end", "saturday_lunch_start", "saturday_lunch_end",
+        "sunday_shift_start", "sunday_shift_end", "sunday_lunch_start", "sunday_lunch_end",
         ):
         data.append((f, request.POST.get(f)))
     data.sort(key=_keyf)
-    res = {}
+    res = []
     for day, times in groupby(data, _keyf):
-        res[day] = _times_to_intervals(**dict(
+        times = dict(
             (key.split('_', 1)[1], _timey(value))
             for key, value in times
-            ))
+            )
+        times['day'] = day
+        res.append(_times_to_intervals(**times))
     _P(res)
     return HttpResponse(dumps(res), mimetype="application/json")
 

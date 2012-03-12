@@ -55,7 +55,6 @@ viewModel = {
             this.staff.push(newbie);
             this.current_staff_member(newbie);
             $("#staff_name").val('');
-            setup_bands();
         } else {
             $("#staff_name").effect('highlight');
         }

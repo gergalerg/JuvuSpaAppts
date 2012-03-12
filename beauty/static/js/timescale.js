@@ -25,6 +25,11 @@ function day_line(d) {
 var ticks = day_to_n.ticks(d3.time.minutes, 15);
 var m = 4; // Special format every mth line to highlight hour.
 
+function _D(date_string) {
+    var d = new Date(date_string);
+    return d;
+}
+
 function make_timescale(svg_el) {
     svg_el.selectAll("line")
         .data(ticks)
@@ -69,7 +74,7 @@ var timescale_updater = _.throttle(function() {
         .transition()
         .delay(0)
         .duration(150)
-        .attr("y", function(d) { return day_line(d.start) })
-        .attr("height", function(d) { return day_line(d.end) - day_line(d.start) });
+        .attr("y", function(d) { return day_line(_D(d.start)) })
+        .attr("height", function(d) { return day_line(_D(d.end)) - day_line(_D(d.start)) });
 }, 50);
 

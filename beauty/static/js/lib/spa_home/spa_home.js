@@ -75,7 +75,10 @@ function post_sched(sched) {
         type: 'POST',
         data: sched,
         success: function(data, textStatus, jqXHR) {
+            data = _.flatten(data);
             console.log(data);
+            setup_bands(data);
+            console.log("data mapped to calendar");
         },
     });
 }

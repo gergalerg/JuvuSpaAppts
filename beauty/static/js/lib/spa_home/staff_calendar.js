@@ -9,6 +9,7 @@ function random_apts(staff_member) {
     ];
 }
 
+// var show_us = _.flatten([[], [{"start": "2011-01-01T07:00:00", "end": "2011-01-01T02:30:00", "day": "monday", "day_of_week": 0}, {"start": "2011-01-01T03:00:00", "end": "2011-01-01T18:00:00", "day": "monday", "day_of_week": 0}], [], [], [], [{"start": "2011-01-01T05:00:00", "end": "2011-01-01T12:00:00", "day": "tuesday", "day_of_week": 1}, {"start": "2011-01-01T12:01:00", "end": "2011-01-01T09:00:00", "day": "tuesday", "day_of_week": 1}], []]);
 
 //-------------------------------------------------------
 // Staff member calendar view support.
@@ -19,8 +20,8 @@ var color_of = d3.scale.linear()
         .range(["hsl(0, 50%, 70%)", "hsl(360, 50%, 70%)"])
         .interpolate(d3.interpolateHsl);
 
-function setup_bands() {
-    var R = _.range(viewModel.staff().length);
+function setup_bands(show_us) {
+    var R = _.range(7);
     var x = d3.scale.ordinal()
         .domain(R)
         .rangeBands([80, 335], 0.125);
@@ -28,27 +29,21 @@ function setup_bands() {
         .domain(R)
         .rangePoints([0.0, 1.0], 0.5);
 
-    _.each(viewModel.staff(), function(n, i) {
-        n.tag_color(color_of(col(i)));
-    });
-
-    var Apointments = _.flatten(_.map(viewModel.staff(), random_apts));
-
     d3.select("svg")
       .selectAll("rect")
       .remove();
 
     d3.select("svg")
       .selectAll("rect")
-      .data(Apointments)
+      .data(show_us)
       .enter().append("svg:rect")
-        .attr("x", function(d) { return x(_.indexOf(viewModel.staff(), d.staff_member)) })
+        .attr("x", function(d) { return x(d.day_of_week) })
         .attr("width", x.rangeBand())
-        .attr("y", function(d) { return day_line(d.start) })
-        .attr("height", function(d) { return day_line(d.end) - day_line(d.start) })
-        .attr("fill", function(d) { return d.staff_member.tag_color() })
+        .attr("y", function(d) { return day_line(_D(d.start)) })
+        .attr("height", function(d) { return day_line(_D(d.end)) - day_line(_D(d.start)) })
+        .attr("fill", function(d, i) { return color_of(col(i)) })
         .on("mouseover", function(d) {
-            viewModel.mouse_time(hour(d.start));
+            viewModel.mouse_time(hour(_D(d.start)));
         });
 }
 
