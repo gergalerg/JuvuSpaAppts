@@ -17,7 +17,7 @@ body{
 }
 
 .landing_des{
-    font-size:          1.5em;
+    font-size:          1.2em;
     line-height:        32px;
     text-align:         center;
     letter-spacing:     0.1em;
@@ -25,6 +25,13 @@ body{
     margin-top:         10px;
 }
 
+.landing_des form span{
+    font-size:          12px;
+}
+
+.landing_des div{
+    font-size:          14px;
+}
 .landing_input{
     color:#808080;
     border:1px solid #808080;
