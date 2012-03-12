@@ -6,13 +6,14 @@ from django.conf import settings
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'app.splash', name='splash'),
+    url(r'^$', 'splash.views.splash', name='splash'),
+    url(r'^uh$', 'splash.views.record_email', name='record_email'),
 
     # Static media (should be served directly by the web server in production.)
-##    (
-##        r'^static/(?P<path>.*)$',
-##        'django.views.static.serve',
-##        {'document_root': settings.MEDIA_ROOT},
-##        ),
+    (
+        r'^static/(?P<path>.*)$',
+        'django.views.static.serve',
+        {'document_root': settings.MEDIA_ROOT},
+        ),
 
 )

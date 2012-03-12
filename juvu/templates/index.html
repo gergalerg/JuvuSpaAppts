@@ -24,30 +24,37 @@
     <link href="/static/css/style.css" rel="stylesheet">
 
     <title>Juvu</title>
-    </head>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-27498182-5']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+</head>
 <body>
     <div class="wrapper">
-        <!--image-->
+
         <div class="landing_img">
             <img src="/static/image/landing.jpg">
         </div>
-        
+
         <div class="landing_des">
             Launching Spring 2012 in the San Francisco Bay Area.<br/>
             Sign up for a beta invite.
-            <form>
-                <input type="text" class="landing_input" placeholder="email"/>
+            <form method="POST" action="{% url record_email %}">
+                {% csrf_token %}
+                <input name="record_email" id="record_email" type="text" class="landing_input" placeholder="email"/>
                 <input type="submit" class="landing_sub"/>
             </form>
         </div>
-        
-        
-        
+
     </div>
-    <script type="text/javascript">
-      //  $(".landing_input").click(function(){
-        //    $(".landing_input").attr("value","");
-      //  })
-    </script>
 </body>
 </html>
