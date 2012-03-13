@@ -1,10 +1,11 @@
 # Django settings for juvu project.
-from os.path import dirname, join
+from os.path import dirname, join, exists
 
 
 PROJECT_ROOT = dirname(__file__)
 
 
+PRODUCTION = exists(join(PROJECT_ROOT, 'production'))
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
