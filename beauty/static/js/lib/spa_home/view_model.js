@@ -54,7 +54,7 @@ viewModel = {
     },
 
     add_staff_member: function() {
-        var name = $("#staff_name").val();
+        var name = $("#staff_f_name").val();
         if (name != "") {
             var newbie = new StaffMember({
                 name: name,
@@ -63,9 +63,9 @@ viewModel = {
             })
             this.staff.push(newbie);
             this.current_staff_member(newbie);
-            $("#staff_name").val('');
+            $("#staff_f_name").val('');
         } else {
-            $("#staff_name").effect('highlight');
+            $("input[type=text]").effect('highlight');
         }
     },
 
