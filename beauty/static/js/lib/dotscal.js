@@ -174,6 +174,7 @@ function select_date_range(from, to) {
         }
     } else if (N <= 60) {
         style = monthsish;
+        radii.set_sizes(r_med, r_med);
         indexer = function (d, i) {
             d.selection_index = d.month - month(from);
             console.log(d.selection_index)
@@ -261,7 +262,7 @@ function monthsish(T) { T
     .duration(function(d) { return 500 + (500 * Math.random()) })
     .attr("cx", function(d) { return 300 * d.selection_index + xmh(d.day_of_week) })
     .attr("cy", function(d) { return ym(d.week_of_month) })
-    .attr("r", function() { return 18 })
+    .attr("r", function() { return r_med(Math.random()) })
     .call(shiny)
 }
 
