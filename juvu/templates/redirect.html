@@ -21,50 +21,40 @@
 	<link rel="stylesheet" href="/static/css/foundation/app.css">
 	<link rel="stylesheet" href="/static/css/foundation/mobile.css">
     
-    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet">
 
     <title>Juvu</title>
     <script type="text/javascript">
-
-     var _gaq = _gaq || [];
-     _gaq.push(['_setAccount', 'UA-27498182-5']);
-     _gaq.push(['_trackPageview']);
-
-     (function() {
-       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-     })();
-
-    </script>
+            
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-27498182-5']);
+        _gaq.push(['_trackPageview']);
+            
+        (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+         })();
+        
+    </script>        
 </head>
 <body>
     <div class="wrapper">
-
+        
         <div class="landing_img">
-            <img src="/static/image/landing.jpg">
+            <img src="../static/image/landing.jpg">
         </div>
-
+        
         <div class="landing_des">
             Launching Spring 2012 in the San Francisco Bay Area.<br/>
             Sign up for a beta invite.
-            <form method="POST" action="{% url record_email %}">
-                {% csrf_token %}
-                <span>juvu.me</span>
-                <input name="record_email" id="record_email" type="text" class="landing_input" placeholder="email"/>
-                <input type="submit" class="landing_sub" value="Submit"/>
-            </form>
-            <!--
-            //redirect to other page
-             
-             <div>
-            {% if second_visit %}
+            
+            <div>
             Thank you!
-            {% endif %}
-            </div> 
-             -->
+            </div>
         </div>
 
+        
     </div>
 </body>
 </html>
