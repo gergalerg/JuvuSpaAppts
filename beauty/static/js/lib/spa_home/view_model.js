@@ -39,6 +39,11 @@ viewModel = {
     // Display the time corresponding to the mouse position on the calendar pane.
     mouse_time: ko.observableArray(),
 
+    clear_staff_member_form: function() {
+        // Clear out the staff form.
+        $("form#staff_edit").find("input[type=text]").val("");
+    },
+
     // A bit of indirection to allow binding to this callback before current_proc is specified.
     add_subtype: function () {
         viewModel.current_proc().add_subtype();

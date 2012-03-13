@@ -35,7 +35,7 @@ $(function(){
     });
     $("input.tile").button();
 
-    setup_button("button#add_staff", 'ui-icon-circle-plus');
+    setup_button("button#clear_staff", 'ui-icon-circle-arrow-e', true);
     setup_button("button#add_proc", 'ui-icon-circle-check', true);
     setup_button("button#del_proc", 'ui-icon-circle-close', true);
     setup_button("button#add_class", 'ui-icon-circle-plus');
@@ -279,18 +279,17 @@ $(function(){
   <div class="four columns"><div id="staff_list">
     <form class="nice">
       <select id="current_staff_class" data-bind="template: {name:'staff_option_template', foreach: staff_classes}">
-          <option value="">All</option>
+        <option value="">All</option>
       </select>
       <div data-bind="template: {name:'tile_template', foreach: staff_with_class}"></div>
-      <button id="add_staff" data-bind="click: add_staff_member">Create New Staff Member</button>
-      <input id="staff_name" name="staff_name" class="input-text small" type="text" placeholder="Add Staff Member">
+      <button id="clear_staff" data-bind="click: clear_staff_member_form">Create New</button>
     </form>
   </div>{# staff_list #}</div>{# columns #}
 
   <div class="eight columns"><div id="boy">
     <div class="row"><div class="twelve columns">
       <div id="aa" class="cake">
-    <form class="nice">
+    <form id="staff_edit" class="nice">
       <input id="staff_f_name" name="staff_f_name" class="input-text small" type="text" placeholder="first name" data-bind="attr: {value:current_staff_member().name}">
       <input id="staff_l_name" name="staff_l_name" class="input-text small" type="text" placeholder="last name" data-bind="attr: {value:current_staff_member().name}">
       <input class="input-text small" type="text" placeholder="email">
@@ -387,7 +386,7 @@ $(function(){
     <input type="checkbox" id="active_chbx" name="active_chbx" style="display:inline-block"/>
     <br/>
 
-    <button id="post_staff">Save Changes</button>
+    <button id="post_staff" data-bind="click: add_staff_member">Save</button>
     <button id="delete_staff">Delete</button>
 
 
