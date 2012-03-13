@@ -31,7 +31,7 @@ viewModel = {
     staff: ko.observableArray(staff),
     current_staff_member: ko.observable({"staff_classes":ko.observableArray()}),
 
-    staff_classes: ko.observableArray([{name:'but'}, {name:'sects'}]),
+    staff_classes: ko.observableArray([]),
     current_staff_class: ko.observable({name:''}),
     staff_with_class: ko.observableArray(staff),
     current_staff_member_staff_classes: ko.observableArray([]),
@@ -72,7 +72,8 @@ viewModel = {
     add_class: function() {
         var new_class = $("#id_add_class").val();
         if (!new_class) { return }
-        viewModel.staff_classes.push({name:new_class});
+        new_class = new StaffMemberClass({name:new_class})
+        viewModel.staff_classes.push(new_class);
         $("#id_add_class").val("");
     },
 };

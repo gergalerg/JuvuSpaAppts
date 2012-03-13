@@ -82,3 +82,9 @@ var StaffMember = function(options) {
 
 }
 
+var StaffMemberClass = function(options) {
+    this.name = options.name;
+    this.remove = function() {
+        viewModel.staff_classes.remove(this);
+    }
+}
