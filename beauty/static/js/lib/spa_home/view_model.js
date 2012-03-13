@@ -44,6 +44,10 @@ viewModel = {
         viewModel.current_proc().add_subtype();
     },
 
+    del_subtype: function () {
+        // viewModel.current_proc().add_subtype();
+    },
+
     add_staff_member: function() {
         var name = $("#staff_name").val();
         if (name != "") {

@@ -36,8 +36,8 @@ $(function(){
     $("input.tile").button();
 
     setup_button("button#add_staff", 'ui-icon-circle-plus');
-    setup_button("button#add_proc", 'ui-icon-circle-plus');
-    setup_button("button#del_proc", 'ui-icon-circle-close');
+    setup_button("button#add_proc", 'ui-icon-circle-check', true);
+    setup_button("button#del_proc", 'ui-icon-circle-close', true);
     setup_button("button#add_class", 'ui-icon-circle-plus');
     setup_button("button#post_staff", 'ui-icon-circle-check', true);
     setup_button("button#delete_staff", 'ui-icon-circle-close', true);
@@ -255,8 +255,8 @@ $(function(){
         <textarea name="Appointment_411" cols="40" rows="4" id="id_Appointment_411"></textarea>
 
         <br>
-        <button id="add_proc" data-bind="click: add_subtype">Add</button>
-        <button id="del_proc">Delete</button>
+        <button id="add_proc" data-bind="click: add_subtype">Save</button>
+        <button id="del_proc" data-bind="click: del_subtype">Delete</button>
     </form>
 </div>{# proc_detail #}
 </div>{# magic #}</div>{# columns #}
