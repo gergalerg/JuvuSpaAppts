@@ -29,7 +29,7 @@
     <script type="text/javascript">
 	
 	/*background image*/
-	$.backstretch("../static/image/login_01.jpg");
+	$.backstretch("../static/image/login_05.jpg");
 	
 	/*SVG*/
 	$(function(){
@@ -75,9 +75,49 @@
 	});
 	
     </script>
+    
+    <style type="text/css">
+    	/*
+			#nav -> change log in, sign up, explore font color & change position of 3 circles
+			.i_text -> change form border color
+			.i_btn -> change submit btn color
+		*/
+		#nav{
+			position:			absolute;
+			left:				48%;
+			top:				20%;
+			z-index:			1;
+			display:			block;
+			width:				266px;
+			height:				283px;
+			color:				#C7452E;
+		}
+		
+		.i_text{
+			background-color:	transparent;
+			border:				1px solid #C7452E;
+			padding:			3px 0 3px 5px;
+			border-radius:		5px;
+			 font-size:			0.8em;
+		}
+		
+		.i_btn{
+			background-color:	#C7452E;
+			border:				none;
+			border-radius:		10px;
+			padding:			3px 5px 3px 5px;
+			color:				white;
+			cursor:				pointer;
+		}
+		
+		.i_btn:hover{
+			opacity:			0.5;
+		}
+
+    </style>
+    
 </head>
 <body style="margin:0;">
-	
 	<div id="nav">		
 		<div class="s1"><span class="l_title">sign up</span></div>
 		<div class="s2">

@@ -52,24 +52,14 @@ body{
 }
 
 /*log in page*/
-#nav{
-	position:			absolute;
-	top:				289px;
-	left:				234px;
-	z-index:			1;
-	display:			block;
-	width:				266px;
-	height:				283px;
-	color:				#3998C2;
-}
 
 .signup_circle{
 	width:				94px;
 	height:				94px;
 	border-radius:		47px;
 	position:			absolute;
-	margin-left:		150px;
 	z-index:			2;
+	margin-left:		150px;
 }
 
 .login_circle{
@@ -127,26 +117,9 @@ body{
 	line-height:		32px;
 }
 
-.i_text{
-	background-color:	transparent;
-	border:				1px solid #3998C2;
-	padding:			3px 0 3px 5px;
-	border-radius:		5px;
-	 font-size:			0.8em;
-}
 
-.i_btn{
-	background-color:	#3998C2;
-	border:				none;
-    border-radius:		10px;
-    padding:			3px 5px 3px 5px;
-    color:				white;
-    cursor:				pointer;
-}
 
-.i_btn:hover{
-	background-color:	#4B697F;
-}
+
 
 
 
