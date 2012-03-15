@@ -28,10 +28,8 @@
     <title>Juvu</title>
     <script type="text/javascript">
 	
-	var which_one = {{ this_one }};
-	
 	/*background image*/
-	$.backstretch("/static/image/login_01.jpg");
+	$.backstretch("{{ image_URL }}");
 	
 	/*SVG*/
 	$(function(){
@@ -84,27 +82,30 @@
 			.i_text -> change form border color
 			.i_btn -> change submit btn color
 		*/
+		body {
+		    position: static;
+		}
 		#nav{
 			position:			absolute;
-			top:				37%;
-			left:				22%;
+			top:				{{ top }};
+			left:				{{ left }};
 			z-index:			1;
 			display:			block;
 			width:				266px;
 			height:				283px;
-			color:				#3998C2;
+			color:				{{ color }};
 		}
 		
 		.i_text{
 			background-color:	transparent;
-			border:				1px solid #3998C2;
+			border:				1px solid {{ color }};
 			padding:			3px 0 3px 5px;
 			border-radius:		5px;
 			 font-size:			0.8em;
 		}
 		
 		.i_btn{
-			background-color:	#3998C2;
+			background-color:	{{ color }};
 			border:				none;
 			border-radius:		10px;
 			padding:			3px 5px 3px 5px;
