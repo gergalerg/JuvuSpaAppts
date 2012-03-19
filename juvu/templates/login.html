@@ -119,9 +119,10 @@
 		<div class="s2">
 			<center>
 				<span class="l_title" >log in</span>
-				<form method="POST" action="">
-					<input class="i_text" placeholder="email"/><br />
-					<input class="i_text" placeholder="password"/><br />
+				<form method="POST" action="{% url login %}">
+                {% csrf_token %}
+					<input class="i_text" placeholder="email" name="username"/><br />
+					<input class="i_text" placeholder="password" name="password"/><br />
 					<input class="i_btn" type="submit" value="submit"/>
 				</form>
 			</center>

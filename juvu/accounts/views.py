@@ -1,5 +1,6 @@
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
+from django.contrib import auth
 from itertools import cycle
 
 
@@ -54,10 +55,20 @@ def login(request):
     '''
     Login page with rotating background images.
     '''
-    return render_to_response(
-        'login.html',
-        _i(),
-        context_instance=RequestContext(request),
-        )
+    if  request.method != 'POST':
+        return render_to_response(
+            'login.html',
+            _i(),
+            context_instance=RequestContext(request),
+            )
+
+    username = request.POST['username']
+    password = request.POST['password']
+    user = auth.authenticate(username=username, password=password)
+    if user and user.is_active:
+        auth.login(request, user)
+        return redirect("/Hooray!")
+    return redirect('/invalid_login')
 
 
+        
