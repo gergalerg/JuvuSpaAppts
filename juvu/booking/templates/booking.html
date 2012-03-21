@@ -1,23 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta name="language" content="en">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="author" content="Juvu.me">
-	<meta name="publisher" content="Agora Health Networks, Inc.">
-	<meta name="copyright" content="©2011 Agora Health Networks, Inc. All rights reserved worldwide.">
-	<meta http-equiv="pragma" content="no-cache">
-    
-    <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
-    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+{% extends "base.html" %}
+{% block title %}Juvu{% endblock %}
+{% block html_head %}
     <script type="text/javascript" src="/static/js/d3/d3.js"></script>
     <script type="text/javascript" src="/static/js/d3/d3.layout.js"></script>
-	<!--add jQuery plug in-->
-	 <script type="text/javascript" src="/static/js/jquery.backstretch.min.js"></script>
-    
+    {# add jQuery plug in #}
+    <script type="text/javascript" src="/static/js/jquery.backstretch.min.js"></script>
+
     <link href="/static/css/style.css" rel="stylesheet">
 
-    <title>Juvu</title>
+    <title></title>
     <script type="text/javascript">
 	
 	/*background image*/
@@ -76,6 +67,7 @@
 		*/
 		body {
 		    position: static;
+		    margin: 0;
 		}
 		#nav{
 			position:			absolute;
@@ -111,9 +103,8 @@
 		}
 
     </style>
-    
-</head>
-<body style="margin:0;">
+{% endblock %}
+{% block body %}
 	<div id="nav">		
 		<div class="s1"><span class="l_title">sign up</span></div>
 		<div class="s2">
@@ -133,6 +124,5 @@
 		<div class="login_circle c_shadow"></div>
 		<div class="exp_circle c_shadow"></div>
     </div>
-    
-</body>
-</html>
+{% endblock %}
+
