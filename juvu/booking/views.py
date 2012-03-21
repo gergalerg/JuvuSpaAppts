@@ -7,7 +7,7 @@ def home(request):
     
     '''
     return render_to_response(
-        'index.html',
+        'booking.html',
         context_instance=RequestContext(request),
         )
 
