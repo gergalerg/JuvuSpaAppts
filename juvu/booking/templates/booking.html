@@ -1,48 +1,45 @@
 {% extends "base.html" %}
 {% block title %}Juvu{% endblock %}
 {% block html_head %}
-    <script type="text/javascript" src="/static/js/d3/d3.js"></script>
-    <script type="text/javascript" src="/static/js/d3/d3.layout.js"></script>
+<script type="text/javascript" src="/static/js/d3/d3.js"></script>
+<script type="text/javascript" src="/static/js/d3/d3.layout.js"></script>
+{# add jQuery plug in #}
+<script type="text/javascript" src="/static/js/jquery.backstretch.min.js"></script>
+<script type="text/javascript" src="/static/js/booking.js"></script>
+<link href="/static/css/style.css" rel="stylesheet">
+<style type="text/css">
+{% include "booking.css" %}
+</style>
+<script type="text/javascript">
 
-    {# add jQuery plug in #}
-    <script type="text/javascript" src="/static/js/jquery.backstretch.min.js"></script>
+/*background image*/
+$.backstretch("{{ image_URL }}");
 
-    <script type="text/javascript" src="/static/js/booking.js"></script>
-    <link href="/static/css/style.css" rel="stylesheet">
-    <style type="text/css">
-	{% include "booking.css" %}
-	</style>
-    <script type="text/javascript">
-	
-	/*background image*/
-	$.backstretch("{{ image_URL }}");
-	
-	/*SVG*/
-	$(function(){
-	    create_login_circles()
-	});
-	
-    </script>
+/*SVG*/
+$(function(){
+    create_login_circles()
+});
+
+</script>
 {% endblock %}
 {% block body %}
-	<div id="nav">		
-		<div class="s1"><span class="l_title">sign up</span></div>
-		<div class="s2">
-			<center>
-				<span class="l_title" >log in</span>
-				<form method="POST" action="{% url login %}">
-                {% csrf_token %}
-					<input class="i_text" placeholder="email" name="username"/><br />
-					<input class="i_text" placeholder="password" name="password"/><br />
-					<input class="i_btn" type="submit" value="submit"/>
-				</form>
-			</center>
-		</div>
-		<div class="s3"><span class="l_title">explore</span></div>
-		
-		<div class="signup_circle c_shadow"></div>		
-		<div class="login_circle c_shadow"></div>
-		<div class="exp_circle c_shadow"></div>
-    </div>
-{% endblock %}
+<div id="nav">
+	<div class="s1"><span class="l_title">sign up</span></div>
+	<div class="s2">
+		<center>
+			<span class="l_title" >log in</span>
+			<form method="POST" action="{% url login %}">
+            {% csrf_token %}
+				<input class="i_text" placeholder="email" name="username"/><br />
+				<input class="i_text" placeholder="password" name="password"/><br />
+				<input class="i_btn" type="submit" value="submit"/>
+			</form>
+		</center>
+	</div>
+	<div class="s3"><span class="l_title">explore</span></div>
 
+	<div class="signup_circle c_shadow"></div>
+	<div class="login_circle c_shadow"></div>
+	<div class="exp_circle c_shadow"></div>
+</div>
+{% endblock %}
