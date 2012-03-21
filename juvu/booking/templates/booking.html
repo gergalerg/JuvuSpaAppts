@@ -5,7 +5,12 @@
 <script type="text/javascript" src="/static/js/d3/d3.layout.js"></script>
 {# add jQuery plug in #}
 <script type="text/javascript" src="/static/js/jquery.backstretch.min.js"></script>
-<script type="text/javascript" src="/static/js/booking.js"></script>
+<script type="text/javascript" src="/static/js/knockout.js"></script>
+<script type="text/javascript" src="/static/js/bbone/underscore.js"></script>
+<script type="text/javascript" src="/static/js/bbone/backbone.js"></script>
+<script type="text/javascript" src="/static/js/booking/view_model.js"></script>
+<script type="text/javascript" src="/static/js/booking/routing.js"></script>
+<script type="text/javascript" src="/static/js/booking/booking.js"></script>
 <link href="/static/css/style.css" rel="stylesheet">
 <style type="text/css">
 {% include "booking.css" %}
@@ -17,7 +22,12 @@ $.backstretch("{{ image_URL }}");
 
 /*SVG*/
 $(function(){
-    create_login_circles()
+    create_login_circles();
+    ko.applyBindings(viewModel);
+    var routes = new routey();
+    if (!Backbone.history.start()) {
+        routes.navigate("toc", true);
+    }
 });
 
 </script>
