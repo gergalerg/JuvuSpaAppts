@@ -1,0 +1,43 @@
+/*
+	#nav -> change log in, sign up, explore font color & change position of 3 circles
+	.i_text -> change form border color
+	.i_btn -> change submit btn color
+*/
+body {
+    position: static;
+    margin: 0;
+}
+#nav{
+	position:			absolute;
+	top:				{{ top }};
+	left:				{{ left }};
+	z-index:			1;
+	display:			block;
+	width:				266px;
+	height:				283px;
+	color:				{{ color }};
+}
+
+.i_text{
+	background-color:	transparent;
+	border:				1px solid {{ color }};
+	padding:			3px 0 3px 5px;
+	border-radius:		5px;
+	font-size:			0.8em;
+	width:				140px;
+}
+
+.i_btn{
+	background-color:	{{ color }};
+	border:				none;
+	border-radius:		10px;
+	padding:			3px 5px 3px 5px;
+	color:				white;
+	cursor:				pointer;
+}
+
+.i_btn:hover{
+	opacity:			0.5;
+}
+
+
