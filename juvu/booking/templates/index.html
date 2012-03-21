@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta name="language" content="en">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="author" content="Juvu.me">
+	<meta name="publisher" content="Agora Health Networks, Inc.">
+	<meta name="copyright" content="©2011 Agora Health Networks, Inc. All rights reserved worldwide.">
+	<meta http-equiv="pragma" content="no-cache">
+    
+    <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/d3/d3.js"></script>
+    <script type="text/javascript" src="/static/js/d3/d3.layout.js"></script>
+	<!--add jQuery plug in-->
+	 <script type="text/javascript" src="/static/js/jquery.backstretch.min.js"></script>
+    
+    <link href="/static/css/style.css" rel="stylesheet">
+
+    <title>Juvu</title>
+    <script type="text/javascript">
+	
+	/*background image*/
+	$.backstretch("{{ image_URL }}");
+	
+	/*SVG*/
+	$(function(){
+	var svg_element1 = d3.select(".signup_circle").append("svg:svg");
+	svg_element1
+		.attr("width",94)
+		.attr("height",94);
+	
+	var circle2 = svg_element1.append("svg:circle");
+	circle2
+		.attr("cx", 47)
+		.attr("cy", 47)
+		.attr("r", 47)
+		.attr("fill", "white")
+		.attr("fill-opacity", 0.55);
+	
+	var svg_element2 = d3.select(".login_circle").append("svg:svg");
+	svg_element2
+		.attr("width",214)
+		.attr("height",214);
+	
+	var circle2 = svg_element2.append("svg:circle");
+	circle2
+		.attr("cx", 107)
+		.attr("cy", 107)
+		.attr("r", 107)
+		.attr("fill", "white")
+		.attr("fill-opacity", 0.55);
+		
+	var svg_element3 = d3.select(".exp_circle").append("svg:svg");
+	svg_element3
+		.attr("width",110)
+		.attr("height",110);
+	
+	var circle3 = svg_element3.append("svg:circle");
+	circle3
+		.attr("cx", 55)
+		.attr("cy", 55)
+		.attr("r", 55)
+		.attr("fill", "white")
+		.attr("fill-opacity", 0.55);
+	
+	});
+	
+    </script>
+    
+    <style type="text/css">
+    	/*
+			#nav -> change log in, sign up, explore font color & change position of 3 circles
+			.i_text -> change form border color
+			.i_btn -> change submit btn color
+		*/
+		body {
+		    position: static;
+		}
+		#nav{
+			position:			absolute;
+			top:				{{ top }};
+			left:				{{ left }};
+			z-index:			1;
+			display:			block;
+			width:				266px;
+			height:				283px;
+			color:				{{ color }};
+		}
+		
+		.i_text{
+			background-color:	transparent;
+			border:				1px solid {{ color }};
+			padding:			3px 0 3px 5px;
+			border-radius:		5px;
+			 font-size:			0.8em;
+			width:				140px;
+		}
+		
+		.i_btn{
+			background-color:	{{ color }};
+			border:				none;
+			border-radius:		10px;
+			padding:			3px 5px 3px 5px;
+			color:				white;
+			cursor:				pointer;
+		}
+		
+		.i_btn:hover{
+			opacity:			0.5;
+		}
+
+    </style>
+    
+</head>
+<body style="margin:0;">
+	<div id="nav">		
+		<div class="s1"><span class="l_title">sign up</span></div>
+		<div class="s2">
+			<center>
+				<span class="l_title" >log in</span>
+				<form method="POST" action="{% url login %}">
+                {% csrf_token %}
+					<input class="i_text" placeholder="email" name="username"/><br />
+					<input class="i_text" placeholder="password" name="password"/><br />
+					<input class="i_btn" type="submit" value="submit"/>
+				</form>
+			</center>
+		</div>
+		<div class="s3"><span class="l_title">explore</span></div>
+		
+		<div class="signup_circle c_shadow"></div>		
+		<div class="login_circle c_shadow"></div>
+		<div class="exp_circle c_shadow"></div>
+    </div>
+    
+</body>
+</html>

@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, include, url
 from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
@@ -10,6 +10,10 @@ urlpatterns = patterns('',
     url(r'^thanks$', 'splash.views.thanks', name='thanks'),
     url(r'^uh$', 'splash.views.record_email', name='record_email'),
     url(r'^login$', 'accounts.views.login', name='login'),
+
+    # Spa-facing site.
+    url(r'^look/', include('booking.urls')),
+
     )
 
 # Static media (served directly by the web server in production.)
