@@ -118,7 +118,13 @@
 				}
 				clickToday();
 				dateClicked = true;
-				runOption();
+				
+				if(opClicked == true)
+    		  	{
+    		  		runOption();
+    		  	}else{
+    		  		showOption();
+    		  	}
 			  });
 			
 			//Date range
@@ -138,7 +144,13 @@
 				}
 				clickDate();
 				dateClicked = true;
-				runOption();
+				
+				if(opClicked == true)
+    		  	{
+    		  		runOption();
+    		  	}else{
+    		  		showOption();
+    		  	}
 			  });
 			
 			//animation after selecting anything from date range
@@ -474,37 +486,43 @@
     				.attr("cy", 400)
     				.attr("r", 150)
     				.attr("fill",second_color)
-    				.duration(500)
-    				.ease("elastic", 5, 4);
-    			
-    			d3.select(".date").transition()
-    				.style("display","block")
-    				.style("opacity","1")
-    				.style("left", "400px")
-    				.style("top", "345px")
-    				.duration(500)
+    				.duration(1000)
     				.ease("elastic", 5, 4);
     			
     			d3.select(".c_to").transition()
     				.attr("cx", 425)
     				.attr("cy", 255)
     				.attr("r", 65)
-    				.duration(500)
+    				.duration(1000)
     				.ease("elastic", 5, 4);
+    			
+    			d3.select(".date").transition()
+    				.style("left", "400px")
+    				.style("top", "345px")
+    			
+    			d3.select(".date").transition()
+    				.style("display","block")
+    				.style("opacity","1")
+    				.duration(1000)
+    				.delay(1000)
+    				.ease("elastic", 5, 4);
+    			
+    			d3.select(".today").transition()
+    				.style("left", "405px")
+    				.style("top", "250px")
     			
     			d3.select(".today").transition()
     				.style("display","block")
     				.style("opacity","1")
-    				.style("left", "405px")
-    				.style("top", "250px")
-    				.duration(500)
+    				.duration(1000)
+    				.delay(1000)
     				.ease("elastic", 5, 4);
-    				
+    			
     			d3.select(".date_form").transition()
     				.style("display", "block")
     				.style("opacity", "1")
-    				.duration(500)
-    				.delay(500)
+    				.duration(1000)
+    				.delay(1000)
     				.ease("elastic", 5, 4);
     			
     			d3.select(".when").transition()
@@ -527,15 +545,15 @@
     		  		.delay(500)
     		  		.duration(1000)
     		  		.ease("elastic", 5, 4);
-    		  		
-    		  	d3.select(".today").transition()
-    		  		.style("display","none")
-    		  		.style("opacity", 0);
     		  	
     		  	d3.select(".c_to").transition()
     		  		.attr("r", 0)
     		  		.duration(1000)
     		  		.ease("elastic", 5, 4);
+    		  	
+    		  	d3.select(".today").transition()
+    		  		.style("display","none")
+    		  		.style("opacity", 0);
     		  	
     		  	d3.select(".date").transition()
     		  		.style("display","none")
@@ -587,7 +605,7 @@
 				 	.duration(100);
     		}
     		
-    		function runOption()
+    		function showOption()
     		{
     			d3.select(".c_op").transition()
     				.attr("cx",800)
@@ -595,6 +613,7 @@
     				.attr("r", 65)
     				.attr("fill-opacity",1)
     				.duration(500);
+    			
     			d3.select(".c_me").transition()
     				.attr("r", 65)
     				.attr("fill-opacity",1)
@@ -615,6 +634,7 @@
     				.style("display", "block")
     				.style("opacity", "1")
     				.duration(500);
+    			
     		}
     		
     		function clickOption()
@@ -623,13 +643,21 @@
     				.attr("cx", 500)
     				.attr("cy", 300)
     				.attr("r", 180)
+    				.attr("fill", first_color)
     				.attr("fill-opacity",1)
     				.duration(500);
+    			
+    			d3.select(".option").transition()
+    				.style("opacity", "0");
+    			
+    			d3.select(".op_list").transition()
+    				.style("opacity", "0")
     			
     			d3.select(".option").transition()
     				.style("left", "325px")
     				.style("top", "190px")
     				.style("display", "block")
+    				.style("color", second_color)
     				.style("opacity", "1")
     				.duration(500);
     				
@@ -638,7 +666,40 @@
     				.style("opacity", "1")
     				.duration(500)
     				.delay(500);
+    		}
+    		
+    		function runOption()
+    		{
+    			d3.select(".c_op").transition()
+    				.attr("cx", 100)
+    		  		.attr("cy", 300)
+    		  		.attr("r", 0)
+    		  		.attr("fill", "steelblue")
+    		  		.duration(500)
+    		  		.ease("elastic", 5, 4);
     			
+    			d3.select(".c_op").transition()
+    				.attr("r", 30)
+    		  		.delay(500)
+    		  		.duration(1000)
+    		  		.ease("elastic", 5, 4);
+    		  	
+    		  	d3.select(".option").transition()
+    				.style("left", "-75px")
+    				.style("top", "293px")
+    				.style("color", "white")
+    				.style("display", "none");
+    		  	
+    		  	d3.select(".option").transition()
+    				.style("display", "block")
+    				.style("opacity", "1")
+    				.delay(500)
+    				.duration(500);
+    		  	
+    		  	d3.select(".op_list").transition()
+    				.style("display", "none")
+    				.style("opacity", "0")
+    				.duration(500);
     		}
     		
     		//console.log('hi');
@@ -702,7 +763,7 @@
 				</div>
 				<div class="where">where</div>
 				<div class="when">when</div>
-				<div style="clear:both;">
+				<div style="clear:both;"></div>
 				
 				<div class="today">
 					Today
