@@ -3,6 +3,9 @@ viewModel = {
     // Track the current "view" the user is looking at.
     viewing: ko.observable(),
 
+    // Track the current filter with which the user is working.
+    current_filter: ko.observable(),
+
 }
 
 
