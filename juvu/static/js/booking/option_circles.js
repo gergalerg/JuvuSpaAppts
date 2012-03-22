@@ -6,8 +6,7 @@ function setup_option_circles() {
 	  .attr("class", "s_canvas");
 	
 	//distance
-	var circle = svg_canvas.append("svg:circle");
-	circle
+	svg_canvas.append("svg:circle")
 	  .attr("cx",450)
 	  .attr("cy",170)
 	  .attr("r",65)
@@ -29,8 +28,7 @@ function setup_option_circles() {
 	  });
 	
 	//Neighborhood
-	var circle = svg_canvas.append("svg:circle");
-	circle
+	svg_canvas.append("svg:circle")
 	  .attr("cx",535)
 	  .attr("cy",233)
 	  .attr("r",65)
@@ -52,8 +50,7 @@ function setup_option_circles() {
 	  });
 
 	//today
-	var circle = svg_canvas.append("svg:circle");
-	circle
+	svg_canvas.append("svg:circle")
 	  .attr("cx",820)
 	  .attr("cy",550)
 	  .attr("r",0)
@@ -78,8 +75,7 @@ function setup_option_circles() {
 	  });
 	
 	//Date range
-	var circle = svg_canvas.append("svg:circle");
-	circle
+	svg_canvas.append("svg:circle")
 	  .attr("cx",905)
 	  .attr("cy",613)
 	  .attr("r",0)
@@ -104,8 +100,7 @@ function setup_option_circles() {
 	  });
 	
 	//option
-	var circle = svg_canvas.append("svg:circle");
-	circle
+	svg_canvas.append("svg:circle")
 		.attr("cx",800)
 		.attr("cy",650)
 		.attr("r",0)
@@ -128,8 +123,7 @@ function setup_option_circles() {
 		});
 	
 	//juvu me
-	var circle = svg_canvas.append("svg:circle");
-	circle
+	svg_canvas.append("svg:circle")
 		.attr("cx",950)
 		.attr("cy",650)
 		.attr("r",0)
