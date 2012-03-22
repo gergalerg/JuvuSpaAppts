@@ -111,7 +111,32 @@ body {
 
 
 
+/* Tree Thing */
 
+.node circle {
+  cursor: pointer;
+  fill: #eef;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  cursor: pointer;
+  font-family: @body_font;
+/*
+  font-size: 16px;
+  font-size: 28px;
+    padding: 4px;
+    font-weight: 400;
+    fill: #2A85E8;
+*/
+}
+
+path.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
 
 
 
