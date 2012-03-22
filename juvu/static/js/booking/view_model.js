@@ -17,6 +17,9 @@ viewModel.viewing.subscribe(function(view) {
 
 viewModel.current_filter.subscribe(function(view) {
     console.log("current_filter", view);
+    if (view == "dis") {
+        options_transitions.clickDis();
+    }
 });
 
 
