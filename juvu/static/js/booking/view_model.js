@@ -5,12 +5,18 @@ viewModel = {
 
     // Track the current filter with which the user is working.
     current_filter: ko.observable(),
+    // dis, nei, today, date, op
 
 }
 
 
 viewModel.viewing.subscribe(function(view) {
-    console.log(view);
+    console.log("viewing", view);
+});
+
+
+viewModel.current_filter.subscribe(function(view) {
+    console.log("current_filter", view);
 });
 
 

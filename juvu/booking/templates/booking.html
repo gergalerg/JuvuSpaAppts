@@ -10,6 +10,7 @@
 <script type="text/javascript" src="/static/js/bbone/backbone.js"></script>
 <script type="text/javascript" src="/static/js/booking/view_model.js"></script>
 <script type="text/javascript" src="/static/js/booking/routing.js"></script>
+<script type="text/javascript" src="/static/js/booking/option_circles.js"></script>
 <script type="text/javascript">
 /* Parameters that control various aspects of the presentation. */
 
@@ -27,6 +28,10 @@ var m = [10, 120, 10, 120],
 
 // Convert the (server-embedded) JSON to KO models.
 var tree_thing;
+
+// Colors for options circles.
+var first_color = "#E6E6E6";
+var second_color = "#808080";
 
 </script>
 <script type="text/javascript" src="/static/js/booking/tree_thing.js"></script>
@@ -46,6 +51,7 @@ $(function(){
     create_login_circles();
     ko.applyBindings(viewModel);
 //    setup_tree_thing("#tree", root);
+//    setup_option_circles("#canvas");
     var routes = new routey();
     if (!Backbone.history.start()) {
         routes.navigate("toc", true);
@@ -75,4 +81,5 @@ $(function(){
 	<div class="exp_circle c_shadow"></div>
 </div>
 <div id="tree"></div>
+<div id="canvas"></div>
 {% endblock %}

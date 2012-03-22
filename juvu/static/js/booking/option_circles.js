@@ -1,5 +1,6 @@
-function setup_option_circles() {
-	var svg_canvas = d3.select(".canvas").append("svg:svg");
+function setup_option_circles(ops_canvas) {
+
+	var svg_canvas = d3.select(ops_canvas).append("svg:svg");
 	svg_canvas
 	  .attr("width", 1024)
 	  .attr("height", 768)
@@ -14,6 +15,8 @@ function setup_option_circles() {
 	  .attr("fill-opacity",1)
 	  .attr("class","c_dis")
 	  .on("click", function(){
+	    viewModel.current_filter("dis");
+	    /*
 	  	clickDis();
 	  	disClicked = true;
 	  	neiClicked = false;
@@ -25,6 +28,7 @@ function setup_option_circles() {
 	  	{
 	  		runOption();
 	  	};
+	  	*/
 	  });
 	
 	//Neighborhood
@@ -36,6 +40,8 @@ function setup_option_circles() {
 	  .attr("fill-opacity",1)
 	  .attr("class","c_nei")
 	  .on("click", function(){
+	    viewModel.current_filter("nei");
+	    /*
 	  	clickNei();
 	  	neiClicked = true;
 	  	disClicked = false;
@@ -47,6 +53,7 @@ function setup_option_circles() {
 	  	{
 	  		runOption();
 	  	};
+	  	*/
 	  });
 
 	//today
@@ -58,6 +65,8 @@ function setup_option_circles() {
 	  .attr("fill-opacity",0)
 	  .attr("class","c_to")
 	  .on("click", function(){
+	    viewModel.current_filter("today");
+	    /*
 		if(disClicked == true){
 			runDis();
 		}else if(neiClicked == true){
@@ -72,6 +81,7 @@ function setup_option_circles() {
 	  	}else{
 	  		showOption();
 	  	}
+	  	*/
 	  });
 	
 	//Date range
@@ -83,6 +93,8 @@ function setup_option_circles() {
 	  .attr("fill-opacity",0)
 	  .attr("class","c_date")
 	  .on("click", function(){
+	    viewModel.current_filter("dis");
+	    /*
 	  	if(disClicked == true){
 			runDis();
 		}else if(neiClicked == true){
@@ -97,6 +109,7 @@ function setup_option_circles() {
 	  	}else{
 	  		showOption();
 	  	}
+	  	*/
 	  });
 	
 	//option
@@ -108,6 +121,8 @@ function setup_option_circles() {
 		.attr("fill-opacity",0)
 		.attr("class","c_op")
 		.on("click", function(){
+	    viewModel.current_filter("dis");
+	    /*
 			if(disClicked == true){
 				runDis();
 			}else if(neiClicked == true){
@@ -120,6 +135,7 @@ function setup_option_circles() {
 			};
 			opClicked = true;
 			clickOption();
+	  	*/
 		});
 	
 	//juvu me
