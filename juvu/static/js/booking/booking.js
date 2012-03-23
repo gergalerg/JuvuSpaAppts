@@ -3,6 +3,9 @@ function create_login_circles() {
     create_login_circle(".signup_circle", circle_1_radius);
     create_login_circle(".login_circle", circle_2_radius);
     create_login_circle(".exp_circle", circle_3_radius);
+    $("div.s3").find("span.l_title").click(function(){
+        routes.navigate("treething", true);
+    });
 }
 
 function create_login_circle(cls, r) {
@@ -19,35 +22,13 @@ function create_login_circle(cls, r) {
 }
 
 var login_controls = {
-    hide_signup: function() {
-        $(".signup_circle").fadeOut();
-        $(".s1").fadeOut();
+    hide: function() {
+        nav_div.fadeOut(nav_div.detach());
     },
 
-    show_signup: function() {
-        $(".signup_circle").fadeIn();
-        $(".s1").fadeIn();
-    },
-
-    hide_login: function() {
-        $(".login_circle").fadeOut();
-        $(".s2").fadeOut();
-    },
-
-    show_login: function() {
-        $(".login_circle").fadeIn();
-        $(".s2").fadeIn();
-    },
-
-    hide_exp: function() {
-        $(".exp_circle").fadeOut();
-        $(".s3").fadeOut();
-    },
-
-    show_exp: function() {
-        $(".exp_circle").fadeIn();
-        $(".s3").fadeIn();
+    show: function() {
+        nav_div.appendTo("body");
+        nav_div.fadeIn();
     },
 }
-
 

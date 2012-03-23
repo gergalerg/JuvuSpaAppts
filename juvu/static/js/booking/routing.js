@@ -8,7 +8,7 @@ var routey = Backbone.Router.extend({
         "toc": "toc",
         "treething": "treething",
         "calendar": "calendar",
-        "step/:num": "step",
+//        "step/:num": "step",
     },
 
     toc: function() {
@@ -22,7 +22,7 @@ var routey = Backbone.Router.extend({
     calendar: function() {
         viewModel.viewing("calendar");
     },
-
+/*
     step: function(num) {
         num = +num;
         if (num >= 0 && num <= 4) {
@@ -31,6 +31,6 @@ var routey = Backbone.Router.extend({
             routes.navigate("toc", true);
         }
     },
-
+*/
 });
 

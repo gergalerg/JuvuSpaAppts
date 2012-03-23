@@ -39,6 +39,9 @@ var second_color = "#808080";
 // The URL fragment Backbone "routes".
 var routes;
 
+// Track this element for detach/append.
+var nav_div;
+
 </script>
 <script type="text/javascript" src="/static/js/booking/tree_thing.js"></script>
 <script type="text/javascript" src="/static/js/booking/tree_data.js"></script>
@@ -57,6 +60,7 @@ $(function(){
     create_login_circles();
     ko.applyBindings(viewModel);
     routes = new routey();
+    nav_div = $("#nav");
     setup_tree_thing("#tree", root);
     $("#tree").hide();
     setup_option_circles("#canvas");

@@ -12,7 +12,6 @@ function setup_tree_thing(element_selector, root) {
     vis2 = d3.select(element_selector).append("svg:svg")
         .attr("width", w + m[1] + m[3])
         .attr("height", 1024)//h + m[0] + m[2])
-        .attr("fill", "red")
       .append("svg:g")
         .attr("class", "treebox")
         .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
@@ -22,6 +21,12 @@ function setup_tree_thing(element_selector, root) {
     collapse(root);
     update(root);
 }
+
+var open_treething = _.once(function(){
+    root.children = root._children;
+    root._children = null;
+    update(root);
+});
 
 // Toggle tree children on click.
 function tree_node_click(d) {

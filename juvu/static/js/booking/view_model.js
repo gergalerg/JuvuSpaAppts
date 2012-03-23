@@ -8,23 +8,24 @@ viewModel = {
     current_filter: ko.observable(),
     // dis, nei, today, date, op
 
+    // Which procedure has the user selected?
+    current_proc: ko.observable({name:''}),
+
 }
 
 var view_transitions = {
     toc: function() {
-        login_controls.show_signup();
-        login_controls.show_login();
+        login_controls.show();
         $("#backstretch").animate({opacity:1.0});
     },
     treething: function() {
-        $("#tree").fadeIn();
+        $("#tree").fadeIn(open_treething);
     },
 }
 
 var unview_transitions = {
     toc: function() {
-        login_controls.hide_signup();
-        login_controls.hide_login();
+        login_controls.hide();
         $("#backstretch").animate({opacity:0.3});
     },
     treething: function() {
