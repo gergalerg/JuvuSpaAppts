@@ -132,13 +132,6 @@ body {
 .node text {
   cursor: pointer;
   font-family: @body_font;
-/*
-  font-size: 16px;
-  font-size: 28px;
-    padding: 4px;
-    font-weight: 400;
-    fill: #2A85E8;
-*/
 }
 
 path.link {
@@ -146,6 +139,29 @@ path.link {
   stroke: #ccc;
   stroke-width: 1.5px;
 }
+
+.blue_button {
+    text-align: center;
+    font-size: 22px;
+    font-size: 2.2rem;
+    color: #FFF;
+    text-transform: uppercase;
+    background-color: #99CCFF;
+    border: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    font-family: @body_font;
+    margin: 0.5em;
+    cursor: pointer;
+}
+
+.blue_button:hover {
+    color: #FFF;
+    background-color: #015f8a;
+}
+
 
 
 

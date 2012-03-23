@@ -67,6 +67,14 @@ viewModel.current_filter.subscribe(function(view) {
     }
 });
 
+viewModel.current_proc.subscribe(function(proc) {
+    if (!!proc.name) {
+        $("#goey").fadeIn();
+    } else {
+        $("#goey").fadeOut();
+    }
+})
+
 var SpaProcedure = function(options) {
     this.name = options.name;
     this.supported = ko.observable(options.supported);

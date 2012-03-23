@@ -11,7 +11,7 @@ var diagonal = d3.svg.diagonal()
 function setup_tree_thing(element_selector, root) {
     vis2 = d3.select(element_selector).append("svg:svg")
         .attr("width", w + m[1] + m[3])
-        .attr("height", 1024)//h + m[0] + m[2])
+        .attr("height", 800)
       .append("svg:g")
         .attr("class", "treebox")
         .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
