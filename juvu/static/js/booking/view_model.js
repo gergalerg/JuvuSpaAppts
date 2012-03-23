@@ -12,6 +12,19 @@ viewModel = {
 
 viewModel.viewing.subscribe(function(view) {
     console.log("viewing", view);
+    switch (view) {
+        case "toc":
+          break;
+        case "treething":
+          setup_tree_thing("#tree", root);
+          break;
+        case "calendar":
+          setup_option_circles("#canvas");
+          break;
+        default:
+          routes.navigate("toc", true);
+    }
+    
 });
 
 

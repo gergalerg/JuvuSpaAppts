@@ -6,11 +6,21 @@ var routey = Backbone.Router.extend({
 
     routes: {
         "toc": "toc",
+        "treething": "treething",
+        "calendar": "calendar",
         "step/:num": "step",
     },
 
     toc: function() {
         viewModel.viewing("toc");
+    },
+
+    treething: function() {
+        viewModel.viewing("treething");
+    },
+
+    calendar: function() {
+        viewModel.viewing("calendar");
     },
 
     step: function(num) {
