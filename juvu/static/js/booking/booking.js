@@ -1,45 +1,19 @@
 
 function create_login_circles() {
+    create_login_circle(".signup_circle", circle_1_radius);
+    create_login_circle(".login_circle", circle_2_radius);
+    create_login_circle(".exp_circle", circle_3_radius);
+}
 
-
-	var svg_element1 = d3.select(".signup_circle").append("svg:svg");
+function create_login_circle(cls, r) {
+	var svg_element1 = d3.select(cls).append("svg:svg");
 	svg_element1
-		.attr("width", circle_1_radius * 2)
-		.attr("height", circle_1_radius * 2);
-	
-	var circle2 = svg_element1.append("svg:circle");
-	circle2
-		.attr("cx", circle_1_radius)
-		.attr("cy", circle_1_radius)
-		.attr("r", circle_1_radius)
-		.attr("fill", "white")
-		.attr("fill-opacity", 0.55);
-	
-
-	var svg_element2 = d3.select(".login_circle").append("svg:svg");
-	svg_element2
-		.attr("width", circle_2_radius * 2)
-		.attr("height", circle_2_radius * 2);
-	
-	var circle2 = svg_element2.append("svg:circle");
-	circle2
-		.attr("cx", circle_2_radius)
-		.attr("cy", circle_2_radius)
-		.attr("r", circle_2_radius)
-		.attr("fill", "white")
-		.attr("fill-opacity", 0.55);
-		
-
-	var svg_element3 = d3.select(".exp_circle").append("svg:svg");
-	svg_element3
-		.attr("width", circle_3_radius * 2)
-		.attr("height", circle_3_radius * 2);
-	
-	var circle3 = svg_element3.append("svg:circle");
-	circle3
-		.attr("cx", circle_3_radius)
-		.attr("cy", circle_3_radius)
-		.attr("r", circle_3_radius)
+		.attr("width", r * 2)
+		.attr("height", r * 2);
+	svg_element1.append("svg:circle")
+		.attr("cx", r)
+		.attr("cy", r)
+		.attr("r", r)
 		.attr("fill", "white")
 		.attr("fill-opacity", 0.55);
 }
