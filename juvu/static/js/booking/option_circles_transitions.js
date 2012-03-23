@@ -1,3 +1,5 @@
+function DisplayCircle(){};
+
 
 
 var options_transitions = {

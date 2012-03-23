@@ -1,6 +1,7 @@
 
 function create_login_circles() {
 
+
 	var svg_element1 = d3.select(".signup_circle").append("svg:svg");
 	svg_element1
 		.attr("width", circle_1_radius * 2)
@@ -14,6 +15,7 @@ function create_login_circles() {
 		.attr("fill", "white")
 		.attr("fill-opacity", 0.55);
 	
+
 	var svg_element2 = d3.select(".login_circle").append("svg:svg");
 	svg_element2
 		.attr("width", circle_2_radius * 2)
@@ -27,6 +29,7 @@ function create_login_circles() {
 		.attr("fill", "white")
 		.attr("fill-opacity", 0.55);
 		
+
 	var svg_element3 = d3.select(".exp_circle").append("svg:svg");
 	svg_element3
 		.attr("width", circle_3_radius * 2)
