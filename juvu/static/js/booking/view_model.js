@@ -127,6 +127,14 @@ var SpaProcedure = function(options) {
         viewModel.supported_procs.push(newb);
         this.nickname("");
     }
-}
 
+    this.is_leaf = function() {
+        // Neither children nor _children are there.
+        return ((
+            _.isNull(this.children) || _.isUndefined(this.children)
+        ) && (
+            _.isNull(this._children) || _.isUndefined(this._children)
+        ));
+    }
+}
 

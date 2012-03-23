@@ -30,9 +30,9 @@ var open_treething = _.once(function(){
 
 // Toggle tree children on click.
 function tree_node_click(d) {
-  if (!_.has(d, "children")) {
+  if (d.is_leaf()) {
     d.supported(!d.supported());
-    if (d.supported()) { 
+    if (d.supported()) {
         d.make_current();
     } else {
         viewModel.current_proc({name:''});
