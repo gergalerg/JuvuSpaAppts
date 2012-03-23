@@ -2,6 +2,7 @@ viewModel = {
 
     // Track the current "view" the user is looking at.
     viewing: ko.observable(),
+    previous_view: "", // What the user was looking at last.
 
     // Track the current filter with which the user is working.
     current_filter: ko.observable(),
@@ -9,24 +10,54 @@ viewModel = {
 
 }
 
+var view_transitions = {
+    toc: function() {
+        login_controls.show_signup();
+        login_controls.show_login();
+        $("#backstretch").animate({opacity:1.0});
+    },
+    treething: function() {
+        $("#tree").fadeIn();
+    },
+}
+
+var unview_transitions = {
+    toc: function() {
+        login_controls.hide_signup();
+        login_controls.hide_login();
+        $("#backstretch").animate({opacity:0.3});
+    },
+    treething: function() {
+        $("#tree").fadeOut();
+    },
+}
+
+function unview() {
+    var old_view = viewModel.previous_view;
+    viewModel.previous_view = viewModel.viewing();
+    if (old_view == "") {
+        return;
+    }
+    if (!_.has(unview_transitions, old_view)) {
+        console.log("unknown unview", old_view);
+        return;
+    }
+    console.log("unviewing", old_view);
+    var f = unview_transitions[old_view];
+    f();
+}
 
 viewModel.viewing.subscribe(function(view) {
     console.log("viewing", view);
-    switch (view) {
-        case "toc":
-          break;
-        case "treething":
-          setup_tree_thing("#tree", root);
-          break;
-        case "calendar":
-          setup_option_circles("#canvas");
-          break;
-        default:
-          routes.navigate("toc", true);
+    unview();
+    if (!_.has(view_transitions, view)) {
+        console.log("unknown view", view);
+        routes.navigate("toc", true);
+        return;
     }
-    
+    var f = view_transitions[view];
+    f();
 });
-
 
 viewModel.current_filter.subscribe(function(view) {
     console.log("current_filter", view);
@@ -34,7 +65,6 @@ viewModel.current_filter.subscribe(function(view) {
         options_transitions.clickDis();
     }
 });
-
 
 var SpaProcedure = function(options) {
     this.name = options.name;

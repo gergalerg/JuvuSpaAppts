@@ -57,6 +57,9 @@ $(function(){
     create_login_circles();
     ko.applyBindings(viewModel);
     routes = new routey();
+    setup_tree_thing("#tree", root);
+    $("#tree").hide();
+    setup_option_circles("#canvas");
     if (!Backbone.history.start()) {
         routes.navigate("toc", true);
     }

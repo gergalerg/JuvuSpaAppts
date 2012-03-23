@@ -1,6 +1,6 @@
 function setup_option_circles(ops_canvas) {
     console.log("setup_option_circles");
-    $(".wrapper").css("display", "block");
+//    $(".wrapper").css("display", "block");
 
 	var svg_canvas = d3.select(ops_canvas).append("svg:svg");
 	svg_canvas
