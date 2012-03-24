@@ -95,7 +95,39 @@ var options_transitions = {
 	},
 
 	hide_dis: function() {
+		d3.select(".c_dis").transition()
+	  		.attr("cx", 100)
+	  		.attr("cy", 100)
+	  		.attr("r", 0)
+	  		.attr("fill", "steelblue")
+	  		.duration(500)
+	  		.ease("elastic", 5, 4)
+	  	  .transition()
+	  		.attr("r", 30)
+	  		.delay(500)
+	  		.duration(1000)
+	  		.ease("elastic", 5, 4);
 
+		d3.select(".distance").transition()
+	  		.style("display","none")
+	  		.style("opacity", 0);
+
+		d3.select(".c_nei").transition()
+	  		.attr("cx", 595)
+	  		.attr("cy", 300)
+	  		.attr("r", 0)
+	  		.duration(1000)
+	  		.ease("elastic", 5, 4);
+
+	  	d3.select(".neighbor").transition()
+	  		.style("display","none")
+	  		.style("opacity","0");
+
+	  	d3.select(".where").transition()
+	  		.style("display", "block")
+	  		.style("opacity", 1)
+	  		.delay(1000)
+		 	.duration(100);
 	},
 
 	little_show_dis: function() {
@@ -182,6 +214,338 @@ var options_transitions = {
 	},
 
 	hide_nei: function() {
+		d3.select(".c_nei").transition()
+	  		.attr("cx", 100)
+	  		.attr("cy", 100)
+	  		.attr("r", 0)
+	  		.attr("fill", "steelblue")
+	  		.duration(500)
+	  		.ease("elastic", 5, 4)
+	  	  .transition()
+	  		.attr("r", 30)
+	  		.delay(500)
+	  		.duration(1000)
+	  		.ease("elastic", 5, 4);
 
+	  	d3.select(".neighbor").transition()
+	  		.style("display","none")
+	  		.style("opacity", 0);
+
+		d3.select(".c_dis").transition()
+	  		.attr("cx", 450)
+	  		.attr("cy", 170)
+	  		.attr("r", 0)
+	  		.duration(1000)
+	  		.ease("elastic", 5, 4);
+
+		d3.select(".distance").transition()
+	  		.style("display","none")
+	  		.style("opacity","0");
+
+	  	d3.select(".where").transition()
+	  		.style("display", "block")
+	  		.style("opacity", 1)
+	  		.delay(1000)
+		 	.duration(100);
 	},
 }
+
+
+
+//###########################################################################
+
+
+    		function click_disBtn()
+    		{
+    			d3.select(".c_to").transition()
+    				.attr("r", 65)
+    				.attr("fill-opacity", 1)
+    				.duration(500);
+    			
+    			d3.select(".c_date").transition()
+    				.attr("r", 65)
+    				.attr("fill-opacity", 1)
+    				.duration(500);
+    				
+    			d3.select(".today").transition()
+    				.style("display", "block")
+    				.style("opacity", "1")
+    				.duration(500);
+    				
+    			d3.select(".date").transition()
+    				.style("display", "block")
+    				.style("opacity", "1")
+    				.duration(500);
+    		}
+    		
+    		function runDis()
+    		{
+    		}
+    		
+    		function runNei()
+    		{
+    		}
+    		
+    		function clickToday()
+    		{
+    			d3.select(".c_to").transition()
+    				.attr("cx", 100)
+    				.attr("cy", 200)
+    				.attr("r", 0)
+    				.duration(500)
+    		  		.ease("elastic", 5, 4);
+    		  	
+    		  	d3.select(".c_date").transition()
+    		  		.attr("cx", 100)
+    				.attr("cy", 200)
+    		  		.attr("r", 0)
+    		  		.attr("fill", "steelblue")
+    		  		.duration(500)
+    		  		.ease("elastic", 5, 4);
+    		  	
+    		  	d3.select(".c_date").transition()
+    		  		.attr("r", 30)
+    		  		.style("display","block")
+    		  		.style("opacity", 1)
+    		  		.delay(500)
+    		  		.duration(1000)
+    		  		.ease("elastic", 5, 4);
+    		  		
+    		  	d3.select(".today").transition()
+    		  		.style("display","none")
+    		  		.style("opacity", 0)
+    		  	
+    		  	d3.select(".date").transition()
+    		  		.style("display","none")
+    		  		.style("opacity","0");
+    		  		
+    		  	d3.select(".when").transition()
+    		  		.style("display", "block")
+    		  		.style("opacity", 1)
+    		  		.delay(1000)
+				 	.duration(100);
+    		}
+    		
+    		function clickDate()
+    		{
+    			d3.select(".c_date").transition()
+    				.attr("cx", 550)
+    				.attr("cy", 400)
+    				.attr("r", 150)
+    				.attr("fill",second_color)
+    				.duration(1000)
+    				.ease("elastic", 5, 4);
+    			
+    			d3.select(".c_to").transition()
+    				.attr("cx", 425)
+    				.attr("cy", 255)
+    				.attr("r", 65)
+    				.duration(1000)
+    				.ease("elastic", 5, 4);
+    			
+    			d3.select(".date").transition()
+    				.style("left", "400px")
+    				.style("top", "345px")
+    			
+    			d3.select(".date").transition()
+    				.style("display","block")
+    				.style("opacity","1")
+    				.duration(1000)
+    				.delay(1000)
+    				.ease("elastic", 5, 4);
+    			
+    			d3.select(".today").transition()
+    				.style("left", "405px")
+    				.style("top", "250px")
+    			
+    			d3.select(".today").transition()
+    				.style("display","block")
+    				.style("opacity","1")
+    				.duration(1000)
+    				.delay(1000)
+    				.ease("elastic", 5, 4);
+    			
+    			d3.select(".date_form").transition()
+    				.style("display", "block")
+    				.style("opacity", "1")
+    				.duration(1000)
+    				.delay(1000)
+    				.ease("elastic", 5, 4);
+    			
+    			d3.select(".when").transition()
+    				.style("display", "none")
+    				.style("opacity", 0)
+    		}
+    		
+    		function click_dateBtn()
+    		{
+    			d3.select(".c_date").transition()
+    				.attr("cx", 100)
+    				.attr("cy", 200)
+    				.attr("r", 0)
+    				.attr("fill", "steelblue")
+    				.duration(500)
+    		  		.ease("elastic", 5, 4);
+    		  	
+    		  	d3.select(".c_date").transition()
+    		  		.attr("r", 30)
+    		  		.delay(500)
+    		  		.duration(1000)
+    		  		.ease("elastic", 5, 4);
+    		  	
+    		  	d3.select(".c_to").transition()
+    		  		.attr("r", 0)
+    		  		.duration(1000)
+    		  		.ease("elastic", 5, 4);
+    		  	
+    		  	d3.select(".today").transition()
+    		  		.style("display","none")
+    		  		.style("opacity", 0);
+    		  	
+    		  	d3.select(".date").transition()
+    		  		.style("display","none")
+    		  		.style("opacity","0");
+    		  		
+    		  	d3.select(".when").transition()
+    		  		.style("display", "block")
+    		  		.style("opacity", 1)
+				 	.duration(100);
+    		}
+    		
+    		function runDate()
+    		{
+    			d3.select(".c_to").transition()
+    				.attr("cx", 100)
+    				.attr("cy", 200)
+    				.attr("r", 0)
+    				.duration(500)
+    		  		.ease("elastic", 5, 4);
+    		  	
+    		  	d3.select(".c_date").transition()
+    		  		.attr("cx", 100)
+    				.attr("cy", 200)
+    		  		.attr("r", 0)
+    		  		.attr("fill", "steelblue")
+    		  		.duration(500)
+    		  		.ease("elastic", 5, 4);
+    		  	
+    		  	d3.select(".c_date").transition()
+    		  		.attr("r", 30)
+    		  		.style("display","block")
+    		  		.style("opacity", 1)
+    		  		.delay(500)
+    		  		.duration(1000)
+    		  		.ease("elastic", 5, 4);
+    		  		
+    		  	d3.select(".date").transition()
+    		  		.style("display","none")
+    		  		.style("opacity","0");
+    		  	
+    		  	d3.select(".today").transition()
+    		  		.style("display","none")
+    		  		.style("opacity", 0);
+    		  	
+    		  	d3.select(".when").transition()
+    		  		.style("display", "block")
+    		  		.style("opacity", 1)
+    		  		.delay(1000)
+				 	.duration(100);
+    		}
+    		
+    		function showOption()
+    		{
+    			d3.select(".c_op").transition()
+    				.attr("cx",800)
+					.attr("cy",650)
+    				.attr("r", 65)
+    				.attr("fill-opacity",1)
+    				.duration(500);
+    			
+    			d3.select(".c_me").transition()
+    				.attr("r", 65)
+    				.attr("fill-opacity",1)
+    				.duration(500);
+    				
+    			d3.select(".option").transition()
+    				.style("left", "625px")
+    				.style("top", "645px")
+    				.style("display", "block")
+    				.style("opacity", "1")
+    				.duration(500);
+    			
+    			d3.select(".op_list").transition()
+    				.style("display", "none")
+    				.style("opacity", "0");
+    			
+    			d3.select(".juvuMe").transition()
+    				.style("display", "block")
+    				.style("opacity", "1")
+    				.duration(500);
+    			
+    		}
+    		
+    		function clickOption()
+    		{
+    			d3.select(".c_op").transition()
+    				.attr("cx", 500)
+    				.attr("cy", 300)
+    				.attr("r", 180)
+    				.attr("fill", first_color)
+    				.attr("fill-opacity",1)
+    				.duration(500);
+    			
+    			d3.select(".option").transition()
+    				.style("opacity", "0");
+    			
+    			d3.select(".op_list").transition()
+    				.style("opacity", "0")
+    			
+    			d3.select(".option").transition()
+    				.style("left", "325px")
+    				.style("top", "190px")
+    				.style("display", "block")
+    				.style("color", second_color)
+    				.style("opacity", "1")
+    				.duration(500);
+    				
+    			d3.select(".op_list").transition()
+    				.style("display", "block")
+    				.style("opacity", "1")
+    				.duration(500)
+    				.delay(500);
+    		}
+    		
+    		function runOption()
+    		{
+    			d3.select(".c_op").transition()
+    				.attr("cx", 100)
+    		  		.attr("cy", 300)
+    		  		.attr("r", 0)
+    		  		.attr("fill", "steelblue")
+    		  		.duration(500)
+    		  		.ease("elastic", 5, 4);
+    			
+    			d3.select(".c_op").transition()
+    				.attr("r", 30)
+    		  		.delay(500)
+    		  		.duration(1000)
+    		  		.ease("elastic", 5, 4);
+    		  	
+    		  	d3.select(".option").transition()
+    				.style("left", "-75px")
+    				.style("top", "293px")
+    				.style("color", "white")
+    				.style("display", "none");
+    		  	
+    		  	d3.select(".option").transition()
+    				.style("display", "block")
+    				.style("opacity", "1")
+    				.delay(500)
+    				.duration(500);
+    		  	
+    		  	d3.select(".op_list").transition()
+    				.style("display", "none")
+    				.style("opacity", "0")
+    				.duration(500);
+    		}
+
