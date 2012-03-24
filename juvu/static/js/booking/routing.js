@@ -7,7 +7,7 @@ var routey = Backbone.Router.extend({
     routes: {
         "toc": "toc",
         "service": "service",
-        "calendar": "calendar",
+        "choose": "choose",
 //        "step/:num": "step",
     },
 
@@ -19,8 +19,8 @@ var routey = Backbone.Router.extend({
         viewModel.viewing("service");
     },
 
-    calendar: function() {
-        viewModel.viewing("calendar");
+    choose: function() {
+        viewModel.viewing("choose");
     },
 /*
     step: function(num) {

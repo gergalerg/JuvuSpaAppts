@@ -21,7 +21,7 @@ var view_transitions = {
     service: function() {
         $("#tree").fadeIn(open_treething);
     },
-    calendar: function() {
+    choose: function() {
         $(".wrapper").fadeIn();
     },
 }
@@ -34,7 +34,7 @@ var unview_transitions = {
     service: function() {
         $("#tree").fadeOut();
     },
-    calendar: function() {
+    choose: function() {
         $(".wrapper").fadeOut();
     },
 }
