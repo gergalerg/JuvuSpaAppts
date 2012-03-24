@@ -67,13 +67,6 @@ viewModel.viewing.subscribe(function(view) {
     f();
 });
 
-viewModel.current_filter.subscribe(function(view) {
-    console.log("current_filter", view);
-    if (view == "dis") {
-        options_transitions.clickDis();
-    }
-});
-
 
 // Show or hide the "Go" button depending on whether a procedure has
 // been selected.

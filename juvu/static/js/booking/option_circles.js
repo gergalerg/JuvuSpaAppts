@@ -16,7 +16,7 @@ function setup_option_circles(ops_canvas) {
 	  .attr("fill-opacity",1)
 	  .attr("class","c_dis")
 	  .on("click", function(){
-	    viewModel.current_filter("dis");
+	      routes.navigate("choose/dis", true);
 	    /*
 	  	clickDis();
 	  	disClicked = true;
@@ -41,7 +41,7 @@ function setup_option_circles(ops_canvas) {
 	  .attr("fill-opacity",1)
 	  .attr("class","c_nei")
 	  .on("click", function(){
-	    viewModel.current_filter("nei");
+	      routes.navigate("choose/nei", true);
 	    /*
 	  	clickNei();
 	  	neiClicked = true;
