@@ -21,6 +21,9 @@ var view_transitions = {
     treething: function() {
         $("#tree").fadeIn(open_treething);
     },
+    calendar: function() {
+        $(".wrapper").fadeIn();
+    },
 }
 
 var unview_transitions = {
@@ -30,6 +33,9 @@ var unview_transitions = {
     },
     treething: function() {
         $("#tree").fadeOut();
+    },
+    calendar: function() {
+        $(".wrapper").fadeOut();
     },
 }
 
