@@ -8,6 +8,7 @@ viewModel = {
     current_filter: ko.observable(),
     // dis, nei, today, date, op
     previous_filter: "", // What the user was looking at last.
+    first_choose: false, // Needed to flag first "entrance" to '/#choose' space.
 
     // Which procedure has the user selected?
     current_proc: ko.observable({name:''}),
@@ -57,6 +58,7 @@ function unview() {
 
 viewModel.viewing.subscribe(function(view) {
     console.log("viewing", view);
+    viewModel.first_choose = true;
     unview();
     if (!_.has(view_transitions, view)) {
         console.log("unknown view", view);
