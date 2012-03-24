@@ -62,9 +62,6 @@ $(function(){
     routes = new routey();
     nav_div = $("#nav");
     setup_tree_thing("#tree", root);
-    $("#tree").append('<div id="goey"><a href="/look/#calendar" class="blue_button">Go</a></div>');
-    $("#goey").hide();
-    $("#tree").hide();
     setup_option_circles("#canvas");
     if (!Backbone.history.start()) {
         routes.navigate("toc", true);
