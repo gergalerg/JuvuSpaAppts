@@ -7,8 +7,7 @@ var routey = Backbone.Router.extend({
     routes: {
         "toc": "toc",
         "service": "service",
-        "choose": "choose",
-//        "step/:num": "step",
+        "choose/:opt": "choose",
     },
 
     toc: function() {
@@ -19,8 +18,10 @@ var routey = Backbone.Router.extend({
         viewModel.viewing("service");
     },
 
-    choose: function() {
+    choose: function(opt) {
         viewModel.viewing("choose");
+        // TODO: check opt here
+        viewModel.current_filter(opt);
     },
 /*
     step: function(num) {

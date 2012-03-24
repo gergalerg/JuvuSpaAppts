@@ -7,6 +7,7 @@ viewModel = {
     // Track the current filter with which the user is working.
     current_filter: ko.observable(),
     // dis, nei, today, date, op
+    previous_filter: "", // What the user was looking at last.
 
     // Which procedure has the user selected?
     current_proc: ko.observable({name:''}),
@@ -73,6 +74,9 @@ viewModel.current_filter.subscribe(function(view) {
     }
 });
 
+
+// Show or hide the "Go" button depending on whether a procedure has
+// been selected.
 viewModel.current_proc.subscribe(function(proc) {
     if (!!proc.name) {
         $("#goey").fadeIn();

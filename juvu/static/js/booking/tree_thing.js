@@ -20,7 +20,7 @@ function setup_tree_thing(element_selector, root) {
     root.children.forEach(collapse);
     collapse(root);
     update(root);
-    $("#tree").append('<div id="goey"><a href="/look/#choose" class="blue_button">Go</a></div>');
+    $("#tree").append('<div id="goey"><a href="/look/#choose/dis" class="blue_button">Go</a></div>');
     $("#goey").hide();
     $("#tree").hide();
 }
