@@ -6,7 +6,7 @@ var routey = Backbone.Router.extend({
 
     routes: {
         "toc": "toc",
-        "treething": "treething",
+        "service": "service",
         "calendar": "calendar",
 //        "step/:num": "step",
     },
@@ -15,8 +15,8 @@ var routey = Backbone.Router.extend({
         viewModel.viewing("toc");
     },
 
-    treething: function() {
-        viewModel.viewing("treething");
+    service: function() {
+        viewModel.viewing("service");
     },
 
     calendar: function() {

@@ -4,7 +4,7 @@ function create_login_circles() {
     create_login_circle(".login_circle", circle_2_radius);
     create_login_circle(".exp_circle", circle_3_radius);
     $("div.s3").find("span.l_title").click(function(){
-        routes.navigate("treething", true);
+        routes.navigate("service", true);
     });
 }
 

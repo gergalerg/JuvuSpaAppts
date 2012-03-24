@@ -18,7 +18,7 @@ var view_transitions = {
         login_controls.show();
         $("#backstretch").animate({opacity:1.0});
     },
-    treething: function() {
+    service: function() {
         $("#tree").fadeIn(open_treething);
     },
     calendar: function() {
@@ -31,7 +31,7 @@ var unview_transitions = {
         login_controls.hide();
         $("#backstretch").animate({opacity:0.3});
     },
-    treething: function() {
+    service: function() {
         $("#tree").fadeOut();
     },
     calendar: function() {
