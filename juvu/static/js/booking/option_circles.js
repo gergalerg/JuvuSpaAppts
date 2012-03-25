@@ -1,6 +1,18 @@
+function form_into_object(form, obj) {
+    _.each(form.serializeArray(), function(foo) { obj[foo.name] = foo.value });
+}
+
+function collect_options() {
+    var params = {};
+    form_into_object($("form.dis_form"), params);
+    form_into_object($("form.nei_form"), params);
+    form_into_object($("form.date_form"), params);
+    form_into_object($("form.opts_form"), params);
+    return params;
+}
+
 function setup_option_circles(ops_canvas) {
     console.log("setup_option_circles");
-
 
     $("#id_miles").keyup(function () {
         if ($(this).val().length > 0) {
@@ -86,7 +98,7 @@ function setup_option_circles(ops_canvas) {
 		.attr("fill-opacity",0)
 		.attr("class","c_me")
 		.on("click", function(){
-			
-		})
+        // FIXME: Do something intelligent here.
+    })
 		
 }
