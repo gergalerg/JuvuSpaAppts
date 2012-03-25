@@ -18,6 +18,8 @@ var choose_view_transitions = {
     },
 
     date: function() { options_transitions.clickDate(); },
+
+    opts: function() { options_transitions.clickOpts(); },
 }
 
 var choose_unview_transitions = {
@@ -39,6 +41,8 @@ var choose_unview_transitions = {
     },
 
     date: function(){ options_transitions.hide_when(); },
+
+    opts: function() { options_transitions.hide_opts(); },
 }
 
 function choose_unview() {
@@ -89,6 +93,36 @@ var reveal_when_circles = _.once(function() {
 		.style("opacity", "1")
 		.duration(500);
 })
+
+var reveal_option_circle = _.once(function() {
+	d3.select(".c_op").transition()
+		.attr("cx",800)
+		.attr("cy",650)
+		.attr("r", 65)
+		.attr("fill-opacity",1)
+		.duration(500);
+
+	d3.select(".c_me").transition()
+		.attr("r", 65)
+		.attr("fill-opacity",1)
+		.duration(500);
+
+	d3.select(".option").transition()
+		.style("left", "625px")
+		.style("top", "645px")
+		.style("display", "block")
+		.style("opacity", "1")
+		.duration(500);
+
+	d3.select(".op_list").transition()
+		.style("display", "none")
+		.style("opacity", "0");
+
+	d3.select(".juvuMe").transition()
+		.style("display", "block")
+		.style("opacity", "1")
+		.duration(500);
+});
 
 var options_transitions = {
 
@@ -369,6 +403,60 @@ var options_transitions = {
 		 	.duration(100);
 	},
 
+	clickOpts: function() {
+		d3.select(".c_op").transition()
+			.attr("cx", 500)
+			.attr("cy", 300)
+			.attr("r", 180)
+			.attr("fill", first_color)
+			.attr("fill-opacity",1)
+			.duration(500);
+		
+		d3.select(".option").transition()
+			.style("left", "325px")
+			.style("top", "190px")
+			.style("display", "block")
+			.style("color", second_color)
+			.style("opacity", "1")
+			.duration(500);
+			
+		d3.select(".op_list").transition()
+			.style("display", "block")
+			.style("opacity", "1")
+			.duration(500)
+			.delay(500);
+	},
+
+	hide_opts: function() {
+		d3.select(".c_op").transition()
+			.attr("cx", 100)
+	  		.attr("cy", 300)
+	  		.attr("r", 0)
+	  		.attr("fill", "steelblue")
+	  		.duration(500)
+	  		.ease("elastic", 5, 4)
+		  .transition()
+			.attr("r", 30)
+	  		.delay(500)
+	  		.duration(1000)
+	  		.ease("elastic", 5, 4);
+
+	  	d3.select(".option").transition()
+			.style("left", "-75px")
+			.style("top", "293px")
+			.style("color", "white")
+			.style("display", "none")
+		  .transition()
+			.style("display", "block")
+			.style("opacity", "1")
+			.delay(500)
+			.duration(500);
+
+	  	d3.select(".op_list").transition()
+			.style("display", "none")
+			.style("opacity", "0")
+			.duration(500);
+	}
 }
 
 
@@ -448,102 +536,5 @@ var options_transitions = {
     		  		.style("opacity", 1)
     		  		.delay(1000)
 				 	.duration(100);
-    		}
-    		
-    		function showOption()
-    		{
-    			d3.select(".c_op").transition()
-    				.attr("cx",800)
-					.attr("cy",650)
-    				.attr("r", 65)
-    				.attr("fill-opacity",1)
-    				.duration(500);
-    			
-    			d3.select(".c_me").transition()
-    				.attr("r", 65)
-    				.attr("fill-opacity",1)
-    				.duration(500);
-    				
-    			d3.select(".option").transition()
-    				.style("left", "625px")
-    				.style("top", "645px")
-    				.style("display", "block")
-    				.style("opacity", "1")
-    				.duration(500);
-    			
-    			d3.select(".op_list").transition()
-    				.style("display", "none")
-    				.style("opacity", "0");
-    			
-    			d3.select(".juvuMe").transition()
-    				.style("display", "block")
-    				.style("opacity", "1")
-    				.duration(500);
-    			
-    		}
-    		
-    		function clickOption()
-    		{
-    			d3.select(".c_op").transition()
-    				.attr("cx", 500)
-    				.attr("cy", 300)
-    				.attr("r", 180)
-    				.attr("fill", first_color)
-    				.attr("fill-opacity",1)
-    				.duration(500);
-    			
-    			d3.select(".option").transition()
-    				.style("opacity", "0");
-    			
-    			d3.select(".op_list").transition()
-    				.style("opacity", "0")
-    			
-    			d3.select(".option").transition()
-    				.style("left", "325px")
-    				.style("top", "190px")
-    				.style("display", "block")
-    				.style("color", second_color)
-    				.style("opacity", "1")
-    				.duration(500);
-    				
-    			d3.select(".op_list").transition()
-    				.style("display", "block")
-    				.style("opacity", "1")
-    				.duration(500)
-    				.delay(500);
-    		}
-    		
-    		function runOption()
-    		{
-    			d3.select(".c_op").transition()
-    				.attr("cx", 100)
-    		  		.attr("cy", 300)
-    		  		.attr("r", 0)
-    		  		.attr("fill", "steelblue")
-    		  		.duration(500)
-    		  		.ease("elastic", 5, 4);
-    			
-    			d3.select(".c_op").transition()
-    				.attr("r", 30)
-    		  		.delay(500)
-    		  		.duration(1000)
-    		  		.ease("elastic", 5, 4);
-    		  	
-    		  	d3.select(".option").transition()
-    				.style("left", "-75px")
-    				.style("top", "293px")
-    				.style("color", "white")
-    				.style("display", "none");
-    		  	
-    		  	d3.select(".option").transition()
-    				.style("display", "block")
-    				.style("opacity", "1")
-    				.delay(500)
-    				.duration(500);
-    		  	
-    		  	d3.select(".op_list").transition()
-    				.style("display", "none")
-    				.style("opacity", "0")
-    				.duration(500);
     		}
 

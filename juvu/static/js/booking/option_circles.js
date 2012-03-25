@@ -8,6 +8,7 @@ function setup_option_circles(ops_canvas) {
         }
     });
     $("form.nei_form").find("input[type=checkbox]").click(reveal_when_circles);
+    $("form.date_form").find("input[type=textarea]").click(reveal_option_circle);
 
 
 	var svg_canvas = d3.select(ops_canvas).append("svg:svg");
@@ -73,21 +74,7 @@ function setup_option_circles(ops_canvas) {
 		.attr("fill-opacity",0)
 		.attr("class","c_op")
 		.on("click", function(){
-	    viewModel.current_filter("dis");
-	    /*
-			if(disClicked == true){
-				runDis();
-			}else if(neiClicked == true){
-				runNei();
-			}
-			
-			if(dateClicked == true)
-			{
-				runDate();
-			};
-			opClicked = true;
-			clickOption();
-	  	*/
+	      routes.navigate("choose/opts", true);
 		});
 	
 	//juvu me
