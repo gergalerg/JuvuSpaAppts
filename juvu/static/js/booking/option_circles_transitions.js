@@ -2,6 +2,7 @@ function DisplayCircle(){};
 
 
 var choose_view_transitions = {
+
     dis: function() {
         options_transitions.clickDis();
         if (viewModel.first_choose) {
@@ -9,6 +10,7 @@ var choose_view_transitions = {
             viewModel.first_choose = false;
         }
     },
+
     nei: function() {
         options_transitions.clickNei();
         if (viewModel.first_choose) {
@@ -16,9 +18,18 @@ var choose_view_transitions = {
             viewModel.first_choose = false;
         }
     },
+
+    to: function() {
+//        options_transitions.clickNei();
+        if (viewModel.first_choose) {
+//            options_transitions.little_show_dis()
+            viewModel.first_choose = false;
+        }
+    },
 }
 
 var choose_unview_transitions = {
+
     dis: function() {
         if (viewModel.current_filter() == "nei") {
             options_transitions.little_show_dis()
@@ -26,11 +37,20 @@ var choose_unview_transitions = {
             options_transitions.hide_dis();
         }
     },
+
     nei: function() {
         if (viewModel.current_filter() == "dis") {
             options_transitions.little_show_nei()
         } else {
             options_transitions.hide_nei();
+        }
+    },
+
+    to: function() {
+        if (viewModel.current_filter() == "date") {
+//            options_transitions.little_show_nei()
+        } else {
+//            options_transitions.hide_nei();
         }
     },
 }
