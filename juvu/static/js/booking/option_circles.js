@@ -49,23 +49,7 @@ function setup_option_circles(ops_canvas) {
 	  .attr("fill-opacity",0)
 	  .attr("class","c_to")
 	  .on("click", function(){
-	    viewModel.current_filter("today");
-	    /*
-		if(disClicked == true){
-			runDis();
-		}else if(neiClicked == true){
-			runNei();
-		}
-		clickToday();
-		dateClicked = true;
-		
-		if(opClicked == true)
-	  	{
-	  		runOption();
-	  	}else{
-	  		showOption();
-	  	}
-	  	*/
+	    // FIXME: Do something intelligent here.
 	  });
 	
 	//Date range
@@ -77,23 +61,7 @@ function setup_option_circles(ops_canvas) {
 	  .attr("fill-opacity",0)
 	  .attr("class","c_date")
 	  .on("click", function(){
-	    viewModel.current_filter("dis");
-	    /*
-	  	if(disClicked == true){
-			runDis();
-		}else if(neiClicked == true){
-			runNei();
-		}
-		clickDate();
-		dateClicked = true;
-		
-		if(opClicked == true)
-	  	{
-	  		runOption();
-	  	}else{
-	  		showOption();
-	  	}
-	  	*/
+	    routes.navigate("choose/date", true);
 	  });
 	
 	//option
