@@ -63,6 +63,27 @@ viewModel.current_filter.subscribe(function(filter) {
     f();
 });
 
+var reveal_when_circles = _.once(function() {
+	d3.select(".c_to").transition()
+		.attr("r", 65)
+		.attr("fill-opacity", 1)
+		.duration(500);
+
+	d3.select(".c_date").transition()
+		.attr("r", 65)
+		.attr("fill-opacity", 1)
+		.duration(500);
+
+	d3.select(".today").transition()
+		.style("display", "block")
+		.style("opacity", "1")
+		.duration(500);
+
+	d3.select(".date").transition()
+		.style("display", "block")
+		.style("opacity", "1")
+		.duration(500);
+})
 
 var options_transitions = {
 
@@ -253,38 +274,6 @@ var options_transitions = {
 
 
 //###########################################################################
-
-
-    		function click_disBtn()
-    		{
-    			d3.select(".c_to").transition()
-    				.attr("r", 65)
-    				.attr("fill-opacity", 1)
-    				.duration(500);
-    			
-    			d3.select(".c_date").transition()
-    				.attr("r", 65)
-    				.attr("fill-opacity", 1)
-    				.duration(500);
-    				
-    			d3.select(".today").transition()
-    				.style("display", "block")
-    				.style("opacity", "1")
-    				.duration(500);
-    				
-    			d3.select(".date").transition()
-    				.style("display", "block")
-    				.style("opacity", "1")
-    				.duration(500);
-    		}
-    		
-    		function runDis()
-    		{
-    		}
-    		
-    		function runNei()
-    		{
-    		}
     		
     		function clickToday()
     		{

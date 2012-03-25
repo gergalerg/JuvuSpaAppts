@@ -1,6 +1,15 @@
 function setup_option_circles(ops_canvas) {
     console.log("setup_option_circles");
 
+
+    $("#id_miles").keyup(function () {
+        if ($(this).val().length > 0) {
+            reveal_when_circles()
+        }
+    });
+    $("form.nei_form").find("input[type=checkbox]").click(reveal_when_circles);
+
+
 	var svg_canvas = d3.select(ops_canvas).append("svg:svg");
 	svg_canvas
 	  .attr("width", 1024)
@@ -17,19 +26,6 @@ function setup_option_circles(ops_canvas) {
 	  .attr("class","c_dis")
 	  .on("click", function(){
 	      routes.navigate("choose/dis", true);
-	    /*
-	  	clickDis();
-	  	disClicked = true;
-	  	neiClicked = false;
-	  	if(dateClicked == true)
-	  	{
-	  		runDate();
-	  	};
-	  	if(opClicked == true)
-	  	{
-	  		runOption();
-	  	};
-	  	*/
 	  });
 	
 	//Neighborhood
@@ -42,19 +38,6 @@ function setup_option_circles(ops_canvas) {
 	  .attr("class","c_nei")
 	  .on("click", function(){
 	      routes.navigate("choose/nei", true);
-	    /*
-	  	clickNei();
-	  	neiClicked = true;
-	  	disClicked = false;
-	  	if(dateClicked == true)
-	  	{
-	  		runDate();
-	  	};
-	  	if(opClicked == true)
-	  	{
-	  		runOption();
-	  	};
-	  	*/
 	  });
 
 	//today
