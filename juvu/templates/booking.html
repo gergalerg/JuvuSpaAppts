@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Juvu</title>
+	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
+	
+    <script type="text/javascript" src="../static/js/d3/d3.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.time.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.layout.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
+    
+    <script type="text/javascript">
+		$(function(){
+			//color
+			var first_color = "#E6E6E6";
+			var second_color = "#808080";
+			var third_color = "#4682b4";
+			
+			//
+			var c_size = 30;
+			
+			
+			var s_canvas = d3.select(".canvas").append("svg:svg");
+			s_canvas
+				.attr("width", 300)
+				.attr("height", 768)
+				.attr("class", "s_canvas");
+			
+			s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",100)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_dis")
+				.on("click",function(){
+					
+				});
+			
+			s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",200)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_time")
+				.on("click",function(){
+					
+				});
+			
+			s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",300)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_time")
+				.on("click",function(){
+					
+				});
+			
+			
+		});
+    	
+    	
+    </script>
+    
+    
+</head>
+<body>
+	<div class="wrapper">
+		<div class="top-nav">
+			<h1>JUVU</h1>
+		</div>
+		
+		<div id="nav_left">
+			<div class="animation">
+				<div class="canvas"></div>
+				<div class="where">
+					where
+				</div>
+				<div class="when">
+					when
+				</div>
+				
+				<div class="option">
+					option
+				</div>
+			</div>
+		</div>
+		
+		<div id="nav_right">
+		
+			<!--container of information from database-->
+			<div class="m_row">
+				<img class="m_img" width="240" height="180" src="../static/image/login_05.jpg">
+				<div class="m_info">
+					<div class="m_name">Merchant Name</div>
+					<ul class="m_itemsName">
+						<li class="service">service</li>
+						<li class="price">price ($)</li>
+						<li class="discount">discount (%)</li>
+					</ul>
+					<div style="clear:both;"></div>
+					<ul class="m_items">
+						<li class="service">Mink Massage</li>
+						<li class="price">150</li>
+						<li class="discount">250</li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Theraputic Massage</li>
+						<li class="price">125</li>
+						<li class="discount"> </li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Reflexology</li>
+						<li class="price">45</li>
+						<li class="discount">10</li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Tandem Massage</li>
+						<li class="price">250</li>
+						<li class="discount">20</li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<div class="more_btn">more</div>	
+				</div>
+			</div>
+			<!--end container-->
+			<div class="m_row">
+				<img class="m_img" width="240" height="180" src="../static/image/login_05.jpg">
+				<div class="m_info">
+					<div class="m_name">Merchant Name</div>
+					<ul class="m_itemsName">
+						<li class="service">service</li>
+						<li class="price">price ($)</li>
+						<li class="discount">discount (%)</li>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Mink Massage</li>
+						<li class="price">150</li>
+						<li class="discount">250</li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Theraputic Massage</li>
+						<li class="price">125</li>
+						<li class="discount"> </li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Reflexology</li>
+						<li class="price">45</li>
+						<li class="discount">10</li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Tandem Massage</li>
+						<li class="price">250</li>
+						<li class="discount">20</li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<div class="more_btn">more</div>	
+				</div>
+			</div>
+			<div class="m_row">
+				<img class="m_img" width="240" height="180" src="../static/image/login_05.jpg">
+				<div class="m_info">
+					<div class="m_name">Merchant Name</div>
+					<ul class="m_itemsName">
+						<li class="service">service</li>
+						<li class="price">price ($)</li>
+						<li class="discount">discount (%)</li>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Mink Massage</li>
+						<li class="price">150</li>
+						<li class="discount">250</li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Theraputic Massage</li>
+						<li class="price">125</li>
+						<li class="discount"> </li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Reflexology</li>
+						<li class="price">45</li>
+						<li class="discount">10</li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Tandem Massage</li>
+						<li class="price">250</li>
+						<li class="discount">20</li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<div class="more_btn">more</div>	
+				</div>
+			</div>
+			<div class="m_row">
+				<img class="m_img" width="240" height="180" src="../static/image/login_05.jpg">
+				<div class="m_info">
+					<div class="m_name">Merchant Name</div>
+					<ul class="m_itemsName">
+						<li class="service">service</li>
+						<li class="price">price ($)</li>
+						<li class="discount">discount (%)</li>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Mink Massage</li>
+						<li class="price">150</li>
+						<li class="discount">250</li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Theraputic Massage</li>
+						<li class="price">125</li>
+						<li class="discount"> </li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Reflexology</li>
+						<li class="price">45</li>
+						<li class="discount">10</li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<ul class="m_items">
+						<li class="service">Tandem Massage</li>
+						<li class="price">250</li>
+						<li class="discount">20</li>
+						<div class="b_btn">book</div>
+						<div class="b_btn">bid</div>
+					</ul>
+					<div class="more_btn">more</div>	
+				</div>
+			</div>
+			
+		</div><!--end of right nav-->
+		<div style="clear:both;"></div>
+	</div><!--end of wrapper-->
+	
+	<script type="text/javascript">
+		$(function(){
+			$(".b_btn").mouseover(function(){
+				$(this).parent().find(".service, .price, .discount").css({'background-color':'#C6E6FC'})
+			});
+			$(".b_btn").mouseout(function(){
+				$(this).parent().find(".service, .price, .discount").css({'background-color':'white'})
+			});
+			
+			
+		})
+	</script>
+	
+	
+</body>
+</html>
