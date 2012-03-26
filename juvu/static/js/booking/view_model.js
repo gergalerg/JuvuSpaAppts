@@ -2,7 +2,7 @@ viewModel = {
 
     // Track the current "view" the user is looking at.
     viewing: ko.observable(),
-    previous_view: "", // What the user was looking at last.
+    previous_view: "toc", // What the user was looking at last.
 
     // Track the current filter with which the user is working.
     current_filter: ko.observable(),

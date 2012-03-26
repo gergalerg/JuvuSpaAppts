@@ -11,6 +11,10 @@ function collect_options() {
     return params;
 }
 
+function clicky(selector, route) {
+    $(selector).click(function() { routes.navigate(route, true); })
+}
+
 function setup_option_circles(ops_canvas) {
     console.log("setup_option_circles");
 
@@ -21,6 +25,10 @@ function setup_option_circles(ops_canvas) {
     });
     $("form.nei_form").find("input[type=checkbox]").click(reveal_when_circles);
     $("form.date_form").find("input[type=textarea]").click(reveal_option_circle);
+    clicky(".distance > span.pointy", "choose/dis");
+    clicky(".neighbor > span.pointy", "choose/nei");
+    clicky(".date > span.pointy", "choose/date");
+    clicky(".option > span.pointy", "choose/opts");
 
 
 	var svg_canvas = d3.select(ops_canvas).append("svg:svg");
@@ -36,7 +44,7 @@ function setup_option_circles(ops_canvas) {
 	  .attr("r",65)
 	  .attr("fill",first_color)
 	  .attr("fill-opacity",1)
-	  .attr("class","c_dis")
+	  .attr("class","c_dis pointy")
 	  .on("click", function(){
 	      routes.navigate("choose/dis", true);
 	  });
@@ -48,7 +56,7 @@ function setup_option_circles(ops_canvas) {
 	  .attr("r",65)
 	  .attr("fill",second_color)
 	  .attr("fill-opacity",1)
-	  .attr("class","c_nei")
+	  .attr("class","c_nei pointy")
 	  .on("click", function(){
 	      routes.navigate("choose/nei", true);
 	  });
@@ -60,7 +68,7 @@ function setup_option_circles(ops_canvas) {
 	  .attr("r",0)
 	  .attr("fill",first_color)
 	  .attr("fill-opacity",0)
-	  .attr("class","c_to")
+	  .attr("class","c_to pointy")
 	  .on("click", function(){
 	    // FIXME: Do something intelligent here.
 	  });
@@ -72,7 +80,7 @@ function setup_option_circles(ops_canvas) {
 	  .attr("r",0)
 	  .attr("fill",second_color)
 	  .attr("fill-opacity",0)
-	  .attr("class","c_date")
+	  .attr("class","c_date pointy")
 	  .on("click", function(){
 	    routes.navigate("choose/date", true);
 	  });
@@ -84,7 +92,7 @@ function setup_option_circles(ops_canvas) {
 		.attr("r",0)
 		.attr("fill",first_color)
 		.attr("fill-opacity",0)
-		.attr("class","c_op")
+		.attr("class","c_op pointy")
 		.on("click", function(){
 	      routes.navigate("choose/opts", true);
 		});
@@ -96,7 +104,7 @@ function setup_option_circles(ops_canvas) {
 		.attr("r",0)
 		.attr("fill",second_color)
 		.attr("fill-opacity",0)
-		.attr("class","c_me")
+		.attr("class","c_me pointy")
 		.on("click", function(){
         // FIXME: Do something intelligent here.
     })

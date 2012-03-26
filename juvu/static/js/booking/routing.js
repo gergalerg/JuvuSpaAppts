@@ -29,15 +29,5 @@ var routey = Backbone.Router.extend({
             )
         viewModel.current_filter(opt);
     },
-/*
-    step: function(num) {
-        num = +num;
-        if (num >= 0 && num <= 4) {
-            viewModel.viewing(num);
-        } else {
-            routes.navigate("toc", true);
-        }
-    },
-*/
 });
 

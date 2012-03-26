@@ -40,6 +40,10 @@ body {
 	opacity:			0.5;
 }
 
+.pointy {
+    cursor: pointer;
+}
+
 /*log in page*/
 
 .signup_circle{
