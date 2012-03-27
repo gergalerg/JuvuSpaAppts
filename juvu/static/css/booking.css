@@ -34,6 +34,7 @@ body{
 	padding-bottom:		100px;
 }
 
+/*left column*/
 .animation{
 	position:			absolute;
 }
@@ -58,11 +59,60 @@ body{
 
 .option{
 	top:				293px;
-	left:				129px;
+	left:				125px;
 	position:			absolute;
+	color:				#808080;
+	text-align:			center;
+}
+
+.distance{
+	display:			none;
+	opacity:			0;
+	text-align:			center;
+	position:			absolute;
+	left:				68px;
+	top:				95px;
 	color:				#808080;
 }
 
+.dis_form{
+	display:			none;
+	opacity:			0;
+}
+
+.neighbor{
+	display:			none;
+	opacity:			0;
+	text-align:			center;
+	position:			absolute;
+	left:				150px;
+	top:				95px;
+	color:				white;
+}
+
+.nei_form{
+	display:			none;
+	opacity:			0;
+}
+
+.today{
+	display:			none;
+	opacity:			0;
+}
+
+.date{
+	display:			none;
+	opacity:			0;
+}
+
+.op_list{
+	display:			none;
+}
+
+
+
+
+/*right column*/
 .m_row{
 	margin-top:			30px;
 	float:				left;
@@ -141,6 +191,7 @@ body{
 	vertical-align:		baseline;
 	line-height:		20px;
 	padding-top:		2px;
+	padding-bottom:		1px;
 	cursor:				pointer;
 }
 
@@ -165,8 +216,4 @@ body{
 .more_btn:hover{
 	color:	#3FA9F5;
 }
-
-@dark-gray:				#808080;
-@light-gray:			#E6E6E6;
-@light-blue:			#3FA9F5;
 
