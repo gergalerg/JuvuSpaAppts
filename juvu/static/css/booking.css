@@ -44,6 +44,7 @@ body{
 	left:				130px;
 	position:			absolute;
 	color:				#808080;
+	cursor:				pointer;
 }
 
 .when{
@@ -51,6 +52,7 @@ body{
 	left:				133px;
 	position:			absolute;
 	color:				#808080;
+	cursor:				pointer;
 }
 
 .option{
@@ -59,6 +61,7 @@ body{
 	position:			absolute;
 	color:				#808080;
 	text-align:			center;
+	cursor:				pointer;
 }
 
 .distance{
@@ -69,6 +72,7 @@ body{
 	left:				75px;
 	top:				75px;
 	color:				#808080;
+	cursor:				pointer;
 }
 
 .dis_form{
@@ -90,6 +94,7 @@ body{
 	left:				150px;
 	top:				125px;
 	color:				white;
+	cursor:				pointer;
 }
 
 .nei_form{
@@ -126,6 +131,7 @@ body{
 	left:				85px;
 	top:				235px;
 	color:				#808080;
+	cursor:				pointer;
 }
 
 .date{
@@ -135,6 +141,7 @@ body{
 	left:				157px;
 	top:				295px;
 	color:				white;
+	cursor:				pointer;
 }
 
 .date_form{

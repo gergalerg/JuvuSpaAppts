@@ -16,14 +16,27 @@
 			var first_color = "#E6E6E6";
 			var second_color = "#808080";
 			var third_color = "#3FA9F5";
+			var hover_color = "#C6E6FC";
 			var c_size = 30;
-			
+			var oc;
 			
 			var s_canvas = d3.select(".canvas").append("svg:svg");
 			s_canvas
 				.attr("width", 300)
 				.attr("height", 800)
 				.attr("class", "s_canvas");
+			
+			function changeColor(o)
+			{
+				oc = o.attr('fill');
+				o.attr('fill', hover_color);
+				return oc;
+			}
+			
+			function changeBack(t)
+			{
+				t.attr('fill',oc);
+			}
 			
 			//where
 			s_canvas.append("svg:circle")
@@ -33,10 +46,31 @@
 				.attr("fill",first_color)
 				.attr("class","c_where")
 				.on("click",function(){
-					originalState();
-					removeWhereTxt();
+					/*depend on what user selects from previous page*/
 					clickNeighbor();
+					//or clickDistance();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
 				});
+			
+			//html
+			$('.where').mouseover(function(){
+				changeColor($('.c_where'));
+			});
+			
+			$('.where').mouseout(function(){
+				changeBack($('.c_where'));
+			});
+			
+			$('.where').click(function(){
+				/*depend on what user selects from previous page*/
+				clickNeighbor();
+				//or clickDistance();
+			});
 			
 			//when
 			s_canvas.append("svg:circle")
@@ -46,10 +80,27 @@
 				.attr("fill",first_color)
 				.attr("class","c_when")
 				.on("click",function(){
-					originalState();
-					removeWhenTxt();
 					clickDate();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
 				});
+			
+			//html
+			$('.when').mouseover(function(){
+				changeColor($('.c_when'));
+			});
+			
+			$('.when').mouseout(function(){
+				changeBack($('.c_when'));
+			});
+			
+			$('.when').click(function(){
+				clickDate();
+			});
 			
 			//options
 			s_canvas.append("svg:circle")
@@ -59,9 +110,27 @@
 				.attr("fill",first_color)
 				.attr("class","c_op")
 				.on("click",function(){
-					originalState();
 					clickOption();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
 				});
+			
+			//html
+			$('.option').mouseover(function(){
+				changeColor($('.c_op'));
+			});
+			
+			$('.option').mouseout(function(){
+				changeBack($('.c_op'));
+			});
+			
+			$('.option').click(function(){
+				clickOption();
+			});
 			
 			//distance & neighboehood
 			s_canvas.append("svg:circle")
@@ -71,11 +140,27 @@
 				.attr("fill",first_color)
 				.attr("class","c_dis")	
 				.on("click",function(){
-					originalState();
-					removeWhereTxt();
+					$(this).attr('fill',first_color);
 					clickDistance();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
 				});
 			
+			$('.distance').mouseover(function(){
+				changeColor($('.c_dis'));
+			});
+			
+			$('.distance').mouseout(function(){
+				changeBack($('.c_dis'));
+			});
+			
+			$('.distance').click(function(){
+				clickDistance();
+			});
 			
 			
 			s_canvas.append("svg:circle")
@@ -85,10 +170,27 @@
 				.attr("fill",second_color)
 				.attr("class","c_nei")
 				.on("click",function(){
-					originalState();
-					removeWhereTxt();
+					$(this).attr('fill',second_color);
 					clickNeighbor();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
 				});
+			
+			$('.neighbor').mouseover(function(){
+				changeColor($('.c_nei'));
+			});
+			
+			$('.neighbor').mouseout(function(){
+				changeBack($('.c_nei'));
+			});
+			
+			$('.neighbor').click(function(){
+				clickNeighbor();
+			});
 			
 			//today & date --- only have one animation result
 			s_canvas.append("svg:circle")
@@ -98,8 +200,26 @@
 				.attr("fill",first_color)
 				.attr("class","c_today")
 				.on("click",function(){
-					originalState();
+					original();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
 				});
+			
+			$('.today').mouseover(function(){
+				changeColor($('.c_today'));
+			});
+			
+			$('.today').mouseout(function(){
+				changeBack($('.c_today'));
+			});
+			
+			$('.today').click(function(){
+				original();
+			});
 			
 			s_canvas.append("svg:circle")
 				.attr("cx",200)
@@ -108,19 +228,35 @@
 				.attr("fill",second_color)
 				.attr("class","c_date")
 				.on("click",function(){
-					originalState();
-					removeWhenTxt();
+					$(this).attr('fill',second_color);
 					clickDate();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
 				});
 			
+			$('.date').mouseover(function(){
+				changeColor($('.c_date'));
+			});
+			
+			$('.date').mouseout(function(){
+				changeBack($('.c_date'));
+			});
+			
+			$('.date').click(function(){
+				original();
+			});
+			
 			$('.submit_btn').click(function(){
-				originalState();
+				original();
 			})
 			
 			function clickNeighbor()
 			{
 				$('.c_nei').appendTo($('.s_canvas'));
-				
 				//circle and text "where" disappear
 				$('.where').css({'display':'none'});
 				d3.select('.c_where').transition()
@@ -136,7 +272,7 @@
     		  		
     		  	d3.select('.c_nei').transition()
     		  		.attr("cy",130)
-    		  		.attr('r', 65)	 
+    		  		.attr('r', 65)
 					.duration(500)
     		  		.ease("elastic", 5, 4);
     		  		
@@ -160,11 +296,16 @@
     		  		.style('display','block')
     		  		.style('opacity', 1)
     		  		.duration(500)
-    		  		.delay(500);
+    		  		.delay(250);
     		  	
-    		  	//move down "when" & "options" circles + texts 		  	
+    		  	//hide
+    		  	hide_optionList();
+				hide_todayDate();
+				
+    		  	//move "when" & "options" circles + texts 		  	
     		  	d3.select('.c_when').transition()
     		  		.attr('cy', 620)
+    		  		.attr("r",c_size)
     		  		.duration(1000)
     		  		.ease("elastic", 5, 4);
     		  		
@@ -175,6 +316,7 @@
     		  		.ease("elastic", 5, 4);
     		  	
     		  	d3.select('.when').transition()
+    		  		.style('display', 'block')
     		  		.style('top', '613px')
     		  		.duration(1000)
     		  		.ease("elastic", 5, 4);
@@ -188,7 +330,6 @@
 			function clickDistance()
 			{
 				$('.c_dis').appendTo($('.s_canvas'));
-				
 				//circle and text "where" disappear
 				$('.where').css({'display':'none'});
 				d3.select('.c_where').transition()
@@ -199,14 +340,12 @@
     		  	d3.select('.c_dis').transition()
     		  		.attr('cy', 130)
     		  		.attr('r', 65)
-    		  		.style('stroke-width', '2px')
 					.duration(500)
     		  		.ease("elastic", 5, 4);
     		  		
     		  	d3.select('.c_nei').transition()
     		  		.attr('cy', 70)
     		  		.attr('r', 65)
-    		  		.style('stroke-width', '0px')	 
 					.duration(500)
     		  		.ease("elastic", 5, 4);
     		  		
@@ -230,12 +369,17 @@
     		  		.style('display','block')
     		  		.style('opacity', 1)
     		  		.duration(500)
-    		  		.delay(500);
+    		  		.delay(250);
+				
+				//hide
+    		  	hide_optionList()
+				hide_todayDate();
 				
 				
-				//move down "when" & "options" circles + texts 		  	
+				//move "when" & "options" circles + texts 		  	
     		  	d3.select('.c_when').transition()
     		  		.attr('cy', 350)
+    		  		.attr("r",c_size)
     		  		.duration(1000)
     		  		.ease("elastic", 5, 4);
     		  		
@@ -246,6 +390,7 @@
     		  		.ease("elastic", 5, 4);
     		  	
     		  	d3.select('.when').transition()
+    		  		.style('display', 'block')
     		  		.style('top', '343px')
     		  		.duration(1000)
     		  		.ease("elastic", 5, 4);
@@ -255,6 +400,7 @@
     		  		.duration(1000)
     		  		.ease("elastic", 5, 4);
 			}
+			
 			
 			function clickDate()
 			{
@@ -269,14 +415,12 @@
 				d3.select('.c_today').transition()
     		  		.attr('cy', 240)
     		  		.attr('r', 65)
-    		  		.style('stroke-width', '2px')
 					.duration(500)
     		  		.ease("elastic", 5, 4);
     		  		
     		  	d3.select('.c_date').transition()
     		  		.attr('cy', 300)
     		  		.attr('r', 65)
-    		  		.style('stroke-width', '0px')	 
 					.duration(500)
     		  		.ease("elastic", 5, 4);
 				
@@ -295,20 +439,25 @@
     		  		.ease("elastic", 5, 4);
 				
 				//form
-				$('.date_form').css({'display':'none','opacity':'0'});
     		  	d3.select('.date_form').transition()
     		  		.style('display','block')
     		  		.style('opacity', 1)
     		  		.duration(500)
     		  		.delay(250);
 				
+				//hide
+				hide_disNei();
+				hide_optionList()
+				
+				//show circle and text of 'where'
+				original_where();
 				
 				//move down "options" circles + texts 		  	 		  		
     		  	d3.select('.c_op').transition()
+    		  		.attr('r', c_size)
     		  		.attr('cy', 510)
     		  		.duration(1000)
     		  		.ease("elastic", 5, 4);
-    		  	
     		  	d3.select('.option').transition()
     		  		.style('top', '503px')
     		  		.duration(1000)
@@ -317,133 +466,114 @@
 			
 			function clickOption()
 			{
+				//hide forms and circles
+    		  	hide_todayDate();
+    		  	hide_disNei();
+    		  	
+    		  	//show when & where circles
+    		  	original_where();
+    		  	original_when();
+    		  	
 				d3.select('.c_op').transition()
 					.attr("cx",150)
 					.attr("cy",330)
 					.attr("r",65)
 					.duration(500)
     		  		.ease("elastic", 5, 4);
-    		  	
     		  	d3.select('.option').transition()
 					.style('top','323px')
 					.duration(500)
     		  		.ease("elastic", 5, 4);
-    		  	
     		  	d3.select('.op_list').transition()
     		  		.style('display','block')
     		  		.style('opacity','1')
-    		  		.duration(500)
-    		  		.delay(500)
-    		  		.ease("elastic", 5, 4);
+    		  		.delay(250)
+    		  		.duration(500);
 			}
 			
-			function originalState()
-			{
-				//show original three circles & texts
-				d3.select('.c_where').transition()
-					.attr("r",c_size)
-					.attr("cy",100)
-					.duration(500)
-					.delay(500)
-    		  		.ease("elastic", 5, 4);
-					
-				d3.select('.c_when').transition()
-					.attr("r",c_size)
-					.attr("cy",200)
-					.duration(500)
-					.delay(500)
-    		  		.ease("elastic", 5, 4);
-					
+			//show original three circles & texts
+			function original()
+			{	
+				//hide
+				hide_disNei();
+				hide_todayDate();
+				hide_optionList()
 				
-				d3.select('.where').transition()
-					.style('display','block')
-					.style('opacity', 1)
-					.style('top','93px')
-					.duration(500)
-					.delay(500)
-    		  		.ease("elastic", 5, 4);
-				
-				d3.select('.when').transition()
-					.style('display','block')
-					.style('opacity', '1')
-					.style('top','193px')
-					.duration(500)
-					.delay(500)
-    		  		.ease("elastic", 5, 4);
-    		  		
-    		  	d3.select('.option').transition()
-					.style('display','block')
-					.style('opacity', '1')
-					.style('top','293px')
-					.duration(500)
-					.delay(500)
-    		  		.ease("elastic", 5, 4);
-				
-				//hide happened interactions
-				
-				////->distance & neighborhood
-				d3.select('.c_dis').transition()
-    		  		.attr('r', 0)
-					.duration(500)
-    		  		.ease("elastic", 5, 4);
-    		  		
-    		  	d3.select('.c_nei').transition()
-    		  		.attr('r', 0)	 
-					.duration(500)
-    		  		.ease("elastic", 5, 4);
-    		  	$('.distance').css({'display':'none','opacity':'0'});
-    		  	$('.neighbor').css({'display':'none','opacity':'0'});
-    		  	$('.dis_form').css({'display':'none','opacity':'0'});
-    		  	$('.nei_form').css({'display':'none','opacity':'0'});
+				//show when, where and options circles
+				original_where();
+    		  	original_when();
     		  	
-    		  	////->today & date range
-				d3.select('.c_today').transition()
-    		  		.attr('r', 0)
-					.duration(500)
-    		  		.ease("elastic", 5, 4);
-    		  		
-    		  	d3.select('.c_date').transition()
-    		  		.attr('r', 0)	 
-					.duration(500)
-    		  		.ease("elastic", 5, 4);
-    		  	$('.today').css({'display':'none','opacity':'0'});
-    		  	$('.date').css({'display':'none','opacity':'0'});
-    		  	$('.date_form').css({'display':'none','opacity':'0'});
-    		  	
-    		  	////->options
-    		  	$('.op_list').css({'display':'none','opacity':'0'});
-				
     		  	d3.select('.c_op').transition()
-					.attr("r",c_size)
-					.attr("cy",300)
-					.duration(500)
-					.delay(550)
-					.attr('fill','steelblue')
-    		  		.ease("elastic", 5, 4);
-    		  		
-    		  	console.log("hi");
+    		  		.attr('r', c_size)
+    		  		.attr('cy', 300)
+    		  		.duration(500)
+    		  		.ease('elastic', 5, 4);
+				d3.select('.option').transition()
+    		  		.style('display', 'block')
+    		  		.style('opacity', 1)
+    		  		.style('top','293px')
+    		  		.duration(500)
+    		  		.ease('elastic', 5, 4);
 			}
 			
-			function removeWhereTxt()
+			function hide_disNei()
 			{
-				d3.select('.where').transition()
-					.style('display','none')
-					.delay(500);
+				$('.distance, .neighbor, .nei_form, .dis_form').css({'display':'none','opacity':'0'});
+				d3.select('.c_dis').transition()
+    		  		.attr('r',0)
+    		  		.duration(500);
+    		  	d3.select('.c_nei').transition()
+    		  		.attr('r',0)
+    		  		.duration(500);
 			}
 			
-			function removeWhenTxt()
+			function hide_todayDate()
 			{
-				d3.select('.when').transition()
-					.style('display','none')
-					.delay(500);
+				$('.date, .today, .date_form').css({'display':'none','opacity':'0'});
+				d3.select('.c_today').transition()
+					.attr('r', 0)
+					.duration(500);
+				d3.select('.c_date').transition()
+					.attr('r', 0)
+					.duration(500);
+			}
+			
+			function hide_optionList()
+			{
+				$('.op_list').css({'display':'none','opacity':'0'});
+			}
+			
+			function original_where()
+			{
+				d3.select('.c_where').transition()
+    		  		.attr('r', c_size)
+    		  		.duration(500)
+    		  		.ease('elastic', 5, 4);	
+    		  	d3.select('.where').transition()
+    		  		.style('display', 'block')
+    		  		.style('opacity', 1)
+    		  		.duration(500)
+    		  		.ease('elastic', 5, 4);
+			}
+			
+			function original_when()
+			{
+				d3.select('.c_when').transition()
+    		  		.attr('r', c_size)
+    		  		.attr('cy', 200)
+    		  		.duration(500)
+    		  		.ease('elastic', 5, 4);
+    		  	
+    		  	d3.select('.when').transition()
+    		  		.style('display', 'block')
+    		  		.style('opacity', 1)
+    		  		.style('top','193px')
+    		  		.duration(500)
+    		  		.ease('elastic', 5, 4);
 			}
 			
 		});
-    	
-    	
     </script>
-    
-    
 </head>
 <body>
 	<div class="wrapper">
