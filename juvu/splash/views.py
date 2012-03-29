@@ -38,3 +38,11 @@ def record_email(request):
     return redirect(reverse("thanks"))
 
 
+def inv(request):
+    '''
+    Splash page.
+    '''
+    return render_to_response(
+        'inv.html',
+        context_instance=RequestContext(request),
+        )
