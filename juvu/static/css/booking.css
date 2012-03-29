@@ -281,3 +281,143 @@ body{
 	color:	#3FA9F5;
 }
 
+/*booking-continue*/
+#header_pre{
+	font-size:			24px;
+	font-weight:		bold;
+	padding-left:		12px;
+	border-bottom:		3px solid black;
+	margin-top:			24px;
+}
+
+.nav_selections{
+	text-transform:		uppercase;
+	font-size:			0.8em;
+	padding-left:		12px;
+}
+
+.selection{
+	margin-left:		6px;
+}
+
+#header_service{
+	font-size:			24px;
+	border-bottom:		3px solid black;
+	margin-top:			24px;
+	margin-left:		24px;
+	padding-left:		12px;
+}
+
+.timeline{
+	text-transform:		uppercase;
+	margin-left:		36px;
+	margin-top:			30px;
+	font-size:			0.8em;
+}
+
+.first_day{
+	margin-left:		130px;
+}
+
+.second_day{
+	margin-left:		120px;
+}
+
+.third_day{
+	margin-left:		120px;
+}
+
+.morning{
+	margin-left:		24px;
+	padding-top:		30px;
+}
+
+.afternoon{
+	margin-left:		24px;
+	margin-top:			30px;
+}
+
+.evening{
+	margin-left:		24px;
+	margin-top:			30px;
+}
+
+.mor_title{
+	font-size:			0.8em;
+	text-transform:		uppercase;
+	padding-left:		12px;
+	padding-top:		10px;
+	margin-top:			-6px;
+	border-top:			2px solid black;
+	width:				95px;
+	float:				left;
+}
+
+.aft_title{
+	font-size:			0.8em;
+	text-transform:		uppercase;
+	padding-left:		12px;
+	padding-top:		10px;
+	margin-top:			-6px;
+	border-top:			2px solid black;
+	width:				95px;
+	float:				left;
+}
+
+.eve_title{
+	font-size:			0.8em;
+	text-transform:		uppercase;
+	padding-left:		12px;
+	padding-top:		10px;
+	margin-top:			-6px;
+	border-top:			2px solid black;
+	width:				95px;
+	float:				left;
+}
+
+.day1{
+	width:				100px;
+	margin-left:		22px;
+	float:				left;
+}
+
+.day2{
+	width:				100px;
+	margin-left:		107px;
+	float:				left;
+}
+
+.day3{
+	width:				100px;
+	margin-left:		112px;
+	float:				left;
+}
+
+.day_info{
+	padding-top:		5px;
+	padding-left:		12px;
+	padding-bottom:		5px;
+	border-bottom:		1px dotted black;
+	line-height:		18px;
+	font-size:			0.9em;
+	color:				#808080;
+}
+
+.day_info:hover{
+	background-color:	#CEE6FC;
+	cursor:				pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
