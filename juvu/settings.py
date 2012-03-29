@@ -100,6 +100,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     join(PROJECT_ROOT, 'templates'),
     join(PROJECT_ROOT, 'booking', 'templates'),
+    join(PROJECT_ROOT, 'innerview', 'templates'),
 )
 
 INSTALLED_APPS = (

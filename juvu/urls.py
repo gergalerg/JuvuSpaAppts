@@ -14,6 +14,9 @@ urlpatterns = patterns('',
     # Spa-facing site.
     url(r'^look/', include('booking.urls')),
 
+    # Internal introspection site.
+    url(r'^innerview/', include('innerview.urls')),
+
     )
 
 # Static media (served directly by the web server in production.)
