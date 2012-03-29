@@ -1,4 +1,3 @@
-from django.conf import settings
 from RDF import (
     Storage,
     Model,
@@ -6,6 +5,10 @@ from RDF import (
     Node,
     SPARQLQuery,
 )
+from django.conf import settings
+from juvu.util.URIs import (
+  PREFIX,
+  )
 
 
 _M = None
@@ -15,3 +18,8 @@ def get_model():
         _M = Model(Storage(**settings.TRIPLE_STORES['testdata']))
     return _M
 
+
+def simple_query(m, sparql, prefix=PREFIX):
+  sparql = str(prefix + sparql)
+  print sparql
+  return SPARQLQuery(sparql).execute(m)
