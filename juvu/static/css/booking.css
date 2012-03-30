@@ -302,6 +302,7 @@ body{
 	font-size:			0.8em;
 	padding-left:		12px;
 	font-weight:		bold;
+	letter-spacing:		0.1em;
 }
 
 .selection{
@@ -433,7 +434,8 @@ body{
 	display:			inline-block;
 	width:				30px;
 	font-size:			1.6em;
-	margin-left:		12px;
+	margin-left:		5px;
+	margin-right:		8px;
 	color:				#707070;
 }
 
@@ -444,6 +446,7 @@ body{
     float:				left;
     margin-top:			30px;
     display:			block;
+    letter-spacing: 	0.1em;
 }
 
 .sub_m{
@@ -456,7 +459,7 @@ body{
 }
 
 .sub_p{
-	width:				100px;
+	width:				110px;
 }
 
 .d_btn{

@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<title>Juvu</title>
-	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
 	
-    <script type="text/javascript" src="../static/js/d3/d3.js"></script>
-    <script type="text/javascript" src="../static/js/d3/d3.time.js"></script>
-    <script type="text/javascript" src="../static/js/d3/d3.layout.js"></script>
+    <script type="text/javascript" src="/static/js/d3/d3.js"></script>
+    <script type="text/javascript" src="/static/js/d3/d3.time.js"></script>
+    <script type="text/javascript" src="/static/js/d3/d3.layout.js"></script>
     
-    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/booking.css">
 </head>
 <body>
 	<div class="wrapper">
@@ -28,12 +28,15 @@
 			<ul class="nav_selections" style="margin-top:30px;">
 				<li>time range from</li>
 			</ul>
-			<input type="text" style="width:60px;margin-left:7px;"/> to <input type="text" style="width:60px;"/>
+			<input type="text" style="width:60px;margin-left:7px;"/> <span style="font-size:0.8em;">to</span> <input type="text" style="width:60px;"/>
 			
 			<ul class="nav_selections" style="margin-top:40px;">
-				<li>bid expired in</li>
+				<li>bid expires in</li>
 			</ul>
-			<div class="time_form"><span class="hr_min">12</span>hr<span class="hr_min">21</span>min</div>
+			<div class="time_form">
+				<input type="text" class="hr_min"/>hr
+				<input type="text" class="hr_min"/>min
+			</div>
 			
 			<ul class="nav_selections" style="margin-top:40px;">
 				<li>bid price</li>
@@ -48,7 +51,7 @@
 		</div><!--end of left nav-->
 		
 		<div id="nav_right">
-			<div id="header_service">Bid List</div>
+			<div id="header_service">Bidding On</div>
 			<!--titles-->
 			<ul class="subhead sub_m">
 				<li>merchant</li>
@@ -65,52 +68,22 @@
 				<ul class="bid_list">
 					<li class="m_list">Nob Hill Spa</li>
 					<li class="s_list">Cherry Blossom</li>
-					<li class="low_price">150</li>
+					<li class="low_price">135</li>
 					<li class="high_price">150</li>
 				</ul>
+				
+				<!-- 
+				//open if we can bid multiple items
 				<div class="d_btn">delete</div>
-			</div>
-			<div class="list_row">
-				<ul class="bid_list">
-					<li class="m_list">Sandy's Hair Affair</li>
-					<li class="s_list">Peach Facial</li>
-					<li class="low_price">100</li>
-					<li class="high_price">130</li>
-				</ul>
-				<div class="d_btn">delete</div>
-			</div>
-			<div class="list_row">
-				<ul class="bid_list">
-					<li class="m_list">Sandy's Hair Affair</li>
-					<li class="s_list">Anti Oxidant Facial</li>
-					<li class="low_price">125</li>
-					<li class="high_price">165</li>
-				</ul>
-				<div class="d_btn">delete</div>
-			</div>
-			<div class="list_row">
-				<ul class="bid_list">
-					<li class="m_list">Face Plus</li>
-					<li class="s_list">Cranberry Anti-Aging Facial</li>
-					<li class="low_price">95</li>
-					<li class="high_price">125</li>
-				</ul>
-				<div class="d_btn">delete</div>
-			</div>
-			<div class="list_row">
-				<ul class="bid_list">
-					<li class="m_list">Face Plus</li>
-					<li class="s_list">Blueberry Anti Oxidant Facial</li>
-					<li class="low_price">105</li>
-					<li class="high_price">140</li>
-				</ul>
-				<div class="d_btn">delete</div>
+				-->
+				
 			</div>
 			<div style="clear:both;"></div>
 			
 		</div><!--end of right nav-->
 	</div><!--end of wrapper-->
-	
+	<!--
+	//this function is for the delete button 
 	<script type="text/javascript">
 		$(function(){
 			$('.d_btn').mouseover(function(){
@@ -123,7 +96,6 @@
 			
 		})
 	</script>
-	
-	
+	-->
 </body>
 </html>
