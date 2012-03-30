@@ -10,7 +10,8 @@ urlpatterns = patterns('',
     url(r'^thanks$', 'splash.views.thanks', name='thanks'),
     url(r'^uh$', 'splash.views.record_email', name='record_email'),
     url(r'^login$', 'accounts.views.login', name='login'),
-     url(r'^inv$', 'splash.views.inv', name='inv')
+    url(r'^inv$', 'splash.views.inv', name='inv'),
+    url(r'^boo$', 'splash.views.boo', name='boo')
     )
 
 # Static media (served directly by the web server in production.)

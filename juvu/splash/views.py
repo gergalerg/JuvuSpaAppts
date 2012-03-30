@@ -47,3 +47,12 @@ def inv(request):
         {'a_var': "Hi!"},
         context_instance=RequestContext(request),
         )
+
+def boo(request):
+    '''
+    Splash page.
+    '''
+    return render_to_response(
+        'boo.html',
+        context_instance=RequestContext(request),
+        )
