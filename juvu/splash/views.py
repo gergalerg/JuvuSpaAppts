@@ -40,7 +40,7 @@ def record_email(request):
 
 def inv(request):
     '''
-    Splash page.
+    Inventory page.
     '''
     return render_to_response(
         'inv.html',
@@ -50,9 +50,18 @@ def inv(request):
 
 def boo(request):
     '''
-    Splash page.
+    booking page.
     '''
     return render_to_response(
         'boo.html',
+        context_instance=RequestContext(request),
+        )
+        
+def bid(request):
+    '''
+    bid page.
+    '''
+    return render_to_response(
+        'bid.html',
         context_instance=RequestContext(request),
         )
