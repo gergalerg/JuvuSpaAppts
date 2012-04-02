@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Juvu</title>
+	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
+	
+    <script type="text/javascript" src="../static/js/d3/d3.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.time.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.layout.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
+    <script type="text/javascript" src="../static/js/gMaps.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    
+</head>
+<body>
+	<div class="wrapper">
+		<div class="top-nav">
+			<h1 style="margin:0;">JUVU</h1>
+		</div>
+		
+		<div class="infoHeader">Your appointment is booked.</div>
+		
+		<div class="confirm_column">
+			<ul class="confirm_li">
+				<li>Merchant Name</li>
+			</ul>
+			<p class="billing_form">
+				Date<br/>
+				<span class="confirm_color">Apr 1, 2012</span><br/><br/>
+				
+				Time<br/>
+				<span class="confirm_color">PM 1:00</span><br/><br/>
+				
+				Service<br/>
+				<span class="confirm_color">Theraputic Massage</span><br/><br/>
+				
+				Price<br/>
+				<span class="confirm_color">$125</span><br/><br/>
+			</p>
+			
+		</div>
+		
+		<div class="confirm_column" style="margin-left:24px;">
+			<ul class="confirm_li">
+				<li>Merchant Information</li>
+			</ul>
+			<p class="billing_form">
+				Provided by the merchant<br/>
+				<a href="#" class="link">General Information</a><br/>
+				<a href="#" class="link">Particular Service</a><br/><br/>
+				Phone Number<br/>
+				<span class="confirm_color">415-123-4567</span>
+				<br/><br/>
+				Address<br/>
+				<span class="confirm_color">1234 market st. San Francisco</span>
+			</p>
+			<div id="map_canvas"></div>
+		</div>
+		<div style="clear:both;"></div>
+		
+		
+	</div><!--end of wrapper-->
+</body>
+
+</html>

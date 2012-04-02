@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Juvu</title>
+	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
+	
+    <script type="text/javascript" src="../static/js/d3/d3.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.time.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.layout.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="top-nav">
+			<h1 style="margin:0;">JUVU</h1>
+		</div>
+		
+		<div class="infoHeader">You will be charged if your bid is accepted!</div>
+		<p class="instruct">
+			Your bid may be accepted any time in the next 30 minutes.<br/>
+			If accepted, your card will be charged the bid amount and you will<br/>
+			be notified via the method(s) below and on your account page.<br/><br/>
+			
+			Once submitted, bids cannot be restricted. You are responsible for<br/>
+			the appointment unless the bid closes (the bid time expires) or<br/>
+			the bid is rejected. Therefore, we strongly suggest you check<br/>
+			your account page to see the status of your bid.
+		</p><!--end of instruction-->
+		
+		<form>
+		
+		<div class="confirm_column">
+			<ul class="confirm_li">
+				<li>billing info:</li>
+			</ul>
+			<p class="billing_form">
+				Name<br/>
+				<input type="text" style="width:180px;"/><br/><br/>
+				Address<br/>
+				<input type="text" style="width:180px;"/><br/>
+				City <input type="text" style="width:120px;"/>   
+				State 
+				<select  class="selection">
+				  <option value="">Alabama</option>
+				  <option value="">California</option>
+				  <option value="">New York</option>
+				</select>  
+				Zip <input type="text" style="width:45px;"/><br/><br/>
+				Card Type<br/>
+				<select>
+				  <option value="">Master</option>
+				  <option value="">Visa</option>
+				  <option value="">American Express</option>
+				</select><br/><br/>
+				
+				Card Number<br/>
+				<input type="text" style="width:180px;"/><br/><br/>
+				
+				Expiration Date<br/>
+				Month 
+				<select  class="">
+				  <option value="">Jan</option>
+				  <option value="">Feb</option>
+				  <option value="">Mar</option>
+				</select>
+				Year 
+				<select  class="">
+				  <option value="">2012</option>
+				  <option value="">2011</option>
+				  <option value="">2010</option>
+				</select><br/><br/>
+				CVV Code <input type="text" style="width:30px;"/><br/><br/>
+			</p>
+		</div>
+		
+		<div class="confirm_column" style="margin-left:24px;">
+			<ul class="confirm_li">
+				<li>Notification via:</li>
+			</ul>
+			<p class="billing_form">
+				Mobile Phone<br/>
+				<input type="text" style="width:180px;"/><br/><br/>
+				Mobile Carrier<br/>
+				<select  class="">
+				  <option value="">AT&T</option>
+				  <option value="">Verizon</option>
+				  <option value="">T-Mobile</option>
+				</select><br/><br/>
+				Email<br/>
+				<input type="text" style="width:180px;"/><br/><br/>
+			</p>
+		</div>
+		<div style="clear:both;"></div>
+		<div class="confirm_area">
+			<input type="submit" class="submitBid_btn" value="back"/>  <input type="submit" class="submitBid_btn" value="confirm"/>
+		</div>
+		</form>
+	</div><!--end of wrapper-->
+</body>
+</html>

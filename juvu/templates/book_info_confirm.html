@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Juvu</title>
+	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
+	
+    <script type="text/javascript" src="../static/js/d3/d3.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.time.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.layout.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="top-nav">
+			<h1 style="margin:0;">JUVU</h1>
+		</div>
+		
+		<div class="infoHeader">You will not be charged on this page</div>
+		<p class="instruct">
+			However, we will use your credit card to reserve the appointment.<br/>
+			You will pay <a href="#" class="link">Merchant Name</a> after the service is completed.<br/><br/>
+			<span>
+				See Merchant Name's <a href="#" class="link">cancellation policy</a><br/>
+				See what Merchant Name <a href="#" class="link">accepts as payment methods</a>
+			</span>
+			</br/>
+		</p><!--end of instruction-->
+		
+		<form>
+		
+		<div class="confirm_column">
+			<ul class="confirm_li">
+				<li>billing info:</li>
+			</ul>
+			<p class="billing_form">
+				Name<br/>
+				<span class="confirm_color">Cardholder's name</span><br/><br/>
+				
+				Address<br/>
+				<span class="confirm_color">1234 market st. San Francisco CA 91792</span><br/><br/>
+				
+				Card Type<br/>
+				<span class="confirm_color">Visa</span><br/><br/>
+				
+				Last Four Digits<br/>
+				<span class="confirm_color">1234</span><br/><br/>
+				
+				Expiration Date<br/>
+				<span class="confirm_color">0812</span>
+				
+				<div class="edit_btn">edit</div>
+			</p>
+			
+		</div>
+		
+		<div class="confirm_column" style="margin-left:24px;">
+			<ul class="confirm_li">
+				<li>Notification via:</li>
+			</ul>
+			<p class="billing_form">
+				Text<br/>
+				<span class="confirm_color">415-123-4567 AT&T</span>
+			</p>
+			<div class="edit_btn">edit</div>
+			<p class="billing_form">	
+				<br/>Email<br/>
+				<span class="confirm_color">ag123@fmail.com</span>
+			</p>
+			<div class="edit_btn">edit</div>
+			
+		</div>
+		<div style="clear:both;"></div>
+		
+		<div class="confirm_area">
+			<div style="font-size:12px;">CVV Code <input type="text" style="width:30px;"/></div>
+			<input type="submit" class="submitBid_btn" value="back"/>  <input type="submit" class="submitBid_btn" value="confirm"/>
+		</div>
+		</form>
+	</div><!--end of wrapper-->
+</body>
+</html>
