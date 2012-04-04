@@ -101,6 +101,7 @@ TEMPLATE_DIRS = (
     join(PROJECT_ROOT, 'templates'),
     join(PROJECT_ROOT, 'booking', 'templates'),
     join(PROJECT_ROOT, 'innerview', 'templates'),
+    join(PROJECT_ROOT, 'spa_ui', 'templates'),
 )
 
 INSTALLED_APPS = (
