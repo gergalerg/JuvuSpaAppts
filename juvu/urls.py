@@ -11,8 +11,11 @@ urlpatterns = patterns('',
     url(r'^uh$', 'splash.views.record_email', name='record_email'),
     url(r'^login/$', 'accounts.views.login', name='login'),
 
-    # Spa-facing site.
+    # User-facing site.
     url(r'^look/', include('booking.urls')),
+
+    # Spa-facing site.
+    url(r'^spa/', include('spa_ui.urls')),
 
     # Internal introspection site.
     url(r'^innerview/', include('innerview.urls')),
