@@ -2,6 +2,16 @@
 // View Model Classes
 //
 
+function set_em(thing, from, field, orthis) {
+    var value = _.isUndefined(from[field]) ? orthis : from[field];
+    if (_.isArray(value)) {
+        thing[field] = ko.observableArray(value);
+    } else {
+        thing[field] = ko.observable(value);
+    }
+}
+
+
 var SpaProcedure = function(options) {
     this.name = options.name;
     this.supported = ko.observable(options.supported);
@@ -15,23 +25,11 @@ var SpaProcedure = function(options) {
         this.children = null;
     }
 
-    if (_.isUndefined(options.nickname)) {
-        this.nickname = ko.observable("");
-    } else {
-        this.nickname = ko.observable(options.nickname);
-    }
-
-    if (_.isUndefined(options.price)) {
-        this.price = ko.observable(0.0);
-    } else {
-        this.price = ko.observable(options.price);
-    }
-
-    if (_.isUndefined(options.duration)) {
-        this.duration = ko.observable(60);
-    } else {
-        this.duration = ko.observable(options.duration);
-    }
+    set_em(this, options, 'nickname', "");
+    set_em(this, options, 'price', 0.0);
+    set_em(this, options, 'duration', 60);
+    set_em(this, options, 'subtypes', []);
+    set_em(this, options, 'staff_classes', []);
 
     this.formatted_price = ko.dependentObservable(function() {
         return "$" + (+this.price()).toFixed(0);
@@ -44,12 +42,6 @@ var SpaProcedure = function(options) {
 
     this.make_current = function() {
         viewModel.current_proc(this);
-    }
-
-    if (_.isUndefined(options.subtypes)) {
-        this.subtypes = ko.observableArray([]);
-    } else {
-        this.subtypes = options.subtypes;
     }
 
     this.add_subtype = function() {

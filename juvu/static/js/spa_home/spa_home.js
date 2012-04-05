@@ -23,9 +23,17 @@ function setup_button(sel, ico, show_text) {
 }
 
 function params_into_object(d, initial) {
+    var staff_classes = [];
     _.each(d, function(foo) {
-        initial[foo.name] = foo.value;
+        if (foo.name.substr(0, 3) == "sc_") {
+            staff_classes.push(foo.name.substr(3));
+        } else {
+            initial[foo.name] = foo.value;
+        }
     });
+    if (staff_classes.length > 0) {
+        initial.staff_classes = staff_classes;
+    }
 }
 
 function toggle_resources() {
