@@ -31,6 +31,11 @@ var SpaProcedure = function(options) {
     set_em(this, options, 'subtypes', []);
     set_em(this, options, 'staff_classes', []);
 
+    var also_this = this; // TODO: look up how to do this properly,
+    _.each(this.staff_classes(), function(staff_class) {
+        staff_class.procs.push(also_this);
+    })
+
     this.formatted_price = ko.dependentObservable(function() {
         return "$" + (+this.price()).toFixed(0);
     }, this);
@@ -76,7 +81,18 @@ var StaffMember = function(options) {
 
 var StaffMemberClass = function(options) {
     this.name = options.name;
+    set_em(this, options, 'procs', []);
     this.remove = function() {
         viewModel.staff_classes.remove(this);
     }
 }
+
+function lookup_staff_class(class_name) {
+    SC = _.find(viewModel.staff_classes(), function (staff_class) {
+        return class_name == staff_class.name;
+    });
+    // TODO: handle non-found class_name.
+    console.log(SC);
+    return SC;
+}
+

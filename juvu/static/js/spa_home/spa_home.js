@@ -26,7 +26,9 @@ function params_into_object(d, initial) {
     var staff_classes = [];
     _.each(d, function(foo) {
         if (foo.name.substr(0, 3) == "sc_") {
-            staff_classes.push(foo.name.substr(3));
+            var n = foo.name.substr(3);
+            n = lookup_staff_class(n);
+            staff_classes.push(n);
         } else {
             initial[foo.name] = foo.value;
         }
@@ -51,15 +53,6 @@ function toggle_addon_procs() {
 function toggle_options_procs() {
     $("#addon_options_picker_inner").toggle("blind");
 };
-
-function lookup_staff_class(class_name) {
-    SC = _.find(viewModel.staff_classes(), function (staff_class) {
-        return class_name == staff_class.name;
-    });
-    // TODO: handle non-found class_name.
-    console.log(SC);
-    return SC;
-}
 
 function clean_time(t) {
     return t;
@@ -92,32 +85,4 @@ function post_sched(sched) {
 }
 
 //post_sched(gather_schedule())
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
