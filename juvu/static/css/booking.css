@@ -18,7 +18,7 @@ body{
 
 .top-nav{
 	height:				200px;
-	background-color:	pink;
+	border:				1px solid black;
 }
 
 #nav_left{
@@ -551,6 +551,7 @@ body{
 	font-size:			18px;
 	padding-left:		12px;
 	margin-top:			24px;
+	color:				gray;
 }
 
 .instruct span{
@@ -661,7 +662,7 @@ body{
 }
 
 h6{
-	font-size:			14px;
+	font-size:			12px;
 	text-transform:		uppercase;
 	margin-top:			24px;
 	margin-bottom:		8px;

@@ -48,12 +48,12 @@ def inv(request):
         context_instance=RequestContext(request),
         )
 
-def boo(request):
+def book(request):
     '''
     booking page.
     '''
     return render_to_response(
-        'boo.html',
+        'book.html',
         context_instance=RequestContext(request),
         )
         
@@ -63,5 +63,14 @@ def bid(request):
     '''
     return render_to_response(
         'bid.html',
+        context_instance=RequestContext(request),
+        )
+        
+def merchant(request):
+    '''
+    merchant page.
+    '''
+    return render_to_response(
+        'merchant.html',
         context_instance=RequestContext(request),
         )

@@ -42,7 +42,7 @@
     		//distance
     		var circle = svg_canvas.append("svg:circle");
     		circle
-    		  .attr("cx",450)
+    		  .attr("cx",400)
     		  .attr("cy",170)
     		  .attr("r",65)
     		  .attr("fill",first_color)
@@ -65,7 +65,7 @@
     		//Neighborhood
     		var circle = svg_canvas.append("svg:circle");
     		circle
-    		  .attr("cx",535)
+    		  .attr("cx",485)
     		  .attr("cy",233)
     		  .attr("r",65)
     		  .attr("fill",second_color)
@@ -104,8 +104,8 @@
     		//today
     		var circle = svg_canvas.append("svg:circle");
 			circle
-			  .attr("cx",820)
-			  .attr("cy",550)
+			  .attr("cx",870)
+			  .attr("cy",300)
 			  .attr("r",0)
 			  .attr("fill",first_color)
 			  .attr("fill-opacity",0)
@@ -130,8 +130,8 @@
 			//Date range
 			var circle = svg_canvas.append("svg:circle");
 			circle
-			  .attr("cx",905)
-			  .attr("cy",613)
+			  .attr("cx",955)
+			  .attr("cy",363)
 			  .attr("r",0)
 			  .attr("fill",second_color)
 			  .attr("fill-opacity",0)
@@ -162,7 +162,7 @@
 			var circle = svg_canvas.append("svg:circle");
 			circle
 				.attr("cx",800)
-				.attr("cy",650)
+				.attr("cy",350)
 				.attr("r",0)
 				.attr("fill",first_color)
 				.attr("fill-opacity",0)
@@ -186,7 +186,7 @@
     		var circle = svg_canvas.append("svg:circle");
 			circle
 				.attr("cx",950)
-				.attr("cy",650)
+				.attr("cy",350)
 				.attr("r",0)
 				.attr("fill",second_color)
 				.attr("fill-opacity",0)
@@ -199,7 +199,7 @@
     		{
     			$(".c_dis").appendTo($(".s_canvas"));
     		  	d3.select(".c_dis").transition()
-    		  		.attr("cx", 450)
+    		  		.attr("cx", 400)
     		  		.attr("cy", 230)
     		  		.attr("r", 200)
     		  		.attr("fill", first_color)
@@ -207,7 +207,7 @@
     		  		.ease("elastic", 5, 3);
     		  	
     		  	d3.select(".distance").transition()
-    		  		.style("left","305px")
+    		  		.style("left","255px")
     		  		.style("top","170px")
     		  		.duration(1000)
     		  		.ease("elastic", 5, 3);
@@ -219,14 +219,14 @@
     		  		.delay(500);
     		  		
     		  	d3.select(".c_nei").transition()
-    		  		.attr("cx", 615)
+    		  		.attr("cx", 565)
     		  		.attr("cy", 410)
     		  		.attr("r", 65)
     		  		.duration(1000)
     		  		.ease("elastic", 5, 4);
     		  		
     		  	d3.select(".neighbor").transition()
-    		  		.style("left"," 442px")
+    		  		.style("left","392px")
     		  		.style("top"," 400px")
     		  		.style("display","none")
     		  		.style("opacity",0)
@@ -482,40 +482,34 @@
     		function clickDate()
     		{
     			d3.select(".c_date").transition()
-    				.attr("cx", 550)
-    				.attr("cy", 400)
+    				.attr("cx", 500)
+    				.attr("cy", 300)
     				.attr("r", 150)
     				.attr("fill",second_color)
     				.duration(1000)
     				.ease("elastic", 5, 4);
     			
     			d3.select(".c_to").transition()
-    				.attr("cx", 425)
-    				.attr("cy", 255)
+    				.attr("cx", 375)
+    				.attr("cy", 155)
     				.attr("r", 65)
     				.duration(1000)
     				.ease("elastic", 5, 4);
     			
     			d3.select(".date").transition()
-    				.style("left", "400px")
-    				.style("top", "345px")
-    			
-    			d3.select(".date").transition()
+    				.style("left", "350px")
+    				.style("top", "245px")
     				.style("display","block")
     				.style("opacity","1")
     				.duration(1000)
-    				.delay(1000)
-    				.ease("elastic", 5, 4);
+    				.ease("elastic", 5, 4);    				
     			
     			d3.select(".today").transition()
-    				.style("left", "405px")
-    				.style("top", "250px")
-    			
-    			d3.select(".today").transition()
+    				.style("left", "355px")
+    				.style("top", "150px")
     				.style("display","block")
     				.style("opacity","1")
     				.duration(1000)
-    				.delay(1000)
     				.ease("elastic", 5, 4);
     			
     			d3.select(".date_form").transition()
@@ -609,7 +603,7 @@
     		{
     			d3.select(".c_op").transition()
     				.attr("cx",800)
-					.attr("cy",650)
+					.attr("cy",350)
     				.attr("r", 65)
     				.attr("fill-opacity",1)
     				.duration(500);
@@ -621,7 +615,7 @@
     				
     			d3.select(".option").transition()
     				.style("left", "625px")
-    				.style("top", "645px")
+    				.style("top", "345px")
     				.style("display", "block")
     				.style("opacity", "1")
     				.duration(500);
