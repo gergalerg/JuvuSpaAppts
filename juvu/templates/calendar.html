@@ -28,10 +28,25 @@
     		var neiClicked = false;
     		var dateClicked = false;
     		var opClicked = false;
+    		var oc;
+    		
     		
     		//color
     		var first_color = "#E6E6E6";
     		var second_color = "#808080";
+    		var hover_color = "#C6E6FC";
+    		
+    		function changeColor(o)
+			{
+				oc = o.attr('fill');
+				o.attr('fill', hover_color);
+				return oc;
+			}
+			
+			function changeBack(t)
+			{
+				t.attr('fill',oc);
+			}
     		
     		var svg_canvas = d3.select(".canvas").append("svg:svg");
     		svg_canvas
@@ -52,11 +67,11 @@
     		  	clickDis();
     		  	disClicked = true;
     		  	neiClicked = false;
-    		  	if(dateClicked == true)
+    		  	if(dateClicked)
     		  	{
     		  		runDate();
     		  	};
-    		  	if(opClicked == true)
+    		  	if(opClicked)
     		  	{
     		  		runOption();
     		  	};
@@ -75,11 +90,11 @@
     		  	clickNei();
     		  	neiClicked = true;
     		  	disClicked = false;
-    		  	if(dateClicked == true)
+    		  	if(dateClicked)
     		  	{
     		  		runDate();
     		  	};
-    		  	if(opClicked == true)
+    		  	if(opClicked)
     		  	{
     		  		runOption();
     		  	};
@@ -111,15 +126,15 @@
 			  .attr("fill-opacity",0)
 			  .attr("class","c_to")
 			  .on("click", function(){
-				if(disClicked == true){
+				if(disClicked){
 					runDis();
-				}else if(neiClicked == true){
+				}else if(neiClicked){
 					runNei();
 				}
 				clickToday();
 				dateClicked = true;
 				
-				if(opClicked == true)
+				if(opClicked)
     		  	{
     		  		runOption();
     		  	}else{
@@ -137,15 +152,15 @@
 			  .attr("fill-opacity",0)
 			  .attr("class","c_date")
 			  .on("click", function(){
-			  	if(disClicked == true){
+			  	if(disClicked){
 					runDis();
-				}else if(neiClicked == true){
+				}else if(neiClicked){
 					runNei();
 				}
 				clickDate();
 				dateClicked = true;
 				
-				if(opClicked == true)
+				if(opClicked)
     		  	{
     		  		runOption();
     		  	}else{
@@ -168,13 +183,13 @@
 				.attr("fill-opacity",0)
 				.attr("class","c_op")
 				.on("click", function(){
-					if(disClicked == true){
+					if(disClicked){
 						runDis();
-					}else if(neiClicked == true){
+					}else if(neiClicked){
 						runNei();
 					}
 					
-					if(dateClicked == true)
+					if(dateClicked)
 					{
 						runDate();
 					};
