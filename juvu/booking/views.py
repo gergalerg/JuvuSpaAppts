@@ -48,7 +48,7 @@ LOGIN_IMAGES = [
     ]
 
 
-_i = cycle(LOGIN_IMAGES).next
+i = cycle(LOGIN_IMAGES).next
 
 
 def home(request):
@@ -58,7 +58,7 @@ def home(request):
     if  request.method != 'POST':
         return render_to_response(
             'booking.html',
-            _i(),
+            i(),
             context_instance=RequestContext(request),
             )
 
