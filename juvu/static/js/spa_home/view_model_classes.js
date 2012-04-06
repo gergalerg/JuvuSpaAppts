@@ -59,6 +59,17 @@ var SpaProcedure = function(options) {
         viewModel.supported_procs.push(newb);
         this.nickname("");
     }
+
+    this.get_RDF_node = function(triplestore) {
+        if (_.isUndefined(this.rdf_node)) {
+            var pt = $.rdf.blank('[]');
+            var proc_name = $.rdf.literal('"' + this.name + '"');
+            this.rdf_node = pt;
+            tripstore.add($.rdf.triple(pt, FOAF_NAME, proc_name, {namespaces: RDF_NS}));
+            tripstore.add($.rdf.triple(pt, $.rdf.type, PROC_TYPE, {namespaces: RDF_NS}));
+        }
+        return this.rdf_node;
+    }
 }
 
 var StaffMember = function(options) {

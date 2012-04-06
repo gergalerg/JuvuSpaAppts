@@ -18,6 +18,31 @@ function new_triplestore() {
 )};
 
 var TRIPLESTORE = new_triplestore();
+var FOAF_NAME = $.rdf.resource('foaf:name', {namespaces: RDF_NS});
+var PROC_TYPE = $.rdf.resource('cd:ProcedureType', {namespaces: RDF_NS});
+var TREATMENT_TYPE = $.rdf.resource('cd:Treatment', {namespaces: RDF_NS});
+var SUB_CAT = $.rdf.resource('cd:SubCategory', {namespaces: RDF_NS});
+
+
+function gather() {
+    var tripstore = new_triplestore();
+    function add(s, p, o) {
+        tripstore.add($.rdf.triple(s, p, o, {namespaces: RDF_NS}));
+    }
+    _.each(viewModel.supported_procs(), function(proc) {
+        var pt = proc.get_RDF_node(tripstore);
+
+        var subtype_node = $.rdf.blank('[]');
+        var subtype_name = $.rdf.literal('"' + proc.nickname + '"');
+
+        add(subtype_node, FOAF_NAME, subtype_name);
+        add(subtype_node, $.rdf.type, TREATMENT_TYPE);
+        add(subtype_node, SUB_CAT, pt);
+//        add();
+    });
+    return tripstore;
+}
+
 
 TRIPLESTORE.add('_:creator a foaf:Person')
 TRIPLESTORE.add('_:creator foaf:name "Bill"')
