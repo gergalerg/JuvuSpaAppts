@@ -106,7 +106,7 @@ function setup_option_circles(ops_canvas) {
 		.attr("fill-opacity",0)
 		.attr("class","c_me pointy")
 		.on("click", function(){
-        // FIXME: Do something intelligent here.
-    })
+		    routes.navigate("inv", true);
+		})
 		
 }
