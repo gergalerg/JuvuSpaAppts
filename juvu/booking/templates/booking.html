@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Juvu{% endblock %}
+{% block html_head %}
+<link rel="stylesheet/less" type="text/css" href="/static/css/calendar.less" />
+<script type="text/javascript" src="/static/js/less.js"></script>
+<script type="text/javascript" src="/static/js/d3/d3.js"></script>
+<script type="text/javascript" src="/static/js/d3/d3.layout.js"></script>
+{# add jQuery plug in #}
+<script type="text/javascript" src="/static/js/jquery.backstretch.min.js"></script>
+<script type="text/javascript" src="/static/js/knockout.js"></script>
+<script type="text/javascript" src="/static/js/bbone/underscore.js"></script>
+<script type="text/javascript" src="/static/js/bbone/backbone.js"></script>
+<script type="text/javascript" src="/static/js/booking/view_model.js"></script>
+<script type="text/javascript" src="/static/js/booking/routing.js"></script>
+<script type="text/javascript" src="/static/js/booking/option_circles.js"></script>
+<script type="text/javascript" src="/static/js/booking/option_circles_transitions.js"></script>
+<script type="text/javascript">
+/* Parameters that control various aspects of the presentation. */
+
+// For the circles' dropshadows see the booking.css template file.
+var circle_1_radius = 47,
+    circle_2_radius = 107,
+    circle_3_radius = 55;
+
+// Parameters for the Tree Thing.
+var m = [10, 120, 10, 120],
+    w = 714 - m[1] - m[3],
+    h = 400 - m[0] - m[2],
+    i = 0,
+    duration = 500;
+
+// Convert the (server-embedded) JSON to KO models.
+var tree_thing;
+
+// Colors for options circles.
+var first_color = "#E6E6E6";
+var second_color = "#808080";
+
+// The URL fragment Backbone "routes".
+var routes;
+
+// Track this element for detach/append.
+var nav_div;
+
+</script>
+<script type="text/javascript" src="/static/js/booking/tree_thing.js"></script>
+<script type="text/javascript" src="/static/js/booking/tree_data.js"></script>
+<script type="text/javascript" src="/static/js/booking/booking.js"></script>
+<link href="/static/css/style.css" rel="stylesheet">
+<style type="text/css">
+{% include "booking.css" %}
+</style>
+<script type="text/javascript">
+
+/*background image*/
+$.backstretch("{{ image_URL }}");
+
+/*SVG*/
+$(function(){
+    create_login_circles();
+    ko.applyBindings(viewModel);
+    routes = new routey();
+    nav_div = $("#nav");
+    setup_tree_thing("#tree", root);
+    setup_option_circles("#canvas");
+    if (!Backbone.history.start()) {
+        routes.navigate("toc", true);
+    }
+});
+
+</script>
+{% endblock %}
+{% block body %}
+<div id="nav">
+	<div class="s1"><span class="l_title">sign up</span></div>
+	<div class="s2">
+		<center>
+			<span class="l_title" >log in</span>
+			<form method="POST" action="{% url login %}">
+            {% csrf_token %}
+				<input class="i_text" placeholder="email" name="username"/><br />
+				<input class="i_text" placeholder="password" name="password"/><br />
+				<input class="i_btn" type="submit" value="submit"/>
+			</form>
+		</center>
+	</div>
+	<div class="s3"><span class="l_title">explore</span></div>
+
+	<div class="signup_circle c_shadow"></div>
+	<div class="login_circle c_shadow"></div>
+	<div class="exp_circle c_shadow"></div>
+</div>
+<div id="tree"></div>
+{% include "options.html" %}
+{% endblock %}

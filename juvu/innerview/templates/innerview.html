@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Juvu Inner-View{% endblock %}
+{% block html_head %}
+<style type="text/css">
+body {
+    background-color: #bbb;
+}
+.section {
+    background-color: #ddd;
+    border: 1px solid #fff;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    margin-bottom: 1em;
+}
+.results {
+    background-color: #fff;
+    border: 1px solid #bbb;
+}
+.pending
+{
+    cursor: wait;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+  $("form").submit(function(){
+    $("body").addClass("pending");
+    $("input").addClass("pending");
+  });
+});
+</script>
+{% endblock %}
+{% block body %}
+<h1>Juvu Inner-View</h1>
+<div class="section">
+  <h3>Query</h3>
+  <form id="query_data" class="section" method="post">
+    {% csrf_token %}
+    <textarea id="id_query_text" name="prefix_text" cols="80" rows="4">
+PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+PREFIX cd: &lt;http://choicedocs.com/ref/&gt;
+</textarea>
+<br />
+    <textarea id="id_query_text" name="query_text" cols="80" rows="7">{{ query }}</textarea>
+    <hr />
+    <input type="radio" name="query_type" value="SPARQL" />SPARQL<br />
+    <input type="radio" name="query_type" value="somethingelse" />something else<br />
+    <input type="submit" value="Post Query" />
+  </form>
+</div>
+<div class="section">
+  <h3>Results</h3>
+  <div class="section results">
+    <pre>{{ results }}</pre>
+  </div>
+</div>
+{% endblock %}

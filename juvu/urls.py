@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, include, url
 from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
@@ -13,7 +13,17 @@ urlpatterns = patterns('',
     url(r'^inv$', 'splash.views.inv', name='inv'),
     url(r'^book$', 'splash.views.book', name='book'),
     url(r'^bid$', 'splash.views.bid', name='bid'),
-    url(r'^merchant$', 'splash.views.merchant', name='merchant')
+    url(r'^merchant$', 'splash.views.merchant', name='merchant'),
+
+    # User-facing site.
+    url(r'^look/', include('booking.urls')),
+
+    # Spa-facing site.
+    url(r'^spa/', include('spa_ui.urls')),
+
+    # Internal introspection site.
+    url(r'^innerview/', include('innerview.urls')),
+
     )
 
 # Static media (served directly by the web server in production.)

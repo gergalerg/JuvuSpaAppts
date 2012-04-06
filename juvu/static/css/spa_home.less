@@ -1,0 +1,149 @@
+@fg: #787D78;
+@bg: #fff;
+@foundation_link_blue: #2A85E8;
+@call_out: #FFF;
+@title_font: 'Josefin Sans', sans-serif;
+@body_font: 'Philosopher', serif;
+@widget_font: 'Istok Web', serif;
+
+body {
+    font-family: @body_font;
+}
+
+.hull {
+    min-height: 565px;
+}
+
+.title {
+    font-family: @title_font;
+    font-weight: 100;
+    color: black;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    .title;
+}
+
+#title_bar {
+    h1, h3 {
+        display: inline-block;
+    }
+}
+
+#toc {
+    text-align: right;
+    a {
+        padding: 4px;
+    }
+    .indicate {
+        color: @bg;
+        background-color: @foundation_link_blue;
+        font-weight: 400;
+    }
+}
+
+#choose {
+    label {
+        font-size: smaller;
+        margin-bottom: 2px;
+        span {
+            padding-left: 1em;
+            padding-right: 1em;
+            padding-top: 0.3em;
+            padding-bottom: 0.2em;
+        }
+    }
+}
+
+.picker_inner {
+    input[type=checkbox] {
+        display: inline-block;
+    }
+    label {
+        display: inline-block;
+        font-family: @widget_font;
+    }
+}
+
+#staff_classes {
+    display: inline-block;
+}
+#id_add_class, #add_class {
+    vertical-align: top;
+}
+
+#pane_2 {
+    input[type=text] {
+        display: inline-block;
+        font-family: @widget_font;
+    }
+}
+
+.rounded-corners (@radius: 0.5em) {
+    border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+}
+
+#staff_list {
+    color: @fg;
+    form {
+        margin-bottom: 9px;
+    }
+    .tile {
+        font-family: @widget_font;
+        padding: 0.25em;
+        margin-left: -0.25em;
+        border: solid transparent 1px;
+        .rounded-corners;
+        margin-bottom: 0.5em;
+    }
+    .tile:hover {
+        background-color: @call_out;
+        border-color: lighten(@fg, 20%);
+    }
+    input[type=text] {
+        display: inline-block;
+        font-family: @widget_font;
+    }
+}
+
+#pane_4 {
+    padding-bottom: 2.5em;
+}
+
+text {
+    fill: @fg;
+    font-family: @title_font;
+    font-size: 18px;
+}
+
+#slider {
+    height: 700px;
+    background: transparent;
+}
+
+#discounts {
+    input[type=text] {
+        display: inline-block;
+    }
+    input.small {
+        width: 80px;
+    }
+    input.oogy {
+        width: 184px;
+    }
+    label {
+        display: inline-block;
+    }
+    #ddddd {
+        label {
+            width: 100px;
+        }
+    }
+}
+
+input.bitty {
+    width: 60px;
+}
+

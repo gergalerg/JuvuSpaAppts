@@ -1,0 +1,171 @@
+/*
+	#nav -> change log in, sign up, explore font color & change position of 3 circles
+	.i_text -> change form border color
+	.i_btn -> change submit btn color
+*/
+body {
+    position: static;
+    margin: 0;
+}
+#nav{
+	position:			absolute;
+	top:				{{ top }};
+	left:				{{ left }};
+	z-index:			1;
+	display:			block;
+	width:				266px;
+	height:				283px;
+	color:				{{ color }};
+}
+
+.i_text{
+	background-color:	transparent;
+	border:				1px solid {{ color }};
+	padding:			3px 0 3px 5px;
+	border-radius:		5px;
+	font-size:			0.8em;
+	width:				140px;
+}
+
+.i_btn{
+	background-color:	{{ color }};
+	border:				none;
+	border-radius:		10px;
+	padding:			3px 5px 3px 5px;
+	color:				white;
+	cursor:				pointer;
+}
+
+.i_btn:hover{
+	opacity:			0.5;
+}
+
+.pointy {
+    cursor: pointer;
+}
+
+/*log in page*/
+
+.signup_circle{
+	width:				94px;
+	height:				94px;
+	border-radius:		47px;
+	position:			absolute;
+	z-index:			2;
+	margin-left:		150px;
+}
+
+.login_circle{
+	width:				214px;
+	height:				214px;
+	border-radius:		107px;
+	position:			absolute;
+	margin-top:			28px;
+	line-height:		36px;
+	z-index:			1;
+}
+
+.exp_circle{
+	width:				110px;
+	height:				110px;
+	border-radius:		55px;
+	position:			absolute;
+	margin-left:		156px;
+	margin-top:			173px;
+	z-index:			2;
+}
+
+.c_shadow{
+	box-shadow: 		2px 2px 1px #BDBDBD;
+}
+
+.s1{
+	z-index:			3;
+	position:			absolute;
+	margin-left:		160px;
+	margin-top:			38px;
+	text-align:			center;
+}
+
+.s2{
+	z-index:			3;
+	position:			absolute;
+	margin-left:		35px;
+	margin-top:			70px;
+	text-align:			center;
+}
+
+.s3{
+	z-index:			3;
+	position:			absolute;
+	margin-left:		166px;
+	margin-top:			220px;
+	text-align:			center;
+}
+
+.l_title{
+	font-size:			1.2em;
+	text-transform:		uppercase;
+	cursor: pointer;
+}
+
+.s2 form{
+	margin-top:			20px;
+	line-height:		32px;
+}
+
+
+
+/* Tree Thing */
+
+#tree {
+	position:			absolute;
+	top:				10px;
+	left:				25%;
+	width:				914px;
+	height:				800px;
+}
+
+.node circle {
+  cursor: pointer;
+  fill: #eef;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  cursor: pointer;
+  font-family: @body_font;
+}
+
+path.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+.blue_button {
+    text-align: center;
+    font-size: 22px;
+    font-size: 2.2rem;
+    color: #FFF;
+    text-transform: uppercase;
+    background-color: #99CCFF;
+    border: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    font-family: @body_font;
+    margin: 0.5em;
+    cursor: pointer;
+}
+
+.blue_button:hover {
+    color: #FFF;
+    background-color: #015f8a;
+}
+
+
+
+

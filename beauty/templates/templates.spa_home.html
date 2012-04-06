@@ -84,7 +84,10 @@
 
 {# Staff Classes Display ================================================= #}
 <script id="staff_classes_template" type="text/x-jquery-tmpl">
-<li data-bind="text:name"></li>
+<li>
+  <span style="font-size:larger" data-bind="text:name"></span>
+  <a style="cursor:pointer" data-bind="click:remove">delete</a>
+</li>
 </script>
 
 <script id="staff_classes_checkbox_template" type="text/x-jquery-tmpl">

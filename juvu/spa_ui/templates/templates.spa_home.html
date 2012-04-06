@@ -1,0 +1,112 @@
+{# StaffMember Procedures ================================================= #}
+<script id="staff_proc_template" type="text/x-jquery-tmpl">
+<div class="staff_proc">
+    <input class="staff_proc_tile" type="checkbox" data-bind="checked:supported, attr: { id: 'check_' + name, name: 'check_' + name }"/>
+    <label data-bind="attr: { for: 'check_' + name }">
+        <span data-bind="text:nickname"></span>
+        <span data-bind="text:duration"></span>
+        <span data-bind="text:formatted_price"></span>
+    </label>
+</div>
+</script>
+
+{# StaffMember ================================================= #}
+<script id="tile_template" type="text/x-jquery-tmpl">
+<div class="tile">
+    <a href="#" data-bind="text:name, click: make_current"></a>
+</div>
+</script>
+
+<script id="staff_option_template" type="text/x-jquery-tmpl">
+    <option data-bind="text:name, attr:{value:name}"></option>
+</script>
+
+{# StaffMember under Calendar on TOC =============================== #}
+<script id="toc_staff_template" type="text/x-jquery-tmpl">
+<h5 data-bind="text:name, style: {backgroundColor:tag_color()}"></h5>
+</script>
+
+
+
+
+
+{# Treatments Outline Display ================================================= #}
+<script id="proc_template4" type="text/x-jquery-tmpl">
+<div class="proc">
+  <input type="checkbox" data-bind="attr:{id:('id_'+nickname()+'_also'), name:nickname}" />
+  <label data-bind="text:nickname, attr:{for:('id_'+nickname()+'_also')}"></label>
+  <a style="cursor:pointer" data-bind="click:make_current">@</a>
+</div>
+</script>
+
+<script id="proc_template3" type="text/x-jquery-tmpl">
+<div class="proc">
+  <input type="checkbox" data-bind="attr:{id:('id_'+nickname()), name:nickname}" />
+  <label data-bind="text:nickname, attr:{for:('id_'+nickname())}"></label>
+  <a style="cursor:pointer" data-bind="click:make_current">@</a>
+</div>
+</script>
+
+<script id="proc_template2" type="text/x-jquery-tmpl">
+<div class="proc" data-bind="click:make_current">
+    <span data-bind="text:nickname"></span>
+    <span data-bind="text:duration"></span>
+    <span data-bind="text:formatted_price"></span>
+</div>
+</script>
+
+<script id="proc_template" type="text/x-jquery-tmpl">
+<div class="proc" data-bind="visible:supported">
+    <span data-bind="text:name, click:make_current, style: { 'paddingLeft': '1.75em' }"></span>
+</div>
+</script>
+
+<script id="proc_category_template" type="text/x-jquery-tmpl">
+<div class="proc_display">
+    <span data-bind="text:name"></span>
+    <p data-bind="template: {name:'proc_template', foreach: children}"></p>
+</div>
+</script>
+
+{# Accordion Display ================================================= #}
+<script id="accordion_proc_template" type="text/x-jquery-tmpl">
+<input class="tile" type="radio" data-bind="event: {change:toggle}, attr: { id: 'rad_' + name, value: name, name: 'proctastic' }"/>
+<label data-bind="attr: { for: 'rad_' + name }, text:name"></label>
+<br>
+<div style="padding-left:1.5em" data-bind="template: {name:'accordion_proc_template', foreach: children}"></div>
+</script>
+
+<script id="accordion_proc_category_template" type="text/x-jquery-tmpl">
+<h3><a href="#" data-bind="text:name"></a></h3>
+<div data-bind="template: {name:'accordion_proc_template', foreach: children}"></div>
+</script>
+{# ================================================= #}
+
+{# Staff Classes Display ================================================= #}
+<script id="staff_classes_template" type="text/x-jquery-tmpl">
+<li>
+  <span style="font-size:larger" data-bind="text:name"></span>
+  <a style="cursor:pointer" data-bind="click:remove">delete</a>
+</li>
+</script>
+
+<script id="staff_classes_checkbox_template" type="text/x-jquery-tmpl">
+<input type="checkbox" data-bind="attr:{id:('id_'+name), name:('sc_'+name)}" ><label data-bind="text:name, attr:{for:('id_'+name)}"></label><br>
+</script>
+
+<script id="staff_classes_edit_template" type="text/x-jquery-tmpl">
+  <div style="margin-bottom: 9px;">
+    <span data-bind="text:name"></span>
+    <button id="expando_staff_class">Expand</button>
+    <button id="del_staff_class">Delete</button>
+  </div>
+</script>
+
+{# ================================================= #}
+
+{# Subtypes Display ================================================= #}
+<script id="subtypes_template" type="text/x-jquery-tmpl">
+<a style="cursor:pointer" data-bind="click:make_current, text:nickname, attr:{href:name}"></a><br>
+</script>
+{# ================================================= #}
+

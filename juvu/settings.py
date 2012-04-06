@@ -24,6 +24,19 @@ DATABASES = {
     }
 }
 
+TRIPLE_STORES = {
+    'default': dict(
+        storage_name="hashes",
+        name="test",
+        options_string="new='yes',hash-type='memory',dir='.'",
+        ),
+    'testdata': dict(
+        storage_name="file",
+        name=join(PROJECT_ROOT, '../testdata/testdata.rdf.xml'),
+        options_string="new='yes',dir='.'",
+        ),
+    }
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -86,6 +99,9 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     join(PROJECT_ROOT, 'templates'),
+    join(PROJECT_ROOT, 'booking', 'templates'),
+    join(PROJECT_ROOT, 'innerview', 'templates'),
+    join(PROJECT_ROOT, 'spa_ui', 'templates'),
 )
 
 INSTALLED_APPS = (
