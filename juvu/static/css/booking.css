@@ -25,8 +25,6 @@ body{
 	width:				300px;
 	height:				800px;
 	float:				left;
-	/*background-color:	green;
-	opacity:			0.3;*/
 }
 
 #nav_right{
@@ -300,7 +298,7 @@ body{
 
 .nav_selections{
 	text-transform:		uppercase;
-	font-size:			0.8em;
+	font-size:			15px;
 	padding-left:		12px;
 	font-weight:		bold;
 	letter-spacing:		0.1em;
@@ -318,39 +316,70 @@ body{
 	padding-left:		12px;
 }
 
+.timeline_nav{
+	font-size:			24px;
+	margin-left:		24px;
+	margin-top:			20px;
+}
+
+.pre_btn{
+	float:				left;
+	background-color:	gray;
+	color:				white;
+	padding:			5px;
+	cursor:				pointer;
+}
+
+.next_btn{
+	float:				right;
+	background-color:	gray;
+	color:				white;
+	padding:			5px;
+	cursor:				pointer;
+}
+
+.month_txt{
+	position:			absolute;
+	margin-left:		310px;
+	margin-top:			6px;
+	color:				gray;
+}
+
 .timeline{
 	text-transform:		uppercase;
 	margin-left:		36px;
-	margin-top:			30px;
-	font-size:			0.8em;
+	margin-top:			20px;
+	font-size:			15px;
 	font-weight:		bold;
+	list-style-type:	none;
+	padding:			0;
 }
 
 .first_day{
-	margin-left:		130px;
+	margin-left:		0;
+	width:				90px;
+	float:				left;
 }
 
-.second_day{
-	margin-left:		120px;
-}
-
-.third_day{
-	margin-left:		120px;
+.follow_days{
+	margin-left:		60px;
+	width:				89px;
+	float:				left;
 }
 
 .morning{
 	margin-left:		24px;
-	padding-top:		30px;
+	padding-top:		20px;
 }
 
 .afternoon{
 	margin-left:		24px;
-	margin-top:			30px;
+	margin-top:			50px;
 }
 
 .evening{
 	margin-left:		24px;
-	margin-top:			30px;
+	margin-top:			50px;
 }
 
 .mor_title{
@@ -394,19 +423,13 @@ body{
 
 .day1{
 	width:				100px;
-	margin-left:		22px;
+	margin-left:		0;
 	float:				left;
 }
 
-.day2{
+.days{
 	width:				100px;
-	margin-left:		107px;
-	float:				left;
-}
-
-.day3{
-	width:				100px;
-	margin-left:		112px;
+	margin-left:		50px;
 	float:				left;
 }
 
@@ -543,19 +566,21 @@ body{
 	margin-top:			24px;
 	width:				1012px;
 	padding-left:		12px;
+	padding-bottom:		5px;
 	border-bottom:		3px solid #000;
 }
 
 .instruct{
-	line-height:		1.8em;
-	font-size:			18px;
+	line-height:		48px;
+	font-size:			24px;
 	padding-left:		12px;
 	margin-top:			24px;
-	color:				gray;
+	color:				black;
+	text-align:			center;
 }
 
 .instruct span{
-	font-size:			14px;
+	font-size:			18px;
 }
 
 .link{
@@ -619,8 +644,35 @@ body{
 
 /*post*/
 #map_canvas{
-	width:				500px;
-	height:				500px;
+	width:				320px;
+	height:				320px;
+	margin-top:			15px;
+}
+
+.congrats_row{
+	width:				1024px;
+	margin-top:			20px;
+	margin-bottom: 		70px;
+}
+
+.appo_ul{
+	list-style-type:	none;
+	padding-left:		12px;
+}
+
+.appo_li{
+	float:				left;
+	width:				200px;
+}
+
+.congrats_r_leftCol{
+	float:				left;
+	width:				320px;
+}
+
+.congrats_r_rightCol{
+	float:				right;
+	width:				678px;
 }
 
 /*merchant page*/
@@ -674,21 +726,3 @@ h6{
 	margin-top:			24px;
 	background-color:	lightblue;
 }
-
-
-/**/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
