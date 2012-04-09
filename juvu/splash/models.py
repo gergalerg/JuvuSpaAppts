@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.contrib import admin
 
 
 class Emails(models.Model):
@@ -9,6 +10,7 @@ class Emails(models.Model):
     def __unicode__(self):
         return u'<"%s">' % self.email
 
+admin.site.register(Emails)
 
 def proc_email(email_addy):
     print 'Processing:', email_addy
