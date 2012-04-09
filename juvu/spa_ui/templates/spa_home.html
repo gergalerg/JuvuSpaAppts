@@ -20,6 +20,20 @@ var routes = new routey();
 
 $(function(){
 
+    var fullcal = $("#show").fullCalendar({
+        // put your options and callbacks here
+        header: {
+            left: 'prev,next title',
+            center: '',
+            right: '',
+//            right: 'today',
+        },
+        height: 650,
+        defaultView: 'agendaWeek',
+        selectable: true,
+        weekends: true,
+    });
+
     $("#main_frame").hide();
     $(".pane").hide();
     $(".picker_inner").hide();
@@ -43,19 +57,6 @@ $(function(){
     setup_button("button#delete_staff", 'ui-icon-circle-close', true);
     setup_button("button#expando_staff_class", 'ui-icon-circle-triangle-s');
     setup_button("button#del_staff_class", 'ui-icon-circle-close');
-
-    var fullcal = $("#show").fullCalendar({
-        // put your options and callbacks here
-        header: {
-            left: 'prev,next title',
-            center: '',
-            right: '',
-//            right: 'today',
-        },
-        defaultView: 'agendaWeek',
-        selectable: true,
-        weekends: true,
-    });
 
     $("#slider").slider({
         max: 0.25,
@@ -503,7 +504,7 @@ $(function(){
 
     </div>
 </div>{# columns #}
-<div class="seven columns">
+<div class="eight columns">
     <div id="show"></div>
 </div>{# columns #}
 </div>{# row #}

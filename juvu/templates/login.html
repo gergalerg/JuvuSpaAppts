@@ -122,7 +122,7 @@
 				<form method="POST" action="{% url login %}">
                 {% csrf_token %}
 					<input class="i_text" placeholder="email" name="username"/><br />
-					<input class="i_text" placeholder="password" name="password"/><br />
+					<input class="i_text" placeholder="password" name="password" type="password"/><br />
 					<input class="i_btn" type="submit" value="submit"/>
 				</form>
 			</center>

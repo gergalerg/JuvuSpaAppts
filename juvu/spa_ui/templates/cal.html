@@ -7,8 +7,8 @@ $(function(){
     var fullcal = $("#show").fullCalendar({
         // put your options and callbacks here
         header: {
-            left: 'prev,next title',
-            center: '',
+            left: '',
+            center: 'prev,next title',
             right: '',
 //            right: 'today',
         },
@@ -23,5 +23,22 @@ $(function(){
 
 {% block title %}Spa Home{% endblock %}
 {% block body %}
+
+
+<div class="row">
+
+<div class="two columns">
+Hey!
+</div>{# columns #}
+
+
+<div class="ten columns">
     <div id="show"></div>
+</div>{# columns #}
+
+</div>{# row #}
+
+
+
+
 {% endblock %}
