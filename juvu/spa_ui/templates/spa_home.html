@@ -44,12 +44,10 @@ $(function(){
     setup_button("button#expando_staff_class", 'ui-icon-circle-triangle-s');
     setup_button("button#del_staff_class", 'ui-icon-circle-close');
 
-    var vis = d3.select("#show")
-        .append("svg:svg")
-        .attr("width", w)
-        .attr("height", h)
-        .attr("id", "uncanny");
-    make_timescale(vis);
+    var fullcal = $("#show").fullCalendar({
+        // put your options and callbacks here
+        
+    });
 
     $("#slider").slider({
         max: 0.25,
@@ -498,11 +496,7 @@ $(function(){
     </div>
 </div>{# columns #}
 <div class="seven columns">
-    <div data-bind="text:mouse_time"></div>
     <div id="show"></div>
-</div>{# columns #}
-<div class="one columns">
-    <div id="slider"></div>
 </div>{# columns #}
 </div>{# row #}
 {% endblock %}
