@@ -172,3 +172,11 @@ def home(request):
         context_instance=RequestContext(request),
         )
 
+def cal(request):
+    '''
+    '''
+    return render_to_response(
+        'cal.html',
+        context_instance=RequestContext(request),
+        )
+

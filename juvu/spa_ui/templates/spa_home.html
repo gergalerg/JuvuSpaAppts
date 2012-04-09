@@ -46,7 +46,15 @@ $(function(){
 
     var fullcal = $("#show").fullCalendar({
         // put your options and callbacks here
-        
+        header: {
+            left: 'prev,next title',
+            center: '',
+            right: '',
+//            right: 'today',
+        },
+        defaultView: 'agendaWeek',
+        selectable: true,
+        weekends: true,
     });
 
     $("#slider").slider({

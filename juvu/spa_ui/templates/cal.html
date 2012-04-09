@@ -1,0 +1,27 @@
+{% extends "spa_base.html" %}
+{% block html_head %}
+<script type="text/javascript">
+
+$(function(){
+
+    var fullcal = $("#show").fullCalendar({
+        // put your options and callbacks here
+        header: {
+            left: 'prev,next title',
+            center: '',
+            right: '',
+//            right: 'today',
+        },
+        defaultView: 'agendaWeek',
+        selectable: true,
+        weekends: true,
+    });
+
+});
+</script>
+{% endblock %}
+
+{% block title %}Spa Home{% endblock %}
+{% block body %}
+    <div id="show"></div>
+{% endblock %}
