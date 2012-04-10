@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Juvu</title>
+	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
+	
+    <script type="text/javascript" src="../static/js/d3/d3.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.time.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.layout.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="top-nav">
+			<h1 style="margin:0;">JUVU</h1>
+		</div>
+		<div class="infoHeader">(Merchant Name)</div>
+		<div class="merchant_topNav">
+			<span class="about_tag">about</span> | <span class="review_tag selected_tag">reviews</span> | <span class="service_tag">services</span>
+		</div>
+		
+		<div class="merchant_col_l">
+			<div class="merchant_column_img">
+				<img width="320" height="240" src="../static/image/login_04.jpg">
+			</div>
+			<div class="rating">
+				<div class="star fu"></div>
+				<div class="star fu"></div>
+				<div class="star ha"></div>
+				<div class="star em"></div>
+				<div class="star em"></div>
+				<span class="rating_txt">(40)</span>
+			</div>
+			<div style="clear:both;"></div>
+			<ul class="confirm_li">
+				<li>Info</li>
+			</ul>
+			
+			<div class="info_col">
+				<h6>Address</h6>
+				1234 Market St., San Francisco, CA 91792
+				<h6>Neighborhood</h6>
+				Civic center / Tenderloin
+				<h6>Transporation</h6>
+				Parking: garage, street, validated
+				<h6>Amenities provided</h6>
+				<ul>
+					<li>Lockers / Robes</li>
+					<li>Steam / Sauna</li>
+					<li>Showers</li>
+					<li>Pool</li>
+				</ul>
+				<!--
+				<h6>service menu</h6>
+				<ul>
+					<li>Mink Massage</li>
+					<li>Theraputic Massage</li>
+					<li>Reflexology</li>
+					<li>Tandem Massage</li>
+				</ul>
+				-->
+				
+				<h6>Phone</h6>
+				415-123-4567
+				<h6>Hours of Operation</h6>
+				<b>Mon - Fri</b> 10:00 - 22:00<br/>
+				<b>Sat - Sun</b> 10:00 - 17:00<br/>
+				<h6>Payment Accepted</h6>
+				credit card / cash
+				<h6>Website</h6>
+				www.sample.com
+			</div>
+		</div>
+		
+		<div class="merchant_col_r">
+			<!--First user review-->
+			<ul class="confirm_li">
+				<li>40 REVIEWS</li>
+			</ul>
+			
+			<div class="user_review">
+				<div class="user_left">
+					<img width="60" height="60" src="../static/image/userimage.jpg"><br/>
+					(User's Account)<br/>
+					04/01/2012<br/>
+					<div class="star fu"></div>
+					<div class="star fu"></div>
+					<div class="star ha"></div>
+					<div class="star em"></div>
+					<div class="star em"></div>
+				</div>
+				
+				<div class="user_right">
+					<p class="merchant_intro">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat mi nec diam sollicitudin viverra. 
+						Duis scelerisque nulla et nulla mollis egestas. Nulla velit nibh, fermentum laoreet ullamcorper in, 
+						venenatis et felis. Cras mollis ligula et risus mattis posuere. Mauris ornare porttitor consectetur. 
+						Etiam orci augue, suscipit id facilisis eget, tristique ac tellus. Sed faucibus ultricies tincidunt. 
+						Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+						Sed at ligula sem, vitae fringilla justo. 
+					</p>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<!--End of first user review-->
+			
+			<div class="user_review">
+				<div class="user_left">
+					<img width="60" height="60" src="../static/image/userimage.jpg"><br/>
+					(User's Account)<br/>
+					04/01/2012<br/>
+					<div class="star fu"></div>
+					<div class="star fu"></div>
+					<div class="star fu"></div>
+					<div class="star fu"></div>
+					<div class="star ha"></div>
+				</div>
+				
+				<div class="user_right">
+					<p class="merchant_intro">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat mi nec diam sollicitudin viverra. 
+						Duis scelerisque nulla et nulla mollis egestas. Nulla velit nibh, fermentum laoreet ullamcorper in, 
+						venenatis et felis. Cras mollis ligula et risus mattis posuere. Mauris ornare porttitor consectetur. 
+						Etiam orci augue, suscipit id facilisis eget, tristique ac tellus. Sed faucibus ultricies tincidunt. 
+						Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+						Sed at ligula sem, vitae fringilla justo. 
+					</p>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<div class="user_review">
+				<div class="user_left">
+					<img width="60" height="60" src="../static/image/userimage.jpg"><br/>
+					(User's Account)<br/>
+					04/01/2012<br/>
+					<div class="star fu"></div>
+					<div class="star fu"></div>
+					<div class="star fu"></div>
+					<div class="star ha"></div>
+					<div class="star em"></div>
+				</div>
+				
+				<div class="user_right">
+					<p class="merchant_intro">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat mi nec diam sollicitudin viverra. 
+						Duis scelerisque nulla et nulla mollis egestas. Nulla velit nibh, fermentum laoreet ullamcorper in, 
+						venenatis et felis. Cras mollis ligula et risus mattis posuere. Mauris ornare porttitor consectetur. 
+						Etiam orci augue, suscipit id facilisis eget, tristique ac tellus. Sed faucibus ultricies tincidunt. 
+						Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+						Sed at ligula sem, vitae fringilla justo. 
+					</p>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<div class="user_review">
+				<div class="user_left">
+					<img width="60" height="60" src="../static/image/userimage.jpg"><br/>
+					(User's Account)<br/>
+					04/01/2012<br/>
+					<div class="star fu"></div>
+					<div class="star fu"></div>
+					<div class="star ha"></div>
+					<div class="star em"></div>
+					<div class="star em"></div>
+				</div>
+				
+				<div class="user_right">
+					<p class="merchant_intro">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat mi nec diam sollicitudin viverra. 
+						Duis scelerisque nulla et nulla mollis egestas. Nulla velit nibh, fermentum laoreet ullamcorper in, 
+						venenatis et felis. Cras mollis ligula et risus mattis posuere. Mauris ornare porttitor consectetur. 
+						Etiam orci augue, suscipit id facilisis eget, tristique ac tellus. Sed faucibus ultricies tincidunt. 
+						Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+						Sed at ligula sem, vitae fringilla justo. 
+					</p>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<div class="user_review">
+				<div class="user_left">
+					<img width="60" height="60" src="../static/image/userimage.jpg"><br/>
+					(User's Account)<br/>
+					04/01/2012<br/>
+					<div class="star fu"></div>
+					<div class="star fu"></div>
+					<div class="star fu"></div>
+					<div class="star fu"></div>
+					<div class="star fu"></div>
+				</div>
+				
+				<div class="user_right">
+					<p class="merchant_intro">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat mi nec diam sollicitudin viverra. 
+						Duis scelerisque nulla et nulla mollis egestas. Nulla velit nibh, fermentum laoreet ullamcorper in, 
+						venenatis et felis. Cras mollis ligula et risus mattis posuere. Mauris ornare porttitor consectetur. 
+						Etiam orci augue, suscipit id facilisis eget, tristique ac tellus. Sed faucibus ultricies tincidunt. 
+						Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+						Sed at ligula sem, vitae fringilla justo. 
+					</p>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<div class="user_review">
+				<div class="user_left">
+					<img width="60" height="60" src="../static/image/userimage.jpg"><br/>
+					(User's Account)<br/>
+					04/01/2012<br/>
+					<div class="star fu"></div>
+					<div class="star fu"></div>
+					<div class="star fu"></div>
+					<div class="star em"></div>
+					<div class="star em"></div>
+				</div>
+				
+				<div class="user_right">
+					<p class="merchant_intro">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat mi nec diam sollicitudin viverra. 
+						Duis scelerisque nulla et nulla mollis egestas. Nulla velit nibh, fermentum laoreet ullamcorper in, 
+						venenatis et felis. Cras mollis ligula et risus mattis posuere. Mauris ornare porttitor consectetur. 
+						Etiam orci augue, suscipit id facilisis eget, tristique ac tellus. Sed faucibus ultricies tincidunt. 
+						Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+						Sed at ligula sem, vitae fringilla justo. 
+					</p>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			
+			
+		
+			
+			
+			
+			
+			
+		</div>
+		
+		<div style="clear:both;"></div>
+		
+	</div><!--end of wrapper-->
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Juvu</title>
+	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
+	
+    <script type="text/javascript" src="../static/js/d3/d3.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.time.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.layout.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="top-nav">
+			<h1 style="margin:0;">JUVU</h1>
+		</div>
+		<div class="infoHeader">(Merchant Name)</div>
+		<div class="merchant_topNav">
+			<span class="about_tag">about</span> | <span class="review_tag">reviews</span> | <span class="service_tag selected_tag">services</span>
+		</div>
+		
+		<div class="merchant_col_l">
+			<div class="merchant_column_img">
+				<img width="320" height="240" src="../static/image/login_04.jpg">
+			</div>
+			<div class="rating">
+				<div class="star fu"></div>
+				<div class="star fu"></div>
+				<div class="star ha"></div>
+				<div class="star em"></div>
+				<div class="star em"></div>
+				<span class="rating_txt">(40)</span>
+			</div>
+			<div style="clear:both;"></div>
+			<ul class="confirm_li">
+				<li>Info</li>
+			</ul>
+			
+			<div class="info_col">
+				<h6>Address</h6>
+				1234 Market St., San Francisco, CA 91792
+				<h6>Neighborhood</h6>
+				Civic center / Tenderloin
+				<h6>Transporation</h6>
+				Parking: garage, street, validated
+				<h6>Amenities provided</h6>
+				<ul>
+					<li>Lockers / Robes</li>
+					<li>Steam / Sauna</li>
+					<li>Showers</li>
+					<li>Pool</li>
+				</ul>
+				
+				<h6>Phone</h6>
+				415-123-4567
+				<h6>Hours of Operation</h6>
+				<b>Mon - Fri</b> 10:00 - 22:00<br/>
+				<b>Sat - Sun</b> 10:00 - 17:00<br/>
+				<h6>Payment Accepted</h6>
+				credit card / cash
+				<h6>Website</h6>
+				www.sample.com
+			</div>
+		</div>
+		
+		<div class="merchant_col_r">
+			<ul class="confirm_li">
+				<li>Service Menu</li>
+			</ul>
+			
+			<!--Title of each service-->
+			<ul class="service_menu_list">
+				<li class="service_name">Massage</li>
+				<li class="service_price">Price($)</li>
+				<li class="service_min">Minutes</li>
+			</ul>
+			<!--End of Title of each service-->
+			
+			<!--First Service Data-->
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Mink Massage</li>
+					<li class="service_price">150</li>
+					<li class="service_min">30</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			<!--End of First Service Data-->
+			
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Theraputic Massage</li>
+					<li class="service_price">125</li>
+					<li class="service_min">60</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Reflexology</li>
+					<li class="service_price">45</li>
+					<li class="service_min">15</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Tandem Massage</li>
+					<li class="service_price">250</li>
+					<li class="service_min">120</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			
+			<ul class="service_menu_list">
+				<li class="service_name">Facial Services</li>
+				<li class="service_price">Price($)</li>
+				<li class="service_min">Minutes</li>
+			</ul>
+			
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Mini Facial</li>
+					<li class="service_price">25</li>
+					<li class="service_min">45</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Love Skin Care Facial</li>
+					<li class="service_price">45</li>
+					<li class="service_min">60</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Breakout Control Facial for Teens</li>
+					<li class="service_price">40</li>
+					<li class="service_min">60</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Alpha-Gel Facial for Acne Skin</li>
+					<li class="service_price">50</li>
+					<li class="service_min">60</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			
+			<ul class="service_menu_list">
+				<li class="service_name">Styling and Cuts</li>
+				<li class="service_price">Price($)</li>
+				<li class="service_min">Minutes</li>
+			</ul>
+			
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Hair finish (blow dry or set)</li>
+					<li class="service_price">35</li>
+					<li class="service_min">60</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Cut and finish</li>
+					<li class="service_price">35</li>
+					<li class="service_min">60</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Cut and Go</li>
+					<li class="service_price">25</li>
+					<li class="service_min">45</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Men's Cut</li>
+					<li class="service_price">15</li>
+					<li class="service_min">30</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Men's Cut and Finish</li>
+					<li class="service_price">20</li>
+					<li class="service_min">45</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Child's Cut</li>
+					<li class="service_price">8</li>
+					<li class="service_min">18</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Hair Up</li>
+					<li class="service_price">50</li>
+					<li class="service_min">60</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			
+			<div class="menu_list_sec">
+				<ul class="menu_list">
+					<li class="service_name">Hot Rollers, Irons or Wrap</li>
+					<li class="service_price">25</li>
+					<li class="service_min">60</li>
+				</ul>
+				<div class="bobi_btns book_pos">book</div>
+				<div class="bobi_btns bid_pos">bid</div>
+				
+				<p class="service_des">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Sed feugiat mi nec diam sollicitudin viverra. 
+					Duis scelerisque nulla et nulla mollis egestas. 
+					Nulla velit nibh, fermentum laoreet ullamcorper in, venenatis et felis. 
+					Cras mollis ligula et risus mattis posuere.
+				</p>
+				<div style="clear:both;"></div>
+			</div>
+			
+		</div>
+		
+		<div style="clear:both;"></div>
+		
+	</div><!--end of wrapper-->
+</body>
+</html>
