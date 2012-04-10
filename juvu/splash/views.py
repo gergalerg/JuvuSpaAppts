@@ -36,6 +36,15 @@ def record_email(request):
 ##            email_addy = form.cleaned_data['record_email']
     return redirect(reverse("thanks"))
 
+def calendar(request):
+    '''
+    calendar page.
+    '''
+    return render_to_response(
+        'calendar.html',
+        {'a_var': "Hi!"},
+        context_instance=RequestContext(request),
+        )
 
 def inv(request):
     '''
@@ -67,9 +76,91 @@ def bid(request):
         
 def merchant(request):
     '''
-    merchant page.
+    merchant page - about.
     '''
     return render_to_response(
-        'merchant.html',
+        'merchant_about.html',
         context_instance=RequestContext(request),
         )
+
+def merchant_reviews(request):
+    '''
+    merchant page - user review.
+    '''
+    return render_to_response(
+        'merchant_reviews.html',
+        context_instance=RequestContext(request),
+        )
+
+def merchant_services(request):
+    '''
+    merchant page - services.
+    '''
+    return render_to_response(
+        'merchant_services.html',
+        context_instance=RequestContext(request),
+        )
+       
+def book_info(request):
+    '''
+    capture client's information
+    '''
+    return render_to_response(
+        'book_info_capture.html',
+        context_instance=RequestContext(request),
+        )
+
+def book_confirm(request):
+    '''
+    confirm client's information
+    '''
+    return render_to_response(
+        'book_info_confirm.html',
+        context_instance=RequestContext(request),
+        )
+
+def book_congrats(request):
+    '''
+    confirm client's information
+    '''
+    return render_to_response(
+        'book_congrats.html',
+        context_instance=RequestContext(request),
+        )
+
+def bid_info(request):
+    '''
+    confirm client's information
+    '''
+    return render_to_response(
+        'bid_info_capture.html',
+        context_instance=RequestContext(request),
+        )
+
+def bid_confirm(request):
+    '''
+    confirm client's information
+    '''
+    return render_to_response(
+        'bid_info_confirm.html',
+        context_instance=RequestContext(request),
+        )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

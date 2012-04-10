@@ -13,7 +13,6 @@ body{
 	width:				1024px;
 	margin-left:		auto;
 	margin-right:		auto;
-	display:			none;
 }
 
 .top-nav{
@@ -40,18 +39,18 @@ body{
 
 .distance{
 	display:			block;
-	color:				@dark-gray;
+	color:				#808080;
 	position:			absolute;
 	left:				253px;
 	top:				165px;
 	width:				300px;
-	
-	.dis_form{
-		opacity:			0;
-		display:			none;
-		font-size:			0.8em;
-		line-height:		1.6em;
-	}
+}
+
+.dis_form{
+	opacity:			0;
+	display:			none;
+	font-size:			0.8em;
+	line-height:		1.6em;
 }
 
 .neighbor{
@@ -61,19 +60,19 @@ body{
 	left:				310px;
 	top:				225px;
 	width:				350px;
+}
+
+.nei_form{
+	opacity:			0;
+	display:			none;
+	font-size:			0.8em;
+	line-height:		1.6em;
+	text-align:			left;
+	float:				left;
+}
 	
-	.nei_form{
-		opacity:			0;
-		display:			none;
-		font-size:			0.8em;
-		line-height:		1.6em;
-		text-align:			left;
-		float:				left;
-	}
-	
-	p{
-		float:				left;
-	}
+.neighbor p{
+	float:				left;
 }
 
 .where{
@@ -98,7 +97,7 @@ body{
 	position:				absolute;
 	left:					850px;
 	top:					295px;
-	color:					@dark-gray;
+	color:					#808080;
 	display:				none;
 	opacity:				0;
 }
@@ -111,13 +110,13 @@ body{
 	color:					white;
 	display:				none;
 	opacity:				0;
-	
-	.date_form{
-		opacity:			0;
-		display:			none;
-		font-size:			0.8em;
-		line-height:		1.6em;
-	}
+}
+
+.date_form{
+	opacity:			0;
+	display:			none;
+	font-size:			0.8em;
+	line-height:		1.6em;
 }
 
 .option{
@@ -125,31 +124,31 @@ body{
 	width:					350px;
 	left:					625px;
 	top:					345px;
-	color:					@dark-gray;
+	color:					#808080;
 	display:				none;
 	opacity:				0;
-	
-	.op_list{
-		list-style-type: 		none;
-		padding-left:			0;
-		font-size:				0.8em;
-		line-height:			2em;
-		display:				none;
-		opacity:				0;
-	}
-	.op_list li{
-		font-weight:			bold;
-	}
-	.op_list li ul{
-		list-style-type: 		none;
-		font-size:				1em;
-		margin-left:			auto;
-		width:					300px;
-	}
-	.op_list li ul li{
-		float:					left;
-		font-weight:			normal;
-	}
+}
+
+.op_list{
+	list-style-type: 		none;
+	padding-left:			0;
+	font-size:				0.8em;
+	line-height:			2em;
+	display:				none;
+	opacity:				0;
+}
+.op_list li{
+	font-weight:			bold;
+}
+.op_list li ul{
+	list-style-type: 		none;
+	font-size:				1em;
+	margin-left:			auto;
+	width:					300px;
+}
+.op_list li ul li{
+	float:					left;
+	font-weight:			normal;
 }
 
 .juvuMe{
