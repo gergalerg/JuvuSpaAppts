@@ -973,36 +973,33 @@ h6{
 
 
 /*sign up*/
-.a_form_col_l{
-	float:				left;
-	text-align:			right;
-	width:				500px;
-	line-height:		36px;
-}
-
-.a_form_col_r{
-	float:				right;
-	text-align:			left;
-	width:				500px;
-	line-height:		36px;
+.form_shell{
+	margin-left: 		380px;
 }
 
 .sign_up_title{
 	font-size:			36px;
-	margin-top:			25%;
+	margin-top:			20%;
 	text-align:			center;
 	margin-bottom:		40px;
 	font-weight:		bold;
-	margin-left: 		165px;
+	margin-left: 		95px;
 }
 
-.a_form_col_l ul{
-	list-style-type:	none;
-	padding-left:		0;
-	font-weight:		bold;
+.form_shell th{
+	text-align:			right;
 	letter-spacing:		0.05em;
-	margin-top:			0;
+	font-size:			16px;
+	text-transform:		lowercase;
+	height:				36px;
+	padding-right: 		15px;
 }
+
+.form_shell td{
+	font-size:			14px;
+}
+
+
 
 .a_form_input{
 	border:				none;
@@ -1016,7 +1013,7 @@ h6{
 
 .a_form_submit{
 	margin-top:			15px;
-	margin-left:		23px;
+	margin-left:		0px;
 	border:				none;
 	background-color:	gray;
 	color:				white;
