@@ -16,9 +16,12 @@
 <body>
 	<div class="wrapper">
 	<form>
-		<div class="sign_up_title">Sign Up</div>
+		<div class="sign_up_title">Sign Up!</div>
+	    <table>
+	    {{ form }}
+        <tr><th></th><td><input type="submit" value="submit" class="a_form_submit"/></td></tr>
+	    </table>
 		<div class="a_form_col_l">
-			
 			<ul>
 				<li>first name</li>
 				<li>last name</li>
@@ -31,7 +34,7 @@
 			<input type="text" class="a_form_input"/><br/>
 			<input type="text" class="a_form_input"/><br/>
 			<input type="text" class="a_form_input"/><br/>
-			<input type="text" class="a_form_input"/>
+			<input type="password" class="a_form_input"/>
 		</div>
 		<input type="submit" value="submit" class="a_form_submit"/>
 	</form>

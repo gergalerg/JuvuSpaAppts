@@ -3,6 +3,10 @@ function create_login_circles() {
     create_login_circle(".signup_circle", circle_1_radius);
     create_login_circle(".login_circle", circle_2_radius);
     create_login_circle(".exp_circle", circle_3_radius);
+    $("div.s1").find("span.l_title").click(function(){
+        console.log("AAAAA");
+        window.location.href = "/signup";
+    });
     $("div.s3").find("span.l_title").click(function(){
         routes.navigate("service", true);
     });

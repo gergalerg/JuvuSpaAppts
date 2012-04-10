@@ -5,11 +5,14 @@ from django.contrib.auth.models import User
 from django import forms
 
 
-class UserSignupForm(forms.ModelForm):
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+_css_class = {'class': 'a_form_input'}
+
+
+class UserSignupForm(forms.Form):
+    first_name = forms.CharField(widget=forms.TextInput(attrs=_css_class))
+    last_name = forms.CharField(widget=forms.TextInput(attrs=_css_class))
+    email = forms.EmailField(widget=forms.TextInput(attrs=_css_class))
+    password = forms.CharField(widget=forms.PasswordInput(attrs=_css_class))
 
 
 def login(request):
@@ -27,9 +30,9 @@ def login(request):
 
 def signup(request):
     if request.method != 'POST':
-        form = UserSignupForm()
+        form = UserSignupForm(label_suffix='')
     else:
-        form = UserSignupForm(request.POST)
+        form = UserSignupForm(request.POST, label_suffix='')
         if form.is_valid():
             user = User.objects.create_user(
                 form.cleaned_data['email'],
@@ -47,7 +50,7 @@ def signup(request):
             return HttpResponseRedirect('/#step/0')
 
     return render_to_response(
-        'signup.html',
+        'sign_up.html',
         dict(form=form),
         context_instance=RequestContext(request),
         )
