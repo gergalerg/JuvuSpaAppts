@@ -3,10 +3,6 @@
 <head>
 	<title>Juvu</title>
 	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
-	
-    <script type="text/javascript" src="../static/js/d3/d3.js"></script>
-    <script type="text/javascript" src="../static/js/d3/d3.time.js"></script>
-    <script type="text/javascript" src="../static/js/d3/d3.layout.js"></script>
     
     <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
 </head>
@@ -53,16 +49,26 @@
 		<div id="nav_right">
 			<div id="header_service">60 minute Shiatsu massage at Nob Hill Spa</div>
 			
-			<div class="timeline">
-				<span class="first_day">monday 2/20</span>
-				<span class="second_day">tuesday 2/21</span>
-				<span class="third_day">wednesday 2/22</span>
+			<div class="timeline_nav">
+				<div class="pre_btn">< </div>
+				<div class="month_txt">Feburary 20 - 24</div>
+				<div class="next_btn">> </div>
 			</div>
-			<div style="clear:both;">
+			
+			<div style="clear:both;"></div>
+			
+			<ul class="timeline">
+				<li class="first_day">mon 2/20</li>
+				<li class="follow_days">tue 2/21</li>
+				<li class="follow_days">wed 2/22</li>
+				<li class="follow_days">thu 2/23</li>
+				<li class="follow_days">fri 2/24</li>
+			</ul>
+			<div style="clear:both;"></div>
 			
 			<!--start of the morning schedule-->
 			<div class="morning">
-				<div class="mor_title">morning</div>
+				<!--<div class="mor_title">morning</div>-->
 				<div class="day1">
 					<div class="day_info">
 						9:30 am</br>
@@ -79,7 +85,7 @@
 				</div>
 				
 				
-				<div class="day2">
+				<div class="days">
 					<div class="day_info">
 						8:30 am</br>
 						$75
@@ -102,7 +108,7 @@
 					</div>
 				</div>
 				
-				<div class="day3">
+				<div class="days">
 					<div class="day_info">
 						9:30 am</br>
 						$85
@@ -116,6 +122,41 @@
 						$85
 					</div>
 				</div>
+				
+				<div class="days">
+					<div class="day_info">
+						9:30 am</br>
+						$85
+					</div>
+					<div class="day_info">
+						10:30 am</br>
+						$75
+					</div>
+					<div class="day_info">
+						11:30 am</br>
+						$105
+					</div>
+				</div>
+				
+				<div class="days">
+					<div class="day_info">
+						8:30 am</br>
+						$75
+					</div>
+					<div class="day_info">
+						9:00 am</br>
+						$85
+					</div>
+					<div class="day_info">
+						9:30 am</br>
+						$125
+					</div>
+					<div class="day_info">
+						11:30 am</br>
+						$155
+					</div>
+				</div>
+				
 			</div>
 			<!--end of the morning schedule-->
 			
@@ -123,7 +164,7 @@
 			
 			<!--start of the afternoon schedule-->
 			<div class="afternoon">
-				<div class="aft_title">afternoon</div>
+				<!--<div class="aft_title">afternoon</div>-->
 				<div class="day1">
 					<div class="day_info">
 						12:30 pm</br>
@@ -148,7 +189,7 @@
 				</div>
 				
 				
-				<div class="day2">
+				<div class="days">
 					<div class="day_info">
 						2:30 pm</br>
 						$65
@@ -167,7 +208,7 @@
 					</div>
 				</div>
 				
-				<div class="day3">
+				<div class="days">
 					<div class="day_info">
 						3:00 pm</br>
 						$85
@@ -181,6 +222,45 @@
 						$155
 					</div>
 				</div>
+				
+				<div class="days">
+					<div class="day_info">
+						2:30 pm</br>
+						$65
+					</div>
+					<div class="day_info">
+						3:00 pm</br>
+						$85
+					</div>
+					<div class="day_info">
+						3:30 pm</br>
+						$105
+					</div>
+					<div class="day_info">
+						4:30 pm</br>
+						$105
+					</div>
+				</div>
+				
+				<div class="days">
+					<div class="day_info">
+						2:30 pm</br>
+						$65
+					</div>
+					<div class="day_info">
+						3:00 pm</br>
+						$85
+					</div>
+					<div class="day_info">
+						3:30 pm</br>
+						$105
+					</div>
+					<div class="day_info">
+						4:30 pm</br>
+						$105
+					</div>
+				</div>
+				
 			</div>
 			<!--end of the afternoon schedule-->
 			
@@ -188,7 +268,7 @@
 			
 			<!--start of the evening schedule-->
 			<div class="evening">
-				<div class="eve_title">evening</div>
+				<!--<div class="eve_title">evening</div>-->
 				<div class="day1">
 					<div class="day_info">
 						5:30 pm</br>
@@ -205,7 +285,7 @@
 				</div>
 				
 				
-				<div class="day2">
+				<div class="days">
 					<div class="day_info">
 						5:30 pm</br>
 						$130
@@ -224,7 +304,7 @@
 					</div>
 				</div>
 				
-				<div class="day3">
+				<div class="days">
 					<div class="day_info">
 						6:00 pm</br>
 						$110
@@ -254,19 +334,58 @@
 						$125
 					</div>
 				</div>
+				
+				<div class="days">
+					<div class="day_info">
+						7:00 pm</br>
+						$145
+					</div>
+					<div class="day_info">
+						7:30 pm</br>
+						$145
+					</div>
+					<div class="day_info">
+						8:30 pm</br>
+						$145
+					</div>
+					<div class="day_info">
+						9:00 pm</br>
+						$125
+					</div>
+					<div class="day_info">
+						10:00 pm</br>
+						$125
+					</div>
+				</div>
+				
+				<div class="days">
+					<div class="day_info">
+						5:30 pm</br>
+						$130
+					</div>
+					<div class="day_info">
+						7:00 pm</br>
+						$145
+					</div>
+					<div class="day_info">
+						7:30 pm</br>
+						$165
+					</div>
+					<div class="day_info">
+						8:30 pm</br>
+						$165
+					</div>
+				</div>
+				
 			</div>
 			<!--end of the evening schedule-->
-			<div style="clear:both;">
 			
 		</div><!--end of right nav-->
-		
-		<div style="clear:both;"></div>
 	</div><!--end of wrapper-->
 	
 	<script type="text/javascript">
 		
 	</script>
-	
 	
 </body>
 </html>

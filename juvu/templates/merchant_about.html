@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Juvu</title>
+	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
+    
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
+    
+    
+</head>
+<body>
+	<div class="wrapper">
+		<div class="top-nav">
+			<h1 style="margin:0;">JUVU</h1>
+		</div>
+		<div class="infoHeader">(Merchant Name)</div>
+		<div class="merchant_topNav">
+			<span class="about_tag selected_tag">about</span> | <span class="review_tag">reviews</span> | <span class="service_tag">services</span>
+		</div>
+		
+		<div class="merchant_col_l">
+			<div class="merchant_column_img">
+				<img width="320" height="240" src="../static/image/login_04.jpg">
+			</div>
+			<div class="rating">
+				<div class="star fu"></div>
+				<div class="star fu"></div>
+				<div class="star ha"></div>
+				<div class="star em"></div>
+				<div class="star em"></div>
+				<span class="rating_txt">(40)</span>
+			</div>
+			<div style="clear:both;"></div>
+			<ul class="confirm_li">
+				<li>Info</li>
+			</ul>
+			
+			<div class="info_col">
+				<h6>Address</h6>
+				1234 Market St., San Francisco, CA 91792
+				<h6>Neighborhood</h6>
+				Civic center / Tenderloin
+				<h6>Transporation</h6>
+				Parking: garage, street, validated
+				<h6>Amenities provided</h6>
+				<ul>
+					<li>Lockers / Robes</li>
+					<li>Steam / Sauna</li>
+					<li>Showers</li>
+					<li>Pool</li>
+				</ul>
+				<!--
+				<h6>service menu</h6>
+				<ul>
+					<li>Mink Massage</li>
+					<li>Theraputic Massage</li>
+					<li>Reflexology</li>
+					<li>Tandem Massage</li>
+				</ul>
+				-->
+				
+				<h6>Phone</h6>
+				415-123-4567
+				<h6>Hours of Operation</h6>
+				<b>Mon - Fri</b> 10:00 - 22:00<br/>
+				<b>Sat - Sun</b> 10:00 - 17:00<br/>
+				<h6>Payment Accepted</h6>
+				credit card / cash
+				<h6>Website</h6>
+				www.sample.com
+			</div>
+		</div>
+		
+		<div class="merchant_col_r">
+			<div id="merchant_maps"></div>
+			
+			<ul class="confirm_li">
+				<li>About (Merchant name)</li>
+			</ul>
+			<p class="merchant_intro">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat mi nec diam sollicitudin viverra. 
+				Duis scelerisque nulla et nulla mollis egestas. Nulla velit nibh, fermentum laoreet ullamcorper in, 
+				venenatis et felis. Cras mollis ligula et risus mattis posuere. Mauris ornare porttitor consectetur. 
+				Etiam orci augue, suscipit id facilisis eget, tristique ac tellus. Sed faucibus ultricies tincidunt. 
+				Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+				Sed at ligula sem, vitae fringilla justo. 
+			</p>
+			<h6 style="margin-left:12px;">Cancellation Policy</h6>
+			<p class="merchant_intro">
+				Duis in risus at quam ullamcorper adipiscing ut volutpat neque.
+				Ut eget nibh ac arcu pulvinar posuere at non leo.
+				Vivamus quis dui quis nisl venenatis commodo.
+				Pellentesque cursus diam in neque ornare lobortis.
+				Integer gravida sapien eget erat consequat nec congue neque porta.
+				Vestibulum tempus tortor eget risus commodo ultricies.
+			</p>
+		</div>
+		
+		<div style="clear:both;"></div>
+		
+	</div><!--end of wrapper-->
+	
+	<script type="text/javascript">
+	 	window.onload = function(){
+			initialize();
+		}
+	 	function initialize() {
+			var myLatlng = new google.maps.LatLng(37.78, -122.44);
+			var myOptions = {
+				zoom: 12,
+				center: myLatlng,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+			var map = new google.maps.Map(document.getElementById("merchant_maps"), myOptions);
+			var marker = new google.maps.Marker({
+				position: myLatlng,
+				map: map,
+				title:"Merchant Name"
+			});
+		} 
+	 </script>
+	
+</body>
+</html>

@@ -3,10 +3,6 @@
 <head>
 	<title>Juvu</title>
 	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
-	
-    <script type="text/javascript" src="../static/js/d3/d3.js"></script>
-    <script type="text/javascript" src="../static/js/d3/d3.time.js"></script>
-    <script type="text/javascript" src="../static/js/d3/d3.layout.js"></script>
     
     <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
     <script type="text/javascript" src="../static/js/gMaps.js"></script>
@@ -19,46 +15,69 @@
 			<h1 style="margin:0;">JUVU</h1>
 		</div>
 		
-		<div class="infoHeader">Your appointment is booked.</div>
+		<div class="big_heavy_title">Your appointment is booked!</div>
+
+		<ul class="confirm_li">
+			<li>Appointment Info</li>
+		</ul>
 		
-		<div class="confirm_column">
-			<ul class="confirm_li">
-				<li>Merchant Name</li>
+		<div class="congrats_row">
+			<ul class="appo_ul">
+				<li class="appo_li a_date">Date</li>
+				<li class="appo_li a_sTime">Start Time</li>
+				<li class="appo_li a_service">Service</li>
+				<li class="appo_li a_minute">Minutes</li>
+				<li class="appo_li a_merchant">Merchant</li>
+				<li class="appo_li a_price">Price</li>
+				<li class="appo_li a_cancel">Cancel</li>
 			</ul>
-			<p class="billing_form">
-				Date<br/>
-				<span class="confirm_color">Apr 1, 2012</span><br/><br/>
-				
-				Time<br/>
-				<span class="confirm_color">PM 1:00</span><br/><br/>
-				
-				Service<br/>
-				<span class="confirm_color">Theraputic Massage</span><br/><br/>
-				
-				Price<br/>
-				<span class="confirm_color">$125</span><br/><br/>
-			</p>
-			
+			<br/>
+			<ul class="appo_ul" style="color:gray;">
+				<li class="appo_li a_date">Apr 1, 2012</li>
+				<li class="appo_li a_sTime">PM 1:00</li>
+				<li class="appo_li a_service">Theraputic Massage</li>
+				<li class="appo_li a_minute">60</li>
+				<li class="appo_li a_merchant">Merchant Name</li>
+				<li class="appo_li a_price">$125</li>
+				<li class="appo_li a_cancel"><a href="#" class="a_cancel_btn">X</a></li>
+			</ul>
+			<div style="clear:both;"></div>
 		</div>
 		
-		<div class="confirm_column" style="margin-left:24px;">
-			<ul class="confirm_li">
-				<li>Merchant Information</li>
-			</ul>
-			<p class="billing_form">
-				Provided by the merchant<br/>
-				<a href="#" class="link">General Information</a><br/>
-				<a href="#" class="link">Particular Service</a><br/><br/>
+		<ul class="confirm_li">
+			<li>(Merchant Name) Info</li>
+		</ul>
+		<div class="congrats_row">
+			<div class="congrats_r_leftCol">
+				<div class="con_header">General Information</div>
 				Phone Number<br/>
 				<span class="confirm_color">415-123-4567</span>
 				<br/><br/>
 				Address<br/>
 				<span class="confirm_color">1234 market st. San Francisco</span>
-			</p>
-			<div id="map_canvas"></div>
+				<p class="m_description">
+				Duis in risus at quam ullamcorper adipiscing ut volutpat neque.<br/>
+				Ut eget nibh ac arcu pulvinar posuere at non leo.<br/>
+				Vivamus quis dui quis nisl venenatis commodo.<br/>
+				Pellentesque cursus diam in neque ornare lobortis.<br/>
+				Integer gravida sapien eget erat consequat nec congue neque porta.<br/>
+				Vestibulum tempus tortor eget risus commodo ultricies.<br/><br/>
+
+				Duis in risus at quam ullamcorper adipiscing ut volutpat neque.<br/>
+				Ut eget nibh ac arcu pulvinar posuere at non leo.<br/>
+				Vivamus quis dui quis nisl venenatis commodo.<br/>
+				Pellentesque cursus diam in neque ornare lobortis.<br/>
+				Integer gravida sapien eget erat consequat nec congue neque porta.<br/>
+				Vestibulum tempus tortor eget risus commodo ultricies.
+				</p>
+				<a class="link" href="#">cancellation policy</a>
+			</div>
+			
+			<div class="congrats_r_rightCol">
+				<div class="con_header">Location Map</div>
+				<div id="map_canvas"></div>
+			</div>
 		</div>
-		<div style="clear:both;"></div>
-		
 		
 	</div><!--end of wrapper-->
 </body>

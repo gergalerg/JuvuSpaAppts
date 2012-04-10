@@ -8,6 +8,7 @@ var routey = Backbone.Router.extend({
         "toc": "toc",
         "service": "service",
         "choose/:opt": "choose",
+        "inv": "inv",
     },
 
     toc: function() {
@@ -29,5 +30,10 @@ var routey = Backbone.Router.extend({
             )
         viewModel.current_filter(opt);
     },
+
+    inv: function() {
+        viewModel.viewing("inv");
+    },
+
 });
 

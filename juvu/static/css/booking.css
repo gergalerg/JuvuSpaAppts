@@ -14,6 +14,7 @@ body{
 	margin-left:		auto;
 	margin-right:		auto;
 	margin-bottom:		200px;
+	padding-bottom:		200px;
 }
 
 .top-nav{
@@ -25,8 +26,6 @@ body{
 	width:				300px;
 	height:				800px;
 	float:				left;
-	/*background-color:	green;
-	opacity:			0.3;*/
 }
 
 #nav_right{
@@ -300,7 +299,7 @@ body{
 
 .nav_selections{
 	text-transform:		uppercase;
-	font-size:			0.8em;
+	font-size:			15px;
 	padding-left:		12px;
 	font-weight:		bold;
 	letter-spacing:		0.1em;
@@ -318,39 +317,87 @@ body{
 	padding-left:		12px;
 }
 
+.timeline_nav{
+	font-size:			24px;
+	margin-left:		24px;
+	margin-top:			20px;
+}
+
+.pre_btn{
+	float:				left;
+	background-color:	gray;
+	margin-left:		12px;
+	color:				white;
+	padding:			5px;
+	cursor:				pointer;
+	transition-property:background-color 0.5s;
+	-moz-transition:	background-color 0.5s;
+	-webkit-transition:	background-color 0.5s;
+	-o-transition:		background-color 0.5s;
+}
+
+.pre_btn:hover{
+	background-color:	#3FA9F5;
+}
+
+.next_btn{
+	float:				right;
+	background-color:	gray;
+	color:				white;
+	padding:			5px;
+	cursor:				pointer;
+	transition-property:background-color 0.5s;
+	-moz-transition:	background-color 0.5s;
+	-webkit-transition:	background-color 0.5s;
+	-o-transition:		background-color 0.5s;
+}
+
+.next_btn:hover{
+	background-color:	#3FA9F5;
+}
+
+.month_txt{
+	position:			absolute;
+	margin-left:		270px;
+	margin-top:			6px;
+	color:				gray;
+}
+
 .timeline{
 	text-transform:		uppercase;
 	margin-left:		36px;
-	margin-top:			30px;
-	font-size:			0.8em;
+	margin-top:			20px;
+	font-size:			15px;
 	font-weight:		bold;
+	list-style-type:	none;
+	padding:			0;
 }
 
 .first_day{
-	margin-left:		130px;
+	margin-left:		0;
+	width:				90px;
+	float:				left;
 }
 
-.second_day{
-	margin-left:		120px;
-}
-
-.third_day{
-	margin-left:		120px;
+.follow_days{
+	margin-left:		60px;
+	width:				89px;
+	float:				left;
 }
 
 .morning{
 	margin-left:		24px;
-	padding-top:		30px;
+	padding-top:		20px;
 }
 
 .afternoon{
 	margin-left:		24px;
-	margin-top:			30px;
+	margin-top:			50px;
 }
 
 .evening{
 	margin-left:		24px;
-	margin-top:			30px;
+	margin-top:			50px;
 }
 
 .mor_title{
@@ -394,19 +441,13 @@ body{
 
 .day1{
 	width:				100px;
-	margin-left:		22px;
+	margin-left:		0;
 	float:				left;
 }
 
-.day2{
+.days{
 	width:				100px;
-	margin-left:		107px;
-	float:				left;
-}
-
-.day3{
-	width:				100px;
-	margin-left:		112px;
+	margin-left:		50px;
 	float:				left;
 }
 
@@ -441,7 +482,7 @@ body{
 }
 
 .subhead{
-	font-size: 			0.8em;
+	font-size: 			16px;
     font-weight: 		bold;
     text-transform: 	uppercase;
     float:				left;
@@ -460,7 +501,7 @@ body{
 }
 
 .sub_p{
-	width:				110px;
+	width:				160px;
 }
 
 .d_btn{
@@ -483,7 +524,7 @@ body{
 
 .bid_list{
 	display:			inline-block;
-	width:				640px;
+	width:				700px;
 	list-style-type:	none;
 	font-size:			0.8em;
 	border-bottom:		1px dotted black;
@@ -502,7 +543,7 @@ body{
 }
 
 .s_list{
-	width:				302px;
+	width:				305px;
 }
 
 .low_price{
@@ -543,19 +584,21 @@ body{
 	margin-top:			24px;
 	width:				1012px;
 	padding-left:		12px;
+	padding-bottom:		5px;
 	border-bottom:		3px solid #000;
 }
 
 .instruct{
-	line-height:		1.8em;
-	font-size:			18px;
+	line-height:		48px;
+	font-size:			24px;
 	padding-left:		12px;
 	margin-top:			24px;
-	color:				gray;
+	color:				black;
+	text-align:			center;
 }
 
 .instruct span{
-	font-size:			14px;
+	font-size:			18px;
 }
 
 .link{
@@ -573,7 +616,7 @@ body{
 
 .confirm_li{
 	text-transform:		uppercase;
-	font-size:			1em;
+	font-size:			16px;
 	padding-left:		12px;
 	font-weight:		bold;
 	letter-spacing:		0.1em;
@@ -591,7 +634,7 @@ body{
 
 .confirm_area{
 	width:				500px;
-	margin-left:		524px;
+	margin-left:		536px;
 }
 
 .confirm_color{
@@ -615,19 +658,116 @@ body{
 	background-color: 	#3fa9f5;
 }
 
-
+.m_description{
+	color:				gray;
+}
 
 /*post*/
 #map_canvas{
 	width:				500px;
-	height:				500px;
+	height:				320px;
+}
+
+.big_heavy_title{
+	font-weight:		bold;
+	font-size:			40px;
+	text-align:			center;
+	margin-top:			40px;
+}
+
+.congrats_row{
+	width:				1024px;
+	margin-top:			20px;
+	margin-bottom: 		60px;
+}
+
+.appo_ul{
+	list-style-type:	none;
+	padding-left:		12px;
+	width:				1012px;
+}
+
+.appo_li{
+	float:				left;
+}
+
+.a_date{
+	width:				100px;
+}
+
+.a_sTime{
+	width:				100px;
+	margin-left:		30px;
+}
+
+.a_service{
+	width:				212px;
+	margin-left:		30px;
+}
+
+.a_minute{
+	width:				100px;
+	margin-left:		30px;
+}
+
+.a_merchant{
+	width:				200px;
+	margin-left:		30px;
+}
+
+.a_price{
+	width:				100px;
+	margin-left:		30px;
+}
+
+.a_cancel{
+	width:				50px;
+}
+
+.congrats_r_leftCol{
+	float:				left;
+	width:				500px;
+	margin-left:		12px;
+	margin-top:			-18px;
+}
+
+.congrats_r_rightCol{
+	float:				right;
+	width:				500px;
+	margin-top:			-18px;
+}
+
+.con_header{
+	font-weight:		bold;
+	font-style:			italic;
+	margin-bottom:		12px;
+	margin-top:			24px;
+}
+
+.a_cancel_btn{
+	color:				#3FA9F5;
+	text-decoration:	none;
+	float:				right;
+	font-size:			24px;
+	position:			relative;
+    top: -5px;
+}
+
+.a_cancel_btn:hover{
+	text-decoration:	underline;
 }
 
 /*merchant page*/
-.merchant_column{
-	width:				500px;
+.merchant_col_l{
+	width:				332px;
 	float:				left;
 	font-size:			12px;
+}
+
+.merchant_col_r{
+	width:				680px;
+	float:				right;
+	margin-right:		0;
 }
 
 .merchant_column_img{
@@ -638,57 +778,230 @@ body{
 	height:				240px;
 }
 
-.info_left_c{
+.merchant_topNav{
+	width:				1012px;
+	border-bottom:		1px solid black;
+	padding-top:		8px;
+	padding-bottom:		5px;
+	padding-left:		12px;
+	cursor:				pointer;
+	color:				gray;
+	letter-spacing:		0.05em;
+}
+
+.selected_tag{
+	color:				#3FA9F5;
+}
+
+.info_col{
 	margin-left:		12px;
-	width:				270px;
-	padding-right:		24px;
+	font-size:			14px;
+	color:				gray;
+}
+
+.info_col ul{
+	list-style-type:	none;
+	padding-left:		0;
+}
+h6{
+	font-size:			16px;
+	margin-top:			24px;
+	margin-bottom:		8px;
+	color:				black;
+}
+
+#merchant_maps{
+	width:				668px;
+	height:				276px;
+	margin-top:			24px;
+	margin-left:		12px;
+}
+
+.merchant_intro{
+	width:				500px;
+	line-height:		24px;
+	color:				gray;
+	margin-left:		12px;
+}
+
+.user_review{
+	margin-left:		0;
+	margin-top:			24px;
+	margin-bottom: 		36px;
+	padding-bottom:		10px;
+	border-bottom:		1px dotted black;
+}
+
+.user_left{
+	margin-left:		12px;
+	float:				left;
+	line-height:		18px;
+	font-size:			12px;
+	width:				130px;
+}
+
+.user_right{
+	float:				left;
+	margin-top: 		-25px;
+}
+
+.rating{
+	margin-left:		12px;
+	margin-top:			12px;
+	font-size:			14px;
+}
+
+.star{
+	width:				24px;
+	height:				24px;
 	float:				left;
 }
 
-.info_right_c{
-	width:				193px;
+.rating_txt{
+	margin-top:			6px;
+	margin-top:			10px;
+	position:			absolute;
+}
+
+.fu{
+	background-image:url('../image/star_full.png');
+}
+
+.ha{
+	background-image:url('../image/star_half.png');
+}
+
+.em{
+	background-image:url('../image/star_empty.png');
+}
+
+.service_menu_list{
+	width:				500px;
+	list-style-type:	none;
+	padding-left:		12px;
+	font-size:			16px;
+	font-weight:		bold;
+	/*border-bottom:		1px solid gray;*/
+	height:				20px;
+	padding-right:		168px;
+	margin-bottom:		0;
+	margin-top:			30px;
+}
+
+.service_name{
+	float:				left;
+	width:				250px;
+}
+.service_price{
+	float:				left;
+}
+.service_min{
 	float:				right;
 }
 
-.info_left_c ul{
-	list-style-type:	none;
-	padding-left:		0;
-	margin-top:			0;
-	line-height:		18px;
+.menu_list_sec{
+	width:				692px;
+	border-bottom:		1px solid black;
 }
 
-.info_left_c ul li{
-	
-}
-
-h6{
-	font-size:			12px;
-	text-transform:		uppercase;
-	margin-top:			24px;
-	margin-bottom:		8px;
-}
-
-.merchant_maps{
+.menu_list{
 	width:				500px;
-	height:				240px;
+	padding-left:		12px;
+	list-style-type:	none;
+	font-size:			14px;
 	margin-top:			24px;
-	background-color:	lightblue;
+	float:				left;
+}
+
+.bobi_btns{
+	float:				right;
+	background-color:	gray;
+	color:				white;
+	cursor:				pointer;
+	padding:			5px 15px;
+	border-radius:		5px;
+}
+
+.bobi_btns:hover{
+	background-color:	#3FA9F5;
+}
+
+.book_pos{
+	position:			absolute;
+	margin-left:		555px;
+	margin-top:			16px;
+}
+
+.bid_pos{
+	position:			absolute;
+	margin-left:		630px;
+	margin-top:			16px;
+}
+
+.service_des{
+	margin-left:		12px;
+	color:				gray;
+	margin-top:			10px;
+	float:				left;
+	width:				680px;
+	line-height:		20px;
 }
 
 
 /**/
+.a_form_col_l{
+	float:				left;
+	text-align:			right;
+	width:				500px;
+	line-height:		36px;
+}
 
+.a_form_col_r{
+	float:				right;
+	text-align:			left;
+	width:				500px;
+	line-height:		36px;
+}
 
+.sign_up_title{
+	font-size:			36px;
+	margin-top:			30%;
+	text-align:			center;
+	margin-bottom:		20px;
+	font-weight:		bold;
+	margin-left: 		-155px;
+}
 
+.a_form_col_l ul{
+	list-style-type:	none;
+	padding-left:		0;
+	font-weight:		bold;
+	letter-spacing:		0.05em;
+	margin-top:			0;
+}
 
+.a_form_input{
+	border:				none;
+	background-color:	white;
+	font-size:			16px;
+	border-radius:		3px;
+	padding-left:		5px;
+	padding-top:		5px;
+	opacity:			0.8;
+}
 
+.a_form_submit{
+	margin-top:			15px;
+	margin-left:		23px;
+	border:				none;
+	background-color:	gray;
+	color:				white;
+	border-radius:		10px;
+	padding-top:		2px;
+	padding-bottom:		2px;
+	font-size:			12px;
+}
 
-
-
-
-
-
-
-
-
-
+.a_form_submit:hover{
+	background-color:	#3FA9F5;
+}

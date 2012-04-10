@@ -66,6 +66,7 @@ $(function(){
     if (!Backbone.history.start()) {
         routes.navigate("toc", true);
     }
+    clicky(".juvuMe", "inv");
 });
 
 </script>
@@ -76,7 +77,7 @@ $(function(){
 	<div class="s2">
 		<center>
 			<span class="l_title" >log in</span>
-			<form method="POST" action="{% url login %}">
+			<form method="POST" action="{% url booking_home %}">
             {% csrf_token %}
 				<input class="i_text" placeholder="email" name="username"/><br />
 				<input class="i_text" placeholder="password" name="password" type="password"/><br />
