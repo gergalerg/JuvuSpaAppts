@@ -10,11 +10,20 @@ urlpatterns = patterns('',
     url(r'^thanks$', 'splash.views.thanks', name='thanks'),
     url(r'^uh$', 'splash.views.record_email', name='record_email'),
     url(r'^login/$', 'accounts.views.login', name='login'),
+    url(r'^calendar$', 'splash.views.calendar', name='calendar'),
     url(r'^inv$', 'splash.views.inv', name='inv'),
     url(r'^book$', 'splash.views.book', name='book'),
     url(r'^bid$', 'splash.views.bid', name='bid'),
     url(r'^merchant$', 'splash.views.merchant', name='merchant'),
+    url(r'^merchant_reviews$', 'splash.views.merchant_reviews', name='merchant'),
+    url(r'^merchant_services$', 'splash.views.merchant_services', name='merchant'),
+    url(r'^book_info$', 'splash.views.book_info', name='book_info'),
+    url(r'^book_confirm$', 'splash.views.book_confirm', name='book_confirm'),
+    url(r'^book_congrats$', 'splash.views.book_congrats', name='book_congrats'),
+    url(r'^bid_info$', 'splash.views.bid_info', name='bid_info'),
+    url(r'^bid_confirm$', 'splash.views.bid_confirm', name='bid_confirm'),
 
+	
     # User-facing site.
     url(r'^look/', include('booking.urls')),
 

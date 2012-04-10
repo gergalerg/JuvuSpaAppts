@@ -875,13 +875,37 @@ h6{
 	background-image:url('../image/star_empty.png');
 }
 
+.service_nav{
+	list-style-type:	square;
+	margin-top:			0;
+	padding-left:		0;
+	border-bottom:		1px dotted gray;
+	padding-bottom:		10px;
+	color:				gray;
+}
+
+.service_nav li{
+	float:				left;
+	width:				155px;
+	margin-top:			18px;
+	margin-left:		12px;
+	cursor:				pointer;
+}
+
+.service_nav li:hover{
+	color:				#3FA9F5;
+}
+
+.service_selected{
+	color:				#3FA9F5;
+}
+
 .service_menu_list{
 	width:				500px;
 	list-style-type:	none;
 	padding-left:		12px;
 	font-size:			16px;
 	font-weight:		bold;
-	/*border-bottom:		1px solid gray;*/
 	height:				20px;
 	padding-right:		168px;
 	margin-bottom:		0;
@@ -948,7 +972,7 @@ h6{
 }
 
 
-/**/
+/*sign up*/
 .a_form_col_l{
 	float:				left;
 	text-align:			right;
@@ -965,11 +989,11 @@ h6{
 
 .sign_up_title{
 	font-size:			36px;
-	margin-top:			30%;
+	margin-top:			25%;
 	text-align:			center;
-	margin-bottom:		20px;
+	margin-bottom:		40px;
 	font-weight:		bold;
-	margin-left: 		-155px;
+	margin-left: 		165px;
 }
 
 .a_form_col_l ul{
