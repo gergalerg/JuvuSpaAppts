@@ -42,7 +42,6 @@ def calendar(request):
     '''
     return render_to_response(
         'calendar.html',
-        {'a_var': "Hi!"},
         context_instance=RequestContext(request),
         )
 
@@ -52,7 +51,6 @@ def inv(request):
     '''
     return render_to_response(
         'inv.html',
-        {'a_var': "Hi!"},
         context_instance=RequestContext(request),
         )
 
