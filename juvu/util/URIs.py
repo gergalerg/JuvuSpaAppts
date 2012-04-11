@@ -1,5 +1,6 @@
-from RDF import Uri
-
+##from RDF import Uri
+def Uri(thing):
+    return thing
 
 OUR_LAND = 'http://choicedocs.com/ref/'
 OUR_LAND_URI = Uri(OUR_LAND)
