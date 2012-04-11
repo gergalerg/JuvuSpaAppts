@@ -97,7 +97,7 @@ var reveal_when_circles = _.once(function() {
 var reveal_option_circle = _.once(function() {
 	d3.select(".c_op").transition()
 		.attr("cx",800)
-		.attr("cy",650)
+		.attr("cy",350)
 		.attr("r", 65)
 		.attr("fill-opacity",1)
 		.duration(500);
@@ -109,7 +109,7 @@ var reveal_option_circle = _.once(function() {
 
 	d3.select(".option").transition()
 		.style("left", "625px")
-		.style("top", "645px")
+		.style("top", "345px")
 		.style("display", "block")
 		.style("opacity", "1")
 		.duration(500);
@@ -129,7 +129,7 @@ var options_transitions = {
     clickDis: function() {
         $(".c_dis").appendTo($(".s_canvas"));
 	  	d3.select(".c_dis").transition()
-	  		.attr("cx", 450)
+	  		.attr("cx", 400)
 	  		.attr("cy", 230)
 	  		.attr("r", 200)
 	  		.attr("fill", first_color)
@@ -137,7 +137,7 @@ var options_transitions = {
 	  		.ease("elastic", 5, 3);
 
 	  	d3.select(".distance").transition()
-	  		.style("left","305px")
+	  		.style("left","255px")
 	  		.style("top","170px")
 	  		.duration(1000)
 	  		.ease("elastic", 5, 3)

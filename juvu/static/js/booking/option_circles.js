@@ -63,8 +63,8 @@ function setup_option_circles(ops_canvas) {
 
 	//today
 	svg_canvas.append("svg:circle")
-	  .attr("cx",820)
-	  .attr("cy",550)
+	  .attr("cx",870)
+	  .attr("cy",300)
 	  .attr("r",0)
 	  .attr("fill",first_color)
 	  .attr("fill-opacity",0)
@@ -75,8 +75,8 @@ function setup_option_circles(ops_canvas) {
 	
 	//Date range
 	svg_canvas.append("svg:circle")
-	  .attr("cx",905)
-	  .attr("cy",613)
+	  .attr("cx",955)
+	  .attr("cy",363)
 	  .attr("r",0)
 	  .attr("fill",second_color)
 	  .attr("fill-opacity",0)
@@ -88,7 +88,7 @@ function setup_option_circles(ops_canvas) {
 	//option
 	svg_canvas.append("svg:circle")
 		.attr("cx",800)
-		.attr("cy",650)
+		.attr("cy",350)
 		.attr("r",0)
 		.attr("fill",first_color)
 		.attr("fill-opacity",0)
@@ -100,7 +100,7 @@ function setup_option_circles(ops_canvas) {
 	//juvu me
 	svg_canvas.append("svg:circle")
 		.attr("cx",950)
-		.attr("cy",650)
+		.attr("cy",350)
 		.attr("r",0)
 		.attr("fill",second_color)
 		.attr("fill-opacity",0)
