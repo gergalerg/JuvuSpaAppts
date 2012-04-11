@@ -119,7 +119,7 @@ def book_confirm(request):
 
 def book_congrats(request):
     '''
-    confirm client's information
+    book congratulations
     '''
     return render_to_response(
         'book_congrats.html',
@@ -128,7 +128,7 @@ def book_congrats(request):
 
 def bid_info(request):
     '''
-    confirm client's information
+    capture client's information
     '''
     return render_to_response(
         'bid_info_capture.html',
@@ -141,6 +141,15 @@ def bid_confirm(request):
     '''
     return render_to_response(
         'bid_info_confirm.html',
+        context_instance=RequestContext(request),
+        )
+
+def bid_congrats(request):
+    '''
+    bid congratulations
+    '''
+    return render_to_response(
+        'bid_congrats.html',
         context_instance=RequestContext(request),
         )
 

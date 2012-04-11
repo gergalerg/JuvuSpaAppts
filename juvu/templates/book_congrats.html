@@ -3,9 +3,7 @@
 <head>
 	<title>Juvu</title>
 	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
-    
     <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
-    <script type="text/javascript" src="../static/js/gMaps.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
     
 </head>
@@ -80,6 +78,28 @@
 		</div>
 		
 	</div><!--end of wrapper-->
+	<script type="text/javascript">
+		//google maps
+		window.onload = function()
+		{
+			initialize();
+		}
+		
+		function initialize() {
+			var myLatlng = new google.maps.LatLng(37.78, -122.44);
+			var myOptions = {
+				zoom: 12,
+				center: myLatlng,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+			var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+			var marker = new google.maps.Marker({
+				position: myLatlng,
+				map: map,
+				title:"Merchant Name"
+			});
+		} 
+	</script>
 </body>
 
 </html>

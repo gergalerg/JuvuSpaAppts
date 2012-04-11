@@ -3,11 +3,8 @@
 <head>
 	<title>Juvu</title>
 	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
-    
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
-    
-    
 </head>
 <body>
 	<div class="wrapper">
@@ -16,7 +13,7 @@
 		</div>
 		<div class="infoHeader">(Merchant Name)</div>
 		<div class="merchant_topNav">
-			<a href="#" class="about_tag selected_tag">about</a> | <a href="{% url merchant_reviews %}" class="review_tag">reviews</a> | <span class="service_tag">services</span>
+			<a href="#" class="selected_tag">about</a> | <a href="{% url merchant_reviews %}" class="unselected_tag">reviews</a> | <a href="{% url merchant_services %}" class="unselected_tag">services</a>
 		</div>
 		
 		<div class="merchant_col_l">
