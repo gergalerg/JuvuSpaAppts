@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../static/css/calendar.css" />
 <script type="text/javascript" src="/static/js/less.js"></script>
 <script type="text/javascript" src="/static/js/d3/d3.js"></script>
+    <script type="text/javascript" src="/static/js/d3/d3.time.js"></script>
 <script type="text/javascript" src="/static/js/d3/d3.layout.js"></script>
 {# add jQuery plug in #}
 <script type="text/javascript" src="/static/js/jquery.backstretch.min.js"></script>
@@ -46,6 +47,7 @@ var nav_div;
 <script type="text/javascript" src="/static/js/booking/tree_thing.js"></script>
 <script type="text/javascript" src="/static/js/booking/tree_data.js"></script>
 <script type="text/javascript" src="/static/js/booking/booking.js"></script>
+<script type="text/javascript" src="/static/js/dotscal.js"></script>
 <link href="/static/css/style.css" rel="stylesheet">
 <style type="text/css">
 {% include "booking.css" %}
@@ -67,6 +69,24 @@ $(function(){
         routes.navigate("toc", true);
     }
     clicky(".juvuMe", "inv");
+
+    vis3 = d3.select("#show")
+        .append("svg:svg")
+        .attr("width", dw)
+        .attr("height", 1.9 * dh)
+        .attr("id", "uncanny");
+
+    var circles = vis3.selectAll("circle")
+        .data(ydata)
+    .enter().append("svg:circle")
+        .attr("stroke-width", "none")
+        .call(year_style)
+        .call(mouse_bindings);
+
+    setup_month_tabs(vis3)
+        .transition()
+        .attr("fill-opacity", 0.5);
+
 });
 
 </script>
