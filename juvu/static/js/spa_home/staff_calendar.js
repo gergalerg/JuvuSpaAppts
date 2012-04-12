@@ -1,6 +1,11 @@
 var StaffCalendarModel = function() {
 
     this.mode = "null_mode";
+    this.set_mode = function(mode) {
+        this.mode = mode;
+        $(".button_highlight_highlight").removeClass("button_highlight_highlight");
+        $('#' + mode).parents(".button_highlight").addClass("button_highlight_highlight");
+    }
 
     var me = this;
     this.select = function(start, end, allDay) { me[me.mode].select(start, end, allDay) };
@@ -31,7 +36,7 @@ var StaffCalendarModel = function() {
             },
             true // make the event "stick"
             );
-            me.mode = "null_mode";
+            me.set_mode("null_mode");
         }, // select
     } // block mode
 
@@ -54,7 +59,7 @@ function setup_cal_tools() {
     // Buttons for the different paint modes.
     $("button#block_mode").click(function(){
         console.log("Enter block mode.");
-        staff_cal.mode = "block_mode";
+        staff_cal.set_mode("block_mode");
     })
 }
 
