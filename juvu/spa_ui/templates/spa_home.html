@@ -76,8 +76,8 @@ $(function(){
         selectOtherMonths: true,
         altField: '#from_date',
         onSelect: function () {
-            var d = $(this).datepicker("getDate").toDateString();
-            $("#put_from_date_here").text(d + " to ");
+            var d = $(this).datepicker("getDate");
+            fullcal.fullCalendar('gotoDate', d);
         }
     });
     $("#to_date_cal").datepicker({
@@ -418,91 +418,10 @@ $(function(){
 {% block pane_4 %}
 <div class="row">
 <div class="four columns">
-    <div id="discounts">
+    <div id="from_date_cal"></div>
 
-<form class="nice">
-    <input name="from_date" id="from_date_cal" class="input-text small" type="text"placeholder="Start Date"/>
-    <h3>Create Discount</h3>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mauris felis, eleifend a interdum egestas, dapibus vel augue. Nam convallis, neque a elementum venenatis, tortor leo aliquam tellus, at auctor lorem purus quis elit. Mauris non nibh lorem, quis aliquet metus. Aliquam vestibulum iaculis nisl, vestibulum rhoncus nisl vestibulum eget. Donec auctor magna vel erat ultrices semper. Cras cursus, sem at auctor malesuada, eros purus ornare ligula, in lobortis risus turpis nec sapien. Donec faucibus lobortis nibh at euismod. Maecenas eu lacus tincidunt tortor cursus ullamcorper. Integer eu lobortis sem. Mauris elementum egestas mi a aliquam. Phasellus molestie, lacus molestie posuere vehicula, lectus erat iaculis odio, et porta turpis turpis pharetra tortor.
 
-    <label for="id_discount_name">Name:</label>
-    <input type="text" id="id_discount_name" name="discount_name" class="input-text oogy"/>
-
-    <label for="id_discount_time_from">Time:</label>
-    <input type="text" id="id_discount_time_from" name="discount_time_from" class="input-text small"/>
-
-    <label for="id_discount_time_to">to:</label>
-    <input type="text" id="id_discount_time_to" name="discount_time_to" class="input-text small"/>
-
-    <label for="to_date_cal"><span id="put_from_date_here"><span> - </label>
-    <input name="to_date" id="to_date_cal" class="input-text small" type="text" placeholder="End Date"/>
-
-
-    <ul class="block-grid four-up" style="margin-bottom: 0px;">
-        <li>
-        <label for="id_day_0">M:</label>
-        <input type="checkbox" id="id_day_0" name="day_0"/>
-        </li>
-        <li>
-        <label for="id_day_1">Tu:</label>
-        <input type="checkbox" id="id_day_1" name="day_1"/>
-        </li>
-        <li>
-        <label for="id_day_2">W:</label>
-        <input type="checkbox" id="id_day_2" name="day_2"/>
-        </li>
-        <li>
-        <label for="id_day_3">Th:</label>
-        <input type="checkbox" id="id_day_3" name="day_3"/>
-        </li>
-        <li>
-        <label for="id_day_4">F:</label>
-        <input type="checkbox" id="id_day_4" name="day_4"/>
-        </li>
-        <li>
-        <label for="id_day_5">Sa:</label>
-        <input type="checkbox" id="id_day_5" name="day_5"/>
-        </li>
-        <li>
-        <label for="id_day_6">Su:</label>
-        <input type="checkbox" id="id_day_6" name="day_6"/>
-        </li>
-    </ul>
-    <div id="ddddd">
-    <label for="id_discount_a">Juvu Purple:</label>
-    <input type="checkbox" id="id_discount_a" name="discount_a"/>
-    <input type="text" name="discount_a_percent" class="input-text small"/>
-    <br/>
-    <label for="id_discount_b">Juvu Blue:</label>
-    <input type="checkbox" id="id_discount_b" name="discount_b"/>
-    <input type="text" name="discount_b_percent" class="input-text small"/>
-    <br/>
-    <label for="id_discount_c">Juvu Green:</label>
-    <input type="checkbox" id="id_discount_c" name="discount_c"/>
-    <input type="text" name="discount_c_percent" class="input-text small"/>
-    <br/>
-    <label for="id_discount_d">No Status:</label>
-    <input type="checkbox" id="id_discount_d" name="discount_d"/>
-    <input type="text" name="discount_d_percent" class="input-text small"/>
-    <br/>
-    <label for="id_discount_e">Repeat Clients 3:</label>
-    <input type="checkbox" id="id_discount_e" name="discount_e"/>
-    <input type="text" name="discount_e_percent" class="input-text small"/>
-    <br/>
-    <label for="id_discount_f">Repeat Clients 2:</label>
-    <input type="checkbox" id="id_discount_f" name="discount_f"/>
-    <input type="text" name="discount_f_percent" class="input-text small"/>
-    <br/>
-    <label for="id_discount_g">All Repeat Clients:</label>
-    <input type="checkbox" id="id_discount_g" name="discount_g"/>
-    <input type="text" name="discount_g_percent" class="input-text small"/>
-    </div>
-
-    <button id="add_staff" data-bind="click: add_staff_member">Add Staff Member</button>
-
-    <h3>Active Discounts</h3>
-</form>
-
-    </div>
 </div>{# columns #}
 <div class="eight columns">
     <div id="show"></div>
