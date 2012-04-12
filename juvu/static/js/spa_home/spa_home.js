@@ -5,14 +5,14 @@
 //
 
 function toc_in() {
-    $("#toc").switchClass("seven", "two", 500, 'easeOutBounce', function() {
+    $("#toc").switchClass("two", "seven", 500, 'easeOutBounce', function() {
         $("#main_frame").fadeIn();
     });
 }
 
 function toc_out() {
     $("#main_frame").fadeOut(150, function() {
-        $("#toc").switchClass("two", "seven", 150);
+        $("#toc").switchClass("seven", "two", 150);
     });
 }
 

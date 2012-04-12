@@ -10,7 +10,7 @@ var routey = Backbone.Router.extend({
     },
 
     toc: function() {
-        viewModel.viewing("toc");
+        viewModel.viewing("0");
     },
 
     step: function(num) {
