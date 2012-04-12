@@ -2,9 +2,9 @@
 @bg: #fff;
 @foundation_link_blue: #2A85E8;
 @call_out: #FFF;
-@title_font: 'Josefin Sans', sans-serif;
-@body_font: 'Philosopher', serif;
-@widget_font: 'Istok Web', serif;
+@title_font: Helvetica, Arial, Sans-serif;/*'Josefin Sans', sans-serif;*/
+@body_font: Helvetica, Arial, Sans-serif;/*'Philosopher', serif;*/
+@widget_font: Helvetica, Arial, Sans-serif;/*'Istok Web', serif;*/
 
 body {
     font-family: @body_font;
@@ -40,7 +40,48 @@ h1, h2, h3, h4, h5, h6 {
         background-color: @foundation_link_blue;
         font-weight: 400;
     }
+    
+    //chinpin
+    margin-bottom:		6px;
 }
+
+/*chinpin*/
+#toc h3{
+	float:				left;
+	margin-left:		-2px;
+	margin-right:		30px;
+}
+
+#toc div h5{
+	text-align:			left;
+	margin-left:		3px;
+}
+
+#title_bar{
+	border-bottom:		3px solid black;
+	height:				50px;
+	margin-bottom: 		18px;
+}
+
+#pane_0 table tr th{
+	padding-top:		11px;
+	text-align:			right;
+	font-weight:		bold;
+	letter-spacing:		0.1em;
+}
+
+#pane_0 table tbody tr td p{
+	margin-top:			4px;
+	margin-bottom:		18px;
+	width:				400px;
+}
+
+.nice{
+	font-weight:		bold;
+}
+/*chinpin*/
+
+
 
 #choose {
     label {
@@ -110,6 +151,15 @@ h1, h2, h3, h4, h5, h6 {
 
 #pane_4 {
     padding-bottom: 2.5em;
+}
+
+#cal_tools > form {
+    display: inline-block;
+}
+
+.button_highlight {
+    padding: 0.5em;
+    background-color: yellow;
 }
 
 text {

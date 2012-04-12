@@ -1,4 +1,3 @@
-/*less.js*/
 @dark-gray:				#808080;
 @light-gray:			#E6E6E6;
 @light-blue:			#3FA9F5;
@@ -322,6 +321,12 @@ body{
 	margin-left:		24px;
 	margin-top:			20px;
 }
+
+
+@dark-gray:				#808080;
+@light-gray:			#E6E6E6;
+@light-blue:			#3FA9F5;
+@magenta:				#FF0099;
 
 .pre_btn{
 	float:				left;
@@ -1032,3 +1037,22 @@ h6{
 .a_form_submit:hover{
 	background-color:	#3FA9F5;
 }
+
+/*popout window*/
+#cancellation{
+	width:				500px;
+	line-height:		24px;
+	font-size:			16px;
+	color:				gray;
+	overflow: 			hidden;
+    padding: 			20px;
+}
+
+#cancellation_title{
+	text-transform:		uppercase;
+	color:				#3FA9F5;
+	font-size:			20px;
+}
+
+
+
