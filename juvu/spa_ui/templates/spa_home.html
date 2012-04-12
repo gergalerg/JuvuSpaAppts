@@ -88,6 +88,7 @@ $(function(){
 //        onSelect: date_selected
     });
 
+    setup_cal_tools();
 
     $("#current_staff_class").change(function() {
         var csc = $(this).val();
@@ -424,7 +425,24 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mauris felis, ele
 
 </div>{# columns #}
 <div class="eight columns">
-    <div id="show"></div>
+
+  <div id="cal_tools">
+    <form class="nice"><select id="ctsc"><option value="">Staff Class</option>
+    <option value="Massage">Massage</option>
+    <option value="Face">Face</option>
+    <option value="Hair">Hair</option>
+    <option value="Hair Removal">Hair Removal</option>
+    <option value="Nails">Nails</option>
+    <option value="Fitness">Fitness</option>
+    <option value="Alternative Wellness">Alternative Wellness</option>
+    <option value="Body Treatments">Body Treatments</option>
+    <option value="Dental">Dental</option>
+    </select></form>
+    <span id="fuk"></span>
+  </div>
+
+  <div id="show"></div>
+
 </div>{# columns #}
 </div>{# row #}
 {% endblock %}
