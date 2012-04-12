@@ -3,9 +3,14 @@
 <head>
 	<title>Juvu</title>
 	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/booking.css" />
     
+    <!--google maps api-->
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <!--popout window-->
+    <script type="text/javascript" src="../static/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+   
 </head>
 <body>
 	<div class="wrapper">
@@ -68,7 +73,22 @@
 				Integer gravida sapien eget erat consequat nec congue neque porta.<br/>
 				Vestibulum tempus tortor eget risus commodo ultricies.
 				</p>
-				<a class="link" href="#">cancellation policy</a>
+				
+				<!--popout window-->
+				<a class="link cancel" href="#cancellation">cancellation policy</a>
+				<div style="display:none;">
+					<div id="cancellation">
+						<div id="cancellation_title">cancellation policy</div>
+						<!--merchant's cancellation policy contents-->
+						<p>
+						Duis in risus at quam ullamcorper adipiscing ut volutpat neque. 
+						Ut eget nibh ac arcu pulvinar posuere at non leo. Vivamus quis 
+						dui quis nisl venenatis commodo. Pellentesque cursus diam in neque 
+						ornare lobortis. Integer gravida sapien eget erat consequat nec 
+						congue neque porta. Vestibulum tempus tortor eget risus commodo ultricies.
+						</p>
+					</div>
+				</div><!--End of popout window-->
 			</div>
 			
 			<div class="congrats_r_rightCol">
@@ -76,29 +96,40 @@
 				<div id="map_canvas"></div>
 			</div>
 		</div>
-		
+		<div style="clear:both;"></div>
 	</div><!--end of wrapper-->
 	<script type="text/javascript">
-		//google maps
-		window.onload = function()
-		{
-			initialize();
-		}
-		
-		function initialize() {
-			var myLatlng = new google.maps.LatLng(37.78, -122.44);
-			var myOptions = {
-				zoom: 12,
-				center: myLatlng,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
+		$(function(){
+			//google maps
+			window.onload = function()
+			{
+				initialize();
 			}
-			var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-			var marker = new google.maps.Marker({
-				position: myLatlng,
-				map: map,
-				title:"Merchant Name"
+			
+			function initialize() {
+				var myLatlng = new google.maps.LatLng(37.78, -122.44);
+				var myOptions = {
+					zoom: 12,
+					center: myLatlng,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				}
+				var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+				var marker = new google.maps.Marker({
+					position: myLatlng,
+					map: map,
+					title:"Merchant Name"
+				});
+			}
+			
+			//popout window
+			$('a.cancel').fancybox({
+				'transitionIn'	:	'elastic',
+				'transitionOut'	:	'elastic',
+				'speedIn'		:	300, 
+				'speedOut'		:	200, 
+				'overlayShow'	:	true
 			});
-		} 
+		});
 	</script>
 </body>
 
