@@ -6,7 +6,7 @@ PROJECT_ROOT = dirname(__file__)
 
 
 PRODUCTION = exists(join(PROJECT_ROOT, 'production'))
-DEBUG = True
+DEBUG = not PRODUCTION
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
