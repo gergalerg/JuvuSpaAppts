@@ -6,6 +6,7 @@
 <script type="text/javascript">
     var root = {{ tree_data|safe }};
     var staff = {{ staff|safe }};
+    var staff_cal;
 </script>
 <script src="/static/js/spa_home/spa_home.js" type="text/javascript"></script>
 <script src="/static/js/spa_home/rdf_processing.js" type="text/javascript"></script>
@@ -20,19 +21,7 @@ var routes = new routey();
 
 $(function(){
 
-    var fullcal = $("#show").fullCalendar({
-        // put your options and callbacks here
-        header: {
-            left: 'prev,next title',
-            center: '',
-            right: '',
-//            right: 'today',
-        },
-        height: 650,
-        defaultView: 'agendaWeek',
-        selectable: true,
-        weekends: true,
-    });
+    staff_cal = new StaffCalendarModel();
 
     $("#main_frame").hide();
     $(".pane").hide();
@@ -57,6 +46,8 @@ $(function(){
     setup_button("button#delete_staff", 'ui-icon-circle-close', true);
     setup_button("button#expando_staff_class", 'ui-icon-circle-triangle-s');
     setup_button("button#del_staff_class", 'ui-icon-circle-close');
+    setup_button("button#block_mode", 'ui-icon-circle-plus', true);
+    setup_button("button#discount_mode", 'ui-icon-circle-check', true);
 
     $("#slider").slider({
         max: 0.25,
@@ -77,7 +68,7 @@ $(function(){
         altField: '#from_date',
         onSelect: function () {
             var d = $(this).datepicker("getDate");
-            fullcal.fullCalendar('gotoDate', d);
+            staff_cal.gotoDate(d);
         }
     });
     $("#to_date_cal").datepicker({
@@ -421,7 +412,17 @@ $(function(){
 <div class="four columns">
     <div id="from_date_cal"></div>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mauris felis, eleifend a interdum egestas, dapibus vel augue. Nam convallis, neque a elementum venenatis, tortor leo aliquam tellus, at auctor lorem purus quis elit. Mauris non nibh lorem, quis aliquet metus. Aliquam vestibulum iaculis nisl, vestibulum rhoncus nisl vestibulum eget. Donec auctor magna vel erat ultrices semper. Cras cursus, sem at auctor malesuada, eros purus ornare ligula, in lobortis risus turpis nec sapien. Donec faucibus lobortis nibh at euismod. Maecenas eu lacus tincidunt tortor cursus ullamcorper. Integer eu lobortis sem. Mauris elementum egestas mi a aliquam. Phasellus molestie, lacus molestie posuere vehicula, lectus erat iaculis odio, et porta turpis turpis pharetra tortor.
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+<div class="button_highlight">
+<button id="block_mode">block</button>
+</div>
+<div class="button_highlight">
+<button id="discount_mode">discount</button>
+</div>
+
+
+Proin mauris felis, eleifend a interdum egestas, dapibus vel augue. Nam convallis, neque a elementum venenatis, tortor leo aliquam tellus, at auctor lorem purus quis elit. Mauris non nibh lorem, quis aliquet metus. Aliquam vestibulum iaculis nisl, vestibulum rhoncus nisl vestibulum eget. Donec auctor magna vel erat ultrices semper. Cras cursus, sem at auctor malesuada, eros purus ornare ligula, in lobortis risus turpis nec sapien. Donec faucibus lobortis nibh at euismod. Maecenas eu lacus tincidunt tortor cursus ullamcorper. Integer eu lobortis sem. Mauris elementum egestas mi a aliquam. Phasellus molestie, lacus molestie posuere vehicula, lectus erat iaculis odio, et porta turpis turpis pharetra tortor.
 
 </div>{# columns #}
 <div class="eight columns">

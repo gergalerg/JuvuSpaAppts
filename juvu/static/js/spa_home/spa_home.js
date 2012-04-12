@@ -4,13 +4,6 @@
 // Miscellaneous functions.
 //
 
-function setup_cal_tools() {
-    $("#ctsc").change(function() {
-        $("#fuk").text($("#ctsc").val());
-    })
-}
-
-
 function toc_in() {
     $("#toc").switchClass("seven", "two", 500, 'easeOutBounce', function() {
         $("#main_frame").fadeIn();

@@ -1,3 +1,94 @@
+var StaffCalendarModel = function() {
+
+    this.mode = "null_mode";
+
+    var me = this;
+    this.select = function(start, end, allDay) { me[me.mode].select(start, end, allDay) };
+
+    this.fullcal = setup_staff_calendar(this);
+
+    this.gotoDate = function(d) {
+        this.fullcal.fullCalendar('gotoDate', d);
+    };
+
+    this.null_mode = {
+        select: function(start, end, allDay) {
+            me.fullcal.fullCalendar('unselect');
+        }, // select
+    } // null mode
+
+    this.block_mode = {
+        select: function(start, end, allDay) {
+            me.fullcal.fullCalendar('unselect');
+            me.fullcal.fullCalendar(
+            'renderEvent',
+            {
+                title: 'Sup homies!?',
+                start: start,
+                end: end,
+                allDay: allDay,
+                className: 'brandnew'
+            },
+            true // make the event "stick"
+            );
+        }, // select
+    } // block mode
+
+    this.discount_mode = {
+        select: function(start, end, allDay) {
+            me.fullcal.fullCalendar('unselect');
+        }, // select
+    } // discount mode
+
+}
+
+
+function setup_cal_tools() {
+
+    // Staff class selector.
+    var f = function() { $("#fuk").text($("#ctsc").val()) };
+    $("#ctsc").change(f)
+    f();
+
+    // Buttons for the different paint modes.
+    $("button#block_mode").click(function(){
+        console.log("Enter block mode.");
+        staff_cal.mode = "block_mode";
+    })
+}
+
+
+function setup_staff_calendar(mod) {
+    return $("#show").fullCalendar({
+            // put your options and callbacks here
+            header: {
+                left: 'title',
+                center: '',
+                right: '',
+            },
+            height: 650,
+            defaultView: 'agendaWeek',
+            selectable: true,
+            weekends: true,
+            slotMinutes: 15,
+            select: mod.select,
+        });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Everything below here is old and should be removed (as soon as we determine that it's not being used anywhere.)
+
 function random_apts(staff_member) {
     var res = [Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random()];
     res.sort();
