@@ -120,7 +120,7 @@ $(function(){
     crambery(3);
 
     if (!Backbone.history.start()) {
-        routes.navigate("toc", true);
+        routes.navigate("0", true);
     }
 });
 </script>
@@ -130,7 +130,7 @@ $(function(){
 
 {% block header %}
 <div id="title_bar">
-  <h1>{{ spa_name|default:"&lt;SPA NAME&gt;" }}</h1> <h3 data-bind="text:view_title">Home</h3>
+  <h1>{{ spa_name|default:"&lt;SPA NAME&gt;" }}</h1> {# removed by chinpin<h3 data-bind="text:view_title">Home</h3> #}
 </div>
 {% endblock %}
 
@@ -139,7 +139,8 @@ $(function(){
     <h3><a id="1_link" href="#step/1">Services</a></h3>
     <h3><a id="3_link" href="#step/3">Staff</a></h3>
     <h3><a id="4_link" href="#step/4">Calendar</a></h3>
-      <div data-bind="visible:viewing()==4, template: {name:'toc_staff_template', foreach: staff}"></div>
+      <div style="clear:both"></div>
+      {# remove by chinpin <div data-bind="visible:viewing()==4, template: {name:'toc_staff_template', foreach: staff}"></div> #}
 {% endblock %}
 
 {% block pane_0 %}
@@ -223,7 +224,7 @@ $(function(){
     <form id="add_subtype" class="nice">
         <label for="nickname">Name:</label><input name="nickname" class="input-text" type="text" data-bind="value:current_proc().nickname" placeholder="None Selected"><br>
         <label for="price">Price:</label><input name="price" class="input-text" type="text" data-bind="value:current_proc().price" placeholder="Price"><br>
-        <label for="duration">Minutes:</label><input name="duration" class="input-text" type="text" data-bind="value:current_proc().duration" placeholder="Duration"><br>
+        <label for="duration">Minutes:</label><input name="duration" class="input-text" type="text" data-bind="value:current_proc().duration" placeholder="Duration">
         <div id="resource_picker">
           <a style="cursor:pointer" data-bind="click:toggle_resources">resources</a>
           <div id="resource_picker_inner" class="picker_inner">
