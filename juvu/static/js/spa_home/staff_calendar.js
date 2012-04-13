@@ -37,6 +37,7 @@ var StaffCalendarModel = function() {
             true // make the event "stick"
             );
             me.set_mode("null_mode");
+            $('#yo_dialog').reveal();
         }, // select
     } // block mode
 
