@@ -3,6 +3,10 @@
 @light-blue:			#3FA9F5;
 @magenta:				#FF0099;
 
+.colorGray{
+	color:				gray;
+}
+
 body{
 	margin:				0;
 	font-family:        "Helvetica","Arial","Sans-serif";
@@ -209,7 +213,7 @@ body{
 }
 
 .m_itemsName{
-	font-weight:		bold;
+	color:				#3FA9F5;
 	list-style-type:	disc;
 	padding-left:		12px;
 	font-size:			0.8em;
@@ -373,9 +377,10 @@ body{
 	margin-left:		36px;
 	margin-top:			20px;
 	font-size:			15px;
-	font-weight:		bold;
 	list-style-type:	none;
 	padding:			0;
+	color:				#3FA9F5;
+	letter-spacing:		0.1em;
 }
 
 .first_day{
@@ -598,12 +603,15 @@ body{
 	font-size:			24px;
 	padding-left:		12px;
 	margin-top:			24px;
-	color:				black;
+	color:				gray;
 	text-align:			center;
 }
 
-.instruct span{
+.instruct_s{
 	font-size:			18px;
+	color:				gray;
+	line-height:		24px;
+	text-align:			center;
 }
 
 .link{
@@ -642,10 +650,6 @@ body{
 	margin-left:		536px;
 }
 
-.confirm_color{
-	color:				#808080;
-}
-
 .edit_btn{
 	background-color: 	#7ac2f5;
     border-radius: 		3px 3px 3px 3px;
@@ -661,10 +665,6 @@ body{
 
 .edit_btn:hover{
 	background-color: 	#3fa9f5;
-}
-
-.m_description{
-	color:				gray;
 }
 
 /*post*/
@@ -744,13 +744,12 @@ body{
 
 .con_header{
 	font-weight:		bold;
-	font-style:			italic;
 	margin-bottom:		12px;
 	margin-top:			24px;
 }
 
 .a_cancel_btn{
-	color:				gray;
+	color:				#3FA9F5;
 	text-decoration:	none;
 	float:				right;
 	font-size:			24px;
@@ -759,7 +758,7 @@ body{
 }
 
 .a_cancel_btn:hover{
-	color:				#3FA9F5;
+	color:				#FF0099;
 	text-decoration:	underline;
 }
 
