@@ -55,4 +55,11 @@ def signup(request):
         context_instance=RequestContext(request),
         )
 
-
+def signup_success(request):
+    '''
+    sign up success page
+    '''
+    return render_to_response(
+        'sign_up_success.html',
+        context_instance=RequestContext(request),
+        )
