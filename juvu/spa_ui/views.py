@@ -153,9 +153,6 @@ TREE = dumps(TREEd, indent=2)
 
 
 STAFF = [
-    {'name': 'Billy'},
-    {'name': 'Bob'},
-    {'name': 'Billy Jo Bob'},
     ]
 
 
