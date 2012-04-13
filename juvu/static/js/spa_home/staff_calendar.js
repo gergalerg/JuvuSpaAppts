@@ -32,7 +32,7 @@ var StaffCalendarModel = function() {
                 start: start,
                 end: end,
                 allDay: allDay,
-                className: 'brandnew'
+                className: 'blocky'
             },
             true // make the event "stick"
             );
@@ -43,6 +43,23 @@ var StaffCalendarModel = function() {
     this.discount_mode = {
         select: function(start, end, allDay) {
             me.fullcal.fullCalendar('unselect');
+            me.fullcal.fullCalendar(
+            'renderEvent',
+            {
+                title: 'Aw yeah! Discount!',
+                start: start,
+                end: end,
+                allDay: allDay,
+                className: 'discounty'
+            },
+            true // make the event "stick"
+            );
+            var d = $(".discounty")
+            d.find(".fc-event-inner").removeClass("fc-event-skin");
+            d.find(".fc-event-head").removeClass("fc-event-skin");
+            d.find(".fc-event-bg").detach();
+            me.set_mode("null_mode");
+            $('#yo_dialog').reveal();
         }, // select
     } // discount mode
 
@@ -60,6 +77,10 @@ function setup_cal_tools() {
     $("button#block_mode").click(function(){
         console.log("Enter block mode.");
         staff_cal.set_mode("block_mode");
+    })
+    $("button#discount_mode").click(function(){
+        console.log("Enter discount mode.");
+        staff_cal.set_mode("discount_mode");
     })
 }
 
