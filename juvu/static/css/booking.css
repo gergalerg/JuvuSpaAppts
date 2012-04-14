@@ -3,6 +3,10 @@
 @light-blue:			#3FA9F5;
 @magenta:				#FF0099;
 
+.colorGray{
+	color:				gray;
+}
+
 body{
 	margin:				0;
 	font-family:        "Helvetica","Arial","Sans-serif";
@@ -209,7 +213,7 @@ body{
 }
 
 .m_itemsName{
-	font-weight:		bold;
+	color:				#3FA9F5;
 	list-style-type:	disc;
 	padding-left:		12px;
 	font-size:			0.8em;
@@ -373,9 +377,10 @@ body{
 	margin-left:		36px;
 	margin-top:			20px;
 	font-size:			15px;
-	font-weight:		bold;
 	list-style-type:	none;
 	padding:			0;
+	color:				#3FA9F5;
+	letter-spacing:		0.1em;
 }
 
 .first_day{
@@ -598,12 +603,15 @@ body{
 	font-size:			24px;
 	padding-left:		12px;
 	margin-top:			24px;
-	color:				black;
+	color:				gray;
 	text-align:			center;
 }
 
-.instruct span{
+.instruct_s{
 	font-size:			18px;
+	color:				gray;
+	line-height:		24px;
+	text-align:			center;
 }
 
 .link{
@@ -628,6 +636,7 @@ body{
 	border-bottom:		1px dotted #000;
 	padding-bottom:		5px;
 	margin-bottom: 		0;
+	margin-top:			50px;
 }
 
 .billing_form{
@@ -640,10 +649,6 @@ body{
 .confirm_area{
 	width:				500px;
 	margin-left:		536px;
-}
-
-.confirm_color{
-	color:				#808080;
 }
 
 .edit_btn{
@@ -661,10 +666,6 @@ body{
 
 .edit_btn:hover{
 	background-color: 	#3fa9f5;
-}
-
-.m_description{
-	color:				gray;
 }
 
 /*post*/
@@ -744,13 +745,12 @@ body{
 
 .con_header{
 	font-weight:		bold;
-	font-style:			italic;
 	margin-bottom:		12px;
 	margin-top:			24px;
 }
 
 .a_cancel_btn{
-	color:				gray;
+	color:				#3FA9F5;
 	text-decoration:	none;
 	float:				right;
 	font-size:			24px;
@@ -759,7 +759,7 @@ body{
 }
 
 .a_cancel_btn:hover{
-	color:				#3FA9F5;
+	color:				#FF0099;
 	text-decoration:	underline;
 }
 
@@ -1052,6 +1052,40 @@ h6{
 	text-transform:		uppercase;
 	color:				#3FA9F5;
 	font-size:			20px;
+}
+
+.instruct_signup{
+	color: 				gray;
+    font-size: 			16px;
+    line-height: 		24px;
+    padding-left: 		75px;
+    text-align: 		left;
+    margin-top: 		48px;
+    float:				left;
+    width:				400px;
+}
+
+.juvume_circle{
+	width:				80px;
+	height:				60px;
+	margin-left: 		140px;
+    margin-top: 		40px;
+	padding-left:		20px;
+	padding-top:		40px;
+	border-radius:		50px;
+	background-color:	#8CCBF9;
+	color:				white;
+	transition: 		background-color 1s;
+	-moz-transition: 	background-color 1s;
+	-webkit-transition: background-color 1s;
+	-o-transition: 		background-color 1s;
+	text-shadow:		2px 2px 1px gray;
+	box-shadow:			2px 2px 1px #E6E6E6;
+	cursor:				pointer;
+}
+
+.juvume_circle:hover{
+	background-color:	#3FA9F5;
 }
 
 

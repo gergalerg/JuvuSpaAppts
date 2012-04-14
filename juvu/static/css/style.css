@@ -47,6 +47,7 @@ body{
     border-radius:		10px;
     padding:			3px 5px 3px 5px;
     background-color:	#AFAFAF;
+    cursor:				pointer;
 }
 .landing_sub:hover{
     background-color: 	#4D4D4D;
