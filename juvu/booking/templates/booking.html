@@ -68,7 +68,7 @@ $(function(){
     if (!Backbone.history.start()) {
         routes.navigate("toc", true);
     }
-    clicky(".juvuMe", "inv");
+    $(".juvuMe").click(function() { window.location.href = "/look/inv"; });
 
     vis3 = d3.select("#show")
         .append("svg:svg")
