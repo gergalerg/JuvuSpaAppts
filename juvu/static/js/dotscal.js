@@ -13,6 +13,50 @@ var day = d3.time.format("%w"),
 
 function month(d) { return _month(d) - 1 }
 
+
+
+var dh = 250, dw = 1024;
+var x0 = 10, x1 = 914;
+
+var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
+    y = d3.scale.linear().domain([0,7]).range([20,dh]),
+
+    r = d3.scale.linear().domain([0,1]).range([5,10]),
+    r_med = d3.scale.linear().domain([0,1]).range([15,30]),
+    r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
+
+    r_days_1 = d3.scale.linear().domain([0,1]).range([215, 225]),
+    r_days_2 = d3.scale.linear().domain([0,1]).range([155, 175]),
+    r_days_3 = d3.scale.linear().domain([0,1]).range([125, 145]),
+    r_days_4 = d3.scale.linear().domain([0,1]).range([95, 115]),
+    r_days_5 = d3.scale.linear().domain([0,1]).range([70, 90]),
+    r_days_6 = d3.scale.linear().domain([0,1]).range([50, 70]),
+
+    c0 = d3.scale.linear().domain([0,1]).range(
+        ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
+        ).interpolate(d3.interpolateHsl);
+    c1 = d3.scale.linear().domain([0,1]).range(
+        ["hsl(150, 50%, 50%)", "hsl(250, 100%, 50%)"]
+        ).interpolate(d3.interpolateHsl);
+
+var radii = {
+    current: r,
+    small: r,
+    large: r_med,
+    set_sizes: function(sm, lg) {
+        radii.large = lg;
+        radii.small = sm;
+    },
+};
+
+var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
+    ym = d3.scale.linear().domain([0,4]).range([45, dh * 1.618]),
+    xr = d3.scale.linear().domain([0,7]).range([0, 200]),
+    yr = d3.scale.linear().domain([0,4]).range([45, dh * 1.618]);
+
+var xmselector = d3.scale.linear().domain([1, 12]).range([x0, x1]);
+
+
 //-------------------------------------------------------
 // Teh Year Data.
 //
@@ -95,49 +139,59 @@ DOTSCAL_VM.pointed_at_el.subscribe(function(it) {
     DOTSCAL_VM.pointed_at_last = it;
 });
 
-var dh = 250, dw = 1024;
-var x0 = 10, x1 = 914;
+DOTSCAL_VM.time_mode.subscribe(function(tmode) {
+    console.log("Time mode:", tmode);
+    if (tmode != 'year') {
+        month_tabs_fade(vis3);
+    }
 
-var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
-    y = d3.scale.linear().domain([0,7]).range([20,dh]),
+    switch (tmode[0]) {
+        case 'y': // switch to year.
+            select_year();
+            month_tabs_unfade(vis3)
+            break;
+        case 'm': // switch to month.
+            select_month(tmode.substr(1));
+            break;
+        case 's': // switch to selection.
+            select_dates()
+            break;
+    }
+});
 
-    r = d3.scale.linear().domain([0,1]).range([5,10]),
-    r_med = d3.scale.linear().domain([0,1]).range([15,30]),
-    r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
+function date_labelize(S) { S
+    var x = S.attr("cx");
+    var y = 100 + 1 * S.attr("cy");
+    var weekday_label, day_label;
+    S.map(function(d) {
+        weekday_label = d.weekday_label;
+        day_label = d.day_label;
+        return d;
+    });
+    console.log(x, y, weekday_label, day_label);
+    var text = vis3.append("svg:text");
+    text.attr("class", "date_label")
+        .attr("x", x)
+        .attr("y", y)
+        .attr("font-size", 16)
+        .attr("fill-opacity", 1)
+        .attr("text-anchor", "middle")
+        ;
+    text.append("svg:tspan").text(weekday_label);
+    text.append("svg:tspan").text(day_label)
+        .attr("x", x)
+        .attr("dy", 20)
+        ;
+}
 
-    r_days_1 = d3.scale.linear().domain([0,1]).range([215, 225]),
-    r_days_2 = d3.scale.linear().domain([0,1]).range([155, 175]),
-    r_days_3 = d3.scale.linear().domain([0,1]).range([125, 145]),
-    r_days_4 = d3.scale.linear().domain([0,1]).range([95, 115]),
-    r_days_5 = d3.scale.linear().domain([0,1]).range([70, 90]),
-    r_days_6 = d3.scale.linear().domain([0,1]).range([50, 70]),
-
-    c0 = d3.scale.linear().domain([0,1]).range(
-        ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
-        ).interpolate(d3.interpolateHsl);
-    c1 = d3.scale.linear().domain([0,1]).range(
-        ["hsl(150, 50%, 50%)", "hsl(250, 100%, 50%)"]
-        ).interpolate(d3.interpolateHsl);
-
-var radii = {
-    current: r,
-    small: r,
-    large: r_med,
-    set_sizes: function(sm, lg) {
-        radii.large = lg;
-        radii.small = sm;
-    },
-};
-
-var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
-    ym = d3.scale.linear().domain([0,4]).range([45, dh * 1.618]),
-    xr = d3.scale.linear().domain([0,7]).range([0, 200]),
-    yr = d3.scale.linear().domain([0,4]).range([45, dh * 1.618]);
-
-var xmselector = d3.scale.linear().domain([1, 12]).range([x0, x1]);
-
-
-
+function select_dates() {
+    var from_date = $("#from_date_cal").datepicker("getDate");
+    var to_date = $("#to_date_cal").datepicker("getDate");
+    if (!(_.isNull(from_date) || _.isNull(to_date))) {
+        select_date_range(from_date, to_date);
+        $("#options_criteria").fadeIn(CriteriaControls.show_options);
+    }
+}
 
 function setup_month_tabs(V) {
     var months = ['January',
