@@ -1,21 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Juvu</title>
-	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
-    
-    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
-    <script type="text/javascript" src="../static/js/jquery.backstretch.min.js"></script>
-    <script type="text/javascript">
-		$.backstretch("../static/image/apply_form_bg.png");
-		$(function(){
-			$('#backstretch').animate({opacity:0.7},1000);
-		});
-	</script>
-</head>
-<body>
-	<div class="wrapper">
-	<form>
+{% extends "signup_base.html" %}
+{% block body %}
+	<form method="POST" action="{% url signup %}">
+	    {% csrf_token %}
 		<div class="sign_up_title">Sign Up!</div>
 		<div class="form_shell">
 	    <table>
@@ -24,6 +10,4 @@
 	    </table>
 	    </div>
 	</form>
-	</div>
-</body>
-</html>
+{% endblock %}

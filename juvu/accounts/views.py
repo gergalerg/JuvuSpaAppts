@@ -43,11 +43,11 @@ def signup(request):
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
             user.save()
-            user = authenticate(
+            user = auth.authenticate(
                 username=form.cleaned_data['email'],
                 password=form.cleaned_data['password'],
                 )
-            login(request, user)
+            auth.login(request, user)
             return redirect(reverse("signup_success"))
 
     return render_to_response(
