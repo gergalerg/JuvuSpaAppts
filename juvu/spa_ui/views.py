@@ -169,6 +169,7 @@ def home(request):
         context_instance=RequestContext(request),
         )
 
+
 def cal(request):
     '''
     '''
@@ -177,3 +178,33 @@ def cal(request):
         context_instance=RequestContext(request),
         )
 
+
+def merchant(request):
+    '''
+    merchant page - about.
+    '''
+    return render_to_response(
+        'merchant_about.html',
+        context_instance=RequestContext(request),
+        )
+
+
+def merchant_reviews(request):
+    '''
+    merchant page - user review.
+    '''
+    return render_to_response(
+        'merchant_reviews.html',
+        context_instance=RequestContext(request),
+        )
+
+
+def merchant_services(request):
+    '''
+    merchant page - services.
+    '''
+    return render_to_response(
+        'merchant_services.html',
+        context_instance=RequestContext(request),
+        )
+       
