@@ -211,7 +211,9 @@ function select_today() {
     } else {
         select_dates();
     }
+    routes.navigate("choose/date", true);
     reveal_option_circle();
+    routes.navigate("choose/opts", true);
 }
 
 function setup_month_tabs(V) {
