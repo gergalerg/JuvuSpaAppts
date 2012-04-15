@@ -99,6 +99,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     join(PROJECT_ROOT, 'templates'),
+    join(PROJECT_ROOT, 'accounts', 'templates'),
     join(PROJECT_ROOT, 'booking', 'templates'),
     join(PROJECT_ROOT, 'innerview', 'templates'),
     join(PROJECT_ROOT, 'spa_ui', 'templates'),
