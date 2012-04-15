@@ -37,27 +37,63 @@ var ydata = jQuery.map(year, function(d, i) {
 
 //-------------------------------------------------------
 // Mouse bindings for the day-circles.
-// Mostly to de-couple the viewModel logic from the d3 transitions that
+// Mostly to de-couple the DOTSCAL_VM logic from the d3 transitions that
 // animate it.
+
+var DOTSCAL_VM = {
+
+    // Track which time display mode user is using (month, week, year, etc...)
+    time_mode: ko.observable('year'),
+
+    current: ko.observable(""),
+    current_el: ko.observable(),
+
+    pointed_at: ko.observable("Wants Pawn Term, "),
+    pointed_at_el: ko.observable(),
+    pointed_at_last: false,
+
+	is_current: function(d) {
+	    return DOTSCAL_VM.current() == d.label;
+	},
+}
 
 function mouse_bindings(T) { T
 	.on("mouseover", function(d) {
-        viewModel.pointed_at(d.label);
-        viewModel.pointed_at_el(this);
+        DOTSCAL_VM.pointed_at(d.label);
+        DOTSCAL_VM.pointed_at_el(this);
     })
 	.on("mouseout", function(d) {
-        var c = viewModel.current();
-        viewModel.pointed_at(c);
-        viewModel.pointed_at_el(false);
+        var c = DOTSCAL_VM.current();
+        DOTSCAL_VM.pointed_at(c);
+        DOTSCAL_VM.pointed_at_el(false);
     })
 	.on("click", function(d) {
-        if (!viewModel.is_current(d)) {
-            viewModel.current(d.label);
-            viewModel.current_el(this);
+        if (!DOTSCAL_VM.is_current(d)) {
+            DOTSCAL_VM.current(d.label);
+            DOTSCAL_VM.current_el(this);
         }
     });
 }
 
+DOTSCAL_VM.pointed_at_el.subscribe(function(it) {
+    if (it) {
+        it = d3.select(it);
+        it.transition().call(embiggen);
+        if (DOTSCAL_VM.time_mode() == "selection") { date_labelize(it) };
+    } else if (DOTSCAL_VM.pointed_at_last) {
+        DOTSCAL_VM.pointed_at_last
+        .filter(function(d) { return !DOTSCAL_VM.is_current(d); }) // Don't shrink current day.
+        .transition()
+        .call(shrink);
+        if (DOTSCAL_VM.time_mode() == "selection") {
+            vis3.selectAll("text.date_label")
+            .transition()
+            .attr("fill-opacity", 0)
+            .remove();
+        }
+    }
+    DOTSCAL_VM.pointed_at_last = it;
+});
 
 var dh = 250, dw = 1024;
 var x0 = 10, x1 = 914;
@@ -128,7 +164,7 @@ function setup_month_tabs(V) {
         .attr("class", "mtab")
         .style("cursor", "pointer")
         .on("click", function(d, i) {
-            viewModel.time_mode('m' + i)
+            DOTSCAL_VM.time_mode('m' + i)
         })
         .on("mouseover", function(d) {
     	    var it = d3.select(this)
@@ -412,7 +448,7 @@ function fade_drop(T) { T
 
 function embiggen(T) { T
     .attr("r", function(d) {
-        return (viewModel.is_current(d))
+        return (DOTSCAL_VM.is_current(d))
             ? radii.current(Math.random())
             : radii.large(Math.random());
     })
