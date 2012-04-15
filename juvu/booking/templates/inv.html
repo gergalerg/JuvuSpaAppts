@@ -566,6 +566,17 @@
     		  		.duration(500)
     		  		.ease('elastic', 5, 4);
 			}
+
+			$(".b_btn").mouseover(function(){
+				$(this).parent()
+				.find(".service, .price, .discount")
+				.css({'background-color':'#C6E6FC'})
+			});
+			$(".b_btn").mouseout(function(){
+				$(this).parent()
+				.find(".service, .price, .discount")
+				.css({'background-color':'white'})
+			});
 			
 		});
     </script>
@@ -823,17 +834,4 @@
 		</div><!--end of right nav-->
 		<div style="clear:both;"></div>
 	</div><!--end of wrapper-->
-	
-	<script type="text/javascript">
-		$(function(){
-			$(".b_btn").mouseover(function(){
-				$(this).parent().find(".service, .price, .discount").css({'background-color':'#C6E6FC'})
-			});
-			$(".b_btn").mouseout(function(){
-				$(this).parent().find(".service, .price, .discount").css({'background-color':'white'})
-			});
-			
-			
-		})
-	</script>
 {% endblock %}
