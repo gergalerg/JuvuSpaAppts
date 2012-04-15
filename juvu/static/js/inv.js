@@ -1,22 +1,41 @@
 
 
-var results = [
-    {
-        name: "Barney",
+var FAKE_TREATMENT_RESULTS = [
+    {   name: "Barney",
         price: 23.00,
         discount: "",
+        },
+    ];
+
+var results = [
+    {
+        name: "Barney HAZ SPA!",
+        results: FAKE_TREATMENT_RESULTS
     },
-]
+];
+
+var MerchantThing = function(options) {
+    this.name = options.name;
+    this.logo_image_URL = "/static/image/login_05.jpg";
+    var res = _.map(
+        options.results,
+        function(data) { return new ResultThing(data) }
+        );
+    this.results = ko.observableArray(res);
+    this.wire_up_buttons = function(elements) {
+        var buttons = $(elements).find(".b_btn")
+        var us = buttons.parent().find(".service, .price, .discount");
+        buttons.mouseover(function() { us.css({'background-color':'#C6E6FC'}); });
+	    buttons.mouseout(function() { us.css({'background-color':'white'}); });
+    }
+}
 
 var ResultThing = function(options) {
-
     this.name = options.name;
     this.price = options.price;
     this.discount = options.discount;
-
     this.book = function() {
     }
-
     this.bid = function() {
     }
 }
@@ -29,18 +48,7 @@ MODEL.set_results = function(res) {
     MODEL.results(res)
 }
 
-MODEL.wire_up_buttons = function(elements) {
-    var buttons = $(elements).find(".b_btn")
-    var us = buttons.parent().find(".service, .price, .discount");
-    buttons.mouseover(function(){
-		us.css({'background-color':'#C6E6FC'})
-	});
-	buttons.mouseout(function(){
-		us.css({'background-color':'white'})
-	});
-}
-
-MODEL.set_results(_.map(results, function(data){ return new ResultThing(data) }));
+MODEL.set_results(_.map(results, function(data){ return new MerchantThing(data) }));
 
 
 function changeColor(o) {

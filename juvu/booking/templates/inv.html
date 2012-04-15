@@ -3,30 +3,25 @@
 {% block html_head %}
 {# Template ================================================= #}
 <script id="result_template" type="text/x-jquery-tmpl">
-<ul class="m_items">
-	<li class="service" data-bind="text:name">Theraputic Massage</li>
-	<li class="price" data-bind="text:price">125</li>
-	<li class="discount" data-bind="text:discount"> </li>
-	<div class="b_btn" data-bind="click:book">book</div>
-	<div class="b_btn" data-bind="click:bid">bid</div>
-</ul>
+{% include "templates.inv.html" %}
 </script>
 {# ========================================================== #}
-
     <script type="text/javascript" src="../static/js/d3/d3.js"></script>
     <script type="text/javascript" src="../static/js/d3/d3.time.js"></script>
     <script type="text/javascript" src="../static/js/d3/d3.layout.js"></script>
     <script type="text/javascript" src="../static/js/inv.js"></script>
     <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
     <script type="text/javascript">
+		//color, size
+		var first_color = "#E6E6E6",
+		    second_color = "#808080",
+		    third_color = "#3FA9F5",
+		    hover_color = "#C6E6FC",
+		    c_size = 30,
+		    oc,
+		    s_canvas;
+
 		$(function(){
-			//color, size
-			var first_color = "#E6E6E6";
-			var second_color = "#808080";
-			var third_color = "#3FA9F5";
-			var hover_color = "#C6E6FC";
-			var c_size = 30;
-			var oc;
 			
 			var s_canvas = d3.select(".canvas").append("svg:svg");
 			s_canvas
@@ -75,9 +70,7 @@
 				.attr("r",c_size)
 				.attr("fill",first_color)
 				.attr("class","c_when")
-				.on("click",function(){
-					clickDate();
-				})
+				.on("click", clickDate)
 				.on('mouseover', function(){
 					changeColor($(this));
 				})
@@ -94,9 +87,7 @@
 				changeBack($('.c_when'));
 			});
 			
-			$('.when').click(function(){
-				clickDate();
-			});
+			$('.when').click(clickDate);
 			
 			//options
 			s_canvas.append("svg:circle")
@@ -105,9 +96,7 @@
 				.attr("r",c_size)
 				.attr("fill",first_color)
 				.attr("class","c_op")
-				.on("click",function(){
-					clickOption();
-				})
+				.on("click", clickOption)
 				.on('mouseover', function(){
 					changeColor($(this));
 				})
@@ -123,11 +112,9 @@
 			$('.option').mouseout(function(){
 				changeBack($('.c_op'));
 			});
-			
-			$('.option').click(function(){
-				clickOption();
-			});
-			
+
+			$('.option').click(clickOption);
+
 			//distance & neighboehood
 			s_canvas.append("svg:circle")
 				.attr("cx",105)
@@ -154,11 +141,9 @@
 				changeBack($('.c_dis'));
 			});
 			
-			$('.distance').click(function(){
-				clickDistance();
-			});
-			
-			
+			$('.distance').click(clickDistance);
+
+
 			s_canvas.append("svg:circle")
 				.attr("cx",200)
 				.attr("cy",130)
@@ -184,9 +169,7 @@
 				changeBack($('.c_nei'));
 			});
 			
-			$('.neighbor').click(function(){
-				clickNeighbor();
-			});
+			$('.neighbor').click(clickNeighbor);
 			
 			//today & date --- only have one animation result
 			s_canvas.append("svg:circle")
@@ -246,9 +229,7 @@
 				clickDate();
 			});
 			
-			$('.submit_btn').click(function(){
-				original();
-			})
+			$('.submit_btn').click(original)
 
     $(".b_btn").mouseover(function(){
 	    $(this).parent()
@@ -351,145 +332,9 @@
 		</div><!--end of left nav-->
 		
 		<div id="nav_right">
-		
-			<!--container of information from database-->
-			<div class="m_row">
-				<img class="m_img" width="240" height="180" src="../static/image/login_05.jpg">
-				<div class="m_info">
-					<div class="m_name">Merchant Name</div>
-					<ul class="m_itemsName">
-						<li class="service">service</li>
-						<li class="price">price ($)</li>
-						<li class="discount">discount (%)</li>
-					</ul>
-					<div style="clear:both;"></div>
-					<ul class="m_items">
-						<li class="service">Mink Massage</li>
-						<li class="price">150</li>
-						<li class="discount">25</li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<ul class="m_items">
-						<li class="service">Theraputic Massage</li>
-						<li class="price">125</li>
-						<li class="discount"> </li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<ul class="m_items">
-						<li class="service">Reflexology</li>
-						<li class="price">45</li>
-						<li class="discount">10</li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<ul class="m_items">
-						<li class="service">Tandem Massage</li>
-						<li class="price">250</li>
-						<li class="discount">20</li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<div class="more_btn">more</div>	
-				</div>
-			</div>
-			<!--end container-->
-			<div class="m_row">
-				<img class="m_img" width="240" height="180" src="../static/image/login_05.jpg">
-				<div class="m_info">
-					<div class="m_name">Merchant Name</div>
-					<ul class="m_itemsName">
-						<li class="service">service</li>
-						<li class="price">price ($)</li>
-						<li class="discount">discount (%)</li>
-					</ul>
-					<ul class="m_items">
-						<li class="service">Mink Massage</li>
-						<li class="price">150</li>
-						<li class="discount">25</li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<ul class="m_items">
-						<li class="service">Theraputic Massage</li>
-						<li class="price">125</li>
-						<li class="discount"> </li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<ul class="m_items">
-						<li class="service">Reflexology</li>
-						<li class="price">45</li>
-						<li class="discount">10</li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<ul class="m_items">
-						<li class="service">Tandem Massage</li>
-						<li class="price">250</li>
-						<li class="discount">20</li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<div class="more_btn">more</div>	
-				</div>
-			</div>
-			<div class="m_row">
-				<img class="m_img" width="240" height="180" src="../static/image/login_05.jpg">
-				<div class="m_info">
-					<div class="m_name">Merchant Name</div>
-					<ul class="m_itemsName">
-						<li class="service">service</li>
-						<li class="price">price ($)</li>
-						<li class="discount">discount (%)</li>
-					</ul>
-					<ul class="m_items">
-						<li class="service">Mink Massage</li>
-						<li class="price">150</li>
-						<li class="discount">25</li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<ul class="m_items">
-						<li class="service">Theraputic Massage</li>
-						<li class="price">125</li>
-						<li class="discount"> </li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<ul class="m_items">
-						<li class="service">Reflexology</li>
-						<li class="price">45</li>
-						<li class="discount">10</li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<ul class="m_items">
-						<li class="service">Tandem Massage</li>
-						<li class="price">250</li>
-						<li class="discount">20</li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<div class="more_btn">more</div>	
-				</div>
-			</div>
-			<div class="m_row">
-				<img class="m_img" width="240" height="180" src="../static/image/login_05.jpg">
-				<div class="m_info">
-					<div class="m_name">Merchant Name</div>
-					<ul class="m_itemsName">
-						<li class="service">service</li>
-						<li class="price">price ($)</li>
-						<li class="discount">discount (%)</li>
-					</ul>
-                    <div data-bind="template: {name:'result_template', foreach:results, afterRender:wire_up_buttons}"></div>
-					<div class="more_btn">more</div>	
-				</div>
-			</div>
-			
-		</div><!--end of right nav-->
+{# container of information from database #}
+<div data-bind="template: {name:'result_template', foreach:results}"></div>
+		</div>{# end of right nav #}
 		<div style="clear:both;"></div>
-	</div><!--end of wrapper-->
+	</div>{# end of wrapper #}
 {% endblock %}
