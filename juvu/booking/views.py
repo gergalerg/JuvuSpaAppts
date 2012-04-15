@@ -71,4 +71,12 @@ def home(request):
     return redirect('/invalid_login')
 
 
-        
+def inv(request):
+    '''
+    Inventory page.
+    '''
+    return render_to_response(
+        'inv.html',
+        context_instance=RequestContext(request),
+        )
+

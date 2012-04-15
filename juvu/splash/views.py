@@ -45,15 +45,6 @@ def calendar(request):
         context_instance=RequestContext(request),
         )
 
-def inv(request):
-    '''
-    Inventory page.
-    '''
-    return render_to_response(
-        'inv.html',
-        context_instance=RequestContext(request),
-        )
-
 def book(request):
     '''
     booking page.
@@ -62,7 +53,7 @@ def book(request):
         'book.html',
         context_instance=RequestContext(request),
         )
-        
+
 def bid(request):
     '''
     bid page.
@@ -71,7 +62,7 @@ def bid(request):
         'bid.html',
         context_instance=RequestContext(request),
         )
-        
+
 def book_info(request):
     '''
     capture client's information
@@ -125,22 +116,3 @@ def bid_congrats(request):
         'bid_congrats.html',
         context_instance=RequestContext(request),
         )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
