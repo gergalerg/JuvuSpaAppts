@@ -1,9 +1,22 @@
 {% extends "base.html" %}
 {% block title %}Juvu{% endblock %}
 {% block html_head %}
+{# Template ================================================= #}
+<script id="result_template" type="text/x-jquery-tmpl">
+<ul class="m_items">
+	<li class="service" data-bind="text:name">Theraputic Massage</li>
+	<li class="price" data-bind="text:price">125</li>
+	<li class="discount" data-bind="text:discount"> </li>
+	<div class="b_btn" data-bind="click:book">book</div>
+	<div class="b_btn" data-bind="click:bid">bid</div>
+</ul>
+</script>
+{# ========================================================== #}
+
     <script type="text/javascript" src="../static/js/d3/d3.js"></script>
     <script type="text/javascript" src="../static/js/d3/d3.time.js"></script>
     <script type="text/javascript" src="../static/js/d3/d3.layout.js"></script>
+    <script type="text/javascript" src="../static/js/inv.js"></script>
     <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
     <script type="text/javascript">
 		$(function(){
@@ -578,6 +591,8 @@
 				.css({'background-color':'white'})
 			});
 			
+    ko.applyBindings(MODEL);
+
 		});
     </script>
 {% endblock %}
@@ -799,34 +814,7 @@
 						<li class="price">price ($)</li>
 						<li class="discount">discount (%)</li>
 					</ul>
-					<ul class="m_items">
-						<li class="service">Mink Massage</li>
-						<li class="price">150</li>
-						<li class="discount">25</li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<ul class="m_items">
-						<li class="service">Theraputic Massage</li>
-						<li class="price">125</li>
-						<li class="discount"> </li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<ul class="m_items">
-						<li class="service">Reflexology</li>
-						<li class="price">45</li>
-						<li class="discount">10</li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
-					<ul class="m_items">
-						<li class="service">Tandem Massage</li>
-						<li class="price">250</li>
-						<li class="discount">20</li>
-						<div class="b_btn">book</div>
-						<div class="b_btn">bid</div>
-					</ul>
+                    <div data-bind="template: {name:'result_template', foreach:results, afterRender:wire_up_buttons}"></div>
 					<div class="more_btn">more</div>	
 				</div>
 			</div>
