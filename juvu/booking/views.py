@@ -1,8 +1,10 @@
 from simplejson import dumps
+from itertools import cycle
+from random import choice, shuffle
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from django.contrib import auth
-from itertools import cycle
+from juvu.util.results import FAKE_RESULTS
 
 
 def image_url(n):
@@ -72,31 +74,12 @@ def home(request):
     return redirect('/invalid_login')
 
 
-
-results = [
-    {
-        'name': "Barney HAZ SPA!",
-        'results': [
-            {
-                'name': "Barney",
-                'price': 23.00,
-                'discount': "",
-                },
-            {
-                'name': "Purple Dijosaur",
-                'price': 888.00,
-                'discount': "",
-                },
-            ],
-        },
-    ]
-
-
-
 def inv(request):
     '''
     Inventory page.
     '''
+    results = choice(FAKE_RESULTS.values())
+    shuffle(results)
     return render_to_response(
         'inv.html',
         dict(
