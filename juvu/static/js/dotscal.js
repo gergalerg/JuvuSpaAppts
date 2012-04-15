@@ -203,6 +203,17 @@ function date_selected() {
     }
 }
 
+function select_today() {
+    $("#from_date_cal").datepicker("setDate", "+0")
+    $("#to_date_cal").datepicker("setDate", "+0")
+    if (DOTSCAL_VM.time_mode() != 'selection') {
+        DOTSCAL_VM.time_mode('selection');
+    } else {
+        select_dates();
+    }
+    reveal_option_circle();
+}
+
 function setup_month_tabs(V) {
     var months = ['January',
                   'February',

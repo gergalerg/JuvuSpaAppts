@@ -27,6 +27,7 @@ function setup_option_circles(ops_canvas) {
     $("form.date_form").find("input[type=textarea]").click(reveal_option_circle);
     clicky(".distance > span.pointy", "choose/dis");
     clicky(".neighbor > span.pointy", "choose/nei");
+    $(".today").click(select_today)
     clicky(".date > span.pointy", "choose/date");
     clicky(".option > span.pointy", "choose/opts");
 
@@ -70,7 +71,7 @@ function setup_option_circles(ops_canvas) {
 	  .attr("fill-opacity",0)
 	  .attr("class","c_to pointy")
 	  .on("click", function(){
-	    // FIXME: Do something intelligent here.
+        select_today();
 	  });
 	
 	//Date range
