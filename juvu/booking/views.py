@@ -1,3 +1,4 @@
+from simplejson import dumps
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from django.contrib import auth
@@ -71,12 +72,36 @@ def home(request):
     return redirect('/invalid_login')
 
 
+
+results = [
+    {
+        'name': "Barney HAZ SPA!",
+        'results': [
+            {
+                'name': "Barney",
+                'price': 23.00,
+                'discount': "",
+                },
+            {
+                'name': "Purple Dijosaur",
+                'price': 888.00,
+                'discount': "",
+                },
+            ],
+        },
+    ]
+
+
+
 def inv(request):
     '''
     Inventory page.
     '''
     return render_to_response(
         'inv.html',
+        dict(
+            results=dumps(results),
+            ),
         context_instance=RequestContext(request),
         )
 

@@ -242,6 +242,9 @@
 	    .css({'background-color':'white'})
     });
 
+    var results = {{ results|safe }};
+    MODEL.set_results(_.map(results, function(data){ return new MerchantThing(data) }));
+
     ko.applyBindings(MODEL);
 
 });

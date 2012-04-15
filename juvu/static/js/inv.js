@@ -1,19 +1,5 @@
 
 
-var FAKE_TREATMENT_RESULTS = [
-    {   name: "Barney",
-        price: 23.00,
-        discount: "",
-        },
-    ];
-
-var results = [
-    {
-        name: "Barney HAZ SPA!",
-        results: FAKE_TREATMENT_RESULTS
-    },
-];
-
 var MerchantThing = function(options) {
     this.name = options.name;
     this.logo_image_URL = "/static/image/login_05.jpg";
@@ -47,9 +33,6 @@ var MODEL = {
 MODEL.set_results = function(res) {
     MODEL.results(res)
 }
-
-MODEL.set_results(_.map(results, function(data){ return new MerchantThing(data) }));
-
 
 function changeColor(o) {
 	oc = o.attr('fill');
