@@ -3,8 +3,9 @@
 {% block html_head %}
 <link rel="stylesheet" type="text/css" href="../static/css/calendar.css" />
 <script type="text/javascript" src="/static/js/less.js"></script>
+<link type="text/css" href="/static/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 <script type="text/javascript" src="/static/js/d3/d3.js"></script>
-    <script type="text/javascript" src="/static/js/d3/d3.time.js"></script>
+<script type="text/javascript" src="/static/js/d3/d3.time.js"></script>
 <script type="text/javascript" src="/static/js/d3/d3.layout.js"></script>
 {# add jQuery plug in #}
 <script type="text/javascript" src="/static/js/jquery.backstretch.min.js"></script>
@@ -85,6 +86,22 @@ $(function(){
     setup_month_tabs(vis3)
         .transition()
         .attr("fill-opacity", 0.5);
+
+    $("#from_date_cal").datepicker({
+        minDate: "+0D",
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        altField: '#from_date',
+        onSelect: date_selected
+    });
+
+    $("#to_date_cal").datepicker({
+        minDate: "+0D",
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        altField: '#to_date',
+        onSelect: date_selected
+    });
 
 });
 

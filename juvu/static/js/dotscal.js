@@ -189,7 +189,17 @@ function select_dates() {
     var to_date = $("#to_date_cal").datepicker("getDate");
     if (!(_.isNull(from_date) || _.isNull(to_date))) {
         select_date_range(from_date, to_date);
-        $("#options_criteria").fadeIn(CriteriaControls.show_options);
+//        $("#options_criteria").fadeIn(CriteriaControls.show_options);
+    }
+}
+
+function date_selected() {
+//    CriteriaControls.hide_where();
+//    $("#distance_criteria > h3").fadeOut();
+    if (DOTSCAL_VM.time_mode() != 'selection') {
+        DOTSCAL_VM.time_mode('selection');
+    } else {
+        select_dates();
     }
 }
 
