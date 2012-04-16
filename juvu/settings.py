@@ -4,7 +4,7 @@ from os.path import dirname, join, exists
 
 PROJECT_ROOT = dirname(__file__)
 
-
+FDB = join(PROJECT_ROOT, 'tmep.data')
 PRODUCTION = exists(join(PROJECT_ROOT, 'production'))
 DEBUG = not PRODUCTION
 TEMPLATE_DEBUG = DEBUG

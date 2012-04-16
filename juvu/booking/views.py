@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from django.contrib import auth
 from juvu.util.results import FAKE_RESULTS
+from django.conf import settings
 import pickle
 
 
@@ -79,7 +80,7 @@ def inv(request):
     '''
     Inventory page.
     '''
-    r = pickle.load(open('/tmp/data')).values()
+    r = pickle.load(open(settings.FDB)).values()
     print r
     results = choice(r) if r else []
     print results

@@ -2,6 +2,7 @@ from simplejson import dumps, loads
 from django.template import RequestContext
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from django.conf import settings
 from spa_ui.forms import SpaInfoForm
 
 
@@ -235,7 +236,7 @@ def proc_it(start, end, procs, **huh):
         ressy = THE_FAKE_DB[day_label] = _all
     _ew.extend(procs)
     pprint(THE_FAKE_DB)
-    pickle.dump(THE_FAKE_DB, open('/tmp/data',  'w'))
+    pickle.dump(THE_FAKE_DB, open(settings.FDB,  'w'))
 
 
 def fooey(request):
