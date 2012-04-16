@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Juvu</title>
-	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
-    
-    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Juvu{% endblock %}
+{% block html_head %}
+    <link rel="stylesheet" type="text/css" href="/static/css/booking.css">
+{% endblock %}
+{% block body %}
 	<div class="wrapper">
 		<div class="top-nav">
 			<h1 style="margin:0;">JUVU</h1>
@@ -44,7 +41,7 @@
 			</select>
 			
 			
-		</div><!--end of left nav-->
+		</div>{# end of left nav #}
 		
 		<div id="nav_right">
 			<div id="header_service">60 minute Shiatsu massage at Nob Hill Spa</div>
@@ -66,9 +63,9 @@
 			</ul>
 			<div style="clear:both;"></div>
 			
-			<!--start of the morning schedule-->
+			{# start of the morning schedule #}
 			<div class="morning">
-				<!--<div class="mor_title">morning</div>-->
+				{# <div class="mor_title">morning</div> #}
 				<div class="day1">
 					<div class="day_info">
 						9:30 am</br>
@@ -158,13 +155,13 @@
 				</div>
 				
 			</div>
-			<!--end of the morning schedule-->
+			{# end of the morning schedule #}
 			
 			<div style="clear:both;"></div>
 			
-			<!--start of the afternoon schedule-->
+			{# start of the afternoon schedule #}
 			<div class="afternoon">
-				<!--<div class="aft_title">afternoon</div>-->
+				{# <div class="aft_title">afternoon</div> #}
 				<div class="day1">
 					<div class="day_info">
 						12:30 pm</br>
@@ -262,13 +259,13 @@
 				</div>
 				
 			</div>
-			<!--end of the afternoon schedule-->
+			{# end of the afternoon schedule #}
 			
 			<div style="clear:both;"></div>
 			
-			<!--start of the evening schedule-->
+			{# start of the evening schedule #}
 			<div class="evening">
-				<!--<div class="eve_title">evening</div>-->
+				{# <div class="eve_title">evening</div> #}
 				<div class="day1">
 					<div class="day_info">
 						5:30 pm</br>
@@ -376,16 +373,9 @@
 						$165
 					</div>
 				</div>
-				
 			</div>
-			<!--end of the evening schedule-->
-			
-		</div><!--end of right nav-->
-	</div><!--end of wrapper-->
-	
-	<script type="text/javascript">
-		
-	</script>
-	
-</body>
-</html>
+			{# end of the evening schedule #}
+		</div>{# end of right nav #}
+	</div>{# end of wrapper #}
+{% endblock %}
+
