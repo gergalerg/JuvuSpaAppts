@@ -89,7 +89,7 @@ def inv(request):
         )
 
 
-FAKE_RESULTS = dict(
+FAKER_RESULTS = dict(
     name = "Barney",
     date_label = "Feburary 72 - 947",
     treatment = "Cupping Therapy",
@@ -154,7 +154,7 @@ def book(request):
     '''
     return render_to_response(
         'book.html',
-        FAKE_RESULTS,
+        FAKER_RESULTS,
         context_instance=RequestContext(request),
         )
 
