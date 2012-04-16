@@ -226,7 +226,7 @@ body{
 .service{
 	float:				left;
 	width:				140px;
-	overflow: none;
+	overflow: hidden;
 }
 
 .price{
