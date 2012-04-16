@@ -21,6 +21,7 @@ var ResultThing = function(options) {
     this.price = options.price;
     this.discount = options.discount;
     this.book = function() {
+        window.location.href = "/look/book";
     }
     this.bid = function() {
     }
