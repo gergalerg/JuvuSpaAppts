@@ -24,6 +24,10 @@ var StaffCalendarModel = function() {
 
     this.block_mode = {
         select: function(start, end, allDay) {
+            viewModel.start_time(start);
+            viewModel.end_time(end);
+
+            $('#yo_dialog').reveal();
             me.fullcal.fullCalendar('unselect');
             me.fullcal.fullCalendar(
             'renderEvent',
@@ -37,12 +41,13 @@ var StaffCalendarModel = function() {
             true // make the event "stick"
             );
             me.set_mode("null_mode");
-            $('#yo_dialog').reveal();
         }, // select
     } // block mode
 
     this.discount_mode = {
         select: function(start, end, allDay) {
+            viewModel.start_time(start);
+            viewModel.end_time(end);
             me.fullcal.fullCalendar('unselect');
             me.fullcal.fullCalendar(
             'renderEvent',

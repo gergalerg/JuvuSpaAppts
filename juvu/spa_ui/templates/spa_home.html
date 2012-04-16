@@ -48,6 +48,10 @@ $(function(){
     setup_button("button#del_staff_class", 'ui-icon-circle-close');
     setup_button("button#block_mode", 'ui-icon-circle-plus', true);
     setup_button("button#discount_mode", 'ui-icon-circle-check', true);
+    setup_button("button#block_ok", 'ui-icon-circle-check');
+    setup_button("button#block_no", 'ui-icon-circle-close');
+    $("#block_ok").click(function() {$('#yo_dialog').trigger('reveal:close');});
+    $("#block_no").click(function() {$('#yo_dialog').trigger('reveal:close');});
 
     $("#slider").slider({
         max: 0.25,
@@ -447,8 +451,16 @@ $(function(){
 {% block body %}
 <div id="yo_dialog" class="reveal-modal">
      <h1>You Just Made a Block Homie!</h1>
-     <p>Any content could go in here.</p>
-     <p>And will.</p>
+     <table>
+     <tr><th>Block Start</th><td><input type="text" data-bind="value:start_time"/></td></tr>
+     <tr><th>Block End</th><td><input type="text" data-bind="value:end_time"/></td></tr>
+     <tr><th><span class="fake_disabled">All Day</span></th><td><input type="checkbox" disabled="disabled" /></td></tr>
+     <tr><th><span class="fake_disabled">Multiple Day</span></th><td><input type="checkbox" disabled="disabled" /></td></tr>
+     <tr><th><span class="fake_disabled">Date Starting</span></th><td></td></tr>
+     <tr><th><span class="fake_disabled">Date Ending</span></th><td></td></tr>
+     <tr><th><span class="fake_disabled">Reason</span></th><td><input type="text" disabled="disabled" /></td></tr>
+     </table>
+     <div><button id="block_ok">Yeah</button><button id="block_no">Nah</button></div>
      <a class="close-reveal-modal">&#215;</a>
 </div>
 {% endblock %}
