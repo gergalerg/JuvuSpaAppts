@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Juvu{% endblock %}
 {% block html_head %}
-    <link rel="stylesheet" type="text/css" href="/static/css/booking.css">
+<link rel="stylesheet" type="text/css" href="/static/css/booking.css">
+<script type="text/javascript" src="/static/js/booking/book.js"></script>
+<script id="result_template" type="text/x-jquery-tmpl">
+{% include "templates.book.html" %}
+</script>
+</script>
 {% endblock %}
 {% block body %}
 	<div class="wrapper">
@@ -44,22 +49,22 @@
 		</div>{# end of left nav #}
 		
 		<div id="nav_right">
-			<div id="header_service">60 minute Shiatsu massage at Nob Hill Spa</div>
+			<div id="header_service">{{treatment  }} at {{ name }}</div>
 			
 			<div class="timeline_nav">
 				<div class="pre_btn">< </div>
-				<div class="month_txt">Feburary 20 - 24</div>
+				<div class="month_txt">{{ date_label }}</div>
 				<div class="next_btn">> </div>
 			</div>
 			
 			<div style="clear:both;"></div>
 			
 			<ul class="timeline">
-				<li class="first_day">mon 2/20</li>
-				<li class="follow_days">tue 2/21</li>
-				<li class="follow_days">wed 2/22</li>
-				<li class="follow_days">thu 2/23</li>
-				<li class="follow_days">fri 2/24</li>
+				<li class="first_day">{{ day_labels.d0 }}</li>
+				<li class="follow_days">{{ day_labels.d1 }}</li>
+				<li class="follow_days">{{ day_labels.d2 }}</li>
+				<li class="follow_days">{{ day_labels.d3 }}</li>
+				<li class="follow_days">{{ day_labels.d4 }}</li>
 			</ul>
 			<div style="clear:both;"></div>
 			
@@ -67,197 +72,62 @@
 			<div class="morning">
 				{# <div class="mor_title">morning</div> #}
 				<div class="day1">
-					<div class="day_info">
-						9:30 am</br>
-						$85
-					</div>
-					<div class="day_info">
-						10:30 am</br>
-						$75
-					</div>
-					<div class="day_info">
-						11:30 am</br>
-						$105
-					</div>
+{% for result in results.morning_1 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
-				
-				
 				<div class="days">
-					<div class="day_info">
-						8:30 am</br>
-						$75
-					</div>
-					<div class="day_info">
-						9:00 am</br>
-						$85
-					</div>
-					<div class="day_info">
-						9:30 am</br>
-						$125
-					</div>
-					<div class="day_info">
-						11:00 am</br>
-						$45
-					</div>
-					<div class="day_info">
-						11:30 am</br>
-						$155
-					</div>
+{% for result in results.morning_2 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
-				
 				<div class="days">
-					<div class="day_info">
-						9:30 am</br>
-						$85
-					</div>
-					<div class="day_info">
-						10:30 am</br>
-						$85
-					</div>
-					<div class="day_info">
-						12:00 am</br>
-						$85
-					</div>
+{% for result in results.morning_3 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
-				
 				<div class="days">
-					<div class="day_info">
-						9:30 am</br>
-						$85
-					</div>
-					<div class="day_info">
-						10:30 am</br>
-						$75
-					</div>
-					<div class="day_info">
-						11:30 am</br>
-						$105
-					</div>
+{% for result in results.morning_4 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
-				
 				<div class="days">
-					<div class="day_info">
-						8:30 am</br>
-						$75
-					</div>
-					<div class="day_info">
-						9:00 am</br>
-						$85
-					</div>
-					<div class="day_info">
-						9:30 am</br>
-						$125
-					</div>
-					<div class="day_info">
-						11:30 am</br>
-						$155
-					</div>
+{% for result in results.morning_5 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
-				
 			</div>
-			{# end of the morning schedule #}
-			
-			<div style="clear:both;"></div>
-			
+{# end of the morning schedule #}
+<div style="clear:both;"></div>
+
 			{# start of the afternoon schedule #}
 			<div class="afternoon">
 				{# <div class="aft_title">afternoon</div> #}
 				<div class="day1">
-					<div class="day_info">
-						12:30 pm</br>
-						$45
-					</div>
-					<div class="day_info">
-						1:00 pm</br>
-						$75
-					</div>
-					<div class="day_info">
-						1:30 pm</br>
-						$125
-					</div>
-					<div class="day_info">
-						2:30 pm</br>
-						$135
-					</div>
-					<div class="day_info">
-						3:30 pm</br>
-						$135
-					</div>
+{% for result in results.afternoon_1 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
-				
-				
 				<div class="days">
-					<div class="day_info">
-						2:30 pm</br>
-						$65
-					</div>
-					<div class="day_info">
-						3:00 pm</br>
-						$85
-					</div>
-					<div class="day_info">
-						3:30 pm</br>
-						$105
-					</div>
-					<div class="day_info">
-						4:30 pm</br>
-						$105
-					</div>
+{% for result in results.afternoon_2 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
-				
 				<div class="days">
-					<div class="day_info">
-						3:00 pm</br>
-						$85
-					</div>
-					<div class="day_info">
-						3:30 pm</br>
-						$125
-					</div>
-					<div class="day_info">
-						4:00 pm</br>
-						$155
-					</div>
+{% for result in results.afternoon_3 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
-				
 				<div class="days">
-					<div class="day_info">
-						2:30 pm</br>
-						$65
-					</div>
-					<div class="day_info">
-						3:00 pm</br>
-						$85
-					</div>
-					<div class="day_info">
-						3:30 pm</br>
-						$105
-					</div>
-					<div class="day_info">
-						4:30 pm</br>
-						$105
-					</div>
+{% for result in results.afternoon_4 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
-				
 				<div class="days">
-					<div class="day_info">
-						2:30 pm</br>
-						$65
-					</div>
-					<div class="day_info">
-						3:00 pm</br>
-						$85
-					</div>
-					<div class="day_info">
-						3:30 pm</br>
-						$105
-					</div>
-					<div class="day_info">
-						4:30 pm</br>
-						$105
-					</div>
+{% for result in results.afternoon_5 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
-				
 			</div>
 			{# end of the afternoon schedule #}
 			
@@ -267,111 +137,29 @@
 			<div class="evening">
 				{# <div class="eve_title">evening</div> #}
 				<div class="day1">
-					<div class="day_info">
-						5:30 pm</br>
-						$75
-					</div>
-					<div class="day_info">
-						6:00 pm</br>
-						$125
-					</div>
-					<div class="day_info">
-						7:30 pm</br>
-						$150
-					</div>
+{% for result in results.evening_1 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
-				
-				
 				<div class="days">
-					<div class="day_info">
-						5:30 pm</br>
-						$130
-					</div>
-					<div class="day_info">
-						7:00 pm</br>
-						$145
-					</div>
-					<div class="day_info">
-						7:30 pm</br>
-						$165
-					</div>
-					<div class="day_info">
-						8:30 pm</br>
-						$165
-					</div>
+{% for result in results.evening_2 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
-				
 				<div class="days">
-					<div class="day_info">
-						6:00 pm</br>
-						$110
-					</div>
-					<div class="day_info">
-						6:30 pm</br>
-						$115
-					</div>
-					<div class="day_info">
-						7:00 pm</br>
-						$145
-					</div>
-					<div class="day_info">
-						7:30 pm</br>
-						$145
-					</div>
-					<div class="day_info">
-						8:30 pm</br>
-						$145
-					</div>
-					<div class="day_info">
-						9:00 pm</br>
-						$125
-					</div>
-					<div class="day_info">
-						10:00 pm</br>
-						$125
-					</div>
+{% for result in results.evening_3 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
-				
 				<div class="days">
-					<div class="day_info">
-						7:00 pm</br>
-						$145
-					</div>
-					<div class="day_info">
-						7:30 pm</br>
-						$145
-					</div>
-					<div class="day_info">
-						8:30 pm</br>
-						$145
-					</div>
-					<div class="day_info">
-						9:00 pm</br>
-						$125
-					</div>
-					<div class="day_info">
-						10:00 pm</br>
-						$125
-					</div>
+{% for result in results.evening_4 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
-				
 				<div class="days">
-					<div class="day_info">
-						5:30 pm</br>
-						$130
-					</div>
-					<div class="day_info">
-						7:00 pm</br>
-						$145
-					</div>
-					<div class="day_info">
-						7:30 pm</br>
-						$165
-					</div>
-					<div class="day_info">
-						8:30 pm</br>
-						$165
-					</div>
+{% for result in results.evening_5 %}
+<div class="day_info">{{ result.time }}</br>${{ result.price }}</div>
+{% endfor %}
 				</div>
 			</div>
 			{# end of the evening schedule #}
