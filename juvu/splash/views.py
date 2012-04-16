@@ -45,15 +45,6 @@ def calendar(request):
         context_instance=RequestContext(request),
         )
 
-def book(request):
-    '''
-    booking page.
-    '''
-    return render_to_response(
-        'book.html',
-        context_instance=RequestContext(request),
-        )
-
 def bid(request):
     '''
     bid page.
