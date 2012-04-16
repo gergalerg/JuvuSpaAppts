@@ -32,11 +32,22 @@
 					congue neque porta. Vestibulum tempus tortor eget risus commodo ultricies.
 					</p>
 				</div>
-			</div><!--End of popout window-->
+			</div>
+			<div style="display:none;">
+			<div id="payment">
+				<div id="cancellation_title">payment methods</div>
+				<ul class="pay_list">
+					<li>Cash</li>
+					<li>American Express</li>
+					<li>MasterCard</li>
+					<li>VIsa</li>
+				</ul>
+			</div>
+		</div><!--End of popout window-->
 		</p><!--end of instruction-->
 		<p class="instruct_s">
 			See (Merchant Name)'s <a class="link cancel" href="#cancellation">cancellation policy</a><br/>
-			See what (Merchant Name) <a href="#" class="link">accepts as payment methods</a>
+			See what (Merchant Name) <a class="link payment" href="#payment">accepts as payment methods</a>
 		</p>
 		
 		<form>
@@ -95,6 +106,13 @@
 		$(function(){
 			//popout window
 			$('a.cancel').fancybox({
+				'transitionIn'	:	'elastic',
+				'transitionOut'	:	'elastic',
+				'speedIn'		:	300, 
+				'speedOut'		:	200, 
+				'overlayShow'	:	true
+			});
+			$('a.payment').fancybox({
 				'transitionIn'	:	'elastic',
 				'transitionOut'	:	'elastic',
 				'speedIn'		:	300, 

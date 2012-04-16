@@ -1054,6 +1054,15 @@ h6{
 	font-size:			20px;
 }
 
+#payment{
+	padding:			20px;
+}
+
+.pay_list{
+	padding-left:		0;
+	line-height:		24px;
+}
+
 .instruct_signup{
 	color: 				gray;
     font-size: 			16px;

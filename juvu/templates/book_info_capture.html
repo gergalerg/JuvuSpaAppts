@@ -18,26 +18,36 @@
 		<p class="instruct">
 			However, we will use your credit card to reserve the appointment.<br/>
 			You will pay (Merchant Name) after the service is completed.<br/>
-			<!--popout window-->
-			<div style="display:none;">
-				<div id="cancellation">
-					<div id="cancellation_title">cancellation policy</div>
-					<!--merchant's cancellation policy contents-->
-					<p>
-					Duis in risus at quam ullamcorper adipiscing ut volutpat neque. 
-					Ut eget nibh ac arcu pulvinar posuere at non leo. Vivamus quis 
-					dui quis nisl venenatis commodo. Pellentesque cursus diam in neque 
-					ornare lobortis. Integer gravida sapien eget erat consequat nec 
-					congue neque porta. Vestibulum tempus tortor eget risus commodo ultricies.
-					</p>
-				</div>
-			</div><!--End of popout window-->
 		</p><!--end of instruction-->
 		<p class="instruct_s">
 			See (Merchant Name)'s <a class="link cancel" href="#cancellation">cancellation policy</a><br/>
-			See what (Merchant Name) <a href="#" class="link">accepts as payment methods</a>
+			See what (Merchant Name) <a class="link payment" href="#payment">accepts as payment methods</a>
 		</p>
-		
+		{# popout window #}
+		<div style="display:none;">
+			<div id="cancellation">
+				<div id="cancellation_title">cancellation policy</div>
+				<p>
+				Duis in risus at quam ullamcorper adipiscing ut volutpat neque. 
+				Ut eget nibh ac arcu pulvinar posuere at non leo. Vivamus quis 
+				dui quis nisl venenatis commodo. Pellentesque cursus diam in neque 
+				ornare lobortis. Integer gravida sapien eget erat consequat nec 
+				congue neque porta. Vestibulum tempus tortor eget risus commodo ultricies.
+				</p>
+			</div>
+		</div>
+		<div style="display:none;">
+			<div id="payment">
+				<div id="cancellation_title">payment methods</div>
+				<ul class="pay_list">
+					<li>Cash</li>
+					<li>American Express</li>
+					<li>MasterCard</li>
+					<li>VIsa</li>
+				</ul>
+			</div>
+		</div>
+		{# End of popout window #}
 		
 		<form>
 		
@@ -106,13 +116,22 @@
 		<div class="confirm_area">
 			<input type="submit" class="submitBid_btn" value="back"/>  <input type="submit" class="submitBid_btn" value="confirm"/>
 		</div>
+		
 		</form>
+		
 	</div><!--end of wrapper-->
 	
 	<script type="text/javascript">
 		$(function(){
-			//popout window
+			{# popout window #}
 			$('a.cancel').fancybox({
+				'transitionIn'	:	'elastic',
+				'transitionOut'	:	'elastic',
+				'speedIn'		:	300, 
+				'speedOut'		:	200, 
+				'overlayShow'	:	true
+			});
+			$('a.payment').fancybox({
 				'transitionIn'	:	'elastic',
 				'transitionOut'	:	'elastic',
 				'speedIn'		:	300, 
