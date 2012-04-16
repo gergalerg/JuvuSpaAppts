@@ -91,8 +91,8 @@ def inv(request):
 
 FAKER_RESULTS = dict(
     name = "Barney",
-    date_label = "Feburary 72 - 947",
-    treatment = "Cupping Therapy",
+    date_label = "Feburary 20 - 24",
+    treatment = "Massage Therapy",
     day_labels = dict(
         d0="mon 2/20",
         d1="tue 2/21",
