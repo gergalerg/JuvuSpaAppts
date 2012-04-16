@@ -84,6 +84,13 @@ var SpaProcedure = function(options) {
         }
         return this.rdf_node;
     }
+
+    this.as_JSON = function() {
+        return {
+            name: this.nickname(),
+            price: this.price(),
+        }
+    }
 }
 
 var StaffMember = function(options) {

@@ -40,6 +40,7 @@ var StaffCalendarModel = function() {
             },
             true // make the event "stick"
             );
+            post_preppy(start, end)
             me.set_mode("null_mode");
         }, // select
     } // block mode

@@ -15,4 +15,7 @@ urlpatterns = patterns('',
         'spa_ui.views.merchant_services',
         name='merchant_services',
         ),
+
+    url(r'^foo/?$', 'spa_ui.views.fooey', name='fooey'),
+
     )

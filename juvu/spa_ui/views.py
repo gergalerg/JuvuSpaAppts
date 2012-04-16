@@ -1,5 +1,6 @@
-from simplejson import dumps
+from simplejson import dumps, loads
 from django.template import RequestContext
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from spa_ui.forms import SpaInfoForm
 
@@ -208,3 +209,51 @@ def merchant_services(request):
         context_instance=RequestContext(request),
         )
        
+
+from pprint import pprint
+from datetime import datetime
+import pickle
+DAY_LABEL = '%m-%d-%Y'
+
+
+THE_FAKE_DB = {}
+_ew = []
+_all = [dict(
+            name="Spa Name",
+            results=_ew,
+            )]
+
+def proc_it(start, end, procs, **huh):
+##    if not procs:
+##        return
+    start = datetime.fromtimestamp(start/1000)
+    end = datetime.fromtimestamp(end/1000)
+    print start, end
+    day_label = start.date().strftime(DAY_LABEL)
+    ressy = THE_FAKE_DB.get(day_label)
+    if ressy is None:
+        ressy = THE_FAKE_DB[day_label] = _all
+    _ew.extend(procs)
+    pprint(THE_FAKE_DB)
+    pickle.dump(THE_FAKE_DB, open('/tmp/data',  'w'))
+
+
+def fooey(request):
+    '''
+    merchant page - services.
+    '''
+    pprint(request.POST.keys()[0])
+    data = request.POST.keys()[0]
+    data = loads(data)
+    pprint(data)
+    proc_it(**data)
+    
+    return HttpResponse("Form submitted")
+       
+
+
+
+
+
+
+

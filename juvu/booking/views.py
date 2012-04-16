@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from django.contrib import auth
 from juvu.util.results import FAKE_RESULTS
+import pickle
 
 
 def image_url(n):
@@ -78,8 +79,11 @@ def inv(request):
     '''
     Inventory page.
     '''
-    results = choice(FAKE_RESULTS.values())
-    shuffle(results)
+    r = pickle.load(open('/tmp/data')).values()
+    print r
+    results = choice(r) if r else []
+    print results
+#    shuffle(results)
     return render_to_response(
         'inv.html',
         dict(
