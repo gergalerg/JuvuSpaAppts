@@ -24,6 +24,7 @@ var ResultThing = function(options) {
         window.location.href = "/look/book";
     }
     this.bid = function() {
+        window.location.href = "/look/bid";
     }
 }
 
