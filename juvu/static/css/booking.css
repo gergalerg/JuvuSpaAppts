@@ -20,10 +20,44 @@ body{
 	padding-bottom:		200px;
 }
 
+.logo{
+	padding-left:		40px;
+	margin-top:			90px;
+	font-size:			48px;
+	display:			inline-block;
+	cursor:				pointer;
+}
+
+.logo:hover{
+	color:				#3FA9F5;
+}
+
 .top-nav{
 	height:				200px;
-	border:				1px solid black;
+	clear:				both;
+	border-bottom:		2px dotted black;
+	margin-bottom:		10px;
 }
+
+/*user account utility*/
+.utility{
+	float:				right;
+	margin-right:		5px;
+	font-size:			12px;
+	text-decoration:	none;
+	line-height:		18px;
+}
+
+.utility a{
+	text-decoration:	none;
+	color:				#3FA9F5;
+}
+
+.utility a:hover{
+	color:				#FF0099;
+	text-decoration:	underline;
+}
+
 
 #nav_left{
 	width:				300px;
@@ -1051,6 +1085,4 @@ h6{
 .juvume_circle:hover{
 	background-color:	#3FA9F5;
 }
-
-
 
