@@ -51,6 +51,51 @@ var nav_div;
 <link href="/static/css/style.css" rel="stylesheet">
 <style type="text/css">
 {% include "booking.css" %}
+
+{# added by chinpin#}
+.shortcuts{
+	margin-top:				764px;
+	position:				absolute;
+	bottom:					5%;
+	left:					15%;
+	display:				block;
+	width:					1024px;
+}
+.service_sel{
+	border-radius:			35px;
+	width:					70px;
+	background-color:		white;
+	float:					left;
+	opacity:				0.4;
+	text-align:				center;
+	margin-left:			43px;
+	cursor:					pointer;
+	box-shadow:				2px 2px 2px #888;
+	transition:				background-color, opacity 0.5s;
+	-moz-transition:		background-color, opacity 0.5s;
+	-webkit-transition:		background-color, opacity 0.5s;
+	-o-transition:			background-color, opacity 0.5s;
+	font-size:				12px;
+
+}
+
+.service_sel:hover{
+	background-color:		#CEE6FC;
+	opacity:				0.8;
+}
+
+.singleline{
+	height:					40px;
+	padding-top:			30px;
+}
+
+.doublelines{
+	height:					48px;
+	padding-top:			22px;
+}
+
+
+
 </style>
 <script type="text/javascript">
 
@@ -86,12 +131,12 @@ $(function(){
     setup_month_tabs(vis3)
         .transition()
         .attr("fill-opacity", 0.5);
-
+	
 });
 
 </script>
 
-		
+
 
 {% endblock %}
 {% block body %}
@@ -115,6 +160,20 @@ $(function(){
 	<div class="login_circle c_shadow"></div>
 	<div class="exp_circle c_shadow"></div>
 </div>
+
+<div class="shortcuts">
+	<div class="service_sel singleline">Massage</div>
+	<div class="service_sel singleline">Face</div>
+	<div class="service_sel singleline">Hair</div>
+	<div class="service_sel doublelines">Hair Removal</div>
+	<div class="service_sel singleline">Nails</div>
+	<div class="service_sel singleline">Fitness</div>
+	<div class="service_sel doublelines">Alternative Wellness</div>
+	<div class="service_sel doublelines">Body Treatments</div>
+	<div class="service_sel singleline">Dental</div>
+</div>
+
+
 <div id="tree"></div>
 {% include "options.html" %}
 {% endblock %}

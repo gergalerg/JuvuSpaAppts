@@ -104,6 +104,8 @@
     				.duration(500);
     		}
     		
+    		
+    		//change circle color steelblue to white
     		function runDis()
     		{
     			d3.select(".c_dis").transition()
@@ -111,6 +113,7 @@
     		  		.attr("cy", 100)
     		  		.attr("r", 0)
     		  		.attr("fill", "steelblue")
+    		  		.style("opacity",0.5)
     		  		.duration(500)
     		  		.ease("elastic", 5, 4);
     			
@@ -535,7 +538,7 @@
 				</div>
 				
 				<div class="juvuMe">
-					Juvu Me					
+					See Results!				
 				</div>
 			</center>
 		</div>

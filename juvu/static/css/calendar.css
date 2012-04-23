@@ -78,8 +78,8 @@ body{
 
 .where{
 	position:				absolute;
-	left:					80px;
-	top:					95px;
+	left:					76px;
+	top:					91px;
 	color:					white;
 	display:				none;
 	opacity:				0;
@@ -87,8 +87,8 @@ body{
 
 .when{
 	position:				absolute;
-	left:					83px;
-	top:					195px;
+	left:					79px;
+	top:					192px;
 	color:					white;
 	display:				none;
 	opacity:				0;
@@ -154,11 +154,12 @@ body{
 
 .juvuMe{
 	position:				absolute;
-	left:					939px;
+	left:					903px;
 	top:					345px;
 	color:					white;
 	display:				none;
 	opacity:				0;
+	width:					100px;
 }
 
 
