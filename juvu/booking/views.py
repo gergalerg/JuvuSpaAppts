@@ -7,7 +7,6 @@ from itertools import cycle
 def image_url(n):
     return '/static/image/login_%02i.jpg' % (n,)
 
-
 LOGIN_IMAGES = [
     dict(
         image_URL=image_url(1),
