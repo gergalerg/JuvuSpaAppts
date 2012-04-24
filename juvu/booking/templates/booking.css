@@ -8,6 +8,11 @@ body {
     margin: 0;
 }
 #nav{
+	width:				100%;
+	height:				100%;
+}
+
+.innerNav{
 	position:			absolute;
 	top:				{{ top }};
 	left:				{{ left }};
@@ -147,11 +152,11 @@ path.link {
 .blue_button {
     text-align: 		center;
     font-size: 			22px;
-    font-size: 			2.2rem;
+    font-size: 			15px;
     color: 				#FFF;
     text-transform: 	uppercase;
-    background-color: 	#99CCFF;
-    border: 0;
+    background-color: 	#8CCBF9;
+    border: 			0;
     font-family: 		@body_font;
     margin: 			0.5em;
     cursor: 			pointer;
@@ -164,13 +169,58 @@ path.link {
     position:			absolute;
     top:				270px;
     left:				650px;
+    line-height:		24px;
 }
 
 .blue_button:hover {
     color: 				#FFF;
-    background-color: 	#015f8a;
+    background-color: 	#3FA9F5;
 }
 
 
+{# added by chinpin#}
+.shortcuts_global{
+	position:				absolute;
+	bottom:					5%;
+	width:					100%;
+}
+
+.shortcuts{
+	display:				block;
+	width:					1024px;
+	margin-left:			auto;
+	margin-right:			auto;
+}
+.service_sel{
+	border-radius:			35px;
+	width:					70px;
+	background-color:		white;
+	float:					left;
+	opacity:				0.4;
+	text-align:				center;
+	margin-left:			43px;
+	cursor:					pointer;
+	box-shadow:				2px 2px 2px #888;
+	transition:				background-color, opacity 0.5s;
+	-moz-transition:		background-color, opacity 0.5s;
+	-webkit-transition:		background-color, opacity 0.5s;
+	-o-transition:			background-color, opacity 0.5s;
+	font-size:				12px;
+}
+
+.service_sel:hover{
+	background-color:		#CEE6FC;
+	opacity:				0.8;
+}
+
+.singleline{
+	height:					40px;
+	padding-top:			30px;
+}
+
+.doublelines{
+	height:					48px;
+	padding-top:			22px;
+}
 
 
