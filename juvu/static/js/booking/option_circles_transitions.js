@@ -96,9 +96,9 @@ var reveal_when_circles = _.once(function() {
 
 var reveal_option_circle = _.once(function() {
 	d3.select(".c_op").transition()
-		.attr("cx",800)
-		.attr("cy",350)
-		.attr("r", 65)
+		.attr("cx",100)
+		.attr("cy",300)
+		.attr("r", 30)
 		.attr("fill-opacity",1)
 		.duration(500);
 
@@ -108,12 +108,12 @@ var reveal_option_circle = _.once(function() {
 		.duration(500);
 
 	d3.select(".option").transition()
-		.style("left", "625px")
-		.style("top", "345px")
+		.style("left", "-75px")
+		.style("top", "293px")
 		.style("display", "block")
 		.style("opacity", "1")
 		.duration(500);
-
+	
 	d3.select(".op_list").transition()
 		.style("display", "none")
 		.style("opacity", "0");
@@ -163,7 +163,7 @@ var options_transitions = {
 	  		.attr("cx", 100)
 	  		.attr("cy", 100)
 	  		.attr("r", 0)
-	  		.attr("fill", "steelblue")
+	  		.attr("fill", status_blue)
 	  		.duration(500)
 	  		.ease("elastic", 5, 4)
 	  	  .transition()
@@ -286,7 +286,7 @@ var options_transitions = {
 	  		.attr("cx", 100)
 	  		.attr("cy", 100)
 	  		.attr("r", 0)
-	  		.attr("fill", "steelblue")
+	  		.attr("fill", status_blue)
 	  		.duration(500)
 	  		.ease("elastic", 5, 4)
 	  	  .transition()
@@ -377,7 +377,7 @@ var options_transitions = {
 	  		.attr("cx", 100)
 			.attr("cy", 200)
 	  		.attr("r", 0)
-	  		.attr("fill", "steelblue")
+	  		.attr("fill", status_blue)
 	  		.duration(500)
 	  		.ease("elastic", 5, 4)
 	  	  .transition()
@@ -432,7 +432,7 @@ var options_transitions = {
 			.attr("cx", 100)
 	  		.attr("cy", 300)
 	  		.attr("r", 0)
-	  		.attr("fill", "steelblue")
+	  		.attr("fill", status_blue)
 	  		.duration(500)
 	  		.ease("elastic", 5, 4)
 		  .transition()
@@ -469,7 +469,7 @@ var options_transitions = {
     				.attr("cx", 100)
     				.attr("cy", 200)
     				.attr("r", 0)
-    				.attr("fill", "steelblue")
+    				.attr("fill", status_blue)
     				.duration(500)
     		  		.ease("elastic", 5, 4);
     		  	
@@ -511,7 +511,7 @@ var options_transitions = {
     		  		.attr("cx", 100)
     				.attr("cy", 200)
     		  		.attr("r", 0)
-    		  		.attr("fill", "steelblue")
+    		  		.attr("fill", status_blue)
     		  		.duration(500)
     		  		.ease("elastic", 5, 4);
     		  	

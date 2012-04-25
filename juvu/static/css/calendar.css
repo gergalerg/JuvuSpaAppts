@@ -114,18 +114,18 @@ body{
 }
 
 .date_form{
-	opacity:			0;
-	display:			none;
-	font-size:			0.8em;
-	line-height:		1.6em;
+	opacity:				0;
+	display:				none;
+	font-size:				0.8em;
+	line-height:			1.6em;
 }
 
 .option{
 	position:				absolute;
 	width:					350px;
-	left:					625px;
-	top:					345px;
-	color:					#808080;
+	left:					-75px;
+	top:					293px;
+	color:					white;
 	display:				none;
 	opacity:				0;
 }
