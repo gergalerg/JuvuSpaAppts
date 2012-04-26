@@ -123,9 +123,9 @@ body{
 .option{
 	position:				absolute;
 	width:					350px;
-	left:					-75px;
-	top:					293px;
-	color:					white;
+	left:					625px;
+	top:					345px;
+	color:					#808080;
 	display:				none;
 	opacity:				0;
 }

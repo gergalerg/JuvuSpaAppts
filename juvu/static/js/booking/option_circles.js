@@ -87,10 +87,10 @@ function setup_option_circles(ops_canvas) {
 	
 	//option
 	svg_canvas.append("svg:circle")
-		.attr("cx",100)
-		.attr("cy",300)
+		.attr("cx",800)
+		.attr("cy",350)
 		.attr("r",0)
-		.attr("fill",status_blue)
+		.attr("fill",first_color)
 		.attr("fill-opacity",0)
 		.attr("class","c_op pointy")
 		.on("click", function(){
