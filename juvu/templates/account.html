@@ -5,10 +5,24 @@
 	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../static/css/booking.css" />
     
-    <!--popout window-->
-    <script type="text/javascript" src="../static/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-    <link rel="stylesheet" type="text/css" href="../static/js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
-   
+	<link rel="stylesheet/less" type="text/css" href="../static/css/account.less" />
+	<script type="text/javascript" src="../static/js/less-1.3.0.min.js"></script>
+	
+	<script type="text/javascript" src="../static/js/d3/d3.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.time.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.layout.js"></script>
+	
+	<script type="text/javascript">
+		$(function(){
+			var s_canvas = d3.select("#account_canvas").append("svg:svg");
+			s_canvas
+				.attr("width", 300)
+				.attr("height", 800)
+				.attr("class", "s_canvas");
+		});
+	</script>
+	
+	
 </head>
 <body>
 	<div class="wrapper">
@@ -18,89 +32,65 @@
 			<span class="logo">JUVU.ME</span>
 		</div>
 		
-		<div class="big_heavy_title">Your appointment is booked!</div>
-
-		<ul class="confirm_li">
-			<li>Appointment Info</li>
-		</ul>
-		
-		<div class="congrats_row">
-			<ul class="appo_ul">
-				<li class="appo_li a_date">Date</li>
-				<li class="appo_li a_sTime">Start Time</li>
-				<li class="appo_li a_service">Service</li>
-				<li class="appo_li a_minute">Minutes</li>
-				<li class="appo_li a_merchant">Merchant</li>
-				<li class="appo_li a_price">Price</li>
-				<li class="appo_li a_cancel">Cancel</li>
+		<div class="events">
+			<ul class="coming_title">
+				<li>Upcoming Appointments</li>
 			</ul>
-			<br/>
-			<ul class="appo_ul colorGray">
-				<li class="appo_li a_date">Apr 1, 2012</li>
-				<li class="appo_li a_sTime">PM 1:00</li>
-				<li class="appo_li a_service">Theraputic Massage</li>
-				<li class="appo_li a_minute">60</li>
-				<li class="appo_li a_merchant">Merchant Name</li>
-				<li class="appo_li a_price">$125</li>
-				<li class="appo_li a_cancel"><a href="#" class="a_cancel_btn">X</a></li>
-			</ul>
-			<div style="clear:both;"></div>
-		</div>
-		
-		<ul class="confirm_li">
-			<li>(Merchant Name) Info</li>
-		</ul>
-		<div class="congrats_row">
-			<div class="congrats_r_leftCol">
-				<div class="con_header">General Information</div>
-				Phone Number<br/>
-				<span class="colorGray">415-123-4567</span>
-				<br/><br/>
-				Address<br/>
-				<span class="colorGray">1234 market st. San Francisco</span>
-				<p class="colorGray">
-				Duis in risus at quam ullamcorper adipiscing ut volutpat neque.<br/>
-				Ut eget nibh ac arcu pulvinar posuere at non leo.<br/>
-				Vivamus quis dui quis nisl venenatis commodo.<br/>
-				Pellentesque cursus diam in neque ornare lobortis.<br/>
-				Integer gravida sapien eget erat consequat nec congue neque porta.<br/>
-				Vestibulum tempus tortor eget risus commodo ultricies.<br/><br/>
-
-				Duis in risus at quam ullamcorper adipiscing ut volutpat neque.<br/>
-				Ut eget nibh ac arcu pulvinar posuere at non leo.<br/>
-				Vivamus quis dui quis nisl venenatis commodo.<br/>
-				Pellentesque cursus diam in neque ornare lobortis.<br/>
-				Integer gravida sapien eget erat consequat nec congue neque porta.<br/>
-				Vestibulum tempus tortor eget risus commodo ultricies.
-				</p>
-				
-				<!--popout window-->
-				<a class="link cancel" href="#cancellation">cancellation policy</a>
-				<div style="display:none;">
-					<div id="cancellation">
-						<div id="cancellation_title">cancellation policy</div>
-						{# merchant's cancellation policy contents #}
-						<p>
-						Duis in risus at quam ullamcorper adipiscing ut volutpat neque. 
-						Ut eget nibh ac arcu pulvinar posuere at non leo. Vivamus quis 
-						dui quis nisl venenatis commodo. Pellentesque cursus diam in neque 
-						ornare lobortis. Integer gravida sapien eget erat consequat nec 
-						congue neque porta. Vestibulum tempus tortor eget risus commodo ultricies.
-						</p>
-					</div>
-				</div>
-				
-				<a class="link payment" href="#payment"></a>
-				
-				<!--End of popout window-->
-			</div>
 			
-			<div class="congrats_r_rightCol">
-				<div class="con_header"></div>
-			</div>
+			<table class="coming">
+				<tr>
+					<td class="coming_date">04/28/12</td>
+					<td class="coming_time">14:00</td>
+					<td class="coming_m"><a href="#" class="link">Merchant Name</a></td>
+					<td class="coming_s">Theraputic Massage</td>
+					<td class="coming_cancel"><a href="#" class="link_c">x</a></td>
+					<td class="justLine">{# Nothing here #}</div>
+				</tr>
+				<tr>
+					<td class="coming_date">05/05/12</td>
+					<td class="coming_time">08:00</td>
+					<td class="coming_m"><a href="#" class="link">Merchant Name</a></td>
+					<td class="coming_s">Theraputic Massage</td>
+					<td class="coming_cancel"><a href="#" class="link_c">x</a></td>
+					<td class="justLine">{# Nothing here #}</div>
+				</tr>
+			</table>
+			
+			<ul class="coming_title">
+				<li>Past Appointments</li>
+			</ul>
+			
+			<table class="coming">
+				<tr>
+					<td class="coming_date">04/30/12</td>
+					<td class="coming_time">18:00</td>
+					<td class="coming_m"><a href="#" class="link">Merchant Name</a></td>
+					<td class="coming_s">Theraputic Massage</td>
+					<td class="justLine">{# Nothing here #}</div>
+				</tr>
+			</table>
+			
+			<ul class="coming_title">
+				<li>Outstanding Bids</li>
+			</ul>
+			
+			<table class="coming">
+				<tr>
+					<td class="outstanding_date">05/15/12</td>
+					<td class="outstanding_timeRange">13:00~14:00</td>
+					<td class="outstanding_price">$125</td>
+					<td class="outstanding_countdown">12:15:29</td>
+					<td class="justLine">{# Nothing here #}</td>
+					<td class="outstanding_m"><a href="#" class="link">Merchant Name</a></td>
+					<td class="outstanding_s">Theraputic Massage</td>
+				</tr>
+			</table>
 		</div>
+		
+		<div id="account_canvas"></div>
+		
 		<div style="clear:both;"></div>
-	</div><!--end of wrapper-->
+	</div>{# end of wrapper #}
 </body>
 
 </html>

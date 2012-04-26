@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^bid_info$', 'splash.views.bid_info', name='bid_info'),
     url(r'^bid_confirm$', 'splash.views.bid_confirm', name='bid_confirm'),
     url(r'^bid_congrats$', 'splash.views.bid_congrats', name='bid_congrats'),
+    url(r'^account$', 'splash.views.account', name='account'),
 	
     # User-facing site.
     url(r'^look/', include('booking.urls')),
