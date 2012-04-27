@@ -1,14 +1,15 @@
-@lightGray:				#666;
+@copy:					#666;
+@lightGray:				#E6E6E6;
+@darkGray:				#808080;
 @blue:					#3FA9F5;
 @magenta:				#FF0099;
-
 .events{
 	width:				330px;
 	float:				left;
 }
 
 .coming_title{
-	color:				@lightGray;
+	color:				@copy;
 	text-transform:		uppercase;
 	padding-left:		18px;
 	font-size:			14px;
@@ -28,7 +29,7 @@
 .coming tr td{
 	float:				left;
 	font-size:			12px;
-	color:				@lightGray;
+	color:				@copy;
 	line-height:		18px;
 }
 
@@ -97,7 +98,96 @@
 #account_canvas{
 	width:				692px;
 	height:				462px;
+	display:			block;
 	float:				right;
 }
+
+.account_info{
+	display:			none;
+	position:			absolute;
+	margin-left:		130px;
+	margin-top:			70px;
+	font-size:			12px;
+	letter-spacing:		0.1em;
+	line-height:		18px;
+	color:				white;
+	width:				340;
+	.title{
+		font-size:			16px;
+		text-align:			center;
+		line-height:		50px;
+	}
+	.label{
+		font-weight:		bold;
+		text-align:			right;
+	}
+	.edit{
+		color:				#B1E3FA;
+		cursor:				pointer;
+		&:hover{
+			color:				@magenta;
+		}
+	}
+}
+
+.credit_info{
+	position:			absolute;
+	margin-left:		140px;
+	margin-top:			50px;
+	font-size:			12px;
+	letter-spacing:		0.1em;
+	line-height:		18px;
+	color:				@lightGray;
+	.title{
+		font-size:			16px;
+		text-align:			center;
+		line-height:		50px;
+	}
+	.label{
+		font-weight:		bold;
+		text-align:			right;
+		width:				120px;
+	}
+	.mobile{
+		text-align:			left;
+		margin-left:		50px;
+	}
+	.edit{
+		color:				#B1E3FA;
+		cursor:				pointer;
+		&:hover{
+			color:				@blue;
+		}
+	}
+	
+}
+
+.account_small{
+	font-size:			10px;
+	color:				white;
+	position:			absolute;
+	margin-left:		587px;
+	margin-top:			287px;
+	letter-spacing:		0.1em;
+	cursor:				default;
+	display:			none;
+}
+
+.credit_small{
+	font-size:			10px;
+	color:				@darkGray;
+	position:			absolute;
+	margin-left:		584px;
+	margin-top:			275px;
+	letter-spacing:		0.1em;
+	cursor:				default;
+	text-align:			center;
+	line-height:		16px;
+	display:			block;
+}
+
+
+
+
 
 
