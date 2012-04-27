@@ -103,9 +103,10 @@
 }
 
 .account_info{
-	display:			none;
+	display:			block;
+	opacity:			1;
 	position:			absolute;
-	margin-left:		130px;
+	margin-left:		160px;
 	margin-top:			70px;
 	font-size:			12px;
 	letter-spacing:		0.1em;
@@ -125,19 +126,21 @@
 		color:				#B1E3FA;
 		cursor:				pointer;
 		&:hover{
-			color:				@magenta;
+			color:				@blue;
 		}
 	}
 }
 
 .credit_info{
+	display:			none;
+	opacity:			0;
 	position:			absolute;
 	margin-left:		140px;
 	margin-top:			50px;
 	font-size:			12px;
 	letter-spacing:		0.1em;
 	line-height:		18px;
-	color:				@lightGray;
+	color:				@darkGray;
 	.title{
 		font-size:			16px;
 		text-align:			center;
@@ -153,10 +156,10 @@
 		margin-left:		50px;
 	}
 	.edit{
-		color:				#B1E3FA;
+		color:				@blue;
 		cursor:				pointer;
 		&:hover{
-			color:				@blue;
+			color:				@magenta;
 		}
 	}
 	
@@ -164,13 +167,14 @@
 
 .account_small{
 	font-size:			10px;
-	color:				white;
+	color:				@lightGray;
 	position:			absolute;
 	margin-left:		587px;
 	margin-top:			287px;
 	letter-spacing:		0.1em;
 	cursor:				default;
 	display:			none;
+	opacity:			0;
 }
 
 .credit_small{
@@ -184,6 +188,7 @@
 	text-align:			center;
 	line-height:		16px;
 	display:			block;
+	opacity:			1;
 }
 
 
