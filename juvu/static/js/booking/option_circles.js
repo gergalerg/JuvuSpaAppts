@@ -37,6 +37,18 @@ function setup_option_circles(ops_canvas) {
 	  .attr("height", 768)
 	  .attr("class", "s_canvas");
 	
+	//Neighborhood
+	svg_canvas.append("svg:circle")
+	  .attr("cx",535)
+	  .attr("cy",233)
+	  .attr("r",65)
+	  .attr("fill",second_color)
+	  .attr("fill-opacity",1)
+	  .attr("class","c_nei pointy")
+	  .on("click", function(){
+	      routes.navigate("choose/nei", true);
+	  });
+	
 	//distance
 	svg_canvas.append("svg:circle")
 	  .attr("cx",450)
@@ -49,18 +61,6 @@ function setup_option_circles(ops_canvas) {
 	      routes.navigate("choose/dis", true);
 	  });
 	
-	//Neighborhood
-	svg_canvas.append("svg:circle")
-	  .attr("cx",535)
-	  .attr("cy",233)
-	  .attr("r",65)
-	  .attr("fill",second_color)
-	  .attr("fill-opacity",1)
-	  .attr("class","c_nei pointy")
-	  .on("click", function(){
-	      routes.navigate("choose/nei", true);
-	  });
-
 	//today
 	svg_canvas.append("svg:circle")
 	  .attr("cx",870)
