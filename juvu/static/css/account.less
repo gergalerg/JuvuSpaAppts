@@ -149,7 +149,6 @@
 	.label{
 		font-weight:		bold;
 		text-align:			right;
-		width:				120px;
 	}
 	.mobile{
 		text-align:			left;
@@ -160,6 +159,28 @@
 		cursor:				pointer;
 		&:hover{
 			color:				@magenta;
+		}
+	}
+	.checkbox{
+		width:					15px;
+		padding-left:			48px;
+		height:					15px;
+		text-align:			right;
+		.uncheck{
+			width:				16px;
+			height:				16px;
+			display:			block;
+			background-image:	url("/static/image/checkbox_empty.png");
+			background-repeat:	no-repeat;
+			cursor:				pointer;
+		}
+		.check{
+			width:				16px;
+			height:				16px;
+			display:			block;
+			background-image:	url("/static/image/checkbox_check.png") !important;
+			background-repeat:	no-repeat;
+			cursor:				pointer;
 		}
 	}
 	

@@ -175,7 +175,7 @@
 				//show small account circle
 				d3.select('.account_c_small').transition()
 					.attr('r',50)
-					.duration(250)
+					.duration(500)
 					.ease("elastic", 5, 3)
 					.delay(500);
 				
@@ -243,6 +243,13 @@
 					.duration(250)
 					.delay(750);
 			}
+			
+			
+			{# checkbox #}
+			$('.uncheck').click(function(){
+				$(this).toggleClass('check');
+			})
+			
 			
 			
 		});
@@ -381,10 +388,12 @@
 				<table>
 					<tbody>
 						<tr>
+							<td class="checkbox"><span class="uncheck"></span></td>
 							<td class="label">Email:</td>
 							<td>User's email<span class="edit"> ( edit )</span></td>
 						</tr>
 						<tr>
+							<td class="checkbox"><span class="uncheck"></span></td>
 							<td class="label">Text:</td>
 							<td>415-123-4567</td>
 						</tr>
