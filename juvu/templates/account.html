@@ -244,14 +244,30 @@
 					.delay(750);
 			}
 			
+			{# edit #}
+			var placeholder;
+			var userEnterValue;
+			$('.edit').click(function(){
+				placeholder = $(this).prev().text();
+				$(this).parent().parent().find('.input_txt').attr('placeholder',placeholder);
+				$(this).parent().parent().find('.edit_shell').hide();
+				$(this).parent().parent().find('.form_shell').show();
+			})
+			
+			$('.submit_btn').click(function(){
+				userEnterValue = $(this).prev().val();
+				//console.log(userEnterValue);
+				$(this).parent().parent().find('.edit_shell').show();
+				$(this).parent().parent().find('.form_shell').hide();
+				if(userEnterValue){
+					$(this).parent().parent().find('.current_value').text(userEnterValue);
+				}
+			})
 			
 			{# checkbox #}
 			$('.uncheck').click(function(){
 				$(this).toggleClass('check');
 			})
-			
-			
-			
 		});
 	</script>
 	
@@ -328,27 +344,64 @@
 				<table>
 					<tr>
 						<td class="label">Name:</td>
-						<td>User's Name<span class="edit"> ( edit )</span></td>
+						<td class="edit_shell">
+							<span class="current_value">User's Name</span>
+							<span class="edit"> ( edit )</span>
+						</td>
+						<td class="form_shell">
+							<input type="text" class="input_txt" placeholder="" />
+							<input type="submit" class="submit_btn" value="submit" />
+						</td>
 					</tr>
+					
 					<tr>
 						<td class="label">Email:</td>
-						<td>User's email<span class="edit"> ( edit )</span></td>
+						<td class="edit_shell">
+							<span class="current_value">User's email</span>
+							<span class="edit"> ( edit )</span>
+						</td>
+						<td class="form_shell">
+							<input type="text" class="input_txt" placeholder="" />
+							<input type="submit" class="submit_btn" value="submit" />
+						</td>
 					</tr>
+					
 					<tr>
 						<td class="label">Address:</td>
-						<td>355 Bryant St.</td>
+						<td class="edit_shell">
+							<span class="current_value">355 Bryant St.</span><br/>
+							<span class="current_value">San Francisco, CA 94107</span>
+							<span class="edit"> ( edit )</span>
+						</td>
+						<td class="form_shell">
+							<input type="text" class="input_txt" placeholder="" /><br/>
+							<input type="text" class="input_txt" placeholder="" />
+							<input type="submit" class="submit_btn" value="submit" />
+						</td>
 					</tr>
-					<tr>
-						<td></td>
-						<td>San Francisco, CA 94107<span class="edit"> ( edit )</span></td>
-					</tr>
+					
 					<tr>
 						<td class="label">Phone:</td>
-						<td>415-123-4567<span class="edit"> ( edit )</span></td>
+						<td class="edit_shell">
+							<span class="current_value">415-123-4567</span>
+							<span class="edit"> ( edit )</span>
+						</td>
+						<td class="form_shell">
+							<input type="text" class="input_txt" placeholder="" />
+							<input type="submit" class="submit_btn" value="submit" />
+						</td>
 					</tr>
+					
 					<tr>
 						<td class="label">Mobile:</td>
-						<td>415-123-4567<span class="edit"> ( edit )</span></td>
+						<td class="edit_shell">
+							<span class="current_value">415-123-4567</span>
+							<span class="edit"> ( edit )</span>
+						</td>
+						<td class="form_shell">
+							<input type="text" class="input_txt" placeholder="" />
+							<input type="submit" class="submit_btn" value="submit" />
+						</td>
 					</tr>
 				</table>
 			</div>{# end of account information #}
@@ -359,27 +412,56 @@
 					<tbody>
 						<tr>
 							<td class="label">Name:</td>
-							<td>Cardholder's name<span class="edit"> ( edit )</span></td>
+							<td class="edit_shell">
+								<span class="current_value">Cardholder's name</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<input type="text" class="input_txt" placeholder="" />
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
 						</tr>
+						
 						<tr>
 							<td class="label">Billing Address:</td>
-							<td>1234 Market St.</td>
+							<td>
+								1234 Market St.<br/>
+								San Francisco, CA 94107<span class="edit"> ( edit )</span>
+							</td>
 						</tr>
-						<tr>
-							<td></td>
-							<td>San Francisco, CA 94107<span class="edit"> ( edit )</span></td>
-						</tr>
+						
 						<tr>
 							<td class="label">Card Number:</td>
-							<td>xxxx xxxx xxxx 1234<span class="edit"> ( edit )</span></td>
+							<td class="edit_shell">
+								<span class="current_value">xxxx xxxx xxxx 1234</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<input type="text" class="input_txt" placeholder="" />
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
 						</tr>
 						<tr>
 							<td class="label">Card Type:</td>
-							<td>VISA<span class="edit"> ( edit )</span></td>
+							<td class="edit_shell">
+								<span class="current_value">VISA</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<input type="text" class="input_txt" placeholder="" />
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
 						</tr>
 						<tr>
 							<td class="label">EXP:</td>
-							<td>12/2013<span class="edit"> ( edit )</span></td>
+							<td class="edit_shell">
+								<span class="current_value">12/2013</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<input type="text" class="input_txt" placeholder="" />
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -390,12 +472,26 @@
 						<tr>
 							<td class="checkbox"><span class="uncheck"></span></td>
 							<td class="label">Email:</td>
-							<td>User's email<span class="edit"> ( edit )</span></td>
+							<td class="edit_shell">
+								<span class="current_value">User's email</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<input type="text" class="input_txt" placeholder="" />
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
 						</tr>
 						<tr>
 							<td class="checkbox"><span class="uncheck"></span></td>
 							<td class="label">Text:</td>
-							<td>415-123-4567</td>
+							<td class="edit_shell">
+								<span class="current_value">415-123-4567</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<input type="text" class="input_txt" placeholder="" />
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
 						</tr>
 					</tbody>
 				</table>

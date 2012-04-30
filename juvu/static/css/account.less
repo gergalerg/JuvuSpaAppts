@@ -117,10 +117,12 @@
 		font-size:			16px;
 		text-align:			center;
 		line-height:		50px;
+		width: 				280px;
 	}
 	.label{
 		font-weight:		bold;
 		text-align:			right;
+		vertical-align:		baseline;
 	}
 	.edit{
 		color:				#B1E3FA;
@@ -128,6 +130,26 @@
 		&:hover{
 			color:				@blue;
 		}
+	}
+	
+	.form_shell{
+		display:			none;
+	}
+	
+	.input_txt{
+		border-radius:		3px;
+		border:				1px solid rgba(255, 255, 255, 0.8);
+		background-color:	rgba(255, 255, 255, 0.3);
+		color:				white;
+		padding:			1px 0 1px 5px;
+		font-size:			11px;
+		
+	}
+	
+	.submit_btn{
+		border-radius:		3px;
+		font-size:			10px;
+		padding:			0 3px;
 	}
 }
 
@@ -149,10 +171,11 @@
 	.label{
 		font-weight:		bold;
 		text-align:			right;
+		vertical-align:		baseline;
 	}
 	.mobile{
 		text-align:			left;
-		margin-left:		50px;
+		margin-left:		76px;
 	}
 	.edit{
 		color:				@blue;
@@ -161,10 +184,33 @@
 			color:				@magenta;
 		}
 	}
+	.form_shell{
+		display:			none;
+	}
+	.input_txt{
+		border-radius:		3px;
+		border:				1px solid rgba(255, 255, 255, 0.8);
+		background-color:	rgba(255, 255, 255, 0.3);
+		color:				@darkGray;
+		padding:			1px 0 1px 5px;
+		font-size:			11px;
+		
+	}
+	
+	.submit_btn{
+		border-radius:		3px;
+		font-size:			10px;
+		padding:			0 3px;
+		background-color:	@darkGray;
+		color:				white;
+		&:hover{
+			background-color:	@blue;
+		}
+	}
 	.checkbox{
-		width:					15px;
-		padding-left:			48px;
-		height:					15px;
+		width:				15px;
+		padding-left:		48px;
+		height:				15px;
 		text-align:			right;
 		.uncheck{
 			width:				16px;
