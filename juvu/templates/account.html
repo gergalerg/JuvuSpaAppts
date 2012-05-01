@@ -246,28 +246,43 @@
 			
 			{# edit #}
 			var placeholder;
+			var placeholder2;
 			var userEnterValue;
+			var userEnterValue2;
 			$('.edit').click(function(){
-				placeholder = $(this).prev().text();
-				$(this).parent().parent().find('.input_txt').attr('placeholder',placeholder);
+				placeholder = $(this).parent().find('.current_value:first-child').text();
+				$(this).parent().parent().find('.input_txt:first-child').attr('placeholder',placeholder);
+				
+				placeholder2 = $(this).parent().find('.current_value:nth-of-type(2)').text();
+				if(placeholder2)
+				{
+					$(this).parent().parent().find('.input_txt:nth-of-type(2)').attr('placeholder',placeholder2);
+				}
+				
 				$(this).parent().parent().find('.edit_shell').hide();
 				$(this).parent().parent().find('.form_shell').show();
-			})
+			});
 			
 			$('.submit_btn').click(function(){
-				userEnterValue = $(this).prev().val();
+				userEnterValue = $(this).parent().find('.input_txt:first-child').val();
+				userEnterValue2 = $(this).parent().find('.input_txt:nth-of-type(2)').val();
 				//console.log(userEnterValue);
+				
 				$(this).parent().parent().find('.edit_shell').show();
 				$(this).parent().parent().find('.form_shell').hide();
+				
 				if(userEnterValue){
-					$(this).parent().parent().find('.current_value').text(userEnterValue);
+					$(this).parent().parent().find('.current_value:first-child').text(userEnterValue);
 				}
-			})
+				if(userEnterValue2){
+					$(this).parent().parent().find('.current_value:nth-of-type(2)').text(userEnterValue2);
+				}
+			});
 			
 			{# checkbox #}
 			$('.uncheck').click(function(){
 				$(this).toggleClass('check');
-			})
+			});
 		});
 	</script>
 	
@@ -275,7 +290,7 @@
 </head>
 <body>
 	<div class="wrapper">
-		<div class="top-nav" >
+		<div class="top-nav">
 			<div class="utility"><a href="#">( log out )</a></div>
 			<div class="utility"><a href="#">user's account name</a></div>
 			<div class="logo">
@@ -429,9 +444,15 @@
 						
 						<tr>
 							<td class="label">Billing Address:</td>
-							<td>
-								1234 Market St.<br/>
-								San Francisco, CA 94107<span class="edit"> ( edit )</span>
+							<td class="edit_shell">
+								<span class="current_value">355 Bryant St.</span><br/>
+								<span class="current_value">San Francisco, CA 94107</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<input type="text" class="input_txt" placeholder="" /><br/>
+								<input type="text" class="input_txt" placeholder="" />
+								<input type="submit" class="submit_btn" value="submit" />
 							</td>
 						</tr>
 						
@@ -456,7 +477,7 @@
 								<select>
 									<option>American Express</option>
 									<option>Master</option>
-									<option>Visa</option>
+									<option>VISA</option>
 								</select>
 								<input type="submit" class="submit_btn" value="submit" />
 							</td>
@@ -509,7 +530,18 @@
 					<tbody>
 						<tr>
 							<td class="label">Mobile Carrier:</td>
-							<td>AT&T<span class="edit"> ( edit )</span></td>
+							<td class="edit_shell">
+								<span class="current_value">AT&T</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<select>
+									<option>AT&T</option>
+									<option>Verizon</option>
+									<option>T-Mobile</option>
+								</select>
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
 						</tr>
 					</tbody>
 				</table>
