@@ -33,9 +33,8 @@ body{
 }
 
 .top-nav{
-	height:				200px;
+	height:				170px;
 	clear:				both;
-	border-bottom:		2px dotted black;
 	margin-bottom:		10px;
 }
 
@@ -1000,7 +999,7 @@ h6{
 
 .sign_up_title{
 	font-size:			36px;
-	margin-top:			20%;
+	margin-top:			100px;
 	text-align:			center;
 	margin-bottom:		40px;
 	font-weight:		bold;
