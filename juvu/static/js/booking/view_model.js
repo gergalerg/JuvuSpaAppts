@@ -2,73 +2,73 @@ viewModel = {
 
     // Track the current "view" the user is looking at.
     viewing: ko.observable(),
-    previous_view: "toc", // What the user was looking at last.
+    previous_view: 'toc', // What the user was looking at last.
 
     // Track the current filter with which the user is working.
     current_filter: ko.observable(),
     // dis, nei, today, date, op
-    previous_filter: "", // What the user was looking at last.
+    previous_filter: '', // What the user was looking at last.
     first_choose: false, // Needed to flag first "entrance" to '/#choose' space.
 
     // Which procedure has the user selected?
-    current_proc: ko.observable({name:''}),
+    current_proc: ko.observable({name: ''})
 
-}
+};
 
 var view_transitions = {
     toc: function() {
         login_controls.show();
-        $("#backstretch").animate({opacity:1.0});
+        $('#backstretch').animate({opacity: 1.0});
     },
     service: function() {
-        $("#tree").fadeIn(open_treething);
+        $('#tree').fadeIn(open_treething);
     },
     choose: function() {
-        $(".wrapper").fadeIn();
+        $('.wrapper').fadeIn();
     },
     inv: function() {
-        $(".inv_wrapper").fadeIn();
-    },
-}
+        $('.inv_wrapper').fadeIn();
+    }
+};
 
 var unview_transitions = {
     toc: function() {
         login_controls.hide();
-        $("#backstretch").animate({opacity:0.3});
+        $('#backstretch').animate({opacity: 0.3});
     },
     service: function() {
-        $("#tree").fadeOut();
+        $('#tree').fadeOut();
     },
     choose: function() {
-        $(".wrapper").fadeOut();
+        $('.wrapper').fadeOut();
     },
     inv: function() {
-        $(".inv_wrapper").fadeOut();
-    },
-}
+        $('.inv_wrapper').fadeOut();
+    }
+};
 
 function unview() {
     var old_view = viewModel.previous_view;
     viewModel.previous_view = viewModel.viewing();
-    if (old_view == "") {
+    if (old_view == '') {
         return;
     }
     if (!_.has(unview_transitions, old_view)) {
-        console.log("unknown unview", old_view);
+        console.log('unknown unview', old_view);
         return;
     }
-    console.log("unviewing", old_view);
+    console.log('unviewing', old_view);
     var f = unview_transitions[old_view];
     f();
 }
 
 viewModel.viewing.subscribe(function(view) {
-    console.log("viewing", view);
+    console.log('viewing', view);
     viewModel.first_choose = true;
     unview();
     if (!_.has(view_transitions, view)) {
-        console.log("unknown view", view);
-        routes.navigate("toc", true);
+        console.log('unknown view', view);
+        routes.navigate('toc', true);
         return;
     }
     var f = view_transitions[view];
@@ -80,11 +80,11 @@ viewModel.viewing.subscribe(function(view) {
 // been selected.
 viewModel.current_proc.subscribe(function(proc) {
     if (!!proc.name) {
-        $("#goey").fadeIn();
+        $('#goey').fadeIn();
     } else {
-        $("#goey").fadeOut();
+        $('#goey').fadeOut();
     }
-})
+});
 
 var SpaProcedure = function(options) {
     this.name = options.name;
@@ -100,7 +100,7 @@ var SpaProcedure = function(options) {
     }
 
     if (_.isUndefined(options.nickname)) {
-        this.nickname = ko.observable("");
+        this.nickname = ko.observable('');
     } else {
         this.nickname = ko.observable(options.nickname);
     }
@@ -118,7 +118,7 @@ var SpaProcedure = function(options) {
     }
 
     this.formatted_price = ko.dependentObservable(function() {
-        return "$" + (+this.price()).toFixed(0);
+        return '$' + (+this.price()).toFixed(0);
     }, this);
 
     this.toggle = function() {
@@ -137,14 +137,14 @@ var SpaProcedure = function(options) {
     }
 
     this.add_subtype = function() {
-        var new_subtype = $("form#add_subtype").serializeArray();
-        var n = {name: this.name, supported:true, subtypes:this.subtypes};
+        var new_subtype = $('form#add_subtype').serializeArray();
+        var n = {name: this.name, supported: true, subtypes: this.subtypes};
         params_into_object(new_subtype, n);
         console.log(n);
         var newb = new SpaProcedure(n);
         this.subtypes.push(newb);
         viewModel.supported_procs.push(newb);
-        this.nickname("");
+        this.nickname('');
     }
 
     this.is_leaf = function() {
@@ -155,5 +155,5 @@ var SpaProcedure = function(options) {
             _.isNull(this._children) || _.isUndefined(this._children)
         ));
     }
-}
+};
 

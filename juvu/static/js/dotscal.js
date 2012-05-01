@@ -2,14 +2,14 @@
 // Date Formatting and Scales.
 //
 
-var day = d3.time.format("%w"),
-    week = d3.time.format("%U"),
-    _month = d3.time.format("%m"),
-    mday = d3.time.format("%d"),
-    yday = d3.time.format("%j"),
-    format = d3.time.format("%A\n%B %d %Y"),
-    wday_format = d3.time.format("%A"),
-    day_format = d3.time.format("%B %d %Y");
+var day = d3.time.format('%w'),
+    week = d3.time.format('%U'),
+    _month = d3.time.format('%m'),
+    mday = d3.time.format('%d'),
+    yday = d3.time.format('%j'),
+    format = d3.time.format('%A\n%B %d %Y'),
+    wday_format = d3.time.format('%A'),
+    day_format = d3.time.format('%B %d %Y');
 
 function month(d) { return _month(d) - 1 }
 
@@ -18,25 +18,25 @@ function month(d) { return _month(d) - 1 }
 var dh = 250, dw = 1024;
 var x0 = 10, x1 = 914;
 
-var x = d3.scale.linear().domain([0,53]).range([x0, x1]),
-    y = d3.scale.linear().domain([0,7]).range([20,dh]),
+var x = d3.scale.linear().domain([0, 53]).range([x0, x1]),
+    y = d3.scale.linear().domain([0, 7]).range([20, dh]),
 
-    r = d3.scale.linear().domain([0,1]).range([5,10]),
-    r_med = d3.scale.linear().domain([0,1]).range([15,30]),
-    r_big = d3.scale.linear().domain([0,1]).range([30, 43]),
+    r = d3.scale.linear().domain([0, 1]).range([5, 10]),
+    r_med = d3.scale.linear().domain([0, 1]).range([15, 30]),
+    r_big = d3.scale.linear().domain([0, 1]).range([30, 43]),
 
-    r_days_1 = d3.scale.linear().domain([0,1]).range([215, 225]),
-    r_days_2 = d3.scale.linear().domain([0,1]).range([155, 175]),
-    r_days_3 = d3.scale.linear().domain([0,1]).range([125, 145]),
-    r_days_4 = d3.scale.linear().domain([0,1]).range([95, 115]),
-    r_days_5 = d3.scale.linear().domain([0,1]).range([70, 90]),
-    r_days_6 = d3.scale.linear().domain([0,1]).range([50, 70]),
+    r_days_1 = d3.scale.linear().domain([0, 1]).range([215, 225]),
+    r_days_2 = d3.scale.linear().domain([0, 1]).range([155, 175]),
+    r_days_3 = d3.scale.linear().domain([0, 1]).range([125, 145]),
+    r_days_4 = d3.scale.linear().domain([0, 1]).range([95, 115]),
+    r_days_5 = d3.scale.linear().domain([0, 1]).range([70, 90]),
+    r_days_6 = d3.scale.linear().domain([0, 1]).range([50, 70]),
 
-    c0 = d3.scale.linear().domain([0,1]).range(
-        ["hsl(250, 50%, 50%)", "hsl(350, 100%, 50%)"]
+    c0 = d3.scale.linear().domain([0, 1]).range(
+        ['hsl(250, 50%, 50%)', 'hsl(350, 100%, 50%)']
         ).interpolate(d3.interpolateHsl);
-    c1 = d3.scale.linear().domain([0,1]).range(
-        ["hsl(150, 50%, 50%)", "hsl(250, 100%, 50%)"]
+    c1 = d3.scale.linear().domain([0, 1]).range(
+        ['hsl(150, 50%, 50%)', 'hsl(250, 100%, 50%)']
         ).interpolate(d3.interpolateHsl);
 
 var radii = {
@@ -46,13 +46,13 @@ var radii = {
     set_sizes: function(sm, lg) {
         radii.large = lg;
         radii.small = sm;
-    },
+    }
 };
 
-var xm = d3.scale.linear().domain([0,7]).range([100, 814]),
-    ym = d3.scale.linear().domain([0,4]).range([45, dh * 1.618]),
-    xr = d3.scale.linear().domain([0,7]).range([0, 200]),
-    yr = d3.scale.linear().domain([0,4]).range([45, dh * 1.618]);
+var xm = d3.scale.linear().domain([0, 7]).range([100, 814]),
+    ym = d3.scale.linear().domain([0, 4]).range([45, dh * 1.618]),
+    xr = d3.scale.linear().domain([0, 7]).range([0, 200]),
+    yr = d3.scale.linear().domain([0, 4]).range([45, dh * 1.618]);
 
 var xmselector = d3.scale.linear().domain([1, 12]).range([x0, x1]);
 
@@ -64,15 +64,15 @@ var xmselector = d3.scale.linear().domain([1, 12]).range([x0, x1]);
 var year = d3.time.days(new Date(2012, 0, 1), new Date(2013, 0, 1));
 var ydata = jQuery.map(year, function(d, i) {
     var datum = {
-        "month": month(d),
-        "week_of_year": +week(d),
-        "day_of_week": day(d),
-        "day_of_month": mday(d),
-        "day_of_year": +yday(d),
-        "label": format(d),
-        "weekday_label": wday_format(d),
-        "day_label": day_format(d),
-        "date": d,
+        'month': month(d),
+        'week_of_year': +week(d),
+        'day_of_week': day(d),
+        'day_of_month': mday(d),
+        'day_of_year': +yday(d),
+        'label': format(d),
+        'weekday_label': wday_format(d),
+        'day_label': day_format(d),
+        'date': d
     };
     var months_week = week(new Date(2012, datum.month, 1));
     datum.week_of_month = datum.week_of_year - months_week;
@@ -89,29 +89,29 @@ var DOTSCAL_VM = {
     // Track which time display mode user is using (month, week, year, etc...)
     time_mode: ko.observable('year'),
 
-    current: ko.observable(""),
+    current: ko.observable(''),
     current_el: ko.observable(),
 
-    pointed_at: ko.observable("Wants Pawn Term, "),
+    pointed_at: ko.observable('Wants Pawn Term, '),
     pointed_at_el: ko.observable(),
     pointed_at_last: false,
 
-	is_current: function(d) {
-	    return DOTSCAL_VM.current() == d.label;
-	},
-}
+    is_current: function(d) {
+      return DOTSCAL_VM.current() == d.label;
+    }
+};
 
 function mouse_bindings(T) { T
-	.on("mouseover", function(d) {
+  .on('mouseover', function(d) {
         DOTSCAL_VM.pointed_at(d.label);
         DOTSCAL_VM.pointed_at_el(this);
     })
-	.on("mouseout", function(d) {
+  .on('mouseout', function(d) {
         var c = DOTSCAL_VM.current();
         DOTSCAL_VM.pointed_at(c);
         DOTSCAL_VM.pointed_at_el(false);
     })
-	.on("click", function(d) {
+  .on('click', function(d) {
         if (!DOTSCAL_VM.is_current(d)) {
             DOTSCAL_VM.current(d.label);
             DOTSCAL_VM.current_el(this);
@@ -123,16 +123,19 @@ DOTSCAL_VM.pointed_at_el.subscribe(function(it) {
     if (it) {
         it = d3.select(it);
         it.transition().call(embiggen);
-        if (DOTSCAL_VM.time_mode() == "selection") { date_labelize(it) };
+        if (DOTSCAL_VM.time_mode() == 'selection') { date_labelize(it) }
     } else if (DOTSCAL_VM.pointed_at_last) {
         DOTSCAL_VM.pointed_at_last
-        .filter(function(d) { return !DOTSCAL_VM.is_current(d); }) // Don't shrink current day.
+        .filter(function(d) {
+           // Don't shrink current day.
+          return !DOTSCAL_VM.is_current(d);
+        })
         .transition()
         .call(shrink);
-        if (DOTSCAL_VM.time_mode() == "selection") {
-            vis3.selectAll("text.date_label")
+        if (DOTSCAL_VM.time_mode() == 'selection') {
+            vis3.selectAll('text.date_label')
             .transition()
-            .attr("fill-opacity", 0)
+            .attr('fill-opacity', 0)
             .remove();
         }
     }
@@ -140,7 +143,7 @@ DOTSCAL_VM.pointed_at_el.subscribe(function(it) {
 });
 
 DOTSCAL_VM.time_mode.subscribe(function(tmode) {
-    console.log("Time mode:", tmode);
+    console.log('Time mode:', tmode);
     if (tmode != 'year') {
         month_tabs_fade(vis3);
     }
@@ -148,20 +151,20 @@ DOTSCAL_VM.time_mode.subscribe(function(tmode) {
     switch (tmode[0]) {
         case 'y': // switch to year.
             select_year();
-            month_tabs_unfade(vis3)
+            month_tabs_unfade(vis3);
             break;
         case 'm': // switch to month.
             select_month(tmode.substr(1));
             break;
         case 's': // switch to selection.
-            select_dates()
+            select_dates();
             break;
     }
 });
 
-function date_labelize(S) { S
-    var x = S.attr("cx");
-    var y = 100 + 1 * S.attr("cy");
+function date_labelize(S) { S;
+    var x = S.attr('cx');
+    var y = 100 + 1 * S.attr('cy');
     var weekday_label, day_label;
     S.map(function(d) {
         weekday_label = d.weekday_label;
@@ -169,24 +172,24 @@ function date_labelize(S) { S
         return d;
     });
     console.log(x, y, weekday_label, day_label);
-    var text = vis3.append("svg:text");
-    text.attr("class", "date_label")
-        .attr("x", x)
-        .attr("y", y)
-        .attr("font-size", 16)
-        .attr("fill-opacity", 1)
-        .attr("text-anchor", "middle")
-        ;
-    text.append("svg:tspan").text(weekday_label);
-    text.append("svg:tspan").text(day_label)
-        .attr("x", x)
-        .attr("dy", 20)
-        ;
+    var text = vis3.append('svg:text');
+    text.attr('class', 'date_label')
+        .attr('x', x)
+        .attr('y', y)
+        .attr('font-size', 16)
+        .attr('fill-opacity', 1)
+        .attr('text-anchor', 'middle');
+
+    text.append('svg:tspan').text(weekday_label);
+    text.append('svg:tspan').text(day_label)
+        .attr('x', x)
+        .attr('dy', 20);
+
 }
 
 function select_dates() {
-    var from_date = $("#from_date_cal").datepicker("getDate");
-    var to_date = $("#to_date_cal").datepicker("getDate");
+    var from_date = $('#from_date_cal').datepicker('getDate');
+    var to_date = $('#to_date_cal').datepicker('getDate');
     if (!(_.isNull(from_date) || _.isNull(to_date))) {
         select_date_range(from_date, to_date);
 //        $("#options_criteria").fadeIn(CriteriaControls.show_options);
@@ -204,16 +207,16 @@ function date_selected() {
 }
 
 function select_today() {
-    $("#from_date_cal").datepicker("setDate", "+0")
-    $("#to_date_cal").datepicker("setDate", "+0")
+    $('#from_date_cal').datepicker('setDate', '+0');
+    $('#to_date_cal').datepicker('setDate', '+0');
     if (DOTSCAL_VM.time_mode() != 'selection') {
         DOTSCAL_VM.time_mode('selection');
     } else {
         select_dates();
     }
-    routes.navigate("choose/date", true);
+    routes.navigate('choose/date', true);
     reveal_option_circle();
-    routes.navigate("choose/opts", true);
+    routes.navigate('choose/opts', true);
 }
 
 function setup_month_tabs(V) {
@@ -234,67 +237,70 @@ function setup_month_tabs(V) {
         .domain(R)
         .rangeBands([0, 900], 0.125);
 
-    var mtabs = V.selectAll("g.mtab")
+    var mtabs = V.selectAll('g.mtab')
         .data(months);
 
-    var mtabs_enter = mtabs.enter().append("svg:g")
-        .attr("class", "mtab")
-        .style("cursor", "pointer")
-        .on("click", function(d, i) {
-            DOTSCAL_VM.time_mode('m' + i)
+    var mtabs_enter = mtabs.enter().append('svg:g')
+        .attr('class', 'mtab')
+        .style('cursor', 'pointer')
+        .on('click', function(d, i) {
+            DOTSCAL_VM.time_mode('m' + i);
         })
-        .on("mouseover", function(d) {
-    	    var it = d3.select(this)
-    	    it.select("rect")
-        	    .transition()
+        .on('mouseover', function(d) {
+          var it = d3.select(this);
+          it.select('rect')
+              .transition()
                 .duration(200)
-                .attr("height", 25)
-                .attr("y", 80)
-                .attr("ry", 5);
-            it.select("text")
-        	    .transition()
+                .attr('height', 25)
+                .attr('y', 80)
+                .attr('ry', 5);
+            it.select('text')
+              .transition()
                 .delay(100)
                 .duration(200)
-                .attr("fill-opacity", 0.5)
+                .attr('fill-opacity', 0.5);
         })
-        .on("mouseout", function(d) {
-    	    var it = d3.select(this)
-    	    it.select("rect")
-         	    .transition()
+        .on('mouseout', function(d) {
+          var it = d3.select(this);
+          it.select('rect')
+               .transition()
                 .delay(200)
                 .duration(200)
-                .attr("height", 5)
-                .attr("y", 100)
-                .attr("ry", 2);
-            it.select("text")
-        	    .transition()
+                .attr('height', 5)
+                .attr('y', 100)
+                .attr('ry', 2);
+            it.select('text')
+              .transition()
                 .duration(200)
-                .attr("fill-opacity", 0)
+                .attr('fill-opacity', 0);
+        });
+
+
+   var rects = mtabs_enter.append('svg:rect')
+        .attr('x', function(d, i) { return xscale(i) })
+        .attr('width', xscale.rangeBand())
+        .attr('y', 100)
+        .attr('height', 5)
+        .attr('rx', 5)
+        .attr('ry', 2)
+        .attr('fill', function(d, i) {
+            return (i % 2 == 0) ?
+                   c1(Math.random()) :
+                   c0(Math.random());
         })
-        ;
-
-   var rects = mtabs_enter.append("svg:rect")
-        .attr("x", function (d, i) { return xscale(i) })
-        .attr("width", xscale.rangeBand())
-        .attr("y", 100)
-        .attr("height", 5)
-        .attr("rx", 5)
-        .attr("ry", 2)
-        .attr("fill", function(d, i) {
-            return (i % 2 == 0)
-            ? c1(Math.random())
-            : c0(Math.random()) })
-        .attr("fill-opacity", 0)
-        ;
+        .attr('fill-opacity', 0);
 
 
-       mtabs_enter.append("svg:text")
-         .attr("x", function(d, i) { return xscale(i) + xscale.rangeBand() / 2 })
-         .attr("y", 100)
-         .attr("fill-opacity", 0)
-         .attr("text-anchor", "middle")
-         .text(function(d) { return "" + d; })
-         ;
+
+       mtabs_enter.append('svg:text')
+         .attr('x', function(d, i) {
+           return xscale(i) + xscale.rangeBand() / 2;
+         })
+         .attr('y', 100)
+         .attr('fill-opacity', 0)
+         .attr('text-anchor', 'middle')
+         .text(function(d) { return '' + d; });
+
 
 /*
          .attr("dx", -3) // padding-right
@@ -306,7 +312,7 @@ function setup_month_tabs(V) {
 }
 
 function month_tabs_fade(V) {
-    V.selectAll("g.mtab").remove();
+    V.selectAll('g.mtab').remove();
 }
 
 function month_tabs_unfade(V) {
@@ -314,7 +320,7 @@ function month_tabs_unfade(V) {
         .transition()
         .delay(1200)
         .duration(500)
-        .attr("fill-opacity", 0.5)
+        .attr('fill-opacity', 0.5);
 }
 
 
@@ -324,19 +330,19 @@ function select_date_range(from, to) {
     var in_range = function(d) {
         return (from <= d.date) && (d.date <= to);
     };
-    var circles = vis3.selectAll("circle");
+    var circles = vis3.selectAll('circle');
     if (N < 7) {
         style = daysish(N + 1);
-        indexer = function (d, i) {
+        indexer = function(d, i) {
             d.selection_index = i;
             return d;
         }
     } else if (N <= 60) {
         style = monthsish;
         radii.set_sizes(r_med, r_med);
-        indexer = function (d, i) {
+        indexer = function(d, i) {
             d.selection_index = d.month - month(from);
-            console.log(d.selection_index)
+            console.log(d.selection_index);
             return d;
         }
     } else {
@@ -403,26 +409,28 @@ function daysish(n) {
         .domain(_.range(n))
         .rangePoints(range, margin);
 
-    var f = function (T) { T
-        .attr("cx", function(d) {
-            return xscale(d.selection_index)
+    var f = function(T) { T
+        .attr('cx', function(d) {
+            return xscale(d.selection_index);
         })
-        .attr("cy", dh)
-        .attr("r", function() { return radius(Math.random()) })
-        .call(shiny)
+        .attr('cy', dh)
+        .attr('r', function() { return radius(Math.random()) })
+        .call(shiny);
     }
     return f;
 }
 
-var xmh = d3.scale.linear().domain([0,7]).range([25, 300]);
+var xmh = d3.scale.linear().domain([0, 7]).range([25, 300]);
 
 function monthsish(T) { T
     .delay(function(d) { return 75 * Math.random() })
     .duration(function(d) { return 500 + (500 * Math.random()) })
-    .attr("cx", function(d) { return 300 * d.selection_index + xmh(d.day_of_week) })
-    .attr("cy", function(d) { return ym(d.week_of_month) })
-    .attr("r", function() { return r_med(Math.random()) })
-    .call(shiny)
+    .attr('cx', function(d) {
+      return 300 * d.selection_index + xmh(d.day_of_week);
+    })
+    .attr('cy', function(d) { return ym(d.week_of_month) })
+    .attr('r', function() { return r_med(Math.random()) })
+    .call(shiny);
 }
 
 
@@ -438,7 +446,7 @@ function monthsish(T) { T
 function select_year() {
     radii.large = r_med;
     radii.small = r;
-    vis3.selectAll("circle")
+    vis3.selectAll('circle')
         .transition()
         .delay(function(d) { return 230 * Math.random() })
         .duration(1200)
@@ -450,7 +458,7 @@ function select_month(m) {
     radii.large = r_big;
     radii.small = r_big;
     var in_month = function(d) { return d.month == m };
-    var circles = vis3.selectAll("circle");
+    var circles = vis3.selectAll('circle');
     circles.filter(in_month).transition().call(month_style);
     clear_unmatching(circles, in_month, fade_drop);
 /*
@@ -467,7 +475,7 @@ function select_month(m) {
 
 function select_week(w) {
     var in_week = function(d) { return d.week_of_year == w };
-    var circles = vis3.selectAll("circle");
+    var circles = vis3.selectAll('circle');
 
     circles.filter(in_week).transition().call(week_style);
     clear_unmatching(circles, in_week, fade_drop);
@@ -485,7 +493,7 @@ function select_week(w) {
 function select_day(day) {
     var in_day = function(d) { return d.day_of_year == day };
     clear_unmatching(
-        vis3.selectAll("circle"),
+        vis3.selectAll('circle'),
         in_day,
         fade_drop);
 }
@@ -500,89 +508,88 @@ function clear_unmatching(selection, predicate, effect) {
 //
 
 function shiny(T) { T
-    .attr("fill", function(d) {
-        return (d.month % 2 == 0)
-            ? c1(Math.random())
-            : c0(Math.random());
+    .attr('fill', function(d) {
+        return (d.month % 2 == 0) ? c1(Math.random()) : c0(Math.random());
     })
-    .attr("fill-opacity", 0.5)
+    .attr('fill-opacity', 0.5);
 }
 
 function hidey(T) { T
     .duration(300)
-    .attr("fill-opacity", 0.01)
+    .attr('fill-opacity', 0.01);
 }
 
 function fade_drop(T) { T
     .duration(1200)
-    .attr("fill-opacity", 0.01)
+    .attr('fill-opacity', 0.01)
   .transition()
     .delay(function(d) { return 680 * Math.random() })
-    .attr("cx", function(d) { return x(d.week_of_year) })
-    .attr("cy", h * 2)
-    .ease("quad");
+    .attr('cx', function(d) { return x(d.week_of_year) })
+    .attr('cy', h * 2)
+    .ease('quad');
 }
 
 function embiggen(T) { T
-    .attr("r", function(d) {
-        return (DOTSCAL_VM.is_current(d))
-            ? radii.current(Math.random())
-            : radii.large(Math.random());
+    .attr('r', function(d) {
+        return (DOTSCAL_VM.is_current(d)) ?
+          radii.current(Math.random()) :
+          radii.large(Math.random());
     })
     .duration(2500)
-    .ease("elastic", 3, 0.3)
+    .ease('elastic', 3, 0.3);
 }
 
 function shrink(T) { T
-    .attr("r", function() { return radii.small(Math.random()) })
+    .attr('r', function() { return radii.small(Math.random()) })
     .delay(100)
-    .duration(333)
+    .duration(333);
 }
 
 function swell(T) { T
-    .attr("r", 2000)
+    .attr('r', 2000)
     .delay(100)
     .duration(1333)
-    .attr("fill-opacity", 0.01)
+    .attr('fill-opacity', 0.01);
 }
 
 function week_style(T) { T
     .call(month_style)
-    .attr("cy", function(d) { return ym(0) })
+    .attr('cy', function(d) { return ym(0) });
 }
 
 function month_style(T) { T
     .delay(function(d) { return 75 * Math.random() })
     .duration(function(d) { return 500 + (500 * Math.random()) })
-    .attr("cx", function(d) { return xm(d.day_of_week) })
-    .attr("cy", function(d) { return ym(d.week_of_month) })
-    .attr("r", function() { return r_big(Math.random()) })
-    .call(shiny)
+    .attr('cx', function(d) { return xm(d.day_of_week) })
+    .attr('cy', function(d) { return ym(d.week_of_month) })
+    .attr('r', function() { return r_big(Math.random()) })
+    .call(shiny);
 }
 
 function year_style(S) { S
-    .attr("cx", function(d) { return x(d.week_of_year) })
-    .attr("cy", function(d) { return 100 + y(d.day_of_week) })
-    .attr("r", function() { return r(Math.random()) })
-    .call(shiny)
+    .attr('cx', function(d) { return x(d.week_of_year) })
+    .attr('cy', function(d) { return 100 + y(d.day_of_week) })
+    .attr('r', function() { return r(Math.random()) })
+    .call(shiny);
 }
 
 function rangey_style(T) { T
     .delay(function(d) { return 75 * Math.random() })
     .duration(function(d) { return 500 + (500 * Math.random()) })
-    .attr("cx", function(d) {
-        return d.month * 200 + xr(d.day_of_week)
+    .attr('cx', function(d) {
+        return d.month * 200 + xr(d.day_of_week);
     })
-    .attr("cy", function(d) { return yr(d.week_of_month) })
-    .attr("r", function() { return r_big(Math.random()) })
-    .call(shiny)
+    .attr('cy', function(d) { return yr(d.week_of_month) })
+    .attr('r', function() { return r_big(Math.random()) })
+    .call(shiny);
 }
 
 
-// Cribbed and modified from: http://www.mcfedries.com/javascript/daysbetween.asp
+// Cribbed and modified from:
+// http://www.mcfedries.com/javascript/daysbetween.asp
 function days_between(date1, date2) {
-    var date1_ms = date1.getTime()
-    var date2_ms = date2.getTime()
-    return Math.round(Math.abs(date1_ms - date2_ms) / 86400000)
+    var date1_ms = date1.getTime();
+    var date2_ms = date2.getTime();
+    return Math.round(Math.abs(date1_ms - date2_ms) / 86400000);
 
 }
