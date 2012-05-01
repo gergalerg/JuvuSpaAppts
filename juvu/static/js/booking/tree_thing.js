@@ -63,7 +63,9 @@ function attach_parents(n) {
 }
 
 function unselect_other(me, d) {
-    var ginger = _.filter(me.children, function(child) { return (d !== child) });
+    var ginger = _.filter(me.children, function(child) {
+      return (d !== child);
+    });
     _.map(ginger, unselecty);
     if (_.has(me, 'parent')) { unselect_other(me.parent, me); }
 }
@@ -105,7 +107,9 @@ function update(source) {
   // Enter any new nodes at the parent's previous position.
   var nodeEnter = node.enter().append('svg:g')
       .attr('class', 'node')
-      .attr('transform', function(d) { return 'translate(' + source.y0 + ',' + source.x0 + ')'; })
+      .attr('transform', function(d) {
+        return 'translate(' + source.y0 + ',' + source.x0 + ')';
+      })
       .on('click', tree_node_click);
 
   nodeEnter.append('svg:circle')
@@ -114,7 +118,9 @@ function update(source) {
   nodeEnter.append('svg:text')
       .attr('x', function(d) { return d.children || d._children ? -10 : 10; })
       .attr('dy', '.35em')
-      .attr('text-anchor', function(d) { return d.children || d._children ? 'end' : 'start'; })
+      .attr('text-anchor', function(d) {
+        return d.children || d._children ? 'end' : 'start';
+      })
       .text(function(d) { return d.name; })
       .attr('fill', 'black')
       .attr('font-size', 16)
@@ -123,7 +129,9 @@ function update(source) {
   // Transition nodes to their new position.
   var nodeUpdate = node.transition()
       .duration(duration)
-      .attr('transform', function(d) { return 'translate(' + d.y + ',' + d.x + ')'; });
+      .attr('transform', function(d) {
+        return 'translate(' + d.y + ',' + d.x + ')';
+      });
 
   nodeUpdate.select('circle')
       .attr('r', 8)
@@ -146,7 +154,9 @@ function update(source) {
   // Transition exiting nodes to the parent's new position.
   var nodeExit = node.exit().transition()
       .duration(duration)
-      .attr('transform', function(d) { return 'translate(' + source.y + ',' + source.x + ')'; })
+      .attr('transform', function(d) {
+        return 'translate(' + source.y + ',' + source.x + ')';
+      })
       .remove();
 
   nodeExit.select('circle')
