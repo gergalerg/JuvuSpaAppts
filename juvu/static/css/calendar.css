@@ -24,6 +24,18 @@ body{
     margin-bottom: 		10px;
 }
 
+.login_logo{
+	padding-left:		72px;
+	margin-top:			64px;
+	position:			absolute;
+}
+
+.login_tagline{
+	position:			absolute;
+	margin-left:		300px;
+	margin-top:			93px;
+}
+
 .logo{
 	padding-left:		12px;
 	margin-top:			64px;
