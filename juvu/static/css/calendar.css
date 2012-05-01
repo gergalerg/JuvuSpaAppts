@@ -18,7 +18,39 @@ body{
 
 .top-nav{
 	height:				200px;
-	/*background-color:	blue;*/
+	border-bottom: 		2px dotted black;
+    clear: 				both;
+    height: 			200px;
+    margin-bottom: 		10px;
+}
+
+.logo{
+	padding-left:		12px;
+	margin-top:			64px;
+	position:			absolute;
+}
+
+.tagline{
+	position:			absolute;
+	margin-left:		249px;
+	margin-top:			93px;
+}
+
+.utility {
+    float: 				right;
+    font-size: 			12px;
+    line-height: 		18px;
+    margin-right: 		5px;
+    text-decoration: 	none;
+}
+
+.utility a {
+    color: 				#3FA9F5;
+    text-decoration: 	none;
+}
+
+.utility a:hover {
+    color: 				#FF0099;
 }
 
 .graph{

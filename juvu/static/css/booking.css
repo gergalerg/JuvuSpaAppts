@@ -21,15 +21,15 @@ body{
 }
 
 .logo{
-	padding-left:		40px;
-	margin-top:			90px;
-	font-size:			48px;
-	display:			inline-block;
-	cursor:				pointer;
+	padding-left:		12px;
+	margin-top:			64px;
+	position:			absolute;
 }
 
-.logo:hover{
-	color:				#3FA9F5;
+.tagline{
+	position:			absolute;
+	margin-left:		249px;
+	margin-top:			93px;
 }
 
 .top-nav{
@@ -744,6 +744,7 @@ body{
 	width:				500px;
 	margin-left:		12px;
 	margin-top:			-18px;
+	line-height:		20px;
 }
 
 .congrats_r_rightCol{
