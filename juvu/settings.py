@@ -37,6 +37,13 @@ TRIPLE_STORES = {
         ),
     }
 
+
+# Spread ring configuration.
+SPREAD = '3333@10.4.0.2'
+SP_GROUP = 'test'
+SP_UNAME = 'juvu'
+
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
