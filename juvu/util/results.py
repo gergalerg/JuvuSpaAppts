@@ -1,7 +1,4 @@
-FAKE_RESULTS = {'04-19-2012': [{'name': 'Spa Name',
-                 'results': [{u'name': u'sdf', u'price': u'40'}]}]}
-
-{'03-05-2012': [{'name': 'Cinta',
+FAKE_RESULTS = {'03-05-2012': [{'name': 'Cinta',
                  'results': [{'discount': 20,
                               'name': 'Haircut and Style - Junior Lev',
                               'price': '52'},

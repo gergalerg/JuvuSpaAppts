@@ -80,8 +80,9 @@ def inv(request):
     '''
     Inventory page.
     '''
-    r = pickle.load(open(settings.FDB)).values()
-    print r
+##    r = pickle.load(open(settings.FDB)).values()
+##    print r
+    r = FAKE_RESULTS.values()
     results = choice(r) if r else []
     print results
 #    shuffle(results)
