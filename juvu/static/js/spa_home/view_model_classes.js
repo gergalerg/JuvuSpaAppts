@@ -19,10 +19,19 @@ var SpaProcedure = function(options) {
     if (!_.isUndefined(options.children)) {
         this.children = _.map(
             options.children,
-            function(n) { return new SpaProcedure(n) }
+            function(n) {
+                n.parent = this;
+                return new SpaProcedure(n);
+            }
         );
     } else {
         this.children = null;
+    }
+
+    if (!_.isUndefined(options.parent)) {
+        this.parent = options.parent;
+    } else {
+        this.parent = null;
     }
 
     set_em(this, options, 'nickname', "");
@@ -51,9 +60,14 @@ var SpaProcedure = function(options) {
 
     this.add_subtype = function() {
         var new_subtype = $("form#add_subtype").serializeArray();
-        var n = {name: this.name, supported:true, subtypes:this.subtypes};
+        var n = {
+            name: this.name,
+            parent: this,
+            supported: true,
+            subtypes: this.subtypes,
+            };
         params_into_object(new_subtype, n);
-        console.log(n);
+        console.log(this.name, this.nickname(), "SpaProcedure.add_subtype =>", n);
         var newb = new SpaProcedure(n);
         this.subtypes.push(newb);
         viewModel.supported_procs.push(newb);
@@ -69,6 +83,13 @@ var SpaProcedure = function(options) {
             tripstore.add($.rdf.triple(pt, $.rdf.type, PROC_TYPE, {namespaces: RDF_NS}));
         }
         return this.rdf_node;
+    }
+
+    this.as_JSON = function() {
+        return {
+            name: this.nickname(),
+            price: this.price(),
+        }
     }
 }
 
@@ -103,7 +124,7 @@ function lookup_staff_class(class_name) {
         return class_name == staff_class.name;
     });
     // TODO: handle non-found class_name.
-    console.log(SC);
+    console.log("lookup_staff_class", class_name, "=>", SC);
     return SC;
 }
 

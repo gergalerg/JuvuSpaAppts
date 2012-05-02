@@ -1,6 +1,8 @@
-from simplejson import dumps
+from simplejson import dumps, loads
 from django.template import RequestContext
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from django.conf import settings
 from spa_ui.forms import SpaInfoForm
 
 
@@ -153,9 +155,6 @@ TREE = dumps(TREEd, indent=2)
 
 
 STAFF = [
-    {'name': 'Billy'},
-    {'name': 'Bob'},
-    {'name': 'Billy Jo Bob'},
     ]
 
 
@@ -172,6 +171,7 @@ def home(request):
         context_instance=RequestContext(request),
         )
 
+
 def cal(request):
     '''
     '''
@@ -179,4 +179,82 @@ def cal(request):
         'cal.html',
         context_instance=RequestContext(request),
         )
+
+
+def merchant(request):
+    '''
+    merchant page - about.
+    '''
+    return render_to_response(
+        'merchant_about.html',
+        context_instance=RequestContext(request),
+        )
+
+
+def merchant_reviews(request):
+    '''
+    merchant page - user review.
+    '''
+    return render_to_response(
+        'merchant_reviews.html',
+        context_instance=RequestContext(request),
+        )
+
+
+def merchant_services(request):
+    '''
+    merchant page - services.
+    '''
+    return render_to_response(
+        'merchant_services.html',
+        context_instance=RequestContext(request),
+        )
+       
+
+from pprint import pprint
+from datetime import datetime
+import pickle
+DAY_LABEL = '%m-%d-%Y'
+
+
+THE_FAKE_DB = {}
+_ew = []
+_all = [dict(
+            name="Spa Name",
+            results=_ew,
+            )]
+
+def proc_it(start, end, procs, **huh):
+##    if not procs:
+##        return
+    start = datetime.fromtimestamp(start/1000)
+    end = datetime.fromtimestamp(end/1000)
+    print start, end
+    day_label = start.date().strftime(DAY_LABEL)
+    ressy = THE_FAKE_DB.get(day_label)
+    if ressy is None:
+        ressy = THE_FAKE_DB[day_label] = _all
+    _ew.extend(procs)
+    pprint(THE_FAKE_DB)
+    pickle.dump(THE_FAKE_DB, open(settings.FDB,  'w'))
+
+
+def fooey(request):
+    '''
+    merchant page - services.
+    '''
+    pprint(request.POST.keys()[0])
+    data = request.POST.keys()[0]
+    data = loads(data)
+    pprint(data)
+    proc_it(**data)
+    
+    return HttpResponse("Form submitted")
+       
+
+
+
+
+
+
 

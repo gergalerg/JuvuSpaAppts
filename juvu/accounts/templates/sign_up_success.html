@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Juvu</title>
-	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
-    
-    <script type="text/javascript" src="../static/js/jquery.backstretch.min.js"></script>
-    <script type="text/javascript">
-		$.backstretch("../static/image/apply_form_bg.png");
-		$(function(){
-			$('#backstretch').css({opacity:0.3});
-		});
-	</script>
-    
-</head>
-<body>
-	<div class="wrapper">
+{% extends "signup_base.html" %}
+{% block extra_jquery_trigger_code %}
+$(".juvume_circle").click(function(){
+    window.location.href = {% url booking_home %}
+})
+{% endblock %}
+{% block body %}
 		<div class="top-nav" >
 			<div class="utility"><a href="#">( log out )</a></div>
 			<div class="utility"><a href="#">user's account name</a></div>
@@ -26,6 +15,7 @@
 				<img src="../static/image/tagline.png" />
 			</div>
 		</div>
+
 		<div class="big_heavy_title">
 			Thanks for checking out our Beta!
 		</div>
@@ -55,6 +45,4 @@
 			<div class="juvume_circle">Juvu me!</div>
 		</div>
 		<div style="clear:both;"></div>
-	</div>{# end of wrapper #}
-</body>
-</html>
+{% endblock %}

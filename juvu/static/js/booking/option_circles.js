@@ -4,31 +4,32 @@ function form_into_object(form, obj) {
 
 function collect_options() {
     var params = {};
-    form_into_object($("form.dis_form"), params);
-    form_into_object($("form.nei_form"), params);
-    form_into_object($("form.date_form"), params);
-    form_into_object($("form.opts_form"), params);
+    form_into_object($('form.dis_form'), params);
+    form_into_object($('form.nei_form'), params);
+    form_into_object($('form.date_form'), params);
+    form_into_object($('form.opts_form'), params);
     return params;
 }
 
 function clicky(selector, route) {
-    $(selector).click(function() { routes.navigate(route, true); })
+    $(selector).click(function() { routes.navigate(route, true); });
 }
 
 function setup_option_circles(ops_canvas) {
-    console.log("setup_option_circles");
+    console.log('setup_option_circles');
 
-    $("#id_miles").keyup(function () {
+    $('#id_miles').keyup(function() {
         if ($(this).val().length > 0) {
-            reveal_when_circles()
+            reveal_when_circles();
         }
     });
-    $("form.nei_form").find("input[type=checkbox]").click(reveal_when_circles);
-    $("form.date_form").find("input[type=textarea]").click(reveal_option_circle);
-    clicky(".distance > span.pointy", "choose/dis");
-    clicky(".neighbor > span.pointy", "choose/nei");
-    clicky(".date > span.pointy", "choose/date");
-    clicky(".option > span.pointy", "choose/opts");
+    $('form.nei_form').find('input[type=checkbox]').click(reveal_when_circles);
+    $('form.date_form').find('input[type=textarea]').click(reveal_option_circle);
+    clicky('.distance > span.pointy', 'choose/dis');
+    clicky('.neighbor > span.pointy', 'choose/nei');
+    $('.today').click(select_today);
+    clicky('.date > span.pointy', 'choose/date');
+    clicky('.option > span.pointy', 'choose/opts');
 
 
 	var svg_canvas = d3.select(ops_canvas).append("svg:svg");
@@ -109,5 +110,4 @@ function setup_option_circles(ops_canvas) {
 		    //routes.navigate("inv", true);
 		    window.location.href = "/inv";
 		})
-		
 }

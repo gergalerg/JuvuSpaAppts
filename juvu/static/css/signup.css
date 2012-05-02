@@ -1,7 +1,3 @@
-@dark-gray:				#808080;
-@light-gray:			#E6E6E6;
-@light-blue:			#3FA9F5;
-@magenta:				#FF0099;
 
 .colorGray{
 	color:				gray;
@@ -20,43 +16,10 @@ body{
 	padding-bottom:		200px;
 }
 
-.logo{
-	padding-left:		12px;
-	margin-top:			64px;
-	position:			absolute;
-}
-
-.tagline{
-	position:			absolute;
-	margin-left:		249px;
-	margin-top:			93px;
-}
-
 .top-nav{
-	height:				170px;
-	clear:				both;
-	margin-bottom:		10px;
+	height:				200px;
+	border:				1px solid black;
 }
-
-/*user account utility*/
-.utility{
-	float:				right;
-	margin-right:		5px;
-	font-size:			12px;
-	text-decoration:	none;
-	line-height:		18px;
-}
-
-.utility a{
-	text-decoration:	none;
-	color:				#3FA9F5;
-}
-
-.utility a:hover{
-	color:				#FF0099;
-	text-decoration:	underline;
-}
-
 
 #nav_left{
 	width:				300px;
@@ -77,7 +40,7 @@ body{
 
 .where{
 	top:				93px;
-	left:				127px;
+	left:				130px;
 	position:			absolute;
 	color:				#808080;
 	cursor:				pointer;
@@ -85,7 +48,7 @@ body{
 
 .when{
 	top:				193px;
-	left:				130px;
+	left:				133px;
 	position:			absolute;
 	color:				#808080;
 	cursor:				pointer;
@@ -93,7 +56,7 @@ body{
 
 .option{
 	top:				293px;
-	left:				123px;
+	left:				125px;
 	position:			absolute;
 	color:				#808080;
 	text-align:			center;
@@ -258,22 +221,17 @@ body{
 
 .service{
 	float:				left;
-	overflow: hidden;
-	width:				168px;
+	width:				140px;
 }
 
 .price{
 	float:				left;
-	width:				76px;
-	text-align:			right;
-	padding-right:		32px;
+	width:				100px;
 }
 
 .discount{
 	float:				left;
-	width:				73px;
-	text-align:			right;
-	padding-right:		5px;
+	width:				95px;
 }
 
 .m_items{
@@ -298,7 +256,7 @@ body{
 	color:				white;
 	float:				left;
 	text-align:			center;
-	margin-left:		3px;
+	margin-left:		12px;
 	border-radius: 		3px;
 	vertical-align:		baseline;
 	line-height:		20px;
@@ -358,24 +316,17 @@ body{
 	padding-left:		12px;
 }
 
-#select_appointment{
-	font-size:			20px;
-	margin:				30px 0 0 24px;
-	padding-left:		12px;
-	padding-bottom:		24px;
-	color:				rgb(96, 145, 204);
-	border-bottom:		1px solid black;
+.timeline_nav{
+	font-size:			24px;
+	margin-left:		24px;
+	margin-top:			20px;
 }
 
-.timeline_nav{
-	font-size:			14px;
-	margin-left:		24px;
-	margin-top:			15px;
-}
 
 .pre_btn{
 	float:				left;
 	background-color:	gray;
+	margin-left:		12px;
 	color:				white;
 	padding:			5px;
 	cursor:				pointer;
@@ -407,18 +358,15 @@ body{
 
 .month_txt{
 	position:			absolute;
-	margin-left:		24px;
-	margin-top:			4px;
+	margin-left:		270px;
+	margin-top:			6px;
 	color:				gray;
-	font-size:			18px;
-	width:				652px;
-	text-align:			center;
 }
 
 .timeline{
 	text-transform:		uppercase;
 	margin-left:		36px;
-	margin-top:			15px;
+	margin-top:			20px;
 	font-size:			15px;
 	list-style-type:	none;
 	padding:			0;
@@ -440,7 +388,7 @@ body{
 
 .morning{
 	margin-left:		24px;
-	padding-top:		12px;
+	padding-top:		20px;
 }
 
 .afternoon{
@@ -451,6 +399,45 @@ body{
 .evening{
 	margin-left:		24px;
 	margin-top:			50px;
+}
+
+.mor_title{
+	font-size:			0.8em;
+	text-transform:		uppercase;
+	padding-left:		12px;
+	padding-top:		10px;
+	margin-top:			-6px;
+	border-top:			2px solid black;
+	width:				95px;
+	float:				left;
+	font-weight:		bold;
+	letter-spacing:		0.1em;
+}
+
+.aft_title{
+	font-size:			0.8em;
+	text-transform:		uppercase;
+	padding-left:		12px;
+	padding-top:		10px;
+	margin-top:			-6px;
+	border-top:			2px solid black;
+	width:				95px;
+	float:				left;
+	font-weight:		bold;
+	letter-spacing:		0.1em;
+}
+
+.eve_title{
+	font-size:			0.8em;
+	text-transform:		uppercase;
+	padding-left:		12px;
+	padding-top:		10px;
+	margin-top:			-6px;
+	border-top:			2px solid black;
+	width:				95px;
+	float:				left;
+	font-weight:		bold;
+	letter-spacing:		0.1em;
 }
 
 .day1{
@@ -734,17 +721,11 @@ body{
 	width:				50px;
 }
 
-.a_timeRange{
-	margin-left: 		70px;
-	width:				190px;
-}
-
 .congrats_r_leftCol{
 	float:				left;
 	width:				500px;
 	margin-left:		12px;
 	margin-top:			-18px;
-	line-height:		20px;
 }
 
 .congrats_r_rightCol{
@@ -1000,7 +981,7 @@ h6{
 
 .sign_up_title{
 	font-size:			36px;
-	margin-top:			100px;
+	margin-top:			20%;
 	text-align:			center;
 	margin-bottom:		40px;
 	font-weight:		bold;
@@ -1064,15 +1045,6 @@ h6{
 	font-size:			20px;
 }
 
-#payment{
-	padding:			20px;
-}
-
-.pay_list{
-	padding-left:		0;
-	line-height:		24px;
-}
-
 .instruct_signup{
 	color: 				gray;
     font-size: 			16px;
@@ -1106,4 +1078,6 @@ h6{
 .juvume_circle:hover{
 	background-color:	#3FA9F5;
 }
+
+
 

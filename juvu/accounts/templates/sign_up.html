@@ -1,0 +1,21 @@
+{% extends "signup_base.html" %}
+{% block body %}
+<div class="top-nav" >
+	<div class="logo">
+		<img src="../static/image/logo.png" />
+	</div>
+	<div class="tagline">
+		<img src="../static/image/tagline.png" />
+	</div>
+</div>
+<form method="POST" action="{% url signup %}">
+    {% csrf_token %}
+	<div class="sign_up_title">Sign Up!</div>
+	<div class="form_shell">
+    <table>
+    {{ form }}
+      <tr><th></th><td><input type="submit" value="submit" class="a_form_submit"/></td></tr>
+    </table>
+    </div>
+</form>
+{% endblock %}

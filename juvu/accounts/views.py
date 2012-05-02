@@ -1,5 +1,6 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
+from django.core.urlresolvers import reverse
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django import forms
@@ -42,12 +43,12 @@ def signup(request):
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
             user.save()
-            user = authenticate(
+            user = auth.authenticate(
                 username=form.cleaned_data['email'],
                 password=form.cleaned_data['password'],
                 )
-            login(request, user)
-            return HttpResponseRedirect('/#step/0')
+            auth.login(request, user)
+            return redirect(reverse("signup_success"))
 
     return render_to_response(
         'sign_up.html',

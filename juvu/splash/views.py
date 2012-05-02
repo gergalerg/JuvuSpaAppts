@@ -1,13 +1,42 @@
+import logging
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from django.core.urlresolvers import reverse
 from juvu.splash.models import proc_email
+from juvu.util.spreadlogger import SpreadHandler
+from django.conf import settings
+
+
+# Set up spread logging.
+def _f(log):
+    handler = SpreadHandler(
+        spreadd=settings.SPREAD,
+        group=settings.SP_GROUP,
+        user=settings.SP_UNAME,
+        )
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+    handler.setFormatter(formatter)
+    log.setLevel(logging.DEBUG)
+    log.addHandler(handler)
+
+_log = logging.getLogger("splash")
+_f(_log)
 
 
 def splash(request):
     '''
     Splash page.
     '''
+    _log.info(
+        " | ".join(["%r"] * 5),
+        request.META['REMOTE_ADDR'],
+        request.META.get('REMOTE_HOST', '[no REMOTE_HOST]'),
+        request.get_host(),
+        request.META['HTTP_USER_AGENT'],
+        request.META.get('HTTP_REFERER', '[no HTTP_REFERER]'),
+        )
     return render_to_response(
         'index.html',
         context_instance=RequestContext(request),
@@ -30,10 +59,7 @@ def record_email(request):
     '''
     if request.method == 'POST':
         email_addy = request.POST['record_email']
-        proc_email(email_addy)
-##        form = RecordEmailForm(request.POST)
-##        if form.is_valid():
-##            email_addy = form.cleaned_data['record_email']
+        proc_email(email_addy, _log)
     return redirect(reverse("thanks"))
 
 def calendar(request):
@@ -45,24 +71,6 @@ def calendar(request):
         context_instance=RequestContext(request),
         )
 
-def inv(request):
-    '''
-    Inventory page.
-    '''
-    return render_to_response(
-        'inv.html',
-        context_instance=RequestContext(request),
-        )
-
-def book(request):
-    '''
-    booking page.
-    '''
-    return render_to_response(
-        'book.html',
-        context_instance=RequestContext(request),
-        )
-        
 def bid(request):
     '''
     bid page.
@@ -71,34 +79,7 @@ def bid(request):
         'bid.html',
         context_instance=RequestContext(request),
         )
-        
-def merchant(request):
-    '''
-    merchant page - about.
-    '''
-    return render_to_response(
-        'merchant_about.html',
-        context_instance=RequestContext(request),
-        )
 
-def merchant_reviews(request):
-    '''
-    merchant page - user review.
-    '''
-    return render_to_response(
-        'merchant_reviews.html',
-        context_instance=RequestContext(request),
-        )
-
-def merchant_services(request):
-    '''
-    merchant page - services.
-    '''
-    return render_to_response(
-        'merchant_services.html',
-        context_instance=RequestContext(request),
-        )
-       
 def book_info(request):
     '''
     capture client's information
@@ -152,7 +133,7 @@ def bid_congrats(request):
         'bid_congrats.html',
         context_instance=RequestContext(request),
         )
-        
+
 def account(request):
     '''
     user account
@@ -161,22 +142,3 @@ def account(request):
         'account.html',
         context_instance=RequestContext(request),
         )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

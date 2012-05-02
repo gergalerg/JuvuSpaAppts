@@ -39,6 +39,10 @@ viewModel = {
     // Display the time corresponding to the mouse position on the calendar pane.
     mouse_time: ko.observableArray(),
 
+    start_time: ko.observable("now"),
+    end_time: ko.observable("then"),
+    block_success: false,
+
     clear_staff_member_form: function() {
         // Clear out the staff form.
         $("form#staff_edit").find("input[type=text]").val("");
@@ -72,6 +76,7 @@ viewModel = {
     add_class: function() {
         var new_class = $("#id_add_class").val();
         if (!new_class) { return }
+        console.log("Adding staff class", new_class);
         new_class = new StaffMemberClass({name:new_class})
         viewModel.staff_classes.push(new_class);
         $("#id_add_class").val("");
@@ -142,6 +147,11 @@ viewModel.current_staff_member.subscribe(function(staff_member) {
 viewModel.viewing.subscribe(function(view) {
     $(".indicate").removeClass("indicate");
     $("#" + view + "_link").addClass("indicate");
+});
+
+// for debugging
+viewModel.current_proc.subscribe(function(proc) {
+    console.log("Set viewModel.current_proc =>", proc);
 });
 
 // Track and update visible pane and TOC width.

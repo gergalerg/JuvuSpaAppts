@@ -4,7 +4,7 @@ from os.path import dirname, join, exists
 
 PROJECT_ROOT = dirname(__file__)
 
-
+FDB = join(PROJECT_ROOT, 'tmep.data')
 PRODUCTION = exists(join(PROJECT_ROOT, 'production'))
 DEBUG = not PRODUCTION
 TEMPLATE_DEBUG = DEBUG
@@ -36,6 +36,13 @@ TRIPLE_STORES = {
         options_string="new='yes',dir='.'",
         ),
     }
+
+
+# Spread ring configuration.
+SPREAD = '3333@10.4.0.2'
+SP_GROUP = 'test'
+SP_UNAME = 'juvu'
+
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -99,6 +106,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     join(PROJECT_ROOT, 'templates'),
+    join(PROJECT_ROOT, 'accounts', 'templates'),
     join(PROJECT_ROOT, 'booking', 'templates'),
     join(PROJECT_ROOT, 'innerview', 'templates'),
     join(PROJECT_ROOT, 'spa_ui', 'templates'),

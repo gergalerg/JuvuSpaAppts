@@ -12,25 +12,25 @@ class Emails(models.Model):
 
 admin.site.register(Emails)
 
-def proc_email(email_addy):
-    print 'Processing:', email_addy
+def proc_email(email_addy, log):
+    log.info('Processing: %r', email_addy)
 
     try:
         em = Emails.objects.get(email=email_addy)
 
     except Emails.DoesNotExist:
-        print 'New email:', repr(email_addy)
+        log.info('New email: %r', email_addy)
         em = Emails(email=email_addy)
         try:
             em.clean_fields()
         except ValidationError:
-            print 'Invalid address:', em
+            log.warning('Invalid address: %r', em)
         else:
             em.save()
-            print 'Created:', em
+            log.info('Created: %s', em)
 
     else:
-        print 'Duplicate email:', em
+        log.info('Duplicate email: %s', em)
 
     return HttpResponse(
         "%r, please." % (email_addy,),

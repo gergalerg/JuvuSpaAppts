@@ -86,3 +86,33 @@ function post_sched(sched) {
 
 //post_sched(gather_schedule())
 
+
+function preppy(start, end) {
+    var res = {
+        procs: _.map(viewModel.supported_procs(), function(it){ return it.as_JSON(); }),
+        start: start.getTime(),
+        end:end.getTime(),
+    };
+    return res;
+}
+
+function post_preppy(start, end) {
+    //var se = {cat:"butt"};
+    console.log(start, end);
+    var se = preppy(start, end);
+    console.log(se);
+    se = ko.toJSON(se);
+    console.log(se);
+    $.post(
+        "/spa/foo/",
+        se,
+        function(data, textStatus, jqXHR) {
+//            data = _.flatten(data);
+            console.log(data);
+//            setup_bands(data);
+//            console.log("data mapped to calendar");
+        }
+    );
+}
+
+

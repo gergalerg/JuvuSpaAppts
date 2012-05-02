@@ -4,7 +4,7 @@ var choose_view_transitions = {
     dis: function() {
         options_transitions.clickDis();
         if (viewModel.first_choose) {
-            options_transitions.little_show_nei()
+            options_transitions.little_show_nei();
             viewModel.first_choose = false;
         }
     },
@@ -12,60 +12,60 @@ var choose_view_transitions = {
     nei: function() {
         options_transitions.clickNei();
         if (viewModel.first_choose) {
-            options_transitions.little_show_dis()
+            options_transitions.little_show_dis();
             viewModel.first_choose = false;
         }
     },
 
     date: function() { options_transitions.clickDate(); },
 
-    opts: function() { options_transitions.clickOpts(); },
-}
+    opts: function() { options_transitions.clickOpts(); }
+};
 
 var choose_unview_transitions = {
 
     dis: function() {
-        if (viewModel.current_filter() == "nei") {
-            options_transitions.little_show_dis()
+        if (viewModel.current_filter() == 'nei') {
+            options_transitions.little_show_dis();
         } else {
             options_transitions.hide_dis();
         }
     },
 
     nei: function() {
-        if (viewModel.current_filter() == "dis") {
-            options_transitions.little_show_nei()
+        if (viewModel.current_filter() == 'dis') {
+            options_transitions.little_show_nei();
         } else {
             options_transitions.hide_nei();
         }
     },
 
-    date: function(){ options_transitions.hide_when(); },
+    date: function() { options_transitions.hide_when(); },
 
-    opts: function() { options_transitions.hide_opts(); },
-}
+    opts: function() { options_transitions.hide_opts(); }
+};
 
 function choose_unview() {
     var old_filter = viewModel.previous_filter;
     viewModel.previous_filter = viewModel.current_filter();
-    if (old_filter == "") {
+    if (old_filter == '') {
         return;
     }
     if (!_.has(choose_unview_transitions, old_filter)) {
-        console.log("unknown choose_unview", old_filter);
+        console.log('unknown choose_unview', old_filter);
         return;
     }
-    console.log("choose_unviewing", old_filter);
+    console.log('choose_unviewing', old_filter);
     var f = choose_unview_transitions[old_filter];
     f();
 }
 
 viewModel.current_filter.subscribe(function(filter) {
-    console.log("choose_viewing", filter);
+    console.log('choose_viewing', filter);
     choose_unview();
     if (!_.has(choose_view_transitions, filter)) {
-        console.log("unknown filter", filter);
-        routes.navigate("toc", true);
+        console.log('unknown filter', filter);
+        routes.navigate('toc', true);
         return;
     }
     var f = choose_view_transitions[filter];
@@ -73,26 +73,26 @@ viewModel.current_filter.subscribe(function(filter) {
 });
 
 var reveal_when_circles = _.once(function() {
-	d3.select(".c_to").transition()
-		.attr("r", 65)
-		.attr("fill-opacity", 1)
-		.duration(500);
+  d3.select('.c_to').transition()
+    .attr('r', 65)
+    .attr('fill-opacity', 1)
+    .duration(500);
 
-	d3.select(".c_date").transition()
-		.attr("r", 65)
-		.attr("fill-opacity", 1)
-		.duration(500);
+  d3.select('.c_date').transition()
+    .attr('r', 65)
+    .attr('fill-opacity', 1)
+    .duration(500);
 
-	d3.select(".today").transition()
-		.style("display", "block")
-		.style("opacity", "1")
-		.duration(500);
+  d3.select('.today').transition()
+    .style('display', 'block')
+    .style('opacity', '1')
+    .duration(500);
 
-	d3.select(".date").transition()
-		.style("display", "block")
-		.style("opacity", "1")
-		.duration(500);
-})
+  d3.select('.date').transition()
+    .style('display', 'block')
+    .style('opacity', '1')
+    .duration(500);
+});
 
 var reveal_option_circle = _.once(function() {
 	d3.select(".c_op").transition()
@@ -127,20 +127,20 @@ var reveal_option_circle = _.once(function() {
 var options_transitions = {
 
     clickDis: function() {
-        $(".c_dis").appendTo($(".s_canvas"));
-	  	d3.select(".c_dis").transition()
-	  		.attr("cx", 400)
-	  		.attr("cy", 230)
-	  		.attr("r", 200)
-	  		.attr("fill", first_color)
-	  		.duration(1000)
-	  		.ease("elastic", 5, 3);
+        $('.c_dis').appendTo($('.s_canvas'));
+      d3.select('.c_dis').transition()
+        .attr('cx', 400)
+        .attr('cy', 230)
+        .attr('r', 200)
+        .attr('fill', first_color)
+        .duration(1000)
+        .ease('elastic', 5, 3);
 
-	  	d3.select(".distance").transition()
-	  		.style("left","255px")
-	  		.style("top","170px")
-	  		.duration(1000)
-	  		.ease("elastic", 5, 3)
+      d3.select('.distance').transition()
+        .style('left', '255px')
+        .style('top', '170px')
+        .duration(1000)
+        .ease('elastic', 5, 3)
           .transition()
 	  		.style("display","block")
 	  		.style("opacity", 1)

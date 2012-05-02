@@ -1,3 +1,128 @@
+var StaffCalendarModel = function() {
+
+    this.mode = "null_mode";
+    this.set_mode = function(mode) {
+        this.mode = mode;
+        $(".button_highlight_highlight").removeClass("button_highlight_highlight");
+        $('#' + mode).parents(".button_highlight").addClass("button_highlight_highlight");
+    }
+
+    var me = this;
+    this.select = function(start, end, allDay) { me[me.mode].select(start, end, allDay) };
+
+    this.fullcal = setup_staff_calendar(this);
+
+    this.gotoDate = function(d) {
+        this.fullcal.fullCalendar('gotoDate', d);
+    };
+
+    this.null_mode = {
+        select: function(start, end, allDay) {
+            me.fullcal.fullCalendar('unselect');
+        }, // select
+    } // null mode
+
+    this.block_mode = {
+        select: function(start, end, allDay) {
+            viewModel.start_time(start);
+            viewModel.end_time(end);
+
+            $('#yo_dialog').reveal();
+            me.fullcal.fullCalendar('unselect');
+            me.fullcal.fullCalendar(
+            'renderEvent',
+            {
+                title: 'Sup homies!?',
+                start: start,
+                end: end,
+                allDay: allDay,
+                className: 'blocky'
+            },
+            true // make the event "stick"
+            );
+            post_preppy(start, end)
+            me.set_mode("null_mode");
+        }, // select
+    } // block mode
+
+    this.discount_mode = {
+        select: function(start, end, allDay) {
+            viewModel.start_time(start);
+            viewModel.end_time(end);
+            me.fullcal.fullCalendar('unselect');
+            me.fullcal.fullCalendar(
+            'renderEvent',
+            {
+                title: 'Aw yeah! Discount!',
+                start: start,
+                end: end,
+                allDay: allDay,
+                className: 'discounty'
+            },
+            true // make the event "stick"
+            );
+            var d = $(".discounty")
+            d.find(".fc-event-inner").removeClass("fc-event-skin");
+            d.find(".fc-event-head").removeClass("fc-event-skin");
+            d.find(".fc-event-bg").detach();
+            me.set_mode("null_mode");
+            $('#yo_dialog').reveal();
+        }, // select
+    } // discount mode
+
+}
+
+
+function setup_cal_tools() {
+
+    // Staff class selector.
+    var f = function() { $("#fuk").text($("#ctsc").val()) };
+    $("#ctsc").change(f)
+    f();
+
+    // Buttons for the different paint modes.
+    $("button#block_mode").click(function(){
+        console.log("Enter block mode.");
+        staff_cal.set_mode("block_mode");
+    })
+    $("button#discount_mode").click(function(){
+        console.log("Enter discount mode.");
+        staff_cal.set_mode("discount_mode");
+    })
+}
+
+
+function setup_staff_calendar(mod) {
+    return $("#show").fullCalendar({
+            // put your options and callbacks here
+            header: {
+                left: 'title',
+                center: '',
+                right: '',
+            },
+            height: 650,
+            defaultView: 'agendaWeek',
+            selectable: true,
+            weekends: true,
+            slotMinutes: 15,
+            select: mod.select,
+        });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Everything below here is old and should be removed (as soon as we determine that it's not being used anywhere.)
+
 function random_apts(staff_member) {
     var res = [Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random()];
     res.sort();
