@@ -58,7 +58,7 @@ function setup_option_circles(ops_canvas) {
 	  .attr("fill-opacity",1)
 	  .attr("class","c_dis pointy")
 	  .on("click", function(){
-	      routes.navigate("choose/dis", false); //FIXME No distance choice here for now...
+	      routes.navigate("choose/dis", false); //FIXME Disable distance choice here for now...
 	  });
 	
 	//today

@@ -260,7 +260,7 @@ var options_transitions = {
 	  	
 	  	d3.select(".neighbor").transition()
 	  		.style("left"," 327px")
-	  		.style("top"," 170px")
+	  		.style("top"," 130px")
 	  		.duration(1000)
 	  		.ease("elastic", 5, 4);
 	  	
