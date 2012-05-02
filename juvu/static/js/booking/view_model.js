@@ -26,9 +26,6 @@ var view_transitions = {
     choose: function() {
         $('.wrapper').fadeIn();
     },
-    inv: function() {
-        $('.inv_wrapper').fadeIn();
-    }
 };
 
 var unview_transitions = {
@@ -42,9 +39,6 @@ var unview_transitions = {
     choose: function() {
         $('.wrapper').fadeOut();
     },
-    inv: function() {
-        $('.inv_wrapper').fadeOut();
-    }
 };
 
 function unview() {
