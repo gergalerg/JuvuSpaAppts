@@ -108,6 +108,6 @@ function setup_option_circles(ops_canvas) {
 		.attr("class","c_me pointy")
 		.on("click", function(){
 		    //routes.navigate("inv", true);
-		    window.location.href = "/inv";
+		    window.location.href = "/look/inv";
 		})
 }
