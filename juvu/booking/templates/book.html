@@ -2,12 +2,19 @@
 {% block title %}Juvu{% endblock %}
 {% block html_head %}
 <link rel="stylesheet" type="text/css" href="/static/css/booking.css">
-</script>
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 {% endblock %}
 {% block body %}
 	<div class="wrapper">
 		<div class="top-nav">
-			<h1 style="margin:0;">JUVU</h1>
+			<div class="utility"><a href="#">( log out )</a></div>
+			<div class="utility"><a href="#">user's account name</a></div>
+			<div class="logo">
+				<img src="../static/image/logo.png" />
+			</div>
+			<div class="tagline">
+				<img src="../static/image/tagline.png" />
+			</div>
 		</div>
 		
 		<div id="nav_left">
@@ -16,7 +23,7 @@
 				<li>gender</li>
 			</ul>
 			<select class="selection">
-			  <option value="">Both</option>
+			  <option value="">Either</option>
 			  <option value="">Female Only</option>
 			  <option value="">Male Only</option>
 			</select>
@@ -26,31 +33,25 @@
 			</ul>
 			<select  class="selection">
 			  <option value="">Any</option>
-			  <option value="">a</option>
-			  <option value="">b</option>
-			   <option value="">c</option>
+			  <option value="">Coming Soon</option>
 			</select>
 			
 			<ul class="nav_selections" style="margin-top:60px;">
 				<li>options</li>
 			</ul>
 			<select class="selection">
-			  <option value="">Any</option>
-			  <option value="">a</option>
-			  <option value="">b</option>
-			  <option value="">c</option>
+			  <option value="">None</option>
 			</select>
-			
-			
 		</div>{# end of left nav #}
+
 		
 		<div id="nav_right">
 			<div id="header_service">{{treatment  }} at {{ name }}</div>
-			
+      <div id="select_appointment">Select Your Appointment</div>
 			<div class="timeline_nav">
-				<div class="pre_btn">< </div>
+				<div class="pre_btn">&lt; </div>
 				<div class="month_txt">{{ date_label }}</div>
-				<div class="next_btn">> </div>
+				<div class="next_btn">&gt; </div>
 			</div>
 			
 			<div style="clear:both;"></div>

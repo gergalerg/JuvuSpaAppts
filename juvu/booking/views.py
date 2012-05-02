@@ -12,7 +12,6 @@ import pickle
 def image_url(n):
     return '/static/image/login_%02i.jpg' % (n,)
 
-
 LOGIN_IMAGES = [
     dict(
         image_URL=image_url(1),
@@ -34,7 +33,7 @@ LOGIN_IMAGES = [
         ),
     dict(
         image_URL=image_url(4),
-        top='50%',
+        top='40%',
         left='52%',
         color='#E8711F',
         ),

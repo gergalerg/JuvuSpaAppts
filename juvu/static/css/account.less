@@ -1,0 +1,268 @@
+@copy:					#666;
+@lightGray:				#E6E6E6;
+@darkGray:				#808080;
+@blue:					#3FA9F5;
+@magenta:				#FF0099;
+.events{
+	width:				330px;
+	float:				left;
+}
+
+.coming_title{
+	color:				@copy;
+	text-transform:		uppercase;
+	padding-left:		18px;
+	font-size:			14px;
+	margin-top:			30px;
+}
+
+.coming{
+	list-style-type:	none;
+	margin-left:		18px;
+	width:				312px;
+}
+
+.coming tr{
+	border-bottom:		1px;
+}
+
+.coming tr td{
+	float:				left;
+	font-size:			12px;
+	color:				@copy;
+	line-height:		18px;
+}
+
+.coming_date{
+	width:				48px;
+}
+
+.coming_time{
+	width:				32px;
+}
+
+.coming_m{
+	width:				90px;
+}
+
+.coming_s{
+	width:				116px;
+}
+
+.coming_cancel{
+	width:				12px;
+	text-align:			right;
+	font-size:			18px !important;
+}
+
+.justLine{
+	width:				312px;
+	border-bottom:		1px dotted black;
+}
+
+.outstanding_date{
+	width:				80px;
+}
+
+.link_c{
+	color: 				@blue;
+	text-decoration:	none;
+	&:hover{
+		color:				@magenta;
+	}
+}
+
+.outstanding_timeRange{
+	width:				90px;
+}
+
+.outstanding_price{
+	width:				30px;
+}
+
+.outstanding_countdown{
+	width:				75px;
+	color:				#6091CC !important;
+	text-align:			right;
+}
+
+.outstanding_m{
+	width:				170px;
+}
+
+.outstanding_s{
+	
+}
+
+#account_canvas{
+	width:				692px;
+	height:				462px;
+	display:			block;
+	float:				right;
+}
+
+.account_info{
+	display:			block;
+	opacity:			1;
+	position:			absolute;
+	margin-left:		160px;
+	margin-top:			70px;
+	font-size:			12px;
+	letter-spacing:		0.1em;
+	line-height:		20px;
+	color:				white;
+	width:				340;
+	.title{
+		font-size:			16px;
+		text-align:			center;
+		line-height:		50px;
+		width: 				280px;
+	}
+	.label{
+		font-weight:		bold;
+		text-align:			right;
+		vertical-align:		baseline;
+	}
+	.edit{
+		color:				#B1E3FA;
+		cursor:				pointer;
+		&:hover{
+			color:				@blue;
+		}
+	}
+	
+	.form_shell{
+		display:			none;
+	}
+	
+	.input_select{
+		
+	}
+	
+	.input_txt{
+		border-radius:		3px;
+		border:				1px solid rgba(255, 255, 255, 0.8);
+		background-color:	rgba(255, 255, 255, 0.3);
+		color:				white;
+		padding:			1px 0 1px 5px;
+		font-size:			11px;
+	}
+	
+	.submit_btn{
+		border-radius:		3px;
+		font-size:			10px;
+		padding:			0 3px;
+	}
+}
+
+.credit_info{
+	display:			none;
+	opacity:			0;
+	position:			absolute;
+	margin-left:		140px;
+	margin-top:			50px;
+	font-size:			12px;
+	letter-spacing:		0.1em;
+	line-height:		20px;
+	color:				@darkGray;
+	.title{
+		font-size:			16px;
+		text-align:			center;
+		line-height:		50px;
+		width:				340px;
+	}
+	.label{
+		font-weight:		bold;
+		text-align:			right;
+		vertical-align:		baseline;
+	}
+	.mobile{
+		text-align:			left;
+		margin-left:		49px;
+	}
+	.edit{
+		color:				@blue;
+		cursor:				pointer;
+		&:hover{
+			color:				@magenta;
+		}
+	}
+	.form_shell{
+		display:			none;
+	}
+	.input_txt{
+		border-radius:		3px;
+		border:				1px solid rgba(255, 255, 255, 0.8);
+		background-color:	rgba(255, 255, 255, 0.3);
+		color:				@darkGray;
+		padding:			1px 0 1px 5px;
+		font-size:			11px;
+		
+	}
+	
+	.submit_btn{
+		border-radius:		3px;
+		font-size:			10px;
+		padding:			0 3px;
+		background-color:	@darkGray;
+		color:				white;
+		&:hover{
+			background-color:	@blue;
+		}
+	}
+	.checkbox{
+		width:				15px;
+		padding-left:		48px;
+		height:				15px;
+		text-align:			right;
+		.uncheck{
+			width:				16px;
+			height:				16px;
+			display:			block;
+			background-image:	url("/static/image/checkbox_empty.png");
+			background-repeat:	no-repeat;
+			cursor:				pointer;
+		}
+		.check{
+			width:				16px;
+			height:				16px;
+			display:			block;
+			background-image:	url("/static/image/checkbox_check.png") !important;
+			background-repeat:	no-repeat;
+			cursor:				pointer;
+		}
+	}
+	
+}
+
+.account_small{
+	font-size:			10px;
+	color:				@lightGray;
+	position:			absolute;
+	margin-left:		587px;
+	margin-top:			287px;
+	letter-spacing:		0.1em;
+	cursor:				default;
+	display:			none;
+	opacity:			0;
+}
+
+.credit_small{
+	font-size:			10px;
+	color:				@darkGray;
+	position:			absolute;
+	margin-left:		584px;
+	margin-top:			275px;
+	letter-spacing:		0.1em;
+	cursor:				default;
+	text-align:			center;
+	line-height:		16px;
+	display:			block;
+	opacity:			1;
+}
+
+
+
+
+
+

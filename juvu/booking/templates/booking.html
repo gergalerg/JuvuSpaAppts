@@ -37,6 +37,7 @@ var tree_thing;
 // Colors for options circles.
 var first_color = "#E6E6E6";
 var second_color = "#808080";
+var status_blue = "#3FA9F5";
 
 // The URL fragment Backbone "routes".
 var routes;
@@ -107,30 +108,58 @@ $(function(){
 
 </script>
 
-		
+
 
 {% endblock %}
 {% block body %}
 
 <div id="nav">
-	<div class="s1"><span class="l_title">sign up</span></div>
-	<div class="s2">
-		<center>
-			<span class="l_title" >log in</span>
-			<form method="POST" action="{% url booking_home %}">
-            {% csrf_token %}
-				<input class="i_text" placeholder="email" name="username"/><br />
-				<input class="i_text" placeholder="password" name="password" type="password"/><br />
-				<input class="i_btn" type="submit" value="submit"/>
-			</form>
-		</center>
+	<div class="login_logo">
+		<img src="../static/image/logo.png" />
 	</div>
-	<div class="s3"><span class="l_title">explore</span></div>
-
-	<div class="signup_circle c_shadow"></div>
-	<div class="login_circle c_shadow"></div>
-	<div class="exp_circle c_shadow"></div>
+	<div class="login_tagline">
+		<img src="../static/image/tagline.png" />
+	</div>
+	
+	<div class="innerNav">
+		<div class="s1"><span class="l_title">sign up</span></div>
+		<div class="s2">
+			<center>
+				<span class="l_title" >log in</span>
+				<form method="POST" action="{% url booking_home %}">
+				{% csrf_token %}
+					<input class="i_text" placeholder="email" name="username"/><br />
+					<input class="i_text" placeholder="password" name="password" type="password"/><br />
+					<input class="i_btn" type="submit" value="submit"/>
+				</form>
+			</center>
+		</div>
+		<div class="s3"><span class="l_title">explore</span></div>
+	
+		<div class="signup_circle c_shadow"></div>
+		<div class="login_circle c_shadow"></div>
+		<div class="exp_circle c_shadow"></div>
+	</div>
+	
+	<div class="shortcuts_global">
+		<div class="shortcuts">
+			<div class="service_sel singleline">Massage</div>
+			<div class="service_sel singleline">Face</div>
+			<div class="service_sel singleline">Hair</div>
+			<div class="service_sel doublelines">Hair Removal</div>
+			<div class="service_sel singleline">Nails</div>
+			<div class="service_sel singleline">Fitness</div>
+			<div class="service_sel doublelines">Alternative Wellness</div>
+			<div class="service_sel doublelines">Body Treatments</div>
+			<div class="service_sel singleline">Dental</div>
+		</div>
+	</div>
+	
 </div>
+
+	
+
+
 <div id="tree"></div>
 {% include "options.html" %}
 {% endblock %}

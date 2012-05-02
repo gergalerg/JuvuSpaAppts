@@ -9,10 +9,10 @@ var MerchantThing = function(options) {
         );
     this.results = ko.observableArray(res);
     this.wire_up_buttons = function(elements) {
-    var buttons = $(elements).find('.b_btn');
-    var us = buttons.parent().find('.service, .price, .discount');
-    buttons.mouseover(function() { us.css({'background-color': '#C6E6FC'}); });
-    buttons.mouseout(function() { us.css({'background-color': 'white'}); });
+      var buttons = $(elements).find('.b_btn');
+      var us = buttons.parent().find('.service, .price, .discount');
+      buttons.mouseover(function() { us.css({'background-color': '#C6E6FC'}); });
+      buttons.mouseout(function() { us.css({'background-color': 'white'}); });
     }
 };
 
@@ -29,7 +29,7 @@ var ResultThing = function(options) {
 };
 
 var MODEL = {
-    results: ko.observableArray()
+    results: ko.observableArray(),
 };
 
 MODEL.set_results = function(res) {

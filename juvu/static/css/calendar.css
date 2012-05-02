@@ -18,7 +18,50 @@ body{
 
 .top-nav{
 	height:				200px;
-	/*background-color:	blue;*/
+    clear: 				both;
+    height: 			200px;
+    margin-bottom: 		10px;
+}
+
+.login_logo{
+	padding-left:		72px;
+	margin-top:			64px;
+	position:			absolute;
+}
+
+.login_tagline{
+	position:			absolute;
+	margin-left:		300px;
+	margin-top:			93px;
+}
+
+.logo{
+	padding-left:		12px;
+	margin-top:			64px;
+	position:			absolute;
+}
+
+.tagline{
+	position:			absolute;
+	margin-left:		249px;
+	margin-top:			93px;
+}
+
+.utility {
+    float: 				right;
+    font-size: 			12px;
+    line-height: 		18px;
+    margin-right: 		5px;
+    text-decoration: 	none;
+}
+
+.utility a {
+    color: 				#3FA9F5;
+    text-decoration: 	none;
+}
+
+.utility a:hover {
+    color: 				#FF0099;
 }
 
 .graph{
@@ -59,7 +102,7 @@ body{
 	color:				white;
 	position:			absolute;
 	left:				310px;
-	top:				225px;
+	top:				140px;
 	width:				350px;
 }
 
@@ -78,8 +121,8 @@ body{
 
 .where{
 	position:				absolute;
-	left:					80px;
-	top:					95px;
+	left:					76px;
+	top:					91px;
 	color:					white;
 	display:				none;
 	opacity:				0;
@@ -87,8 +130,8 @@ body{
 
 .when{
 	position:				absolute;
-	left:					83px;
-	top:					195px;
+	left:					79px;
+	top:					192px;
 	color:					white;
 	display:				none;
 	opacity:				0;
@@ -114,10 +157,10 @@ body{
 }
 
 .date_form{
-	opacity:			0;
-	display:			none;
-	font-size:			0.8em;
-	line-height:		1.6em;
+	opacity:				0;
+	display:				none;
+	font-size:				0.8em;
+	line-height:			1.6em;
 }
 
 .option{
@@ -154,11 +197,12 @@ body{
 
 .juvuMe{
 	position:				absolute;
-	left:					920px;
+	left:					903px;
 	top:					345px;
 	color:					white;
 	display:				none;
 	opacity:				0;
+	width:					100px;
 }
 
 

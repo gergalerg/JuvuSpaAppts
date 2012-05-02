@@ -8,8 +8,15 @@
 </head>
 <body>
 	<div class="wrapper">
-		<div class="top-nav">
-			<h1 style="margin:0;">JUVU</h1>
+		<div class="top-nav" >
+			<div class="utility"><a href="#">( log out )</a></div>
+			<div class="utility"><a href="#">user's account name</a></div>
+			<div class="logo">
+				<img src="../static/image/logo.png" />
+			</div>
+			<div class="tagline">
+				<img src="../static/image/tagline.png" />
+			</div>
 		</div>
 		<div class="big_heavy_title">You will be charged if your bid is accepted!</div>
 		<p class="instruct">
@@ -24,6 +31,34 @@
 		</p><!--end of instruction-->
 		
 		<form>
+		
+		{# Bid info #}
+		<ul class="confirm_li">
+			<li>Bid Info</li>
+		</ul>
+		
+		<div class="congrats_row">
+			<ul class="appo_ul">
+				<li class="appo_li a_date">Date</li>
+				<li class="appo_li a_timeRange">Time Range</li>
+				<li class="appo_li a_merchant">Merchant</li>
+				<li class="appo_li a_service">Service</li>
+				
+				<li class="appo_li a_price">Bid Price</li>
+				<li class="appo_li a_cancel">Cancel</li>
+			</ul>
+			<br/>
+			<ul class="appo_ul colorGray">
+				<li class="appo_li a_date">Apr 1, 2012</li>
+				<li class="appo_li a_timeRange">13:00 to 15:00</li>
+				<li class="appo_li a_merchant">Merchant Name</li>
+				<li class="appo_li a_service">Cherry Blossom</li>
+				<li class="appo_li a_price">$125</li>
+				<li class="appo_li a_cancel"><a href="#" class="a_cancel_btn">X</a></li>
+			</ul>
+			<div style="clear:both;"></div>
+		</div>
+		
 		
 		<div class="confirm_column">
 			<ul class="confirm_li">

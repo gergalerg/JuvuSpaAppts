@@ -104,6 +104,8 @@
     				.duration(500);
     		}
     		
+    		
+    		//change circle color steelblue to white
     		function runDis()
     		{
     			d3.select(".c_dis").transition()
@@ -111,6 +113,7 @@
     		  		.attr("cy", 100)
     		  		.attr("r", 0)
     		  		.attr("fill", "steelblue")
+    		  		.style("opacity",0.5)
     		  		.duration(500)
     		  		.ease("elastic", 5, 4);
     			
@@ -492,7 +495,6 @@
 							<input type="checkbox" />Sunset/Lake Merced<br />
 							<input type="checkbox" />Western Addition<br />
 						</p>
-						<div class="nei_btn">test btn</div>
 					</form>
 				</div>
 				<div class="where">where</div>
@@ -535,7 +537,7 @@
 				</div>
 				
 				<div class="juvuMe">
-					Juvu Me					
+					See Results!				
 				</div>
 			</center>
 		</div>

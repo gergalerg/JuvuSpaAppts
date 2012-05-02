@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Juvu</title>
+	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/booking.css" />
+    
+	<link rel="stylesheet/less" type="text/css" href="../static/css/account.less" />
+	<script type="text/javascript" src="../static/js/less-1.3.0.min.js"></script>
+	
+	<script type="text/javascript" src="../static/js/d3/d3.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.time.js"></script>
+    <script type="text/javascript" src="../static/js/d3/d3.layout.js"></script>
+	
+	<script type="text/javascript">
+		$(function(){
+			var lightGray = "#E6E6E6";
+			var darkGray = "#808080";
+			var third_color = "#3FA9F5";
+			var hover_color = "#C6E6FC";
+			var oc;
+			
+			function changeColor(o)
+			{
+				oc = o.attr('fill');
+				o.attr('fill', hover_color);
+				return oc;
+			}
+			
+			function changeBack(t)
+			{
+				t.attr('fill',oc);
+			}
+			
+			
+			var s_canvas = d3.select("#account_canvas").append("svg:svg");
+			s_canvas
+				.attr("width", 692)
+				.attr("height", 462)
+				.attr("class", "s_canvas");
+			
+			
+			s_canvas.append("svg:circle")
+				.attr("cx", 300)
+				.attr("cy", 200)
+				.attr("r", 175)
+				.attr("fill", darkGray)
+				.attr("fill-opacity",1)
+				.attr("class", "account_c");
+			
+			s_canvas.append("svg:circle")
+				.attr("cx", 310)
+				.attr("cy", 220)
+				.attr("r", 210)
+				.attr("fill", lightGray)
+				.attr("fill-opacity",0)
+				.attr("class", "credit_c");
+			
+			s_canvas.append("svg:circle")
+				.attr("cx", 630)
+				.attr("cy", 290)
+				.attr("r", 0)
+				.attr("fill", darkGray)
+				.attr("fill-opacity",1)
+				.attr("class", "account_c_small")
+				.on("click",function(){
+					hideCreditInfo();
+					showAccountInfo();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+					$('.account_small').css({'color':darkGray});
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+					$('.account_small').css({'color':lightGray});
+				});
+					
+			s_canvas.append("svg:circle")
+				.attr("cx", 630)
+				.attr("cy", 290)
+				.attr("r", 54)
+				.attr("fill", lightGray)
+				.attr("fill-opacity",1)
+				.attr("class", "credit_c_small")
+				.on("click",function(){
+					showCreditInfo();
+					hideAccountInfo();
+				})
+				.on('mouseover', function(){
+						changeColor($(this));
+					})
+				.on('mouseout', function(){
+						changeBack($(this));
+					});
+			
+			$('.credit_small').click(function(){
+				showCreditInfo();
+				hideAccountInfo();
+			});
+			$('.credit_small').mouseover(function(){
+				changeColor($('.credit_c_small'));
+			});
+			$('.credit_small').mouseout(function(){
+				changeBack($('.credit_c_small'));
+			});
+			
+			
+			
+			$('.account_small').click(function(){
+				hideCreditInfo();
+				showAccountInfo();
+			});
+			$('.account_small').mouseover(function(){
+				changeColor($('.account_c_small'));
+				$(this).css({'color':darkGray});
+			});
+			$('.account_small').mouseout(function(){
+				changeBack($('.account_c_small'));
+				$(this).css({'color':lightGray});
+			});
+			
+			function showCreditInfo(){
+				//hide small credit circle
+				d3.select('.credit_small').transition()
+					.style("opacity",0)
+					.style("display","none");
+				
+				d3.select('.credit_c_small').transition()
+					.attr("cx", 310)
+					.attr("cy", 220)
+					.attr("r",210)
+					.duration(500)
+					.ease("elastic", 5, 4);
+					
+				d3.select('.credit_c_small').transition()
+					.attr("fill-opacity", 0)
+					.attr("r", 0)
+					.duration(1)
+					.delay(500);
+				
+				d3.select('.credit_c_small').transition()
+					.attr("cx", 630)
+					.attr("cy", 290)
+					.delay(600);
+				
+				
+				//show credit info
+				$('.credit_info').css({"display":"block"});
+				$('.credit_small').css({"display":"none","opacity":"0"});
+				d3.select('.credit_info').transition()
+					.style("opacity", "1")
+					.duration(250)
+					.delay(500);
+				d3.select('.credit_c').transition()
+					.attr("cx", 310)
+					.attr("cy", 220)
+					.attr("r",210)
+					.attr('fill-opacity', 1)
+					.delay(250);
+			}
+			
+			function hideAccountInfo(){
+				//hide account info
+				$('.account_info').css({"display":"none","opacity":"0"});
+				$('.account_small').css({"display":"block"});
+					
+				d3.select('.account_c').transition()
+					.attr("cx", 630)
+					.attr("cy", 290)
+					.attr('r', 0)
+					.duration(500)
+					.ease("elastic", 5, 3);
+					
+				//show small account circle
+				d3.select('.account_c_small').transition()
+					.attr('r',50)
+					.duration(500)
+					.ease("elastic", 5, 3)
+					.delay(500);
+				
+				d3.select('.account_small').transition()
+					.style('opacity', "1")
+					.duration(250)
+					.delay(750);				
+			}
+			
+			function showAccountInfo(){
+				//hide small account circle
+				d3.select('.account_small').transition()
+					.style("opacity",0)
+					.style("display","none");
+				
+				d3.select('.account_c_small').transition()
+					.attr("r",0);
+				
+				//show account info
+				$('.account_info').css({"display":"block"});
+				$('.account_small').css({"display":"none","opacity":"0"});
+				d3.select('.account_info').transition()
+					.style("opacity", "1")
+					.duration(250)
+					.delay(500);
+				d3.select('.account_c').transition()
+					.attr("cx", 300)
+					.attr("cy", 200)
+					.attr("r", 175)
+					.attr('fill-opacity', 1)
+					.duration(500)
+					.ease("elastic", 5, 4);
+			}
+			
+			
+			function hideCreditInfo(){
+				//hide credit info
+				$('.credit_info').css({"display":"none","opacity":"0"});
+				$('.credit_small').css({"display":"block"});
+				
+				d3.select('.credit_c').transition()
+					.attr("cx", 630)
+					.attr("cy", 290)
+					.attr('r', 0)
+					.duration(500)
+					.ease("elastic", 5, 3);
+				
+				d3.select('.credit_c').transition()
+					.attr("cx", 310)
+					.attr("cy", 220)
+					.delay(500);
+				
+				
+				//show small credit circle
+				d3.select('.credit_c_small').transition()
+					.attr("cx", 630)
+					.attr("cy", 290)
+					.attr("r", 54)
+					.attr('fill-opacity',1)
+					.duration(500)
+					.delay(250);
+				
+				d3.select('.credit_small').transition()
+					.style('opacity', "1")
+					.duration(250)
+					.delay(750);
+			}
+			
+			{# edit #}
+			var placeholder;
+			var placeholder2;
+			var userEnterValue;
+			var userEnterValue2;
+			$('.edit').click(function(){
+				placeholder = $(this).parent().find('.current_value:first-child').text();
+				$(this).parent().parent().find('.input_select:first-child').attr('placeholder',placeholder);
+				
+				placeholder2 = $(this).parent().find('.current_value:nth-of-type(2)').text();
+				if(placeholder2)
+				{
+					$(this).parent().parent().find('.input_select:nth-of-type(2)').attr('placeholder',placeholder2);
+				}
+				
+				$(this).parent().parent().find('.edit_shell').hide();
+				$(this).parent().parent().find('.form_shell').show();
+			});
+			
+			$('.submit_btn').click(function(){
+				userEnterValue = $(this).parent().find('.input_select:first-child').val();
+				userEnterValue2 = $(this).parent().find('.input_select:nth-of-type(2)').val();
+				//console.log(userEnterValue);
+				
+				$(this).parent().parent().find('.edit_shell').show();
+				$(this).parent().parent().find('.form_shell').hide();
+				
+				if(userEnterValue){
+					$(this).parent().parent().find('.current_value:first-child').text(userEnterValue);
+				}
+				if(userEnterValue2){
+					$(this).parent().parent().find('.current_value:nth-of-type(2)').text(userEnterValue2);
+				}
+			});
+			
+			{# checkbox #}
+			$('.uncheck').click(function(){
+				$(this).toggleClass('check');
+			});
+		});
+	</script>
+	
+	
+</head>
+<body>
+	<div class="wrapper">
+		<div class="top-nav">
+			<div class="utility"><a href="#">( log out )</a></div>
+			<div class="utility"><a href="#">user's account name</a></div>
+			<div class="logo">
+				<img src="../static/image/logo.png" />
+			</div>
+			<div class="tagline">
+				<img src="../static/image/tagline.png" />
+			</div>
+		</div>
+		
+		<div class="events">
+			<ul class="coming_title">
+				<li>Upcoming Appointments</li>
+			</ul>
+			
+			<table class="coming">
+				<tr>
+					<td class="coming_date">04/28/12</td>
+					<td class="coming_time">14:00</td>
+					<td class="coming_m"><a href="#" class="link">Merchant Name</a></td>
+					<td class="coming_s">Theraputic Massage</td>
+					<td class="coming_cancel"><a href="#" class="link_c">x</a></td>
+					<td class="justLine">{# Nothing here #}</div>
+				</tr>
+				<tr>
+					<td class="coming_date">05/05/12</td>
+					<td class="coming_time">08:00</td>
+					<td class="coming_m"><a href="#" class="link">Merchant Name</a></td>
+					<td class="coming_s">Theraputic Massage</td>
+					<td class="coming_cancel"><a href="#" class="link_c">x</a></td>
+					<td class="justLine">{# Nothing here #}</div>
+				</tr>
+			</table>
+			
+			<ul class="coming_title">
+				<li>Past Appointments</li>
+			</ul>
+			
+			<table class="coming">
+				<tr>
+					<td class="coming_date">04/30/12</td>
+					<td class="coming_time">18:00</td>
+					<td class="coming_m"><a href="#" class="link">Merchant Name</a></td>
+					<td class="coming_s">Theraputic Massage</td>
+					<td class="justLine">{# Nothing here #}</div>
+				</tr>
+			</table>
+			
+			<ul class="coming_title">
+				<li>Outstanding Bids</li>
+			</ul>
+			
+			<table class="coming">
+				<tr>
+					<td class="outstanding_date">05/15/12</td>
+					<td class="outstanding_timeRange">13:00~14:00</td>
+					<td class="outstanding_price">$125</td>
+					<td class="outstanding_countdown">12:15:29</td>
+					<td class="justLine">{# Nothing here #}</td>
+					<td class="outstanding_m"><a href="#" class="link">Merchant Name</a></td>
+					<td class="outstanding_s">Theraputic Massage</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="account_canvas">
+			<div class="account_small">ACCOUNT INFO</div>
+			<div class="credit_small">CREDIT CARD<br/> &amp; NOTIFICATION</div>
+			<div class="account_info">
+				<div class="title">ACCOUNT INFO</div>
+				<table>
+					<tr>
+						<td class="label">Name:</td>
+						<td class="edit_shell">
+							<span class="current_value">User's Name</span>
+							<span class="edit"> ( edit )</span>
+						</td>
+						<td class="form_shell">
+							<input type="text" class="input_select input_txt" placeholder="" />
+							<input type="submit" class="submit_btn" value="submit" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="label">Email:</td>
+						<td class="edit_shell">
+							<span class="current_value">User's email</span>
+							<span class="edit"> ( edit )</span>
+						</td>
+						<td class="form_shell">
+							<input type="text" class="input_select input_txt" placeholder="" />
+							<input type="submit" class="submit_btn" value="submit" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="label">Address:</td>
+						<td class="edit_shell">
+							<span class="current_value">355 Bryant St.</span><br/>
+							<span class="current_value">San Francisco, CA 94107</span>
+							<span class="edit"> ( edit )</span>
+						</td>
+						<td class="form_shell">
+							<input type="text" class="input_select input_txt" placeholder="" /><br/>
+							<input type="text" class="input_select input_txt" placeholder="" />
+							<input type="submit" class="submit_btn" value="submit" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="label">Phone:</td>
+						<td class="edit_shell">
+							<span class="current_value">415-123-4567</span>
+							<span class="edit"> ( edit )</span>
+						</td>
+						<td class="form_shell">
+							<input type="text" class="input_select input_txt" placeholder="" />
+							<input type="submit" class="submit_btn" value="submit" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="label">Mobile:</td>
+						<td class="edit_shell">
+							<span class="current_value">415-123-4567</span>
+							<span class="edit"> ( edit )</span>
+						</td>
+						<td class="form_shell">
+							<input type="text" class="input_select input_txt" placeholder="" />
+							<input type="submit" class="submit_btn" value="submit" />
+						</td>
+					</tr>
+				</table>
+			</div>{# end of account information #}
+			
+			<div class="credit_info">
+				<div class="title">CREDIT CARD INFO</div>
+				<table>
+					<tbody>
+						<tr>
+							<td class="label">Name:</td>
+							<td class="edit_shell">
+								<span class="current_value">Cardholder's name</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<input type="text" class="input_select input_txt" placeholder="" />
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
+						</tr>
+						
+						<tr>
+							<td class="label">Billing Address:</td>
+							<td class="edit_shell">
+								<span class="current_value">355 Bryant St.</span><br/>
+								<span class="current_value">San Francisco, CA 94107</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<input type="text" class="input_select input_txt" placeholder="" /><br/>
+								<input type="text" class="input_select input_txt" placeholder="" />
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
+						</tr>
+						
+						<tr>
+							<td class="label">Card Number:</td>
+							<td class="edit_shell">
+								<span class="current_value">xxxx xxxx xxxx 1234</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<input type="text" class="input_select input_txt" placeholder="" />
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
+						</tr>
+						<tr>
+							<td class="label">Card Type:</td>
+							<td class="edit_shell">
+								<span class="current_value">VISA</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<select class="input_select">
+									<option>American Express</option>
+									<option>Master</option>
+									<option>VISA</option>
+								</select>
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
+						</tr>
+						<tr>
+							<td class="label">EXP:</td>
+							<td class="edit_shell">
+								<span class="current_value">12/2013</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<input type="text" class="input_select input_txt" placeholder="" />
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<div class="title">NOTIFICATION</div>
+				<table>
+					<tbody>
+						<tr>
+							<td class="checkbox"><span class="uncheck"></span></td>
+							<td class="label">Email:</td>
+							<td class="edit_shell">
+								<span class="current_value">User's email</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<input type="text" class="input_select input_txt" placeholder="" />
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
+						</tr>
+						<tr>
+							<td class="checkbox"><span class="uncheck"></span></td>
+							<td class="label">Text:</td>
+							<td class="edit_shell">
+								<span class="current_value">415-123-4567</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<input type="text" class="input_select input_txt" placeholder="" />
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<table class="mobile">
+					<tbody>
+						<tr>
+							<td class="label">Mobile Carrier:</td>
+							<td class="edit_shell">
+								<span class="current_value">AT&T</span>
+								<span class="edit"> ( edit )</span>
+							</td>
+							<td class="form_shell">
+								<select class="input_select">
+									<option>AT&T</option>
+									<option>Verizon</option>
+									<option>T-Mobile</option>
+								</select>
+								<input type="submit" class="submit_btn" value="submit" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>{# end of credit card information #}
+		</div>{# end of canvas #}
+	</div>{# end of wrapper #}
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -133,3 +133,12 @@ def bid_congrats(request):
         'bid_congrats.html',
         context_instance=RequestContext(request),
         )
+
+def account(request):
+    '''
+    user account
+    '''
+    return render_to_response(
+        'account.html',
+        context_instance=RequestContext(request),
+        )
