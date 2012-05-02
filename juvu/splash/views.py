@@ -32,7 +32,7 @@ def splash(request):
     _log.info(
         " | ".join(["%r"] * 5),
         request.META['REMOTE_ADDR'],
-        request.META['REMOTE_HOST'],
+        request.META.get('REMOTE_HOST', '[no REMOTE_HOST]'),
         request.get_host(),
         request.META['HTTP_USER_AGENT'],
         request.META.get('HTTP_REFERER', '[no HTTP_REFERER]'),
