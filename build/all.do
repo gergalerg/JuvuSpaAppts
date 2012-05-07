@@ -8,5 +8,7 @@ cp -vf out/site.css ../juvume/static/css/site.css >&2
 
 # Build JS
 redo-ifchange out/site.js
-cp -vf out/site.js ../juvume/static/js/site.js >&2
+
+redo-ifchange out/booking.js
+cp -vf out/*.js ../juvume/static/js/ >&2
 

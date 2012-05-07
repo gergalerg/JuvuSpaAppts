@@ -12,6 +12,10 @@ urlpatterns = patterns('',
     url(r'^uh$', 'splash.views.record_email', name='record_email'),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
+
+    # User-facing site.
+    url(r'^look/', include('look.urls')),
+
     )
 
 # Static media (served directly by the web server in production.)

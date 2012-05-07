@@ -105,6 +105,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     join(PROJECT_ROOT, 'splash', 'templates'),
+    join(PROJECT_ROOT, 'look', 'templates'),
 )
 
 INSTALLED_APPS = (
