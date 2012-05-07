@@ -1,0 +1,68 @@
+@def WIDTH 960px;
+@def COLOR #808080;
+
+html {
+	font-size: 62.5%; 
+}
+
+body {
+    font-family: "Helvetica","Arial","Sans-serif";
+    font-size: 1em;
+}
+
+img {
+  max-width: 100%;
+  -ms-interpolation-mode: bicubic;
+}
+
+.wrapper {
+    width: WIDTH;
+    margin: auto;
+}
+
+.landing_img {
+    width: WIDTH;
+    height: 518px;
+    display: block;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.landing_des {
+    font-size: 1.2em;
+    line-height: 32px;
+    text-align: center;
+    letter-spacing: 0.1em;
+    color: COLOR;
+    margin-top: 10px;
+}
+
+.landing_des form span {
+    font-size: 12px;
+}
+
+.landing_des div {
+    font-size: 14px;
+}
+
+.landing_input {
+    color: COLOR;
+    border: 1px solid COLOR;
+    border-radius: 5px;
+    padding: 3px 0 3px 5px;
+}
+
+.landing_sub {
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 3px 5px 3px 5px;
+    background-color: #AFAFAF;
+    cursor: pointer;
+}
+.landing_sub:hover {
+    background-color: #4D4D4D;
+}
+
+
