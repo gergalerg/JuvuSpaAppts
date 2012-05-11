@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 	<title>Juvu</title>
-	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/booking.css" />
-    <!--popout window-->
-    <script type="text/javascript" src="../static/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-    <link rel="stylesheet" type="text/css" href="../static/js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+<script type="text/javascript" src="/static/js/booking.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/booking.css" />
+  <!--popout window-->
+  <script type="text/javascript" src="../static/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
 </head>
 <body>
 	<div class="wrapper">
@@ -197,7 +197,7 @@
 		</div>
 		<div style="clear:both;"></div>
 		<div class="confirm_area">
-			<input type="submit" class="submitBid_btn" value="back"/>  <input type="submit" class="submitBid_btn" value="confirm"/>
+			<input type="submit" class="submitBid_btn back" value="back"/>  <input type="submit" class="submitBid_btn conf" value="confirm"/>
 		</div>
 		
 		</form>
@@ -206,6 +206,14 @@
 	
 	<script type="text/javascript">
 		$(function(){
+		  $('input[type="submit"].back').click(function(){
+		    window.location.href = "{% url book %}";
+		    return false;
+		  })
+		  $('input[type="submit"].conf').click(function(){
+		    window.location.href = "{% url book_confirm %}";
+		    return false;
+		  })
 			{# popout window #}
 			$('a.cancel').fancybox({
 				'transitionIn'	:	'elastic',
