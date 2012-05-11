@@ -3,6 +3,15 @@
 {% block html_head %}
 <link rel="stylesheet" type="text/css" href="/static/css/booking.css">
 <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="/static/js/booking.js"></script>
+<script type="text/javascript">
+	$(function(){
+	  $('.day_info').click(function(){
+	    window.location.href = "{% url book_info %}";
+	    return false;
+	  })
+	});
+</script>
 {% endblock %}
 {% block body %}
 	<div class="wrapper">

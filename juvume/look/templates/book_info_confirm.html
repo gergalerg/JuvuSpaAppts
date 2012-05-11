@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
 	<title>Juvu</title>
-	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
-    
-     <!--popout window-->
-    <script type="text/javascript" src="../static/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-    <link rel="stylesheet" type="text/css" href="../static/js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+<script type="text/javascript" src="/static/js/booking.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/booking.css">
+  <!--popout window-->
+  <script type="text/javascript" src="/static/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
 </head>
 <body>
 	<div class="wrapper">
@@ -132,14 +131,22 @@
 		
 		<div class="confirm_area">
 			<div style="font-size:12px;">CVV Code <input type="text" style="width:30px;"/></div>
-			<input type="submit" class="submitBid_btn" value="back"/>  <input type="submit" class="submitBid_btn" value="confirm"/>
+			<input type="submit" class="submitBid_btn back" value="back"/>  <input type="submit" class="submitBid_btn cong" value="confirm"/>
 		</div>
 		</form>
 	</div><!--end of wrapper-->
 	
 	<script type="text/javascript">
 		$(function(){
-			//popout window
+		  $('input[type="submit"].back').click(function(){
+		    window.location.href = "{% url book_info %}";
+		    return false;
+		  })
+		  $('input[type="submit"].cong').click(function(){
+		    window.location.href = "{% url book_congrats %}";
+		    return false;
+		  })
+			{# popout window #}
 			$('a.cancel').fancybox({
 				'transitionIn'	:	'elastic',
 				'transitionOut'	:	'elastic',
