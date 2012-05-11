@@ -4,9 +4,9 @@
 @def MAGENTA #FF0099;
 
 body{
-	margin:				0;
-	font-family:        "Helvetica","Arial","Sans-serif";
-    font-size:          1em;
+	margin: 0;
+	font-family: "Helvetica","Arial","Sans-serif";
+  font-size: 1em;
 }
 
 .wrapper{
@@ -20,18 +20,6 @@ body{
     clear: 				both;
     height: 			200px;
     margin-bottom: 		10px;
-}
-
-.login_logo{
-	padding-left:		72px;
-	margin-top:			64px;
-	position:			absolute;
-}
-
-.login_tagline{
-	position:			absolute;
-	margin-left:		300px;
-	margin-top:			93px;
 }
 
 .logo{
@@ -68,144 +56,6 @@ body{
 	border:				1px solid black;
 	opacity:			0.5;
 }
-
-.animation{
-	width:				1024px;
-	position:			absolute;
-	margin-top:			20px;
-	padding-bottom:		100px;
-}
-
-.canvas{
-	height:				568px;
-}
-
-.distance{
-	display:			block;
-	color:				#808080;
-	position:			absolute;
-	left:				253px;
-	top:				165px;
-	width:				300px;
-}
-
-.dis_form{
-	opacity:			0;
-	display:			none;
-	font-size:			0.8em;
-	line-height:		1.6em;
-}
-
-.neighbor{
-	display:			block;
-	color:				white;
-	position:			absolute;
-	left:				310px;
-	top:				140px;
-	width:				350px;
-}
-
-.nei_form{
-	opacity:			0;
-	display:			none;
-	font-size:			0.8em;
-	line-height:		1.6em;
-	text-align:			left;
-	float:				left;
-}
-	
-.neighbor p{
-	float:				left;
-}
-
-.where{
-	position:				absolute;
-	left:					76px;
-	top:					91px;
-	color:					white;
-	display:				none;
-	opacity:				0;
-}
-
-.when{
-	position:				absolute;
-	left:					79px;
-	top:					192px;
-	color:					white;
-	display:				none;
-	opacity:				0;
-}
-
-.today{
-	position:				absolute;
-	left:					850px;
-	top:					295px;
-	color:					#808080;
-	display:				none;
-	opacity:				0;
-}
-
-.date{
-	position:				absolute;
-	left:					805px;
-	top:					358px;
-	width:					300px;
-	color:					white;
-	display:				none;
-	opacity:				0;
-}
-
-.date_form{
-	opacity:				0;
-	display:				none;
-	font-size:				0.8em;
-	line-height:			1.6em;
-}
-
-.option{
-	position:				absolute;
-	width:					350px;
-	left:					625px;
-	top:					345px;
-	color:					#808080;
-	display:				none;
-	opacity:				0;
-}
-
-.op_list{
-	list-style-type: 		none;
-	padding-left:			0;
-	font-size:				0.8em;
-	line-height:			2em;
-	display:				none;
-	opacity:				0;
-}
-.op_list li{
-	font-weight:			bold;
-}
-.op_list li ul{
-	list-style-type: 		none;
-	font-size:				1em;
-	margin-left:			auto;
-	width:					300px;
-}
-.op_list li ul li{
-	float:					left;
-	font-weight:			normal;
-}
-
-.juvuMe{
-	position:				absolute;
-	left:					903px;
-	top:					345px;
-	color:					white;
-	display:				none;
-	opacity:				0;
-	width:					100px;
-}
-
-
-
 
 .colorGray{
 	color:				gray;

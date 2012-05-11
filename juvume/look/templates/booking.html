@@ -8,7 +8,11 @@
 <meta name="copyright" content="©2011 Agora Health Networks, Inc. All rights reserved worldwide.">
 <meta http-equiv="pragma" content="no-cache">
 <title>Juvu</title>
-<link href="/static/css/site.css" rel="stylesheet">
+<link href="/static/css/TreeThing.css" rel="stylesheet">
+<link href="/static/css/calendar.css" rel="stylesheet">
+<style type="text/css">
+
+</style>
 <link href="/static/css/jquery-ui-1.8.16.custom.css" rel="stylesheet">
 <script type="text/javascript" src="/static/js/booking.js"></script>
 <script type="text/javascript">
@@ -45,7 +49,22 @@ var nav_div;
 <script type="text/javascript" src="/static/js/tree_data.js"></script>
 <script type="text/javascript" src="/static/js/ing.js"></script>
 <style type="text/css">
-.innerNav{
+/*
+	#nav -> change log in, sign up, explore font color & change position of 3 circles
+	.i_text -> change form border color
+	.i_btn -> change submit btn color
+*/
+body {
+    position: static;
+    margin: 0;
+}
+
+#nav {
+	width:				100%;
+	height:				100%;
+}
+
+.innerNav {
 	position:			absolute;
 	top:				{{ top }};
 	left:				{{ left }};
@@ -56,7 +75,7 @@ var nav_div;
 	color:				{{ color }};
 }
 
-.i_text{
+.i_text {
 	background-color:	transparent;
 	border:				1px solid {{ color }};
 	padding:			3px 0 3px 5px;
@@ -65,7 +84,7 @@ var nav_div;
 	width:				140px;
 }
 
-.i_btn{
+.i_btn {
 	background-color:	{{ color }};
 	border:				none;
 	border-radius:		10px;
@@ -74,6 +93,157 @@ var nav_div;
 	cursor:				pointer;
 }
 
+.i_btn:hover {
+	opacity:			0.5;
+}
+
+.pointy {
+    cursor: pointer;
+}
+
+/*log in page*/
+
+.signup_circle{
+	width:				94px;
+	height:				94px;
+	border-radius:		47px;
+	position:			absolute;
+	z-index:			2;
+	margin-left:		150px;
+}
+
+.login_circle{
+	width:				214px;
+	height:				214px;
+	border-radius:		107px;
+	position:			absolute;
+	margin-top:			28px;
+	line-height:		36px;
+	z-index:			1;
+}
+
+.exp_circle{
+	width:				110px;
+	height:				110px;
+	border-radius:		55px;
+	position:			absolute;
+	margin-left:		156px;
+	margin-top:			173px;
+	z-index:			2;
+}
+
+.c_shadow{
+	box-shadow: 		2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.s1{
+	z-index:			3;
+	position:			absolute;
+	margin-left:		160px;
+	margin-top:			38px;
+	text-align:			center;
+}
+
+.s2{
+	z-index:			3;
+	position:			absolute;
+	margin-left:		35px;
+	margin-top:			70px;
+	text-align:			center;
+}
+
+.s3{
+	z-index:			3;
+	position:			absolute;
+	margin-left:		166px;
+	margin-top:			220px;
+	text-align:			center;
+}
+
+.l_title{
+	font-size:			1.2em;
+	text-transform:		uppercase;
+	cursor: pointer;
+}
+
+.s2 form{
+	margin-top:			20px;
+	line-height:		32px;
+}
+
+.blue_button {
+    text-align: 		center;
+    font-size: 			22px;
+    font-size: 			15px;
+    color: 				#FFF;
+    text-transform: 	uppercase;
+    background-color: 	#8CCBF9;
+    border: 			0;
+    font-family: 		@body_font;
+    margin: 			0.5em;
+    cursor: 			pointer;
+    border-radius:		75px;
+    width:				150px;
+    height:				90px;
+    padding-top:		60px;
+    display:			block;
+    text-decoration:	none;
+    position:			absolute;
+    top:				270px;
+    left:				650px;
+    line-height:		24px;
+}
+
+.blue_button:hover {
+    color: 				#FFF;
+    background-color: 	#3FA9F5;
+}
+
+
+{# added by chinpin#}
+.shortcuts_global{
+	position:				absolute;
+	bottom:					5%;
+	width:					100%;
+}
+
+.shortcuts{
+	display:				block;
+	width:					1024px;
+	margin-left:			auto;
+	margin-right:			auto;
+}
+.service_sel{
+	border-radius:			35px;
+	width:					70px;
+	background-color:		white;
+	float:					left;
+	opacity:				0.4;
+	text-align:				center;
+	margin-left:			43px;
+	cursor:					pointer;
+	box-shadow:				2px 2px 2px #888;
+	transition:				background-color, opacity 0.5s;
+	-moz-transition:		background-color, opacity 0.5s;
+	-webkit-transition:		background-color, opacity 0.5s;
+	-o-transition:			background-color, opacity 0.5s;
+	font-size:				12px;
+}
+
+.service_sel:hover{
+	background-color:		#CEE6FC;
+	opacity:				0.8;
+}
+
+.singleline{
+	height:					40px;
+	padding-top:			30px;
+}
+
+.doublelines{
+	height:					48px;
+	padding-top:			22px;
+}
 </style>
 <script type="text/javascript">
 
