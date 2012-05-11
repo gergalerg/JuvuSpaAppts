@@ -1,0 +1,22 @@
+<div class="m_row">
+	<img class="m_img" width="240" height="180" data-bind="attr:{src:logo_image_URL}">
+	<div class="m_info">
+		<div class="m_name" data-bind="text:name">Merchant Name</div>
+		<ul class="m_itemsName">
+			<li class="service">service</li>
+			<li class="price">high price</li>
+      <li class="discount">low price</li>
+		</ul>
+<!-- ko foreach:{data:results, afterRender:wire_up_buttons} -->
+        <ul class="m_items">
+	        <li class="service" data-bind="text:name">Theraputic Massage</li>
+	        <li class="price" data-bind="text:price">125</li>
+	        <li class="discount"> </li>
+	        <div class="b_btn" data-bind="click:book">book</div>
+	        <div class="b_btn" data-bind="click:bid">bid</div>
+        </ul>
+<!-- /ko -->
+		<div class="more_btn">more</div>	
+	</div>
+</div>
+

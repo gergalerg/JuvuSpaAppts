@@ -1,0 +1,348 @@
+{% extends "base.html" %}
+{% block title %}Juvu{% endblock %}
+{% block html_head %}
+{# Template ================================================= #}
+<script id="result_template" type="text/x-jquery-tmpl">
+{% include "templates.inv.html" %}
+</script>
+{# ========================================================== #}
+<script type="text/javascript" src="/static/js/booking.js"></script>
+<script type="text/javascript" src="/static/js/inv.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/booking.css">
+<script type="text/javascript">
+		//color, size
+		var first_color = "#E6E6E6",
+		    second_color = "#808080",
+		    third_color = "#3FA9F5",
+		    hover_color = "#C6E6FC",
+		    c_size = 30,
+		    oc,
+		    s_canvas;
+
+		$(function(){
+			
+			var s_canvas = d3.select(".canvas").append("svg:svg");
+			s_canvas
+				.attr("width", 300)
+				.attr("height", 800)
+				.attr("class", "s_canvas");
+			
+			//where
+			s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",100)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_where")
+				.on("click",function(){
+					/*depend on what user selects from previous page*/
+					clickNeighbor();
+					//or clickDistance();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			//html
+			$('.where').mouseover(function(){
+				changeColor($('.c_where'));
+			});
+			
+			$('.where').mouseout(function(){
+				changeBack($('.c_where'));
+			});
+			
+			$('.where').click(function(){
+				/*depend on what user selects from previous page*/
+				clickNeighbor();
+				//or clickDistance();
+			});
+			
+			//when
+			s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",200)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_when")
+				.on("click", clickDate)
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			//html
+			$('.when').mouseover(function(){
+				changeColor($('.c_when'));
+			});
+			
+			$('.when').mouseout(function(){
+				changeBack($('.c_when'));
+			});
+			
+			$('.when').click(clickDate);
+			
+			//options
+			s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",300)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_op")
+				.on("click", clickOption)
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			//html
+			$('.option').mouseover(function(){
+				changeColor($('.c_op'));
+			});
+			
+			$('.option').mouseout(function(){
+				changeBack($('.c_op'));
+			});
+
+			$('.option').click(clickOption);
+
+			//distance & neighboehood
+			s_canvas.append("svg:circle")
+				.attr("cx",105)
+				.attr("cy",80)
+				.attr("r",0)
+				.attr("fill",first_color)
+				.attr("class","c_dis")	
+				.on("click",function(){
+					$(this).attr('fill',first_color);
+					clickDistance();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			$('.distance').mouseover(function(){
+				changeColor($('.c_dis'));
+			});
+			
+			$('.distance').mouseout(function(){
+				changeBack($('.c_dis'));
+			});
+			
+			$('.distance').click(clickDistance);
+
+
+			s_canvas.append("svg:circle")
+				.attr("cx",200)
+				.attr("cy",130)
+				.attr("r",0)
+				.attr("fill",second_color)
+				.attr("class","c_nei")
+				.on("click",function(){
+					$(this).attr('fill',second_color);
+					clickNeighbor();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			$('.neighbor').mouseover(function(){
+				changeColor($('.c_nei'));
+			});
+			
+			$('.neighbor').mouseout(function(){
+				changeBack($('.c_nei'));
+			});
+			
+			$('.neighbor').click(clickNeighbor);
+			
+			//today & date --- only have one animation result
+			s_canvas.append("svg:circle")
+				.attr("cx",105)
+				.attr("cy",240)
+				.attr("r",0)
+				.attr("fill",first_color)
+				.attr("class","c_today")
+				.on("click",function(){
+					original();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			$('.today').mouseover(function(){
+				changeColor($('.c_today'));
+			});
+			
+			$('.today').mouseout(function(){
+				changeBack($('.c_today'));
+			});
+			
+			$('.today').click(function(){
+				original();
+			});
+			
+			s_canvas.append("svg:circle")
+				.attr("cx",200)
+				.attr("cy",300)
+				.attr("r",0)
+				.attr("fill",second_color)
+				.attr("class","c_date")
+				.on("click",function(){
+					$(this).attr('fill',second_color);
+					clickDate();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			$('.date').mouseover(function(){
+				changeColor($('.c_date'));
+			});
+			
+			$('.date').mouseout(function(){
+				changeBack($('.c_date'));
+			});
+			
+			$('.date').click(function(){
+				clickDate();
+			});
+			
+			$('.submit_btn').click(original)
+
+    $(".b_btn").mouseover(function(){
+	    $(this).parent()
+	    .find(".service, .price, .discount")
+	    .css({'background-color':'#C6E6FC'})
+    });
+    $(".b_btn").mouseout(function(){
+	    $(this).parent()
+	    .find(".service, .price, .discount")
+	    .css({'background-color':'white'})
+    });
+
+    var results = {{ results|safe }};
+    MODEL.set_results(_.map(results, function(data){ return new MerchantThing(data) }));
+
+    ko.applyBindings(MODEL);
+
+});
+</script>
+{% endblock %}
+{% block body %}
+	<div class="wrapper">
+		<div class="top-nav">
+			<div class="utility"><a href="#">( log out )</a></div>
+			<div class="utility"><a href="#">user's account name</a></div>
+			<div class="logo">
+				<img src="../static/image/logo.png" />
+			</div>
+			<div class="tagline">
+				<img src="../static/image/tagline.png" />
+			</div>
+		</div>
+		
+		<div id="nav_left">
+			<div class="animation">
+				<div class="canvas"></div>
+				<div class="where">where</div>
+				<div class="when">when</div>
+				
+				<div class="distance">Distance</div>
+				<form method="" action="" class="dis_form">
+					<input type="textarea" style="width:30px;height:10px;" /> miles from<br/>
+					355 Bryant Street, San Francisco <a href="#">(edit)</a><br/>
+					<input type="submit" value="confirm" class="submit_btn" style="margin-left:-7px;margin-top:0px;"/>
+					<a href="#" class="submit_btn">test</a>
+				</form>
+				
+				<div class="neighbor">Neighborhood</div>
+				<form method="" action="" class="nei_form">
+					<p>
+						<input type="checkbox" />Richmond/Presidio<br />
+						<input type="checkbox" />Marina/Cow Hollow<br />
+						<input type="checkbox" />Pacific Heights<br />
+						<input type="checkbox" />Russian Hill/Nob Hill<br />
+						<input type="checkbox" />Ingleside/Excelsior<br />
+						<input type="checkbox" />North Beach/Fisherman's Wharf<br />
+						<input type="checkbox" />Union Sq/Civic Ctr/FiDi<br />
+						<input type="checkbox" />SoMa/South Beach<br />
+						<input type="checkbox" />Haight<br />
+					</p>
+					<p>
+						<input type="checkbox" />Castro<br />
+						<input type="checkbox" />Mission<br />
+						<input type="checkbox" />Potrero Hill<br />
+						<input type="checkbox" />Noe Valley<br />
+						<input type="checkbox" />Bernal Heights<br />
+						<input type="checkbox" />Twin Peaks<br />
+						<input type="checkbox" />Sunset/Lake Merced<br />
+						<input type="checkbox" />Western Addition<br />
+					</p>
+					<input type="submit" value="confirm" class="submit_btn" style="margin-left:15px;margin-top:-10px;"/>
+					<a href="#" class="submit_btn">test</a>
+				</form>
+				
+				
+				<div class="today">Today</div>
+				<div class="date">Date Range</div>
+				<form method="" action="" class="date_form">
+					From <input type="textarea" style="width:60px;"/> to <input type="textarea" style="width:60px;"/>
+					<input type="submit" value="confirm" class="submit_btn" style="margin-left:5px;"/>
+					<a href="#" class="submit_btn">test</a>
+				</form>
+				
+				<div class="option">options</div>	
+				<form method="" action="">
+					<ul class="op_list">
+						<li>Price from <input type="textarea" style="width:60px;height:10px;"/> to <input type="textarea" style="width:60px;height:10px;"/></li>
+						<li>Discount <input type="textarea" style="width:60px;height:10px;"/> %</li>
+						<li>Amenities
+							<ul>
+								<li>Lockers/Robes &nbsp;</li> 
+								<li>Steam/Sauna &nbsp;</li>
+								<li>Showers &nbsp;</li>
+								<li>Pool &nbsp;</li>
+							</ul>
+							<div style="clear:both;">
+						</li>
+						<li>Credit Cards</li>
+						<li>Public Trans</li>
+						<li>Parking</li>
+						<li>Me+ <input type="textarea" style="width:30px;height:10px;"/></li>
+						<input type="submit" value="confirm" class="submit_btn" style="margin-top:5px;"/>
+						<a href="#" class="submit_btn">test</a>
+					</ul>
+				</form>
+				
+				
+				
+			</div><!--end of animation-->
+		</div><!--end of left nav-->
+		
+		<div id="nav_right">
+{# container of information from database #}
+<div data-bind="template: {name:'result_template', foreach:results}"></div>
+		</div>{# end of right nav #}
+		<div style="clear:both;"></div>
+	</div>{# end of wrapper #}
+{% endblock %}

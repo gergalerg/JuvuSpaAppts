@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Juvu</title>
+	<script type="text/javascript" src="../static/js/jquery-1.6.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
+    
+     <!--popout window-->
+    <script type="text/javascript" src="../static/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+</head>
+<body>
+	<div class="wrapper">
+		<div class="top-nav" >
+			<div class="utility"><a href="#">( log out )</a></div>
+			<div class="utility"><a href="#">user's account name</a></div>
+			<div class="logo">
+				<img src="../static/image/logo.png" />
+			</div>
+			<div class="tagline">
+				<img src="../static/image/tagline.png" />
+			</div>
+		</div>
+		
+		<div class="big_heavy_title">You will not be charged!</div>
+		<p class="instruct">
+			However, we will use your credit card to reserve the appointment.<br/>
+			You will pay (Merchant Name) after the service is completed.<br/>
+			<!--popout window-->
+			<div style="display:none;">
+				<div id="cancellation">
+					<div id="cancellation_title">cancellation policy</div>
+					<!--merchant's cancellation policy contents-->
+					<p>
+					Duis in risus at quam ullamcorper adipiscing ut volutpat neque. 
+					Ut eget nibh ac arcu pulvinar posuere at non leo. Vivamus quis 
+					dui quis nisl venenatis commodo. Pellentesque cursus diam in neque 
+					ornare lobortis. Integer gravida sapien eget erat consequat nec 
+					congue neque porta. Vestibulum tempus tortor eget risus commodo ultricies.
+					</p>
+				</div>
+			</div>
+			<div style="display:none;">
+			<div id="payment">
+				<div id="cancellation_title">payment methods</div>
+				<ul class="pay_list">
+					<li>Cash</li>
+					<li>American Express</li>
+					<li>MasterCard</li>
+					<li>VIsa</li>
+				</ul>
+			</div>
+		</div><!--End of popout window-->
+		</p><!--end of instruction-->
+		<p class="instruct_s">
+			See (Merchant Name)'s <a class="link cancel" href="#cancellation">cancellation policy</a><br/>
+			See what (Merchant Name) <a class="link payment" href="#payment">accepts as payment methods</a>
+		</p>
+		
+		<form>
+		
+		{# Appointment info #}
+		<ul class="confirm_li">
+			<li>Appointment Info</li>
+		</ul>
+		
+		<div class="congrats_row">
+			<ul class="appo_ul">
+				<li class="appo_li a_date">Date</li>
+				<li class="appo_li a_sTime">Start Time</li>
+				<li class="appo_li a_service">Service</li>
+				<li class="appo_li a_minute">Minutes</li>
+				<li class="appo_li a_merchant">Merchant</li>
+				<li class="appo_li a_price">Price</li>
+				<li class="appo_li a_cancel">Cancel</li>
+			</ul>
+			<br/>
+			<ul class="appo_ul colorGray">
+				<li class="appo_li a_date">Apr 1, 2012</li>
+				<li class="appo_li a_sTime">PM 1:00</li>
+				<li class="appo_li a_service">Theraputic Massage</li>
+				<li class="appo_li a_minute">60</li>
+				<li class="appo_li a_merchant">Merchant Name</li>
+				<li class="appo_li a_price">$125</li>
+				<li class="appo_li a_cancel"><a href="#" class="a_cancel_btn">X</a></li>
+			</ul>
+			<div style="clear:both;"></div>
+		</div>
+		
+		<div class="confirm_column">
+			<ul class="confirm_li">
+				<li>billing info:</li>
+			</ul>
+			<p class="billing_form">
+				Name<br/>
+				<span class="colorGray">Cardholder's name</span><br/><br/>
+				
+				Address<br/>
+				<span class="colorGray">1234 market st. San Francisco CA 91792</span><br/><br/>
+				
+				Card Type<br/>
+				<span class="colorGray">Visa</span><br/><br/>
+				
+				Last Four Digits<br/>
+				<span class="colorGray">1234</span><br/><br/>
+				
+				Expiration Date<br/>
+				<span class="colorGray">0812</span>
+				
+				<div class="edit_btn">edit</div>
+			</p>
+			
+		</div>
+		
+		<div class="confirm_column" style="margin-left:24px;">
+			<ul class="confirm_li">
+				<li>Notification via:</li>
+			</ul>
+			<p class="billing_form">
+				Text<br/>
+				<span class="colorGray">415-123-4567 AT&T</span>
+			</p>
+			<div class="edit_btn">edit</div>
+			<p class="billing_form">	
+				<br/>Email<br/>
+				<span class="colorGray">ag123@fmail.com</span>
+			</p>
+			<div class="edit_btn">edit</div>
+			
+		</div>
+		<div style="clear:both;"></div>
+		
+		<div class="confirm_area">
+			<div style="font-size:12px;">CVV Code <input type="text" style="width:30px;"/></div>
+			<input type="submit" class="submitBid_btn" value="back"/>  <input type="submit" class="submitBid_btn" value="confirm"/>
+		</div>
+		</form>
+	</div><!--end of wrapper-->
+	
+	<script type="text/javascript">
+		$(function(){
+			//popout window
+			$('a.cancel').fancybox({
+				'transitionIn'	:	'elastic',
+				'transitionOut'	:	'elastic',
+				'speedIn'		:	300, 
+				'speedOut'		:	200, 
+				'overlayShow'	:	true
+			});
+			$('a.payment').fancybox({
+				'transitionIn'	:	'elastic',
+				'transitionOut'	:	'elastic',
+				'speedIn'		:	300, 
+				'speedOut'		:	200, 
+				'overlayShow'	:	true
+			});
+		});
+	</script>
+	
+</body>
+</html>
