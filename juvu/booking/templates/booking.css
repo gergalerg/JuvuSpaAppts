@@ -81,7 +81,7 @@ body {
 }
 
 .c_shadow{
-	box-shadow: 		2px 2px 1px #BDBDBD;
+	box-shadow: 		2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .s1{

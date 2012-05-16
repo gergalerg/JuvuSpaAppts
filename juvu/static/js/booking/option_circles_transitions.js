@@ -133,6 +133,7 @@ var options_transitions = {
         .attr('cy', 230)
         .attr('r', 200)
         .attr('fill', first_color)
+        .attr("fill-opacity",1)
         .duration(1000)
         .ease('elastic', 5, 3);
 
@@ -168,6 +169,7 @@ var options_transitions = {
 	  		.ease("elastic", 5, 4)
 	  	  .transition()
 	  		.attr("r", 30)
+	  		.attr("fill-opacity",0.2)
 	  		.delay(500)
 	  		.duration(1000)
 	  		.ease("elastic", 5, 4);
@@ -199,6 +201,7 @@ var options_transitions = {
 	  		.attr("cx", 305)
 	  		.attr("cy", 110)
 	  		.attr("r", 65)
+	  		.attr("fill-opacity",1)
 	  		.duration(1000)
 	  		.ease("elastic", 5, 4);
 	  	
@@ -225,6 +228,7 @@ var options_transitions = {
 	  		.attr("cx", 615)
 	  		.attr("cy", 410)
 	  		.attr("r", 65)
+	  		.attr("fill-opacity",1)
 	  		.duration(1000)
 	  		.ease("elastic", 5, 4);
 
@@ -255,6 +259,7 @@ var options_transitions = {
 	  		.attr("cy", 300)
 	  		.attr("r", 235)
 	  		.attr("fill",second_color)
+	  		.attr("fill-opacity",1)
 	  		.duration(1000)
 	  		.ease("elastic", 5, 4);
 	  	
@@ -291,6 +296,7 @@ var options_transitions = {
 	  		.ease("elastic", 5, 4)
 	  	  .transition()
 	  		.attr("r", 30)
+	  		.attr("fill-opacity",0.2)
 	  		.delay(500)
 	  		.duration(1000)
 	  		.ease("elastic", 5, 4);
@@ -323,6 +329,7 @@ var options_transitions = {
 			.attr("cy", 400)
 			.attr("r", 150)
 			.attr("fill", second_color)
+			.attr("fill-opacity",1)
 			.duration(1000)
 			.ease("elastic", 5, 4);
 
@@ -330,6 +337,7 @@ var options_transitions = {
 			.attr("cx", 425)
 			.attr("cy", 255)
 			.attr("r", 65)
+			.attr("fill-opacity",1)
 			.duration(1000)
 			.ease("elastic", 5, 4);
 
@@ -378,6 +386,7 @@ var options_transitions = {
 			.attr("cy", 200)
 	  		.attr("r", 0)
 	  		.attr("fill", status_blue)
+	  		.attr("fill-opacity",0.2)
 	  		.duration(500)
 	  		.ease("elastic", 5, 4)
 	  	  .transition()
@@ -437,6 +446,7 @@ var options_transitions = {
 	  		.ease("elastic", 5, 4)
 		  .transition()
 			.attr("r", 30)
+			.attr("fill-opacity",0.2)
 	  		.delay(500)
 	  		.duration(1000)
 	  		.ease("elastic", 5, 4);

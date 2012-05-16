@@ -126,7 +126,7 @@ $(function(){
 		<div class="s2">
 			<center>
 				<span class="l_title" >log in</span>
-				<form method="POST" action="{% url booking_home %}">
+				<form method="POST" action="">
 				{% csrf_token %}
 					<input class="i_text" placeholder="email" name="username"/><br />
 					<input class="i_text" placeholder="password" name="password" type="password"/><br />

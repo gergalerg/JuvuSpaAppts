@@ -3,12 +3,12 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from django.core.urlresolvers import reverse
 from juvu.splash.models import proc_email
-from juvu.util.spreadlogger import SpreadHandler
+# from juvu.util.spreadlogger import SpreadHandler
 from django.conf import settings
 
 
 # Set up spread logging.
-def _f(log):
+'''def _f(log):
     handler = SpreadHandler(
         spreadd=settings.SPREAD,
         group=settings.SP_GROUP,
@@ -20,9 +20,9 @@ def _f(log):
     handler.setFormatter(formatter)
     log.setLevel(logging.DEBUG)
     log.addHandler(handler)
-
+'''
 _log = logging.getLogger("splash")
-_f(_log)
+#_f(_log)
 
 
 def splash(request):
@@ -140,5 +140,14 @@ def account(request):
     '''
     return render_to_response(
         'account.html',
+        context_instance=RequestContext(request),
+        )
+
+def merchant(request):
+    '''
+    merchant account
+    '''
+    return render_to_response(
+        'merchant_about.html',
         context_instance=RequestContext(request),
         )

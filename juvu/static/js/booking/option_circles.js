@@ -59,7 +59,7 @@ function setup_option_circles(ops_canvas) {
 	  .attr("fill-opacity",1)
 	  .attr("class","c_dis pointy")
 	  .on("click", function(){
-	      routes.navigate("choose/dis", false); //FIXME Disable distance choice here for now...
+	      routes.navigate("choose/#", false); //FIXME Disable distance choice here for now... and change dis to #
 	  });
 	
 	//today
@@ -107,6 +107,7 @@ function setup_option_circles(ops_canvas) {
 		.attr("fill-opacity",0)
 		.attr("class","c_me pointy")
 		.on("click", function(){
-		    routes.navigate("inv", true);
+		    //routes.navigate("inv", true);
+		    window.location.href = "/look/inv";
 		})
 }
