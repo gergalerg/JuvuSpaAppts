@@ -345,4 +345,13 @@
 		</div>{# end of right nav #}
 		<div style="clear:both;"></div>
 	</div>{# end of wrapper #}
+
+
+<form id="submitter" action="{% url book %}" method="POST"  style="display:none;">
+  {% csrf_token %}
+  <input name="name" id="id_name" type="text"/>
+  <input name="price" id="id_price" type="text"/>
+  <input name="discount" id="id_discount" type="text"/>
+</form>
+
 {% endblock %}

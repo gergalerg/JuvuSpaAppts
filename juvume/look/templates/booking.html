@@ -261,7 +261,7 @@ $(function(){
     if (!Backbone.history.start()) {
         routes.navigate("toc", true);
     }
-    $(".juvuMe").click(function() { window.location.href = "/look/inv"; });
+    $(".juvuMe").click(look);
 
     vis3 = d3.select("#show")
         .append("svg:svg")
@@ -424,7 +424,7 @@ $(function(){
 				<span class="pointy">Date Range</span>
 				<form method="" action="" class="date_form">
 					<br/>
-					From <input name="from_date" id="from_date_cal" type="textarea" style="width:60px;"/> to <input name="to_date" id="to_date_cal" type="textarea" style="width:60px;"/>
+					From <input id="from_date_cal" type="textarea" style="width:60px;"/> to <input id="to_date_cal" type="textarea" style="width:60px;"/>
 				</form>
 			</div>
 			
@@ -457,6 +457,12 @@ $(function(){
 		</center>
 	</div>
 </div>
+<form id="submitter" action="{% url inv %}" method="POST"  style="display:none;">
+  {% csrf_token %}
+  <input name="from_date" id="from_date_sub" type="text"/>
+  <input name="to_date" id="to_date_sub" type="text"/>
+  <input name="proc" id="id_proc" type="text"/>
+</form>
 </body>
 </html>
 

@@ -21,7 +21,11 @@ var ResultThing = function(options) {
     this.price = options.price;
     this.discount = options.discount;
     this.book = function() {
-        window.location.href = '/look/book';
+      var f = $("form#submitter");
+      f.find('#id_name').val(this.name)
+      f.find('#id_price').val(this.price)
+      f.find('#id_discount').val(this.discount)
+      f.submit();
     }
     this.bid = function() {
         window.location.href = '/look/bid';

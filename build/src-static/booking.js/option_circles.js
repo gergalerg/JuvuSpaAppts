@@ -106,8 +106,5 @@ function setup_option_circles(ops_canvas) {
 		.attr("fill",second_color)
 		.attr("fill-opacity",0)
 		.attr("class","c_me pointy")
-		.on("click", function(){
-		    //routes.navigate("inv", true);
-		    window.location.href = "/look/inv";
-		})
+		.on("click", look)
 }

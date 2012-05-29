@@ -15,6 +15,15 @@ viewModel = {
 
 };
 
+function look() {
+    var sf = $("form#submitter");
+    sf.find("#id_proc").val(viewModel.current_proc().name);
+    sf.find("#from_date_sub").val($("#from_date_cal").val());
+    sf.find("#to_date_sub").val($("#to_date_cal").val());
+    sf.submit();
+//    window.location.href = "/look/inv";
+}
+
 var view_transitions = {
     toc: function() {
         login_controls.show();

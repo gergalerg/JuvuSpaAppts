@@ -4,7 +4,7 @@ from itertools import cycle
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from django.contrib import auth
-from juvume.util.results import FAKE_RESULTS
+from juvume.look.models import get_results
 
 
 def image_url(n):
@@ -58,7 +58,7 @@ def home(request):
     '''
     Login page with rotating background images.
     '''
-    if  request.method != 'POST':
+    if request.method != 'POST':
         return render_to_response(
             'booking.html',
             i(),
@@ -78,8 +78,14 @@ def inv(request):
     '''
     Inventory page.
     '''
-    r = FAKE_RESULTS.values()
-    results = choice(r) if r else []
+    if request.method == 'POST':
+        results = get_results(
+            proc=request.POST.get('proc'),
+            from_date=request.POST.get('from_date'),
+            to_date=request.POST.get('to_date'),
+            )
+    else:
+        results = get_results(None, None, None)
     shuffle(results)
     return render_to_response(
         'inv.html',
@@ -154,6 +160,13 @@ def book(request):
     '''
     booking page.
     '''
+    if request.method == 'POST':
+        results = get_results(
+            proc=request.POST.get('proc'),
+            from_date=request.POST.get('from_date'),
+            to_date=request.POST.get('to_date'),
+            )
+
     return render_to_response(
         'book.html',
         FAKER_RESULTS,

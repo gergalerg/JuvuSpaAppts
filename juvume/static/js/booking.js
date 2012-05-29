@@ -4990,6 +4990,15 @@ var a=new r.ja;0<a.qb&&r.pa(a);r.b("ko.jqueryTmplTemplateEngine",r.ja)})();
 
 };
 
+function look() {
+    var sf = $("form#submitter");
+    sf.find("#id_proc").val(viewModel.current_proc().name);
+    sf.find("#from_date_sub").val($("#from_date_cal").val());
+    sf.find("#to_date_sub").val($("#to_date_cal").val());
+    sf.submit();
+//    window.location.href = "/look/inv";
+}
+
 var view_transitions = {
     toc: function() {
         login_controls.show();
@@ -5829,10 +5838,7 @@ function setup_option_circles(ops_canvas) {
 		.attr("fill",second_color)
 		.attr("fill-opacity",0)
 		.attr("class","c_me pointy")
-		.on("click", function(){
-		    //routes.navigate("inv", true);
-		    window.location.href = "/look/inv";
-		})
+		.on("click", look)
 }
 
 var choose_view_transitions = {
