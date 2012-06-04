@@ -5,3 +5,6 @@ users.sqlite3
 juvu/FOO.users.sqlite3
 .redo
 local
+venv/
+admin/
+static/admin/
