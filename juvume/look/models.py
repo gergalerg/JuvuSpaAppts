@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from juvume.util.results import FAKE_RESULTS
+from juvume.util.results import FAKER_RESULTS
 
 
 ONE_DAY = timedelta(days=1)
@@ -14,7 +15,6 @@ def get_results(proc, from_date, to_date):
         print '  ', d
     print
     return FAKE_RESULTS.values()[0]
-
 
 def _get_days(from_date, to_date):
     if from_date:
