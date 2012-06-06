@@ -60,10 +60,9 @@ def book(request):
     '''
     if request.method == 'POST':
         results = get_results(None, None, None)
-
     return render_to_response(
         'book.html',
-        {'name': 'name'},
+        FAKER_RESULTS,
         context_instance=RequestContext(request),
         )
 
