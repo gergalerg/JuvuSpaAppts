@@ -61,14 +61,14 @@ FAKE_RESULTS = {
     '03-05-2012': [
         {'name': "Greg's Hair Salon",
                  'results': [{'discount': 120,
-                              'name': 'The SUper Awesome Cut',
+                              'name': 'The Super Awesome Cut',
                               'price': '1170'},
                              {'discount': 1110,
-                              'name': 'The SUper Awesome Cut II',
+                              'name': 'The Super Awesome Cut II',
                               'price': '1145'}]},
         {'name': 'Hair Salon',
                  'results': [
                              {'discount': 1110,
-                              'name': 'The SUper Awesome Cut II',
+                              'name': 'The Super Awesome Cut II',
                               'price': '1145'}]},
                              ]}

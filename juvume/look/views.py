@@ -60,9 +60,12 @@ def book(request):
     '''
     if request.method == 'POST':
         results = get_results(None, None, None)
+        treatment = request.POST['name']
+    else:
+        return redirect('inv')
     return render_to_response(
         'book.html',
-        FAKER_RESULTS,
+        {'treatment': treatment},
         context_instance=RequestContext(request),
         )
 
