@@ -9,9 +9,6 @@ from juvume.util.results import FAKER_RESULTS
 from juvume.util.login_images import LOGIN_IMAGES
 
 
-
-
-
 def home(request):
     '''
     Login page with rotating background images.
