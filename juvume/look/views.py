@@ -26,8 +26,19 @@ def home(request):
     user = auth.authenticate(username=username, password=password)
     if user and user.is_active:
         auth.login(request, user)
-        return redirect("/Hooray!")
+        return redirect("/look/hooray")
     return redirect('/invalid_login')
+
+def hooray(request):
+    results = get_results(None, None, None) 
+    return render_to_response(
+            'inv.html',
+            dict(
+                results=dumps(results),
+                ),
+            context_instance=RequestContext(request),
+            )
+
 
 
 def inv(request):

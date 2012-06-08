@@ -4,13 +4,13 @@ from django.core.exceptions import ValidationError
 from django.contrib import admin
 
 
-class Emails(models.Model):
+class Email(models.Model):
     email = models.EmailField(max_length=200)
 
     def __unicode__(self):
         return u'<"%s">' % self.email
 
-admin.site.register(Emails)
+admin.site.register(Email)
 
 def proc_email(email_addy, log):
     log.info('Processing: %r', email_addy)

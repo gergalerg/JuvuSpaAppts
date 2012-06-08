@@ -16,7 +16,6 @@ urlpatterns = patterns('',
 
     # User-facing site.
     url(r'^look/', include('look.urls')),
-
     )
 
 # Static media (served directly by the web server in production.)
