@@ -1,3 +1,4 @@
+*.swp
 *.py[co]
 beauty/cats.sqlite3
 .DS_Store
