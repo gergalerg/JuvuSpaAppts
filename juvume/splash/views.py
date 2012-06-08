@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from juvume.splash.models import proc_email
 from juvume.util.spreadlogger import SpreadHandler
 from django.conf import settings
+from django.views.generic.simple import direct_to_template
 
 
 
@@ -38,10 +39,11 @@ def splash(request):
         request.META['HTTP_USER_AGENT'],
         request.META.get('HTTP_REFERER', '[no HTTP_REFERER]'),
         )
-    return render_to_response(
-        'index.html',
-        context_instance=RequestContext(request),
-        )
+    return direct_to_template(request, template='index.html')
+#    return render_to_response(
+#        'index.html',
+#        context_instance=RequestContext(request),
+#       )
 
 
 def thanks(request):
