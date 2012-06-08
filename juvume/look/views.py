@@ -2,7 +2,7 @@ from random import choice, shuffle
 from simplejson import dumps
 from itertools import cycle
 from django.template import RequestContext
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, HttpResponseRedirect
 from django.contrib import auth
 from juvume.look.models import get_results
 from juvume.util.results import FAKER_RESULTS
@@ -59,7 +59,7 @@ def book(request):
         results = get_results(None, None, None)
         treatment = request.POST['name']
     else:
-        return redirect('inv')
+        return HttpResponseRedirect('inv')
     return render_to_response(
         'book.html',
         {'treatment': treatment},
