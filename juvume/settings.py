@@ -78,7 +78,7 @@ MEDIA_URL = ''
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-# ADMIN_MEDIA_PREFIX = '/admin/'
+# ADMIN_MEDIA_PREFIX = 'static' 
 
 # Deprecation warning
 STATIC_URL = '/static/'
