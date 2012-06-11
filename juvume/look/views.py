@@ -66,14 +66,17 @@ def book(request):
     '''
     booking page.
     '''
+    results = FAKER_RESULTS
     if request.method == 'POST':
-        results = get_results(None, None, None)
-        treatment = request.POST['name']
+        FAKER_RESULTS['treatment'] = request.POST['name']
+       # {'treatment': request.POST['name']}
+                
+        # treatment = request.POST['name']
     else:
         return HttpResponseRedirect('inv')
     return render_to_response(
         'book.html',
-        {'treatment': treatment},
+        results,
         context_instance=RequestContext(request),
         )
 
