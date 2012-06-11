@@ -12,9 +12,12 @@ class Spa(models.Model):
     city = models.CharField(max_length=100)
     zipcode = models.CharField(max_length=15)
 
+    def __unicode__(self):
+        return self.name
+
 class Treatment(models.Model):
     spa = models.ForeignKey(Spa)
-    style = models.CharField(max_length=100)
+    treatment = models.CharField(max_length=100)
 
 class Price(models.Model):
     spa = models.ForeignKey(Spa)
