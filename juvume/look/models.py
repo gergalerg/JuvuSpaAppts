@@ -1,20 +1,32 @@
+from django.db import models
 from datetime import datetime, timedelta
-from juvume.util.results import FAKE_RESULTS
-from juvume.util.results import FAKER_RESULTS
 
 
 ONE_DAY = timedelta(days=1)
 DATE_FORMAT = '%m/%d/%Y'
 '05/15/2012'
 
+class Spa(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    zipcode = models.CharField(max_length=15)
 
-def get_results(proc, from_date, to_date):
-    print 'get_results', proc, from_date, to_date
-    days = list(_get_days(from_date, to_date))
-    for d in days:
-        print '  ', d
-    print
-    return FAKE_RESULTS.values()[0]
+class Treatment(models.Model):
+    spa = models.ForeignKey(Spa)
+    style = models.CharField(max_length=100)
+
+class Price(models.Model):
+    spa = models.ForeignKey(Spa)
+    price = models.IntegerField()
+
+#def get_results(proc, from_date, to_date):
+#    print 'get_results', proc, from_date, to_date
+#    days = list(_get_days(from_date, to_date))
+#    for d in days:
+#        print '  ', d
+#    print
+#    return FAKE_RESULTS.values()[0]
 
 def _get_days(from_date, to_date):
     if from_date:

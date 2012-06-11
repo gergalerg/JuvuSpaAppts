@@ -23,24 +23,6 @@ DATABASES = {
     }
 }
 
-TRIPLE_STORES = {
-    'default': dict(
-        storage_name="hashes",
-        name="test",
-        options_string="new='yes',hash-type='memory',dir='.'",
-        ),
-    'testdata': dict(
-        storage_name="file",
-        name=join(PROJECT_ROOT, '../testdata/testdata.rdf.xml'),
-        options_string="new='yes',dir='.'",
-        ),
-    }
-
-
-# Spread ring configuration.
-SPREAD = '3333@10.4.0.2'
-SP_GROUP = 'test'
-SP_UNAME = 'juvu' if PRODUCTION else ('dev_' + node())
 
 
 # Local time zone for this installation. Choices can be found here:
@@ -112,7 +94,6 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    join(PROJECT_ROOT, 'splash', 'templates'),
     join(PROJECT_ROOT, 'look', 'templates'),
 )
 
@@ -124,5 +105,5 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'juvume.splash',
+    'juvume.look',
 )
