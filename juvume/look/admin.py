@@ -2,10 +2,16 @@ from django.contrib import admin
 from juvume.look.models import Spa, Treatment, Amenities
 
 
+class AmenitiesInline(admin.TabularInline):
+    model = Amenities.spa.through
+    extra = 1
 
 class SpaAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address', 'city', 'zip_code') 
+    list_display = ('name', 'address', 'city', 'zip_code')
     search_fields = ('name', )
+    inlines = [
+            AmenitiesInline,
+            ]
 
 class TreatmentAdmin(admin.ModelAdmin):
     list_display = ('treatment', 'spa', 'price')
@@ -13,6 +19,8 @@ class TreatmentAdmin(admin.ModelAdmin):
 
 class AmenitiesAdmin(admin.ModelAdmin):
     search_fields = ('amenities',)
+    list_filter = ('spa',)
+
 
 
 
