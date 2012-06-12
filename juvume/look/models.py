@@ -6,12 +6,14 @@ ONE_DAY = timedelta(days=1)
 DATE_FORMAT = '%m/%d/%Y'
 '05/15/2012'
 
+
 class Spa(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
-    zipcode = models.CharField(max_length=15)
-
+    zip_code = models.CharField(max_length=15)
+    phone = models.CharField(max_length=15)
+     
     def __unicode__(self):
         return self.name
 
@@ -25,6 +27,16 @@ class Treatment(models.Model):
 
     def __unicode__(self):
         return self.treatment
+
+class Amenities(models.Model):
+    spa = models.ManyToManyField(Spa)
+    amenities = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = "Amenities"
+
+    def __unicode__(self):
+        return self.amenities
 
 
 
