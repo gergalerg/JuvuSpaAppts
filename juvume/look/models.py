@@ -15,13 +15,18 @@ class Spa(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        ordering = ('name',)
+
 class Treatment(models.Model):
     spa = models.ForeignKey(Spa)
     treatment = models.CharField(max_length=100)
-
-class Price(models.Model):
-    spa = models.ForeignKey(Spa)
     price = models.IntegerField()
+
+    def __unicode__(self):
+        return self.treatment
+
+
 
 #def get_results(proc, from_date, to_date):
 #    print 'get_results', proc, from_date, to_date
