@@ -1,5 +1,5 @@
 from django.contrib import admin
-from juvume.look.models import Spa, Treatment, Amenities
+from juvume.look.models import Spa, Procedure, Amenities
 
 
 class AmenitiesInline(admin.TabularInline):
@@ -13,9 +13,9 @@ class SpaAdmin(admin.ModelAdmin):
             AmenitiesInline,
             ]
 
-class TreatmentAdmin(admin.ModelAdmin):
-    list_display = ('treatment', 'spa', 'price')
-    search_fields = ('treatment', )
+class ProcedureAdmin(admin.ModelAdmin):
+    list_display = ('procedure', 'spa', 'price')
+    search_fields = ('procedure', )
 
 class AmenitiesAdmin(admin.ModelAdmin):
     search_fields = ('amenities',)
@@ -29,5 +29,5 @@ class AmenitiesAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Spa, SpaAdmin)
-admin.site.register(Treatment, TreatmentAdmin)
+admin.site.register(Procedure, ProcedureAdmin)
 admin.site.register(Amenities, AmenitiesAdmin)

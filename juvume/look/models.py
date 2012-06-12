@@ -20,13 +20,13 @@ class Spa(models.Model):
     class Meta:
         ordering = ('name',)
 
-class Treatment(models.Model):
+class Procedure(models.Model):
     spa = models.ForeignKey(Spa)
-    treatment = models.CharField(max_length=100)
+    procedure = models.CharField(max_length=100)
     price = models.IntegerField()
 
     def __unicode__(self):
-        return self.treatment
+        return self.procedure
 
 class Amenities(models.Model):
     spa = models.ManyToManyField(Spa)
