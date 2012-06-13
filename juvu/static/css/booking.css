@@ -94,6 +94,26 @@ body{
 	cursor:				pointer;
 }
 
+.amenities{
+	top:				394px;
+	left:				125px;
+	position:			absolute;
+	color:				#808080;
+	text-align:			center;
+	cursor:				pointer;
+	font-size:			12px;
+}
+
+.opt_merchant{
+	top:				494px;
+	left:				122px;
+	position:			absolute;
+	color:				#808080;
+	text-align:			center;
+	cursor:				pointer;
+	font-size:			12px;
+}
+
 .distance{
 	display:			none;
 	opacity:			0;

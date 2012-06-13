@@ -26,8 +26,54 @@
 			var s_canvas = d3.select(".canvas").append("svg:svg");
 			s_canvas
 				.attr("width", 300)
-				.attr("height", 800)
+				.attr("height", 1000)
 				.attr("class", "s_canvas");
+			
+			//FIXME: add two circles amenities & merchants (no functions) - chinpin
+			s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",400)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_amenities")
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			//html
+			$('.amenities').mouseover(function(){
+				changeColor($('.c_amenities'));
+			});
+			
+			$('.amenities').mouseout(function(){
+				changeBack($('.c_amenities'));
+			});
+			
+			s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",500)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_merchants")
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			//html
+			$('.opt_merchant').mouseover(function(){
+				changeColor($('.c_merchants'));
+			});
+			
+			$('.opt_merchant').mouseout(function(){
+				changeBack($('.c_merchants'));
+			});
+			
 			
 			//where
 			s_canvas.append("svg:circle")
@@ -335,7 +381,8 @@
 						<a href="#" class="submit_btn">test</a>
 					</ul>
 				</form>
-				
+				<div class="amenities">amenities</div>
+				<div class="opt_merchant">merchants</div>
 				
 				
 			</div><!--end of animation-->
