@@ -8,3 +8,4 @@ local
 venv/
 admin/
 static/admin/
+juvume/users.sqlite3
