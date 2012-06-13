@@ -38,7 +38,12 @@ class Amenities(models.Model):
     def __unicode__(self):
         return self.amenities
 
+class Time(models.Model):
+    spa = models.ForeignKey(Spa)
+    procedure = models.ForeignKey(Procedure)
 
+    def __unicode__(self):
+        return self.spa
 
 #def get_results(proc, from_date, to_date):
 #    print 'get_results', proc, from_date, to_date

@@ -28,6 +28,7 @@ class AmenitiesAdmin(admin.ModelAdmin):
 
 
 
+
 admin.site.register(Spa, SpaAdmin)
 admin.site.register(Procedure, ProcedureAdmin)
 admin.site.register(Amenities, AmenitiesAdmin)

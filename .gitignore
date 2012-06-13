@@ -8,5 +8,3 @@ local
 venv/
 admin/
 static/admin/
-juvu
-users.sqlite3
