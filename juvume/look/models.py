@@ -28,8 +28,6 @@ class Procedure(models.Model):
     def __unicode__(self):
         return self.procedure
 
-
-
 class Availability(models.Model):
     procedure = models.ForeignKey(Procedure)
     spa = models.ForeignKey(Spa)
@@ -38,15 +36,15 @@ class Availability(models.Model):
     class Meta:
         verbose_name_plural = "Availability"
 
-#class Amenities(models.Model):
-#    spa = models.ManyToManyField(Spa)
-#    amenities = models.CharField(max_length=100)
-#
-#    class Meta:
-#        verbose_name_plural = "Amenities"
-#
-#    def __unicode__(self):
-#        return self.amenities
+class Amenities(models.Model):
+    spa = models.ForeignKey(Spa)
+    amenities = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = "Amenities"
+
+    def __unicode__(self):
+        return self.amenities
 
     
 #def get_results(proc, from_date, to_date):
