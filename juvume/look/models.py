@@ -28,52 +28,25 @@ class Procedure(models.Model):
     def __unicode__(self):
         return self.procedure
 
-class Amenities(models.Model):
-    spa = models.ManyToManyField(Spa)
-    amenities = models.CharField(max_length=100)
-
-    class Meta:
-        verbose_name_plural = "Amenities"
-
-    def __unicode__(self):
-        return self.amenities
 
 
 class Availability(models.Model):
-    TIMES = (
-            ('900a', '9:00 am'),
-            ('930a', '9:30 am'),
-            ('1000a', '10:00 am'),
-            ('1030a', '10:30 am'),
-            ('1100a', '11:00 am'),
-            ('1130a', '11:30 am'),
-            ('1200p', '12:00 pm'),
-            ('1230p', '12:30 pm'),
-            ('100p', '1:00 pm'),
-            ('130p', '1:30 pm'),
-            ('200p', '2:00 pm'),
-            ('230p', '2:30 pm'),
-            ('300p', '3:00 pm'),
-            ('330p', '3:30 pm'),
-            ('400p', '4:00 pm'),
-            ('430p', '4:30 pm'),
-            ('500p', '5:00 pm'),
-            ('530p', '5:30 pm'),
-            ('600p', '6:00 pm'),
-            ('630p', '6:30 pm'),
-            ('700p', '7:00 pm'),
-            ('730p', '7:30 pm'),
-            ('800p', '8:00 pm'),
-            ('830p', '8:30 pm'),
-            ('900p', '9:00 pm'),
-            )
-    availability = models.CharField(max_length=10, choices = TIMES)
-    procedure = models.ManyToManyField(Procedure)
+    procedure = models.ForeignKey(Procedure)
     spa = models.ForeignKey(Spa)
+    availability = models.DateTimeField()
 
     class Meta:
         verbose_name_plural = "Availability"
 
+#class Amenities(models.Model):
+#    spa = models.ManyToManyField(Spa)
+#    amenities = models.CharField(max_length=100)
+#
+#    class Meta:
+#        verbose_name_plural = "Amenities"
+#
+#    def __unicode__(self):
+#        return self.amenities
 
     
 #def get_results(proc, from_date, to_date):
