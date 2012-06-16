@@ -450,11 +450,11 @@
 		</div><!--end of left nav-->
 		
 		<div id="nav_right">
-			<div id="header_service">Therapeutic Massage</div>
+			<div id="header_service">{{ Procedure }}</div>
 			<div class="inv_col">
 				<div class="inv_date_wrapper">
 					<div class="btn_pre">&lt;</div>
-					<div class="inv_date">Monday, June 5th, 2012</div>
+					<div class="inv_date">{{ Date }}</div>
 					<div class="btn_pre">&gt;</div>
 				</div>
 				

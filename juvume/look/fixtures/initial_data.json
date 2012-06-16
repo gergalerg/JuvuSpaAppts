@@ -1,0 +1,20 @@
+[
+	{
+		"model": "look.Spa",
+		"pk": 1,
+		"fields": {
+		    "name": "Bare",
+		    "address": "123 Kearny St.",
+		    "city": "San Francisco"
+		    }
+	},
+	{
+		"model": "look.Spa",
+		"pk": 2,
+		"fields": {
+		    "name": "Tru",
+		    "address": "343 Gough St.",
+		    "city": "San Francisco"
+		    }
+	}
+]
