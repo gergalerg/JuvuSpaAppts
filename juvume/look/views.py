@@ -4,6 +4,7 @@ from itertools import cycle
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect, HttpResponseRedirect
 from django.contrib import auth
+from juvume.util.results import FAKE_RESULTS
 
 def image_url(n):
     return '/static/image/login_%02i.jpg' % (n,)
@@ -83,17 +84,20 @@ def inv(request):
     '''
     Inventory page.
     '''
-    if request.method == 'POST':
-        results = get_results(
-            proc=request.POST.get('proc'),
-            from_date=request.POST.get('from_date'),
-            to_date=request.POST.get('to_date'),
-            )
-    else:
-        results = get_results(None, None, None)
-    shuffle(results)
+#    if request.method == 'POST':
+#        results = get_results(
+#            proc=request.POST.get('proc'),
+#            from_date=request.POST.get('from_date'),
+#            to_date=request.POST.get('to_date'),
+#            )
+#    else:
+#        results = get_results(None, None, None)
+#    shuffle(results)
+    r = FAKE_RESULTS.values()
+    results = choice(r) if r else []
+    print results 
     return render_to_response(
-        'inv.html',
+        'inv.html.new',
         dict(
             results=dumps(results),
             ),

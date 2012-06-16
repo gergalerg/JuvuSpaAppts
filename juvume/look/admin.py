@@ -1,10 +1,10 @@
 from django.contrib import admin
-from juvume.look.models import Spa, Procedure, Availability, Amenities
+from juvume.look.models import Spa, Procedure, Availability 
 
 
 
 class SpaAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address', 'city', 'zip_code')
+    list_display = ('name', 'address', 'city')
     search_fields = ('name', )
 
 class ProcedureAdmin(admin.ModelAdmin):
@@ -12,14 +12,11 @@ class ProcedureAdmin(admin.ModelAdmin):
     search_fields = ('procedure', )
     list_filter = ('spa',)
 
-class AmenitiesAdmin(admin.ModelAdmin):
-    list_display = ('amenities', 'spa' )
 
 class AvailabilityAdmin(admin.ModelAdmin):
-    list_display = ('procedure', 'availability', 'spa')
-    list_filter = ('availability',)
+    list_display = ('availability', 'spa', 'procedure')
+    list_filter = ('spa',)
 
 admin.site.register(Spa, SpaAdmin)
 admin.site.register(Procedure, ProcedureAdmin)
 admin.site.register(Availability, AvailabilityAdmin)
-admin.site.register(Amenities, AmenitiesAdmin)
