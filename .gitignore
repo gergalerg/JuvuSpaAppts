@@ -3,7 +3,6 @@
 beauty/cats.sqlite3
 .DS_Store
 juvu/FOO.users.sqlite3
-<<<<<<< HEAD
 .redo
 local
 venv/
@@ -11,4 +10,3 @@ admin/
 static/admin/
 =======
 venv
->>>>>>> juvu-debut
