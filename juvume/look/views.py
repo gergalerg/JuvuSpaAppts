@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect, HttpResponseRedirect
 from django.contrib import auth
 from juvume.util.results import FAKE_RESULTS
+import datetime
 
 def image_url(n):
     return '/static/image/login_%02i.jpg' % (n,)
@@ -96,9 +97,10 @@ def inv(request):
     r = FAKE_RESULTS.values()
     results = choice(r) if r else []
     print results 
+    date = datetime.datetime.now()
     return render_to_response(
         'inv.html.new',
-        {'Procedure': 'Therapeutic Massage', 'Date': 'Today'},
+        {'Procedure': 'Therapeutic Massage', 'Date': date.day  },
 #        dict(
 #            results=dumps(results),
 #            ),
