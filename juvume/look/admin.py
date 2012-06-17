@@ -14,8 +14,8 @@ class ProcedureAdmin(admin.ModelAdmin):
 
 
 class AvailabilityAdmin(admin.ModelAdmin):
-    list_display = ('availability', 'spa', 'procedure')
-    list_filter = ('spa',)
+    list_display = ('procedure', 'availability')
+    list_filter = ('procedure',)
 
 admin.site.register(Spa, SpaAdmin)
 admin.site.register(Procedure, ProcedureAdmin)

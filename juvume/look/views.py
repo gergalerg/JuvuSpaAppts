@@ -98,9 +98,10 @@ def inv(request):
     print results 
     return render_to_response(
         'inv.html.new',
-        dict(
-            results=dumps(results),
-            ),
+        {'Procedure': 'Therapeutic Massage', 'Date': 'Today'},
+#        dict(
+#            results=dumps(results),
+#            ),
         context_instance=RequestContext(request),
         )
 

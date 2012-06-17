@@ -29,7 +29,6 @@ class Procedure(models.Model):
 
 class Availability(models.Model):
     procedure = models.ForeignKey(Procedure)
-    spa = models.ForeignKey(Spa)
     availability = models.DateTimeField()
 
     class Meta:
