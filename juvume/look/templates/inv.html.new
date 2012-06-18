@@ -523,13 +523,13 @@
 						<!--merchants data-->
 						<div class="price_line">
 							<div class="inv_price">&#36;55</div>
-							<div class="inv_merchant" style="background-color:#FF931E;" timezone="1">Thi Spa</div>
-							<div class="inv_merchant" style="background-color:#FF931E;" timezone="2">Thi Spa</div>
-							<div class="inv_merchant" style="background-color:#FF931E;" timezone="3">Thi Spa</div>
-							<div class="inv_merchant" style="background-color:#FF931E;" timezone="4">Thi Spa</div>
-							<div class="inv_merchant" style="background-color:#FF931E;" timezone="5">Thi Spa</div>
-							<div class="inv_merchant" style="background-color:#FF931E;" timezone="6">Thi Spa</div>
-							<div class="inv_merchant" style="background-color:#FF931E;" timezone="7">Thi Spa</div>
+                            <div class="inv_merchant" style="background-color:#FF931E;" timezone="1">{{ spa1 }}</div>
+                            <div class="inv_merchant" style="background-color:#FF931E;" timezone="2">{{ spa1 }}</div>
+                            <div class="inv_merchant" style="background-color:#FF931E;" timezone="3">{{ spa1 }}</div>
+                            <div class="inv_merchant" style="background-color:#FF931E;" timezone="4">{{ spa1 }}</div>
+                            <div class="inv_merchant" style="background-color:#FF931E;" timezone="5">{{ spa1 }}</div>
+                            <div class="inv_merchant" style="background-color:#FF931E;" timezone="6">{{ spa1 }}</div>
+                            <div class="inv_merchant" style="background-color:#FF931E;" timezone="7">{{ spa1 }}</div>
 							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="14">Therapia</div>
 							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="15">Therapia</div>
 							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="16">Therapia</div>
