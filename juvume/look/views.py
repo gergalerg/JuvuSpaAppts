@@ -4,8 +4,7 @@ from itertools import cycle
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect, HttpResponseRedirect
 from django.contrib import auth
-from juvume.util.results import FAKE_RESULTS
-from look.models import Spa
+from look.models import Availability
 import datetime
 
 def image_url(n):
@@ -36,7 +35,7 @@ def home(request):
             ),
         dict(
             image_URL=image_url(4),
-            top='40%',
+            top='40%', 
             left='52%',
             color='#E8711F',
             ),
@@ -68,17 +67,18 @@ def home(request):
     user = auth.authenticate(username=username, password=password)
     if user and user.is_active:
         auth.login(request, user)
-        return redirect("/look/#service")
+        return redirect("/look/hooray")
     return redirect('/invalid_login')
 
-#def hooray(request):
-#    return render_to_response(
-#            'inv.html',
-#            dict(
-#                results=dumps(results),
-#                ),
-#            context_instance=RequestContext(request),
-#            )
+def hooray(request):
+    results = get_results(None, None, None) 
+    return render_to_response(
+            'inv.html',
+            dict(
+                results=dumps(results),
+                ),
+            context_instance=RequestContext(request),
+            )
 
 
 
@@ -86,29 +86,72 @@ def inv(request):
     '''
     Inventory page.
     '''
-#    if request.method == 'POST':
-#        results = get_results(
-#            proc=request.POST.get('proc'),
-#            from_date=request.POST.get('from_date'),
-#            to_date=request.POST.get('to_date'),
-#            )
-#    else:
-#        results = get_results(None, None, None)
-#    shuffle(results)
-    r = FAKE_RESULTS.values()
-    results = choice(r) if r else []
-#    print results 
-    date = datetime.datetime.now()
-    spa1 = Spa.objects.get(pk=1)
-    name = spa1.name
+    #if request.method == 'POST':
+    #    results = get_results(
+	#   proc=request.POST.get('proc'),
+	#   from_date=request.POST.get('from_date'),
+	#   to_date=request.POST.get('to_date'),
+	#  )
+   	# else:
+    #   results = get_results(None, None, None)
+    #shuffle(results)
+    
+
+    #new by DC
+
+    print request.POST.get('proc')
+ #   print request.POST.get('from_date')
+ #   print request.POST.get('to_date')
+    
+	#r = FAKE_RESULTS.values()
+    #results = choice(r) if r else []
+    #x = dict(results=dumps(results))
+    
+    
+    avail = Availability.objects.filter(appt_date=datetime.datetime.today())
+    price =  Availability.objects.filter(appt_date=datetime.datetime.today()).values_list('base_price').distinct().order_by('base_price')
+ #   print avail.values()[0]
+ #   print price
+    
+    
+    json_result = "["
+    
+    for each_price in price:
+    	json_result += "{base_price:" + str(each_price[0]) + ",appts:["
+    	avail = Availability.objects.filter(appt_date=datetime.datetime.today()).filter(base_price=each_price[0])
+    	for each_avail in avail:
+    		#print each_avail.base_price,each_avail.proc_name
+    		json_result += "{spa_name:'" + each_avail.spa.name + "',slotNo:'" + str(each_avail.timeslot) + "'}"	
+    	json_result += "]},"		
+    json_result += "]"	
+    
+    
+    x=dict()		
+    #print json_result
+    x['date'] = datetime.datetime.now()
+  #  x['avail'] = avail
+  #  x['price'] = price 
+    x['json_result'] = json_result
+    
+    '''
+    END DC
+    '''
+  #   return render_to_response(
+  #      'inv.html',x,
+  #     dict(
+  #        results=dumps(results),
+  #         ),
+  #     context_instance=RequestContext(request),
+  #    )
+        
     return render_to_response(
-        'inv.html.new',
-        {'spa1': name, 'Procedure': 'Therapeutic Massage', 'Date': date  },
-#        dict(
-#            results=dumps(results),
-#            ),
+        'inv.html',
+        x,
         context_instance=RequestContext(request),
-        )
+        )    
+        
+        
+        
 
 def book(request):
     '''

@@ -11,12 +11,42 @@ class Spa(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
+    zip_code = models.CharField(max_length=15)
+    phone = models.CharField(max_length=15)
      
     def __unicode__(self):
         return self.name
 
     class Meta:
         ordering = ('name',)
+
+class Treatment(models.Model):
+    spa = models.ForeignKey(Spa)
+    treatment = models.CharField(max_length=100)
+    price = models.IntegerField()
+
+    def __unicode__(self):
+        return self.treatment
+
+class Amenities(models.Model):
+    spa = models.ManyToManyField(Spa)
+    amenities = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = "Amenities"
+
+    def __unicode__(self):
+        return self.amenities
+        
+        
+class Category(models.Model):
+    categoryname = models.CharField(max_length=100)
+
+        
+    class Meta:
+       verbose_name_plural = "Categories"
+       
+       
 
 class Procedure(models.Model):
     spa = models.ForeignKey(Spa)
@@ -29,13 +59,20 @@ class Procedure(models.Model):
 
 class Availability(models.Model):
     procedure = models.ForeignKey(Procedure)
-    availability = models.DateTimeField()
+    appt_date = models.DateField()
+    spa = models.ForeignKey(Spa)
+    timeslot = models.IntegerField()
+    duration = models.IntegerField()
+    status = models.IntegerField() # "0" for available. "1" for booked.">1" ID
+    base_price = models.IntegerField()
+    proc_name = models.CharField(max_length=100)
+    create_date = models.DateField()
+    staff_id = models.IntegerField()
+
 
     class Meta:
-        verbose_name_plural = "Availability"
+        verbose_name_plural = "Availablity"
 
-
-    
 #def get_results(proc, from_date, to_date):
 #    print 'get_results', proc, from_date, to_date
 #    days = list(_get_days(from_date, to_date))

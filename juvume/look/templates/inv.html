@@ -6,10 +6,14 @@
 {% include "templates.inv.html" %}
 </script>
 {# ========================================================== #}
-<script type="text/javascript" src="/static/js/booking.js"></script>
-<script type="text/javascript" src="/static/js/inv.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/css/booking.css">
-<script type="text/javascript">
+
+    
+    <script type="text/javascript" src="/static/js/booking.js"></script>
+	<script type="text/javascript" src="/static/js/inv.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/booking.css">
+    
+    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
+    <script type="text/javascript">
 		//color, size
 		var first_color = "#E6E6E6",
 		    second_color = "#808080",
@@ -24,8 +28,54 @@
 			var s_canvas = d3.select(".canvas").append("svg:svg");
 			s_canvas
 				.attr("width", 300)
-				.attr("height", 800)
+				.attr("height", 1000)
 				.attr("class", "s_canvas");
+			
+			//FIXME: add two circles amenities & merchants (no functions) - chinpin
+			s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",400)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_amenities")
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			//html
+			$('.amenities').mouseover(function(){
+				changeColor($('.c_amenities'));
+			});
+			
+			$('.amenities').mouseout(function(){
+				changeBack($('.c_amenities'));
+			});
+			
+			s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",500)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_merchants")
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			//html
+			$('.opt_merchant').mouseover(function(){
+				changeColor($('.c_merchants'));
+			});
+			
+			$('.opt_merchant').mouseout(function(){
+				changeBack($('.c_merchants'));
+			});
+			
 			
 			//where
 			s_canvas.append("svg:circle")
@@ -171,7 +221,7 @@
 			
 			//today & date --- only have one animation result
 			s_canvas.append("svg:circle")
-				.attr("cx",120)
+				.attr("cx",105)
 				.attr("cy",240)
 				.attr("r",0)
 				.attr("fill",first_color)
@@ -244,7 +294,95 @@
     MODEL.set_results(_.map(results, function(data){ return new MerchantThing(data) }));
 
     ko.applyBindings(MODEL);
-
+	
+	//FIXME
+	//change merchant services position
+	$('div[timezone*=1]').css({marginTop:'0px'});
+	$('div[timezone*=2]').css({marginTop:'12px'});
+	$('div[timezone*=3]').css({marginTop:'25px'});
+	$('div[timezone*=4]').css({marginTop:'37px'});
+	$('div[timezone*=5]').css({marginTop:'50px'});
+	$('div[timezone*=6]').css({marginTop:'62px'});
+	$('div[timezone*=7]').css({marginTop:'75px'});
+	$('div[timezone*=8]').css({marginTop:'87px'});
+	$('div[timezone*=9]').css({marginTop:'100px'});
+	$('div[timezone*=10]').css({marginTop:'112px'});
+	$('div[timezone*=11]').css({marginTop:'125px'});
+	$('div[timezone*=12]').css({marginTop:'137px'});
+	$('div[timezone*=13]').css({marginTop:'150px'});
+	$('div[timezone*=14]').css({marginTop:'162px'});
+	$('div[timezone*=15]').css({marginTop:'175px'});
+	$('div[timezone*=16]').css({marginTop:'187px'});
+	$('div[timezone*=17]').css({marginTop:'200px'});
+	$('div[timezone*=18]').css({marginTop:'212px'});
+	$('div[timezone*=19]').css({marginTop:'225px'});
+	$('div[timezone*=20]').css({marginTop:'237px'});
+	$('div[timezone*=21]').css({marginTop:'250px'});
+	$('div[timezone*=22]').css({marginTop:'262px'});
+	$('div[timezone*=23]').css({marginTop:'275px'});
+	$('div[timezone*=24]').css({marginTop:'287px'});
+	$('div[timezone*=25]').css({marginTop:'300px'});
+	$('div[timezone*=26]').css({marginTop:'312px'});
+	$('div[timezone*=27]').css({marginTop:'325px'});
+	$('div[timezone*=28]').css({marginTop:'337px'});
+	$('div[timezone*=29]').css({marginTop:'350px'});
+	$('div[timezone*=30]').css({marginTop:'362px'});
+	$('div[timezone*=31]').css({marginTop:'375px'});
+	$('div[timezone*=32]').css({marginTop:'387px'});
+	$('div[timezone*=33]').css({marginTop:'400px'});
+	$('div[timezone*=34]').css({marginTop:'412px'});
+	$('div[timezone*=35]').css({marginTop:'425px'});
+	$('div[timezone*=36]').css({marginTop:'437px'});
+	$('div[timezone*=37]').css({marginTop:'450px'});
+	$('div[timezone*=38]').css({marginTop:'462px'});
+	$('div[timezone*=39]').css({marginTop:'475px'});
+	$('div[timezone*=40]').css({marginTop:'487px'});
+	$('div[timezone*=41]').css({marginTop:'500px'});
+	$('div[timezone*=42]').css({marginTop:'512px'});
+	$('div[timezone*=43]').css({marginTop:'525px'});
+	$('div[timezone*=44]').css({marginTop:'537px'});
+	$('div[timezone*=45]').css({marginTop:'550px'});
+	$('div[timezone*=46]').css({marginTop:'562px'});
+	$('div[timezone*=47]').css({marginTop:'575px'});
+	$('div[timezone*=48]').css({marginTop:'587px'});
+	
+	
+	//move price line
+	var n = $('.price_line').length;
+	var w = n*100;
+	var d = 0;
+	var p;
+	var pixel;
+	
+	$('.inv_data_width').css({width:w});
+	
+	$('.pre_move_btn').click(function(){
+		p = $('.inv_data_width').css('margin-left').replace(/[^-\d\.]/g, '');
+		//console.log(d);
+		if(p<0){
+			d += 100;
+			if(d>0){
+				d = 0;
+			}
+			pixel = d+"px";
+			$('.inv_data_width').animate({'margin-left':pixel},500);
+		}
+	})
+	
+	$('.next_move_btn').click(function(){
+		p = $('.inv_data_width').css('margin-left').replace(/[^-\d\.]/g, '');
+		if(p>(600-w)){
+			d -= 100;
+			if(d<(600-w))
+			{
+				d = (600-w);
+			}
+			pixel = d+"px";
+			$('.inv_data_width').animate({'margin-left':pixel},500);
+		}
+	})
+	
+	
 });
 </script>
 {% endblock %}
@@ -252,12 +390,9 @@
 	<div class="wrapper">
 		<div class="top-nav">
 			<div class="utility"><a href="#">( log out )</a></div>
-			<div class="utility"><a href="#">{{ user }}</a></div>
+			<div class="utility"><a href="#">user's account name</a></div>
 			<div class="logo">
 				<img src="../static/image/logo.png" />
-			</div>
-			<div class="tagline">
-				<img src="../static/image/tagline.png" />
 			</div>
 		</div>
 		
@@ -333,25 +468,327 @@
 						<a href="#" class="submit_btn">test</a>
 					</ul>
 				</form>
-				
-				
+				<div class="amenities">amenities</div>
+				<div class="opt_merchant">merchants</div>
 				
 			</div><!--end of animation-->
 		</div><!--end of left nav-->
 		
 		<div id="nav_right">
-{# container of information from database #}
-<div data-bind="template: {name:'result_template', foreach:results}"></div>
+			<div id="header_service">Therapeutic Massage</div>
+			<div class="inv_col">
+				<div class="inv_date_wrapper">
+					<div class="btn_pre">&lt;</div>
+					<div class="inv_date">{{ date }}</div>
+					<div class="btn_pre">&gt;</div>
+				</div>
+				<div class="inv_grid">
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+				</div>
+				
+				<div class="inv_time">
+					<ul>
+						<li>9:00</li>
+						<li>9:30</li>
+						<li>10:00</li>
+						<li>10:30</li>
+						<li>11:00</li>
+						<li>11:30</li>
+						<li>12:00</li>
+						<li>12:30</li>
+						<li>1:00</li>
+						<li>1:30</li>
+						<li>2:00</li>
+						<li>2:30</li>
+						<li>3:00</li>
+						<li>3:30</li>
+						<li>4:00</li>
+						<li>4:30</li>
+						<li>5:00</li>
+						<li>5:30</li>
+						<li>6:00</li>
+						<li>6:30</li>
+						<li>7:00</li>
+						<li>7:30</li>
+						<li>8:00</li>
+						<li>8:30</li>
+						<li>9:00</li>
+					</ul>
+				</div>
+				
+				<div class="pre_move_btn">&lt;</div>
+				<div class="next_move_btn">&gt;</div>
+
+				<div class="inv_data">
+					<div class="inv_data_width">
+					
+					
+					<script type="text/javascript">
+					
+					//var testdata = [1,2,3];
+					//var priceObj = [{base_price:'100',appts:[{spa_name:'David Spa',slotNo:8},{spa_name:'David Spa',slotNo:10}]},{base_price:'120',appts:[{spa_name:'David Spa',slotNo:14},{spa_name:'David Spa',slotNo:20}]}];
+					var priceObj ={% autoescape off %}{{json_result}}{% endautoescape %};
+
+					var appts = d3.select(".inv_data_width")
+						.selectAll("div")
+						.data(priceObj)
+						.enter()
+						.append("div")
+						.classed("price_line",true)
+						.append("div")
+						.classed("inv_price",true)
+						.text(function(d){return "$" + d.base_price;})
+						.selectAll("div")
+						.data(function(d) {return d.appts;})
+						.enter()
+						.append("div")	
+						.classed("inv_merchant",true)
+						.text(function(d) {return d.spa_name;})				
+						.style("background-color","#D9E021")
+						.style("overflow","hidden")
+						.style("width",0)
+						.attr("timezone",function(d){return d.slotNo;})
+						
+						;
+						
+						appts.data(priceObj)
+						.transition()
+						.duration(2000)
+						.style("width","100px")
+						
+						;
+					
+					
+					</script>
+					
+					
+
+
+						<!--merchants data-->
+						
+						<!--
+						<div class="price_line">
+							<div class="inv_price">&#36;55</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="1">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="2">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="3">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="4">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="5">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="6">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="7">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="14">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="15">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="16">{{ spa2 }}</div>
+							
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="31">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="32">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="33">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="34">{{ spa2 }}</div>
+						</div>
+						
+						<div class="price_line">
+							<div class="inv_price">&#36;70</div>
+							<div class="inv_merchant" style="background-color:red;" timezone="4">Thai Spa</div>
+							<div class="inv_merchant" style="background-color:red;" timezone="5">Thai Spa</div>
+							<div class="inv_merchant" style="background-color:red;" timezone="6">Thai Spa</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="12">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="13">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="14">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="15">Nob Hill</div>
+							
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="33">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="34">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="35">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="36">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="37">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="38">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="39">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="40">Anjalee's massage</div>
+						</div>
+						
+						<div class="price_line">
+							<div class="inv_price">&#36;85</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="8">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="9">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="10">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="11">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="12">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="19">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="20">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="21">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="22">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="23">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="24">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="31">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="32">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="33">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="34">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="35">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="36">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="37">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="38">Nob Hill</div>
+						</div>
+						
+						<div class="price_line">
+							<div class="inv_price">&#36;90</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="3">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="4">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="5">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="6">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="7">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:#7AC943;" timezone="8">Nob Hill</div>
+							<div class="inv_merchant" style="background-color:red;" timezone="12">Thai Spa</div>
+							<div class="inv_merchant" style="background-color:red;" timezone="13">Thai Spa</div>
+							<div class="inv_merchant" style="background-color:red;" timezone="14">Thai Spa</div>
+							<div class="inv_merchant" style="background-color:red;" timezone="15">Thai Spa</div>
+							
+							<div class="inv_merchant" style="background-color:#009245;" timezone="27">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="28">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="29">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="30">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="31">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="32">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="33">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="34">I-Spa</div>
+							
+						</div>
+						
+						<div class="price_line">
+							<div class="inv_price">&#36;120</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="10">{{ spa1 }}</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="11">{{ spa1 }}</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="12">{{ spa1 }}</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="13">{{ spa1 }}</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="14">{{ spa1 }}</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="17">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="18">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="19">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="20">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="21">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="22">I-Spa</div>
+							
+							<div class="inv_merchant" style="background-color:red;" timezone="41">Thai Spa</div>
+							<div class="inv_merchant" style="background-color:red;" timezone="42">Thai Spa</div>
+							<div class="inv_merchant" style="background-color:red;" timezone="43">Thai Spa</div>
+							<div class="inv_merchant" style="background-color:red;" timezone="44">Thai Spa</div>
+							<div class="inv_merchant" style="background-color:red;" timezone="45">Thai Spa</div>
+							<div class="inv_merchant" style="background-color:red;" timezone="46">Thai Spa</div>
+						</div>
+						
+						<div class="price_line">
+							<div class="inv_price">&#36;125</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="8">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="9">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="10">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="11">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="12">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="20">{{ spa1 }}</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="21">{{ spa1 }}</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="22">{{ spa1 }}</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="23">{{ spa1 }}</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="24">{{ spa1 }}</div>
+							
+							<div class="inv_merchant" style="background-color:#009245;" timezone="37">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="38">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="39">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="40">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="41">I-Spa</div>
+							<div class="inv_merchant" style="background-color:#009245;" timezone="42">I-Spa</div>
+						</div>
+						
+						<div class="price_line">
+							<div class="inv_price">&#36;130</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="1">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="2">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="3">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="4">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="5">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="6">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#FF931E;" timezone="7">Thi Spa</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="13">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="14">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="15">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="16">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="17">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="18">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="19">{{ spa2 }}</div>
+							<div class="inv_merchant" style="background-color:#3AA9F5;" timezone="20">{{ spa2 }}</div>
+						</div>
+						
+						<div class="price_line">
+							<div class="inv_price">&#36;135</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="37">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="38">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="39">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="40">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="41">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#D9E021;" timezone="42">Anjalee's massage</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="19">{{ spa1 }}</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="20">{{ spa1 }}</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="21">{{ spa1 }}</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="22">{{ spa1 }}</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="23">{{ spa1 }}</div>
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="24">{{ spa1 }}</div>	
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="25">{{ spa1 }}</div>	
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="26">{{ spa1 }}</div>	
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="27">{{ spa1 }}</div>	
+							<div class="inv_merchant" style="background-color:#00CCFF;" timezone="28">{{ spa1 }}</div>	
+						</div>
+					</div>-->
+					
+					
+				</div>{#end of inv_data#}
+			</div>{#end of inv_col#}	
+		{# container of information from database #}
+		<!--<div data-bind="template: {name:'result_template', foreach:results}"></div>-->{# replace with sql #}
 		</div>{# end of right nav #}
+		
 		<div style="clear:both;"></div>
 	</div>{# end of wrapper #}
-
-
-<form id="submitter" action="{% url book %}" method="POST"  style="display:none;">
-  {% csrf_token %}
-  <input name="name" id="id_name" type="text"/>
-  <input name="price" id="id_price" type="text"/>
-  <input name="discount" id="id_discount" type="text"/>
-</form>
-
 {% endblock %}
