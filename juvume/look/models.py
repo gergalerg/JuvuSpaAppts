@@ -11,8 +11,6 @@ class Spa(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
-    zip_code = models.CharField(max_length=15)
-    phone = models.CharField(max_length=15)
      
     def __unicode__(self):
         return self.name
@@ -24,27 +22,18 @@ class Procedure(models.Model):
     spa = models.ForeignKey(Spa)
     procedure = models.CharField(max_length=100)
     price = models.IntegerField()
+    discount = models.IntegerField()
 
     def __unicode__(self):
         return self.procedure
 
 class Availability(models.Model):
     procedure = models.ForeignKey(Procedure)
-    spa = models.ForeignKey(Spa)
     availability = models.DateTimeField()
 
     class Meta:
         verbose_name_plural = "Availability"
 
-class Amenities(models.Model):
-    spa = models.ForeignKey(Spa)
-    amenities = models.CharField(max_length=100)
-
-    class Meta:
-        verbose_name_plural = "Amenities"
-
-    def __unicode__(self):
-        return self.amenities
 
     
 #def get_results(proc, from_date, to_date):
