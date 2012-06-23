@@ -1,33 +1,13 @@
 from django.contrib import admin
-from juvume.look.models import Spa, Treatment, Amenities, Category, Procedure, Availability
+from look.models import Spa, Procedure, Availability, Category
 
-
-class AmenitiesInline(admin.TabularInline):
-    model = Amenities.spa.through
-    extra = 1
 
 class SpaAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address', 'city', 'zip_code')
+    list_display = ('name', 'address', 'city')
     search_fields = ('name', )
-    inlines = [
-            AmenitiesInline,
-            ]
-
-class TreatmentAdmin(admin.ModelAdmin):
-    list_display = ('treatment', 'spa', 'price')
-    search_fields = ('treatment', )
-
-class AmenitiesAdmin(admin.ModelAdmin):
-    search_fields = ('amenities',)
-    list_filter = ('spa',)
-
-class CategoryAdmin(admin.ModelAdmin):
-   list_display = ('categoryname',)
-    #search_fields = ('categoryname', )
-    #list_filter = ('categoryName',)
 
 class ProcedureAdmin(admin.ModelAdmin):
-    list_display = ('procedure', 'spa', 'price')
+    list_display = ('procedure', 'category', 'spa', 'price')
     search_fields = ('procedure', )
     list_filter = ('spa',)
 
@@ -37,12 +17,12 @@ class AvailabilityAdmin(admin.ModelAdmin):
             'create_date', 'staff_id')
     list_filter = ('procedure',)
 
+class CategoryAdmin(admin.ModelAdmin):
 
+    list_display = ('category',)
+    list_filter = ('category',)
 
 admin.site.register(Spa, SpaAdmin)
-admin.site.register(Treatment, TreatmentAdmin)
-admin.site.register(Amenities, AmenitiesAdmin)
-admin.site.register(Category, CategoryAdmin)
 admin.site.register(Procedure, ProcedureAdmin)
 admin.site.register(Availability, AvailabilityAdmin)
-
+admin.site.register(Category, CategoryAdmin)
