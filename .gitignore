@@ -2,11 +2,9 @@
 *.py[co]
 beauty/cats.sqlite3
 .DS_Store
-juvu/FOO.users.sqlite3
 .redo
 local
 venv/
 admin/
 static/admin/
-=======
 venv
