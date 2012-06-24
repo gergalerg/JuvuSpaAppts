@@ -67,16 +67,13 @@ def home(request):
     user = auth.authenticate(username=username, password=password)
     if user and user.is_active:
         auth.login(request, user)
-        return redirect("/look/hooray")
+        return redirect("/look/#service")
     return redirect('/invalid_login')
 
 def hooray(request):
-    results = get_results(None, None, None) 
+    # login bypasses this and returns /look/#service
     return render_to_response(
-            'inv.html',
-            dict(
-                results=dumps(results),
-                ),
+            'book.html',
             context_instance=RequestContext(request),
             )
 
@@ -121,7 +118,7 @@ def inv(request):
     	avail = Availability.objects.filter(appt_date=datetime.datetime.today()).filter(base_price=each_price[0])
     	for each_avail in avail:
     		#print each_avail.base_price,each_avail.proc_name
-    		json_result += "{spa_name:'" + each_avail.spa.name + "',slotNo:'" + str(each_avail.timeslot) + "'}"	
+    		json_result += "{spa_name:'" + each_avail.spa.name + "',timeslot:'" + str(each_avail.timeslot) + "'}"	
     	json_result += "]},"		
     json_result += "]"	
     

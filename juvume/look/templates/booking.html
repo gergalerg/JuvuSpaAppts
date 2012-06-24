@@ -261,9 +261,10 @@ $(function(){
     if (!Backbone.history.start()) {
         routes.navigate("toc", true);
     }
-    $(".juvuMe").click(look);
+    //$(".juvuMe").click(look);
+    //Where did this come from? I thought I deleted it in a git branch.
 
-	$(".juvuMe2").click(look);
+    $(".juvuMe2").click(look);
 
     vis3 = d3.select("#show")
         .append("svg:svg")
@@ -334,7 +335,7 @@ $(function(){
 		<div class="login_circle c_shadow"></div>
 		<div class="exp_circle c_shadow"></div>
 	</div>
-	
+	<!--	
 	<div class="shortcuts_global">
 		<div class="shortcuts">
 			<div class="service_sel singleline">Massage</div>
@@ -348,6 +349,7 @@ $(function(){
 			<div class="service_sel singleline">Dental</div>
 		</div>
 	</div>
+	-->
 	
 </div>
 
@@ -358,7 +360,7 @@ $(function(){
 <div class="wrapper">
 	<div class="top-nav" >
 		<div class="utility"><a href="#">( log out )</a></div>
-		<div class="utility"><a href="#">user's account name</a></div>
+		<div class="utility"><a href="#">{{ user }}</a></div>
 		<div class="logo">
 			<img src="../static/image/logo.png" />
 		</div>
