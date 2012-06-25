@@ -96,21 +96,13 @@ def inv(request):
 
     #new by DC
 
-    print request.POST.get('proc')
+    # print request.POST.get('proc')
  #   print request.POST.get('from_date')
  #   print request.POST.get('to_date')
-    
-	#r = FAKE_RESULTS.values()
-    #results = choice(r) if r else []
-    #x = dict(results=dumps(results))
-    
-    
+
     avail = Availability.objects.filter(appt_date=datetime.datetime.today())
     price =  Availability.objects.filter(appt_date=datetime.datetime.today()).values_list('base_price').distinct().order_by('base_price')
- #   print avail.values()[0]
- #   print price
-    
-    
+
     json_result = "["
     
     for each_price in price:
@@ -122,8 +114,8 @@ def inv(request):
     	json_result += "]},"		
     json_result += "]"	
     
-    
     x=dict()		
+    x['proc'] = request.POST.get('proc')
     x['date'] = datetime.datetime.now()
   #  x['avail'] = avail
   #  x['price'] = price 
@@ -133,13 +125,7 @@ def inv(request):
     END DC
     '''
     print json_result
-  #   return render_to_response(
-  #      'inv.html',x,
-  #     dict(
-  #        results=dumps(results),
-  #         ),
-  #     context_instance=RequestContext(request),
-  #    )
+    print x['proc']
         
     return render_to_response(
         'inv.html',

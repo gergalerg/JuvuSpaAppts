@@ -390,7 +390,7 @@
 	<div class="wrapper">
 		<div class="top-nav">
 			<div class="utility"><a href="#">( log out )</a></div>
-			<div class="utility"><a href="#">user's account name</a></div>
+			<div class="utility"><a href="#">{{ user }}</a></div>
 			<div class="logo">
 				<img src="../static/image/logo.png" />
 			</div>
@@ -477,7 +477,7 @@
 		</div><!--end of left nav-->
 		
 		<div id="nav_right">
-			<div id="header_service">Therapeutic Massage</div>
+			<div id="header_service">{{ autoescape }}{{ x.proc }}{{ endautoescape }}</div>
 			<div class="inv_col">
 				<div class="inv_date_wrapper">
 					<div class="btn_pre">&lt;</div>
