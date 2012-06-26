@@ -5812,7 +5812,7 @@ function setup_option_circles(ops_canvas) {
 	  .attr("cy",363)
 	  .attr("r",0)
 	  .attr("fill",second_color)
-	  .attr("fill-opacity",0)
+	  .attr("fill-opacity",1)
 	  .attr("class","c_date pointy")
 	  .on("click", function(){
 	    routes.navigate("choose/date", true);
@@ -6176,7 +6176,7 @@ var options_transitions = {
 			.ease("elastic", 5, 4);
 
 		d3.select(".date").transition()
-			.style("left", "400px")
+			.style("left", "390px")
 			.style("top", "345px")
 		  .transition()
 			.style("display","block")
