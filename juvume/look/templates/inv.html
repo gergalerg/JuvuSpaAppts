@@ -54,7 +54,7 @@
 				changeBack($('.c_amenities'));
 			});
 			
-			s_canvas.append("svg:circle")
+			//s_canvas.append("svg:circle")
 				.attr("cx",150)
 				.attr("cy",500)
 				.attr("r",c_size)
@@ -138,7 +138,7 @@
 			$('.when').click(clickDate);
 			
 			//options
-			s_canvas.append("svg:circle")
+			//s_canvas.append("svg:circle")
 				.attr("cx",150)
 				.attr("cy",300)
 				.attr("r",c_size)
@@ -164,7 +164,7 @@
 			$('.option').click(clickOption);
 
 			//distance & neighboehood
-			s_canvas.append("svg:circle")
+			//s_canvas.append("svg:circle")
 				.attr("cx",105)
 				.attr("cy",80)
 				.attr("r",0)
@@ -217,14 +217,14 @@
 				changeBack($('.c_nei'));
 			});
 			
-			$('.neighbor').click(clickNeighbor);
+			//$('.neighbor').click(clickNeighbor);
 			
 			//today & date --- only have one animation result
 			s_canvas.append("svg:circle")
 				.attr("cx",105)
 				.attr("cy",240)
 				.attr("r",0)
-				.attr("fill",first_color)
+				.attr("fill",second_color)
 				.attr("class","c_today")
 				.on("click",function(){
 					original();
