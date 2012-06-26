@@ -5771,28 +5771,28 @@ function setup_option_circles(ops_canvas) {
 	  .attr("class", "s_canvas");
 	
 	//Neighborhood
-	svg_canvas.append("svg:circle")
-	  .attr("cx",535)
-	  .attr("cy",233)
-	  .attr("r",65)
-	  .attr("fill",second_color)
-	  .attr("fill-opacity",1)
-	  .attr("class","c_nei pointy")
-	  .on("click", function(){
-	      routes.navigate("choose/nei", true);
-	  });
+//	svg_canvas.append("svg:circle")
+//	  .attr("cx",535)
+//	  .attr("cy",233)
+//	  .attr("r",65)
+//	  .attr("fill",second_color)
+//	  .attr("fill-opacity",1)
+//	  .attr("class","c_nei pointy")
+//	  .on("click", function(){
+//	      routes.navigate("choose/nei", true);
+//	  });
 	
 	//distance
-	svg_canvas.append("svg:circle")
-	  .attr("cx",450)
-	  .attr("cy",170)
-	  .attr("r",65)
-	  .attr("fill",first_color)
-	  .attr("fill-opacity",1)
-	  .attr("class","c_dis pointy")
-	  .on("click", function(){
-	      routes.navigate("choose/#", false); //FIXME Disable distance choice here for now... and change dis to #
-	  });
+//	svg_canvas.append("svg:circle")
+//	  .attr("cx",450)
+//	  .attr("cy",170)
+//	  .attr("r",65)
+//	  .attr("fill",first_color)
+//	  .attr("fill-opacity",0)
+//	  .attr("class","c_dis pointy")
+//	  .on("click", function(){
+//	      routes.navigate("choose/#", false); //FIXME Disable distance choice here for now... and change dis to #
+//	  });
 	
 	//today
 	svg_canvas.append("svg:circle")
@@ -5800,7 +5800,7 @@ function setup_option_circles(ops_canvas) {
 	  .attr("cy",300)
 	  .attr("r",0)
 	  .attr("fill",first_color)
-	  .attr("fill-opacity",0)
+	  .attr("fill-opacity",1)
 	  .attr("class","c_to pointy")
 	  .on("click", function(){
 	    // FIXME: Do something intelligent here.
@@ -5819,16 +5819,16 @@ function setup_option_circles(ops_canvas) {
 	  });
 	
 	//option
-	svg_canvas.append("svg:circle")
-		.attr("cx",800)
-		.attr("cy",350)
-		.attr("r",0)
-		.attr("fill",first_color)
-		.attr("fill-opacity",0)
-		.attr("class","c_op pointy")
-		.on("click", function(){
-	      routes.navigate("choose/opts", true);
-		});
+//	svg_canvas.append("svg:circle")
+//		.attr("cx",800)
+//		.attr("cy",350)
+//		.attr("r",0)
+//		.attr("fill",first_color)
+//		.attr("fill-opacity",0)
+//		.attr("class","c_op pointy")
+//		.on("click", function(){
+//	      routes.navigate("choose/opts", true);
+//		});
 	
 	//juvu me
 	svg_canvas.append("svg:circle")
