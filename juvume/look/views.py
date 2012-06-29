@@ -110,7 +110,7 @@ def inv(request):
     	avail = Availability.objects.filter(appt_date=datetime.datetime.today()).filter(base_price=each_price[0])
     	for each_avail in avail:
     		#print each_avail.base_price,each_avail.proc_name
-    		json_result += "{spa_name:'" + each_avail.spa.name + "',timeslot:'" + str(each_avail.timeslot) + "'}"	
+    		json_result += "{spa_name:'" + each_avail.spa.name + "',timeslot:'" + str(each_avail.timeslot) + "',duration:'" + str(each_avail.duration)+ "'}"	
     	json_result += "]},"		
     json_result += "]"	
     

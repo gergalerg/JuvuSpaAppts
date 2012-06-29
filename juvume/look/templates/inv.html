@@ -11,8 +11,7 @@
     <script type="text/javascript" src="/static/js/booking.js"></script>
 	<script type="text/javascript" src="/static/js/inv.js"></script>
 	<link rel="stylesheet" type="text/css" href="/static/css/booking.css">
-    
-    <link rel="stylesheet" type="text/css" href="../static/css/booking.css">
+    	<link rel="stylesheet" type="text/css" href="/static/css/inv.css">
     <script type="text/javascript">
 		//color, size
 		var first_color = "#E6E6E6",
@@ -296,6 +295,9 @@
 	
 	//FIXME
 	//change merchant services position
+	//The following is no longer used. DC 6/29/2012
+	/*
+	
 	$('div[timeslot*=37]').css({marginTop:'0px'});
 	$('div[timeslot*=38]').css({marginTop:'12px'});
 	$('div[timeslot*=39]').css({marginTop:'25px'});
@@ -344,7 +346,7 @@
 	$('div[timeslot*=82]').css({marginTop:'562px'});
 	$('div[timeslot*=83]').css({marginTop:'575px'});
 	$('div[timeslot*=84]').css({marginTop:'587px'});
-	
+	*/
 	
 	//move price line
 	var n = $('.price_line').length;
@@ -595,7 +597,9 @@
 						.style("background-color","#D9E021")
 						.style("overflow","hidden")
 						.style("width",0)
-						.attr("timeslot",function(d){return d.timeslot;})
+						.style("height",function(d){return 40/60 * d.duration + "px";})
+						.style("top",function(d){return 25 *( d.timeslot-37) + "px";})
+						//.attr("timeslot",function(d){return d.timeslot;})
 						
 						;
 						

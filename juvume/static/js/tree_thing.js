@@ -22,6 +22,7 @@ function setup_tree_thing(element_selector, root) {
     update(root);
     //change default selection
     $("#tree").append('<div id="goey"><a href="/look/#choose/date" class="blue_button">Cool! Let&rsquo;s find that for you</a></div>');
+    //$("#tree").append('<div id="goey" class="blue_button juvuMe2">Cool! Let&rsquo;s find that for you</div>');
     $("#goey").hide();
     $("#tree").hide();
 }
