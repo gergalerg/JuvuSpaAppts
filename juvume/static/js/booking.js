@@ -5159,8 +5159,8 @@ var x = d3.scale.linear().domain([0, 53]).range([x0, x1]),
     y = d3.scale.linear().domain([0, 7]).range([20, dh]),
 
     r = d3.scale.linear().domain([0, 1]).range([5, 10]),
-    r_med = d3.scale.linear().domain([0, 1]).range([15, 30]),
-    r_big = d3.scale.linear().domain([0, 1]).range([30, 43]),
+    r_med = d3.scale.linear().domain([0, 1]).range([15, 25]),
+    r_big = d3.scale.linear().domain([0, 1]).range([25, 35]),
 
     r_days_1 = d3.scale.linear().domain([0, 1]).range([215, 225]),
     r_days_2 = d3.scale.linear().domain([0, 1]).range([155, 175]),
@@ -5834,9 +5834,9 @@ function setup_option_circles(ops_canvas) {
 	svg_canvas.append("svg:circle")
 		.attr("cx",950)
 		.attr("cy",350)
-		.attr("r",0)
+		.attr("r",55)
 		.attr("fill",second_color)
-		.attr("fill-opacity",0)
+		.attr("fill-opacity",1)
 		.attr("class","c_me pointy")
 		.on("click", look)
 }
