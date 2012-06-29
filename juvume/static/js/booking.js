@@ -5834,9 +5834,9 @@ function setup_option_circles(ops_canvas) {
 	svg_canvas.append("svg:circle")
 		.attr("cx",950)
 		.attr("cy",350)
-		.attr("r",0)
+		.attr("r",55)
 		.attr("fill",second_color)
-		.attr("fill-opacity",0)
+		.attr("fill-opacity",1)
 		.attr("class","c_me pointy")
 		.on("click", look)
 }
