@@ -8,3 +8,4 @@ venv/
 admin/
 static/admin/
 venv
+.project
