@@ -5,6 +5,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect, HttpResponseRedirect
 from django.contrib import auth
 from look.models import Availability
+from look.models import Category
+from look.models import Procedure
 import datetime
 
 def image_url(n):
@@ -96,10 +98,14 @@ def inv(request):
 
     #new by DC
 
-    # print request.POST.get('proc')
- #   print request.POST.get('from_date')
- #   print request.POST.get('to_date')
+    print request.POST.get('proc')
+    print request.POST.get('from_date')
+    print request.POST.get('to_date')
 
+    #cat = Category.objects.filter(category=request.POST.get('proc'))
+    #print cat.count()
+    #proc = cat.procedure_set.all();
+    #avail = cat.Availability_set.all()
     avail = Availability.objects.filter(appt_date=datetime.datetime.today())
     price =  Availability.objects.filter(appt_date=datetime.datetime.today()).values_list('base_price').distinct().order_by('base_price')
 
