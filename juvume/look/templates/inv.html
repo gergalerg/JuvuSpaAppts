@@ -24,6 +24,10 @@
 
 		$(function(){
 			
+
+			/*background image this does not work fr some reason*/
+  			$('#backstretch').css({opacity: 0.3});
+
 			var s_canvas = d3.select(".canvas").append("svg:svg");
 			s_canvas
 				.attr("width", 300)
@@ -385,7 +389,18 @@
 	
 	
 });
+
+
 </script>
+
+
+<script type="text/javascript">
+/*background image*/
+  $.backstretch("{{ image_URL }}");
+</script>
+
+
+
 {% endblock %}
 {% block body %}
 	<div class="wrapper">

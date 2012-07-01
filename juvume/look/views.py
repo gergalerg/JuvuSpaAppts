@@ -85,6 +85,12 @@ def inv(request):
     '''
     Inventory page.
     '''
+
+    
+
+
+
+
     #if request.method == 'POST':
     #    results = get_results(
 	#   proc=request.POST.get('proc'),
@@ -102,10 +108,14 @@ def inv(request):
     print request.POST.get('from_date')
     print request.POST.get('to_date')
 
- 
+    from_date = datetime.datetime.strptime(request.POST.get('from_date'),'%m/%d/%Y')
+    to_date = datetime.datetime.strptime(request.POST.get('to_date'),'%m/%d/%Y')
+    print from_date
+    print to_date
+    #print datetime.datetime.today()
 
 
-    avail = Availability.objects.select_related().filter(procedure__category__iexact=request.POST.get('proc')).filter(appt_date=datetime.datetime.today())
+    avail = Availability.objects.select_related().filter(procedure__category__iexact=request.POST.get('proc')).filter(appt_date=from_date)
 
     print avail.count()
     for each_avail in avail:
@@ -127,6 +137,7 @@ def inv(request):
     x=dict()		
     x['proc'] = request.POST.get('proc')
     x['date'] = datetime.datetime.now()
+    x['image_URL']=image_url(1)
   #  x['avail'] = avail
   #  x['price'] = price 
     x['json_result'] = json_result
