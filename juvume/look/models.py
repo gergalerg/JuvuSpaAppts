@@ -66,16 +66,69 @@ class Category(models.Model):
         return self.category
 
 class Procedure(models.Model):
+
+    DECISION_TREE = (
+            ('therapeutic', 'Therapeutic'),
+            ('thai', 'Thai'),
+            ('hot_stone', 'Hot Stone'),
+            ('reflexology', 'Reflexology'),
+            ('facials', 'Facials'),
+            ('lash_extensions', 'Lash Extensions'),
+            ('lash_tinting', 'Lash Tinting'),
+            ('brow_tinting', 'Brow Tinting'),
+            ('peels_microdermabrasion', 'Microdermabrasion'),
+            ('peels_chemical_peels', 'Chemical Peels'),
+            ('medi_facial_fillers', 'Facial Fillers'),
+            ('medi_laser_facials', 'Laser Facials'),
+            ('medi_botox', 'Botox'),
+            ('makeup_application', 'Make Up - Application'),
+            ('makeup_permanent', 'Make Up - Permanent Makeup'),
+            ('pedicure', 'Pedicure'),
+            ('manicure', 'Manicure'),
+            ('mani-pedi', 'Mani/pedi'),
+            ('polish_change', 'Polish Change'),
+            ('gels', 'Gels'),
+            ('acrylics', 'Acrylics'),
+            ('yoga', 'Yoga'),
+            ('pilates', 'Pilates'),
+            ('cross_training_classes', 'Cross Training Classes'),
+            ('cycling_classes', 'Cycling Classes'),
+            ('trx', 'TRX'),
+            ('flexibility_stretching_classes', 'Flexibility/Stretching Classes'),
+            ('outdoor_bootcamp', 'Outdoor Bootcamp'),
+            ('abs_and_targeted_area_classes', 'Abs & Targeted Area Classes'),
+            ('personal_training', 'Personal Training'),
+            ('chiropractic', 'Chiropractic'),
+            ('acupuncture', 'Acupuncture'),
+            ('colonics', 'Colonics'),
+            ('weight_loss', 'Weight Loss'),
+            ('tanning_spray_tan', 'Tanning - Spray Tan'),
+            ('tanning_tanning_beds', 'Tanning - Tanning Beds'),
+            ('scrubs', 'Scrubs'),
+            ('wraps', 'Wraps'),
+            ('back_facials', 'Back Facials'),
+            ('dental_cleaning', 'Dental - Cleaning'),
+            ('dental_whitening', 'Dental - Whitening'),
+            )
+    category = models.CharField(max_length=30, choices=DECISION_TREE)
     spa = models.ForeignKey(Spa)
     procedure = models.CharField(max_length=100)
     price = models.IntegerField()
     discount = models.IntegerField()
-    category = models.ForeignKey(Category)
+    #category = models.ForeignKey(Category)
 
     def __unicode__(self):
         return self.procedure
 
 class Availability(models.Model):
+
+    STATUS =(
+            (0,'Available'),
+            (1,'Booked'),
+            (2,'Completed'),
+            (3,'No Show')
+            )
+
     TIMESLOTS = (
             (37, '9:00 am'),
             (38, '9:15 am'),
@@ -127,18 +180,20 @@ class Availability(models.Model):
             (84, '8:45 pm'),
             )
 
+   
             
     procedure = models.ForeignKey(Procedure)
     appt_date = models.DateField("Appointment Date")
     spa = models.ForeignKey(Spa)
     timeslot = models.IntegerField(choices=TIMESLOTS)
     duration = models.IntegerField()
-    status = models.IntegerField() # "0" for available. "1" for booked.">1" ID
+    status = models.IntegerField(choices=STATUS) 
     base_price = models.IntegerField()
     proc_name = models.ForeignKey(Procedure, related_name='Procedure')
     create_date = models.DateField()
     staff_id = models.IntegerField()
-
+    customer_id = models.IntegerField(default=0, null=True)
+   
     class Meta:
         verbose_name_plural = "Availability"
 

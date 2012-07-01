@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect, HttpResponseRedirect
 from django.contrib import auth
 from look.models import Availability
-from look.models import Category
+#from look.models import Category
 from look.models import Procedure
 import datetime
 
@@ -102,12 +102,16 @@ def inv(request):
     print request.POST.get('from_date')
     print request.POST.get('to_date')
 
-    #cat = Category.objects.filter(category=request.POST.get('proc'))
-    #print cat.count()
-    #proc = cat.procedure_set.all();
-    #avail = cat.Availability_set.all()
-    avail = Availability.objects.filter(appt_date=datetime.datetime.today())
-    price =  Availability.objects.filter(appt_date=datetime.datetime.today()).values_list('base_price').distinct().order_by('base_price')
+ 
+
+
+    avail = Availability.objects.select_related().filter(procedure__category__iexact=request.POST.get('proc')).filter(appt_date=datetime.datetime.today())
+
+    print avail.count()
+    for each_avail in avail:
+		print each_avail.base_price
+
+    price =  avail.values_list('base_price').distinct().order_by('base_price')
 
     json_result = "["
     
