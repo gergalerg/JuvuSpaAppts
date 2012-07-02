@@ -11,7 +11,7 @@
     <script type="text/javascript" src="/static/js/booking.js"></script>
 	<script type="text/javascript" src="/static/js/inv.js"></script>
 	<link rel="stylesheet" type="text/css" href="/static/css/booking.css">
-    	<link rel="stylesheet" type="text/css" href="/static/css/inv.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/inv.css">
     <script type="text/javascript">
 		//color, size
 		var first_color = "#E6E6E6",
@@ -22,11 +22,14 @@
 		    oc,
 		    s_canvas;
 
+	/*background image*/
+  	$.backstretch("{{ image_URL }}");
+
 		$(function(){
 			
 
-			/*background image this does not work fr some reason*/
-  			$('#backstretch').css({opacity: 0.3});
+			$('#backstretch').css({opacity: 0.3});
+			
 
 			var s_canvas = d3.select(".canvas").append("svg:svg");
 			s_canvas
@@ -57,7 +60,7 @@
 				changeBack($('.c_amenities'));
 			});
 			
-			//s_canvas.append("svg:circle")
+			s_canvas.append("svg:circle")
 				.attr("cx",150)
 				.attr("cy",500)
 				.attr("r",c_size)
@@ -140,7 +143,7 @@
 			$('.when').click(clickDate);
 			
 			//options
-			//s_canvas.append("svg:circle")
+			/*s_canvas.append("svg:circle")
 				.attr("cx",150)
 				.attr("cy",300)
 				.attr("r",c_size)
@@ -152,7 +155,7 @@
 				})
 				.on('mouseout', function(){
 					changeBack($(this));
-				});
+				});*/
 			
 			//html
 			$('.option').mouseover(function(){
@@ -166,7 +169,7 @@
 			$('.option').click(clickOption);
 
 			//distance & neighboehood
-			//s_canvas.append("svg:circle")
+			/*s_canvas.append("svg:circle")
 				.attr("cx",105)
 				.attr("cy",80)
 				.attr("r",0)
@@ -181,7 +184,7 @@
 				})
 				.on('mouseout', function(){
 					changeBack($(this));
-				});
+				});*/
 			
 			$('.distance').mouseover(function(){
 				changeColor($('.c_dis'));
@@ -292,8 +295,9 @@
 	    .css({'background-color':'white'})
     });
 
-    var results = {{ results|safe }};
-    MODEL.set_results(_.map(results, function(data){ return new MerchantThing(data) }));
+// Commented due to nul results: DC
+    //var results = {{ results|safe }};
+    //MODEL.set_results(_.map(results, function(data){ return new MerchantThing(data) }));
 
     ko.applyBindings(MODEL);
 	
@@ -394,10 +398,6 @@
 </script>
 
 
-<script type="text/javascript">
-/*background image*/
-  $.backstretch("{{ image_URL }}");
-</script>
 
 
 
