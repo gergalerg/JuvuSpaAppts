@@ -5506,39 +5506,39 @@ function daysish(n) {
       case 1:
         radii.set_sizes(r_days_1, r_days_1);
         radius = r_days_1;
-        range = [0, 600];
+        range = [0, 900];
         break;
       case 2:
         radii.set_sizes(r_days_2, r_days_2);
         radius = r_days_2;
-        range = [100, 600];
+        range = [100, 800];
         margin = 1;
         break;
       case 3:
         radii.set_sizes(r_days_3, r_days_3);
         radius = r_days_3;
-        range = [100, 600];
+        range = [100, 800];
         margin = .35;
         break;
       case 4:
         radii.set_sizes(r_days_4, r_days_4);
         radius = r_days_4;
-        range = [100, 600];
+        range = [100, 800];
         break;
       case 5:
         radii.set_sizes(r_days_5, r_days_5);
         radius = r_days_5;
-        range = [100, 600];
+        range = [100, 800];
         break;
       case 6:
         radii.set_sizes(r_days_5, r_days_5);
         radius = r_days_6;
-        range = [100, 600];
+        range = [100, 800];
         break;
       default:
         radii.set_sizes(r_big, r_big);
         radius = r_big;
-        range = [100, 600];
+        range = [100, 800];
         margin = 0.125;
     }
 
@@ -5803,8 +5803,7 @@ function setup_option_circles(ops_canvas) {
 	  .attr("fill-opacity",1)
 	  .attr("class","c_to pointy")
 	  .on("click", function(){
-	    routes.navigate("choose/today", true);
-
+	    // FIXME: Do something intelligent here.
 	  });
 	
 	//Date range
