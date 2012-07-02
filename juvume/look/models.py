@@ -27,7 +27,7 @@ class Category(models.Model):
             ('Chemical Peels', 'Chemical Peels'),
             ('Facial Fillers', 'Facial Fillers'),
             ('Laser Facials', 'Laser Facials'),
-            ('Botox', 'Botox'),
+            ('BOTOX', 'Botox'),
             ('Application', 'Make Up - Application'),
             ('Permanent', 'Make Up - Permanent Makeup'),
             ('Pedicure', 'Pedicure'),
