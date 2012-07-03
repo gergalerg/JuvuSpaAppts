@@ -10,7 +10,9 @@
     
     <script type="text/javascript" src="/static/js/booking.js"></script>
 	<script type="text/javascript" src="/static/js/inv.js"></script>
+	<script type="text/javascript" src="/static/js/jquery.tipsy.js"></script>
 	<link rel="stylesheet" type="text/css" href="/static/css/booking.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/tipsy.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/inv.css">
     <script type="text/javascript">
 		//color, size
@@ -594,12 +596,6 @@
 					//var priceObj = [{base_price:'100',appts:[{spa_name:'David Spa',slotNo:8},{spa_name:'David Spa',slotNo:10}]},{base_price:'120',appts:[{spa_name:'David Spa',slotNo:14},{spa_name:'David Spa',slotNo:20}]}];
 					var priceObj ={% autoescape off %}{{json_result}}{% endautoescape %};
 
-					var book = d3.select("body")
-						    .append("div")
-						    .style("z-index", "10")
-						    .style("visibility", "hidden")
-						    .text("mouseover");
-
 					var appts = d3.select(".inv_data_width")
 						.selectAll("div")
 						.data(priceObj)
@@ -620,9 +616,6 @@
 						.style("width",0)
 						//.style("height",function(d){return 40/60 * d.duration + "px";})
 						.style("top",function(d){return 17 *( d.timeslot-37) -2 + "px";})
-						.on("mouseover", function(d) { 
-								return book.style("visibility", "visible");});
-
 						//.attr("timeslot",function(d){return d.timeslot;})
 						;
 						
@@ -633,6 +626,15 @@
 						.style("width","100px")
 						
 						;
+
+						$('.inv_merchant').tipsy({
+							gravity: 'sw',
+							html: true,
+							title: function(d) {
+							    var d = this.__data__;
+							    return d;
+							    }
+						    });
 					</script>
 				</div>
 			</div>
