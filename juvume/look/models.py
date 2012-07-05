@@ -6,6 +6,7 @@ class Spa(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
+    appt_color = models.CharField(max_length=30)
 
     def __unicode__(self):
         return self.name

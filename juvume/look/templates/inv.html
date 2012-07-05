@@ -618,7 +618,15 @@
 						.style("top",function(d){return 17 *( d.timeslot-37) -2 + "px";})
 						//.attr("timeslot",function(d){return d.timeslot;})
 						;
-						
+							
+						$('.inv_merchant').tipsy({
+							gravity: 'sw',
+							html: true,
+							title: function(d) {
+							var d = this.__data__;
+						        return 'Hello, the lowest price is:' + d.base_price + '!';
+							    }
+						    });
 						
 						appts.data(priceObj)
 						.transition()
@@ -627,14 +635,6 @@
 						
 						;
 
-						$('.inv_merchant').tipsy({
-							gravity: 'sw',
-							html: true,
-							title: function(d) {
-							    var d = this.__data__;
-							    return d;
-							    }
-						    });
 					</script>
 				</div>
 			</div>
