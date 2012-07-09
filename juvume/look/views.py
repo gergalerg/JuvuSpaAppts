@@ -137,7 +137,8 @@ def inv(request):
     x=dict()		
     x['proc'] = request.POST.get('proc')
     x['date'] = datetime.datetime.now()
-    x['image_URL']=image_url(1)
+    x['image_URL'] = '/static/image/inv.jpeg'
+    # x['image_URL']=image_url(1)
   #  x['avail'] = avail
   #  x['price'] = price 
     x['json_result'] = json_result
