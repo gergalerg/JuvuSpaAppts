@@ -11,6 +11,7 @@
     <script type="text/javascript" src="/static/js/booking.js"></script>
 	<script type="text/javascript" src="/static/js/inv.js"></script>
 	<script type="text/javascript" src="/static/js/jquery.tipsy.js"></script>
+	<script type="text/javascript" src="/static/js/jquery.backstretch.js"></script>
 	<link rel="stylesheet" type="text/css" href="/static/css/booking.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/tipsy.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/inv.css">
@@ -30,7 +31,7 @@
 		$(function(){
 			
 
-			$('#backstretch').css({opacity: 0.3});
+			$('#backstretch').animate({opacity:0.2},1000);
 			
 
 			var s_canvas = d3.select(".canvas").append("svg:svg");
