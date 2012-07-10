@@ -148,3 +148,56 @@
 .next_move_btn:hover{
 	color:				#3FA9F5;
 }
+
+#inv_pop{
+	width:				250px;
+}
+
+.inv_title{
+	font-size:			18px;
+	font-weight:			bold;
+	color:				#515151;
+	border-bottom:			2px solid #515151;
+	margin-bottom:			10px;
+}
+
+.inv_d{
+	font-size:			14px;
+	color:				#333;
+	line-height:			18px;
+}
+
+.inv_form_date{
+	font-size:			14px;
+	color:				#808080;
+}
+
+.inv_form_price{
+	font-size:			14px;
+	color:				#808080;
+}
+
+.inv_form_v{
+	display:			none;
+}
+
+.inv_form_btn{
+	background-color:		#808080;
+	border:				medium none;
+	border-radius:			3px 3px 3px 3px;
+	color:				white;
+	font-size:			12px;
+	height:				21px;
+	width:				50px;
+	text-align:			center;
+	cursor:				pointer;
+	float:				left;
+	margin-top:			10px;
+	margin-right:			10px;
+}
+
+.inv_form_btn:hover{
+	background-color:		#3FA9F5;
+}
+
+
