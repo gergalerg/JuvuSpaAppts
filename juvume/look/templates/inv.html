@@ -643,23 +643,13 @@
 						
 						;
 
-						$('.inv_merchant').fancybox({
+						$(document).ready(function() {
+							$('.inv_merchant').fancybox({
 								'overlayOpacity' : 0.2,
-								'content'   : '<div class="inv_title"></div><div class="inv_d">Date</div><div class="inv_form_date"></div><div class="inv_d">Price: {{ d.base_price }}</div><div class="inv_form"><form action="/look/book_info" method="GET"><input type="radio" value="" class="inv_form_v inv_form_t"/><input type="radio" value="" class="inv_form_v inv_form_p"/><input type="radio" value="" class="inv_form_v inv_form_name"/><input type="submit" value="Book" class="inv_form_btn"/></form></div><form><input type="radio" value="" class="inv_form_v inv_form_t"/><input type="radio" value="" class="inv_form_v inv_form_p"/><input type="radio" value="" class="inv_form_v inv_form_name"/><input type="submit" value="Bid" class="inv_form_btn"/></form></div>'
+								'content'   : '<div class="inv_title"></div><div class="inv_d">Date:{{ date|date:"D M, d Y" }}</div><div class="inv_form_date"></div><div class="inv_d">Price: {{ d }}</div><div class="inv_form"><form action="/look/book_info" method="GET"><input type="submit" value="Book" class="inv_form_btn"/></form></div><form><input type="submit" value="Bid" class="inv_form_btn"/></form></div>'
 								});
+							});
 
-						/* Also Chinpin's as an example
-						$('.inv_merchant').click(function(){
-								form_m = $(this).text();
-								form_t = $(this).attr('timeslot');
-								form_p = $(this).parent().find('.inv_price').text().replace(/\$/g, '');
-								$('.inv_title').text(form_m);
-								$('inv_form_t').val(form_t);
-								$('inv_form_price').text('$'+ form_p);
-								$('inv_form_name').val(form_m);
-								$('.inv_form_date').text($('.inv_date').text());
-								});
-						*/
 
     
 
@@ -674,29 +664,5 @@
 		
 		<div style="clear:both;"></div>
 
-		<!-- From Chinpin's fancybox window. Have to change div id to something useful
-		<div style="display:none;">
-			<div id="inv_pop">
-				<div class="inv_title"></div>
-				<div class="inv_d">Date</div>
-				<div class="inv_form_date"></div>
-				<div class="inv_d">Price"></div>
-				<div class="inv_form">
-					<form>
-						<input type="radio" value="" class="inv_form_v inv_form_t"/>
-						<input type="radio" value="" class="inv_form_v inv_form_p"/>
-						<input type="radio" value="" class="inv_form_v inv_form_name"/>
-						<input type="submit" value="Book" class="inv_form_btn"/>
-					</form>
-					<form>
-						<input type="radio" value="" class="inv_form_v inv_form_t"/>
-						<input type="radio" value="" class="inv_form_v inv_form_p"/>
-						<input type="radio" value="" class="inv_form_v inv_form_name"/>
-						<input type="submit" value="Bid" class="inv_form_btn"/>
-					</form>
-				</div>
-			</div>
-		</div>
-		-->
 	</div>{# end of wrapper #}
 {% endblock %}
