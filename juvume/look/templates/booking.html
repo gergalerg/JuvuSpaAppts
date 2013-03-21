@@ -1,0 +1,479 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="language" content="en">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="author" content="Juvu.me">
+<meta name="publisher" content="Agora Health Networks, Inc.">
+<meta name="copyright" content="©2011 Agora Health Networks, Inc. All rights reserved worldwide.">
+<meta http-equiv="pragma" content="no-cache">
+<title>Juvu</title>
+<link href="/static/css/TreeThing.css" rel="stylesheet">
+<link href="/static/css/calendar.css" rel="stylesheet">
+<style type="text/css">
+
+</style>
+<link href="/static/css/jquery-ui-1.8.16.custom.css" rel="stylesheet">
+<script type="text/javascript" src="/static/js/booking.js"></script>
+<script type="text/javascript">
+/* Parameters that control various aspects of the presentation. */
+
+// For the circles' dropshadows see the booking.css template file.
+var circle_1_radius = 47,
+    circle_2_radius = 107,
+    circle_3_radius = 55;
+
+// Parameters for the Tree Thing.
+var m = [10, 120, 10, 120],
+    w = 714 - m[1] - m[3],
+    h = 400 - m[0] - m[2],
+    i = 0,
+    duration = 500;
+
+// Convert the (server-embedded) JSON to KO models.
+var tree_thing;
+
+// Colors for options circles.
+var first_color = "#E6E6E6";
+var second_color = "#808080";
+var status_blue = "#3FA9F5";
+
+// The URL fragment Backbone "routes".
+var routes;
+
+// Track this element for detach/append.
+var nav_div;
+
+</script>
+<script type="text/javascript" src="/static/js/tree_thing.js"></script>
+<script type="text/javascript" src="/static/js/tree_data.js"></script>
+<script type="text/javascript" src="/static/js/ing.js"></script>
+<style type="text/css">
+/*
+	#nav -> change log in, sign up, explore font color & change position of 3 circles
+	.i_text -> change form border color
+	.i_btn -> change submit btn color
+*/
+body {
+    position: static;
+    margin: 0;
+}
+
+#nav {
+	width:				100%;
+	height:				100%;
+}
+
+.innerNav {
+	position:			absolute;
+	top:				{{ top }};
+	left:				{{ left }};
+	z-index:			1;
+	display:			block;
+	width:				266px;
+	height:				283px;
+	color:				{{ color }};
+}
+
+.i_text {
+	background-color:	transparent;
+	border:				1px solid {{ color }};
+	padding:			3px 0 3px 5px;
+	border-radius:		5px;
+	font-size:			0.8em;
+	width:				140px;
+}
+
+.i_btn {
+	background-color:	{{ color }};
+	border:				none;
+	border-radius:		10px;
+	padding:			3px 5px 3px 5px;
+	color:				white;
+	cursor:				pointer;
+}
+
+.i_btn:hover {
+	opacity:			0.5;
+}
+
+.pointy {
+    cursor: pointer;
+}
+
+/*log in page*/
+
+.signup_circle{
+	width:				94px;
+	height:				94px;
+	border-radius:		47px;
+	position:			absolute;
+	z-index:			2;
+	margin-left:		150px;
+}
+
+.login_circle{
+	width:				214px;
+	height:				214px;
+	border-radius:		107px;
+	position:			absolute;
+	margin-top:			28px;
+	line-height:		36px;
+	z-index:			1;
+}
+
+.exp_circle{
+	width:				110px;
+	height:				110px;
+	border-radius:		55px;
+	position:			absolute;
+	margin-left:		156px;
+	margin-top:			173px;
+	z-index:			2;
+}
+
+.c_shadow{
+	box-shadow: 		2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.s1{
+	z-index:			3;
+	position:			absolute;
+	margin-left:		160px;
+	margin-top:			38px;
+	text-align:			center;
+}
+
+.s2{
+	z-index:			3;
+	position:			absolute;
+	margin-left:		35px;
+	margin-top:			70px;
+	text-align:			center;
+}
+
+.s3{
+	z-index:			3;
+	position:			absolute;
+	margin-left:		166px;
+	margin-top:			220px;
+	text-align:			center;
+}
+
+.l_title{
+	font-size:			1.2em;
+	text-transform:		uppercase;
+	cursor: pointer;
+}
+
+.s2 form{
+	margin-top:			20px;
+	line-height:		32px;
+}
+
+.blue_button {
+    text-align: 		center;
+    font-size: 			22px;
+    font-size: 			15px;
+    color: 				#FFF;
+    text-transform: 	uppercase;
+    background-color: 	#8CCBF9;
+    border: 			0;
+    font-family: 		@body_font;
+    margin: 			0.5em;
+    cursor: 			pointer;
+    border-radius:		75px;
+    width:				150px;
+    height:				90px;
+    padding-top:		60px;
+    display:			block;
+    text-decoration:	none;
+    position:			absolute;
+    top:				270px;
+    left:				650px;
+    line-height:		24px;
+}
+
+.blue_button:hover {
+    color: 				#FFF;
+    background-color: 	#3FA9F5;
+}
+
+
+{# added by chinpin#}
+.shortcuts_global{
+	position:				absolute;
+	bottom:					5%;
+	width:					100%;
+}
+
+.shortcuts{
+	display:				block;
+	width:					1024px;
+	margin-left:			auto;
+	margin-right:			auto;
+}
+.service_sel{
+	border-radius:			35px;
+	width:					70px;
+	background-color:		white;
+	float:					left;
+	opacity:				0.4;
+	text-align:				center;
+	margin-left:			43px;
+	cursor:					pointer;
+	box-shadow:				2px 2px 2px #888;
+	transition:				background-color, opacity 0.5s;
+	-moz-transition:		background-color, opacity 0.5s;
+	-webkit-transition:		background-color, opacity 0.5s;
+	-o-transition:			background-color, opacity 0.5s;
+	font-size:				12px;
+}
+
+.service_sel:hover{
+	background-color:		#CEE6FC;
+	opacity:				0.8;
+}
+
+.singleline{
+	height:					40px;
+	padding-top:			30px;
+}
+
+.doublelines{
+	height:					48px;
+	padding-top:			22px;
+}
+</style>
+<script type="text/javascript">
+
+/*background image*/
+$.backstretch("{{ image_URL }}");
+
+/*SVG*/
+$(function(){
+    create_login_circles();
+    ko.applyBindings(viewModel);
+    routes = new routey();
+    nav_div = $("#nav");
+    setup_tree_thing("#tree", root);
+    setup_option_circles("#canvas");
+    if (!Backbone.history.start()) {
+        routes.navigate("toc", true);
+    }
+    //$(".juvuMe").click(look);
+    //Where did this come from? I thought I deleted it in a git branch.
+
+    $(".juvuMe2").click(look);
+
+    vis3 = d3.select("#show")
+        .append("svg:svg")
+        .attr("width", dw)
+        .attr("height", 1.9 * dh)
+        .attr("id", "uncanny");
+
+    var circles = vis3.selectAll("circle")
+        .data(ydata)
+    .enter().append("svg:circle")
+        .attr("stroke-width", "none")
+        .call(year_style)
+        .call(mouse_bindings);
+
+    setup_month_tabs(vis3)
+        .transition()
+        .attr("fill-opacity", 0.5);
+
+    $("#from_date_cal").datepicker({
+        minDate: "+0D",
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        altField: '#from_date',
+        onSelect: date_selected
+    });
+
+    $("#to_date_cal").datepicker({
+        minDate: "+0D",
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        altField: '#to_date',
+        onSelect: date_selected
+    });
+
+});
+
+</script>
+
+
+
+</head>
+<body>
+
+<div id="nav">
+	<div class="login_logo">
+		<img src="/static/image/logo.png" />
+	</div>
+	<!--
+	<div class="login_tagline">
+		<img src="/static/image/tagline.png" />
+	</div>
+	-->
+	
+	<div class="innerNav">
+		<div class="s1"><span class="l_title">sign up</span></div>
+		<div class="s2">
+			<center>
+				<span class="l_title" >log in</span>
+				<form method="POST" action="">
+				{% csrf_token %}
+					<input class="i_text" placeholder="email" name="username"/><br />
+					<input class="i_text" placeholder="password" name="password" type="password"/><br />
+					<input class="i_btn" type="submit" value="submit"/>
+				</form>
+			</center>
+		</div>
+		<div class="s3"><span class="l_title">explore</span></div>
+	
+		<div class="signup_circle c_shadow"></div>
+		<div class="login_circle c_shadow"></div>
+		<div class="exp_circle c_shadow"></div>
+	</div>
+	<!--	
+	<div class="shortcuts_global">
+		<div class="shortcuts">
+			<div class="service_sel singleline">Massage</div>
+			<div class="service_sel singleline">Face</div>
+			<div class="service_sel singleline">Hair</div>
+			<div class="service_sel doublelines">Hair Removal</div>
+			<div class="service_sel singleline">Nails</div>
+			<div class="service_sel singleline">Fitness</div>
+			<div class="service_sel doublelines">Alternative Wellness</div>
+			<div class="service_sel doublelines">Body Treatments</div>
+			<div class="service_sel singleline">Dental</div>
+		</div>
+	</div>
+	-->
+	
+</div>
+
+	
+
+
+<div id="tree"></div>
+<div class="wrapper">
+	<div class="top-nav" >
+		<div class="utility"><a href="#">( log out )</a></div>
+		<div class="utility"><a href="#">{{ user }}</a></div>
+		<div class="logo">
+			<img src="../static/image/logo.png" />
+		</div>
+		<!--
+		<div class="tagline">
+			<img src="../static/image/tagline.png" />
+		</div>
+		-->
+	</div>
+	
+    <div class="row"><div class="twelve columns">
+      <div id="show"></div>
+    </div>{# columns #}</div>{# row #}
+	<div class="animation">
+		<div id="canvas"></div>
+		<center>
+			<!--	
+			<div class="distance">
+				<span class="pointy">Distance</span>
+				<form method="" action="" class="dis_form">
+					<br/>
+					<input type="textarea" style="width:30px;" name="miles" id="id_miles" /> miles from<br/>
+					355 Bryant Street, San Francisco <a href="#">(edit)</a><br/>
+				</form>
+			</div>
+			<div class="neighbor">
+				<span class="pointy">Neighborhood</span>
+				<form method="" action="" class="nei_form">
+					<br />
+					<p>
+						<input type="checkbox" />Richmond/Presidio<br />
+						<input type="checkbox" />Marina/Cow Hollow<br />
+						<input type="checkbox" />Pacific Heights<br />
+						<input type="checkbox" />Russian Hill/Nob Hill<br />
+						<input type="checkbox" />Ingleside/Excelsior<br />
+						<input type="checkbox" />North Beach/Fisherman's Wharf<br />
+						<input type="checkbox" />Union Sq/Civic Ctr/FiDi<br />
+						<input type="checkbox" />SoMa/South Beach<br />
+						<input type="checkbox" />Haight<br />
+					</p>
+					<p>
+						<input type="checkbox" />Castro<br />
+						<input type="checkbox" />Mission<br />
+						<input type="checkbox" />Potrero Hill<br />
+						<input type="checkbox" />Noe Valley<br />
+						<input type="checkbox" />Bernal Heights<br />
+						<input type="checkbox" />Twin Peaks<br />
+						<input type="checkbox" />Sunset/Lake Merced<br />
+						<input type="checkbox" />Western Addition<br />
+					</p>
+					<p style="width:290px;margin-top:0;margin-left:20px;font-size:12px;">
+						Please note our test partners are in the 
+						<strong style="color:#B1E3FA;">Financial District</strong> and the 
+						<strong style="color:#B1E3FA;">Marina.</strong>
+						Other neighborhoods will not return any results.
+					</p>
+				</form>
+			</div>
+			<div class="where pointy">Where</div>
+			<div class="when pointy">When</div>
+			<div style="clear:both;"></div>
+			-->
+			
+			<div class="today">
+				<span class="pointy">Today</span>
+			</div>
+			<div class="date">
+				<span class="pointy">Date Range</span>
+				<form method="" action="" class="date_form">
+					<br/>
+					From <input id="from_date_cal" type="textarea" style="width:60px;"/> to <input id="to_date_cal" type="textarea" style="width:60px;"/>
+				</form>
+			</div>
+			
+			<!--
+			<div class="option">
+				<span class="pointy">Options</span>
+				<form method="" action="" class="opts_form">
+					<ul class="op_list">
+						<li>Price from <input type="textarea" style="width:60px;"/> to <input type="textarea" style="width:60px;"/></li>
+						<li>Discount <input type="textarea" style="width:60px;"/> %</li>
+						<li>Amenities
+							<ul>
+								<li>Lockers/Robes &nbsp;</li> 
+								<li>Steam/Sauna &nbsp;</li>
+								<li>Showers &nbsp;</li>
+								<li>Pool &nbsp;</li>
+							</ul>
+							<div style="clear:both;">
+						</li>
+						<li>Credit Cards</li>
+						<li>Public Trans</li>
+						<li>Parking</li>
+						<li>Me+ <input type="textarea" style="width:30px;"/></li>
+					</ul>
+				</form>
+			</div>
+			-->
+			
+			<div class="juvuMe pointy">
+				See Results!					
+			</div>
+		</center>
+	</div>
+</div>
+<form id="submitter" action="{% url inv %}" method="POST"  style="display:none;">
+  {% csrf_token %}
+  <input name="from_date" id="from_date_sub" type="text"/>
+  <input name="to_date" id="to_date_sub" type="text"/>
+  <input name="proc" id="id_proc" type="text"/>
+</form>
+</body>
+</html>
+

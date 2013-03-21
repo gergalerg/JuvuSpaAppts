@@ -91,7 +91,7 @@ function clickNeighbor() {
 
     //hide
     hide_optionList();
-  hide_todayDate();
+  	hide_todayDate();
 
     //move "when" & "options" circles + texts
     d3.select('.c_when').transition()
@@ -114,6 +114,26 @@ function clickNeighbor() {
 
     d3.select('.option').transition()
       .style('top', '713px')
+      .duration(1000)
+      .ease('elastic', 5, 4);
+      
+    //move amenities & merchant
+    d3.select('.c_amenities').transition()
+    	.attr('cy', 820)
+      	.attr('r', c_size)
+      	.duration(1000)
+      	.ease('elastic', 5, 4);
+    d3.select('.c_merchants').transition()
+    	.attr('cy', 920)
+     	.attr('r', c_size)
+      	.duration(1000)
+      	.ease('elastic', 5, 4);
+     d3.select('.amenities').transition()
+      .style('top', '815px')
+      .duration(1000)
+      .ease('elastic', 5, 4);
+     d3.select('.opt_merchant').transition()
+      .style('top', '915px')
       .duration(1000)
       .ease('elastic', 5, 4);
 }
@@ -189,6 +209,26 @@ function clickDistance() {
       .style('top', '443px')
       .duration(1000)
       .ease('elastic', 5, 4);
+    
+     //move amenities & merchant
+    d3.select('.c_amenities').transition()
+    	.attr('cy', 550)
+      	.attr('r', c_size)
+      	.duration(1000)
+      	.ease('elastic', 5, 4);
+    d3.select('.c_merchants').transition()
+    	.attr('cy', 650)
+     	.attr('r', c_size)
+      	.duration(1000)
+      	.ease('elastic', 5, 4);
+     d3.select('.amenities').transition()
+      .style('top', '545px')
+      .duration(1000)
+      .ease('elastic', 5, 4);
+     d3.select('.opt_merchant').transition()
+      .style('top', '645px')
+      .duration(1000)
+      .ease('elastic', 5, 4);
 }
 
 
@@ -251,6 +291,26 @@ function clickDate() {
       .style('top', '503px')
       .duration(1000)
       .ease('elastic', 5, 4);
+	
+	 //move amenities & merchant
+    d3.select('.c_amenities').transition()
+    	.attr('cy', 610)
+      	.attr('r', c_size)
+      	.duration(1000)
+      	.ease('elastic', 5, 4);
+    d3.select('.c_merchants').transition()
+    	.attr('cy', 710)
+     	.attr('r', c_size)
+      	.duration(1000)
+      	.ease('elastic', 5, 4);
+     d3.select('.amenities').transition()
+      .style('top', '605px')
+      .duration(1000)
+      .ease('elastic', 5, 4);
+     d3.select('.opt_merchant').transition()
+      .style('top', '705px')
+      .duration(1000)
+      .ease('elastic', 5, 4);
 }
 
 function clickOption() {
@@ -277,6 +337,26 @@ function clickOption() {
       .style('opacity', '1')
       .delay(250)
       .duration(500);
+	
+	//move amenities & merchant
+	d3.select('.c_amenities').transition()
+    	.attr('cy', 700)
+      	.attr('r', c_size)
+      	.duration(1000)
+      	.ease('elastic', 5, 4);
+    d3.select('.c_merchants').transition()
+    	.attr('cy', 800)
+     	.attr('r', c_size)
+      	.duration(1000)
+      	.ease('elastic', 5, 4);
+    d3.select('.amenities').transition()
+      .style('top', '695px')
+      .duration(1000)
+      .ease('elastic', 5, 4);
+    d3.select('.opt_merchant').transition()
+      .style('top', '795px')
+      .duration(1000)
+      .ease('elastic', 5, 4);
 }
 
 //show original three circles & texts
@@ -288,9 +368,9 @@ function original() {
 
   //show when, where and options circles
   original_where();
-    original_when();
+  original_when();
 
-    d3.select('.c_op').transition()
+  d3.select('.c_op').transition()
       .attr('r', c_size)
       .attr('cy', 300)
       .duration(500)
@@ -301,6 +381,10 @@ function original() {
       .style('top', '293px')
       .duration(500)
       .ease('elastic', 5, 4);
+  
+  original_amenities();
+  original_merchant();
+	
 }
 
 function hide_disNei() {
@@ -356,3 +440,27 @@ function original_when() {
       .ease('elastic', 5, 4);
 }
 
+function original_amenities(){
+	//move amenities & merchant
+	d3.select('.c_amenities').transition()
+    	.attr('cy', 400)
+      	.attr('r', c_size)
+      	.duration(500)
+      	.ease('elastic', 5, 4);
+    d3.select('.amenities').transition()
+      .style('top', '394px')
+      .duration(500)
+      .ease('elastic', 5, 4);
+}
+
+function original_merchant(){
+    d3.select('.c_merchants').transition()
+    	.attr('cy', 500)
+     	.attr('r', c_size)
+      	.duration(500)
+      	.ease('elastic', 5, 4);
+    d3.select('.opt_merchant').transition()
+      .style('top', '494px')
+      .duration(500)
+      .ease('elastic', 5, 4);
+}

@@ -1,0 +1,668 @@
+{% extends "base.html" %}
+{% block title %}Juvu{% endblock %}
+{% block html_head %}
+{# Template ================================================= #}
+<script id="result_template" type="text/x-jquery-tmpl">
+{% include "templates.inv.html" %}
+</script>
+{# ========================================================== #}
+
+    
+    <script type="text/javascript" src="/static/js/booking.js"></script>
+	<script type="text/javascript" src="/static/js/inv.js"></script>
+	<script type="text/javascript" src="/static/js/jquery.tipsy.js"></script>
+	<script type="text/javascript" src="/static/js/jquery.backstretch.min.js"></script>
+	<script type="text/javascript" src="/static/js/fancybox/jquery.fancybox-1.3.4.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/js/fancybox/jquery.fancybox-1.3.4.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/booking.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/tipsy.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/inv.css">
+    <script type="text/javascript">
+		//color, size
+		var first_color = "#E6E6E6",
+		    second_color = "#808080",
+		    third_color = "#3FA9F5",
+		    hover_color = "#C6E6FC",
+		    c_size = 30,
+		    oc,
+		    s_canvas;
+
+	/*background image*/
+  	$.backstretch("{{ image_URL }}");
+	
+
+		$(function(){
+			
+
+			$('#backstretch').animate({opacity:0.2},1000);
+			
+
+			var s_canvas = d3.select(".canvas").append("svg:svg");
+			s_canvas
+				.attr("width", 300)
+				.attr("height", 1000)
+				.attr("class", "s_canvas");
+			
+			//FIXME: add two circles amenities & merchants (no functions) - chinpin
+				/*
+			s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",400)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_amenities")
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			//html
+			$('.amenities').mouseover(function(){
+				changeColor($('.c_amenities'));
+			});
+			
+			$('.amenities').mouseout(function(){
+				changeBack($('.c_amenities'));
+			});
+			
+			s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",500)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_merchants")
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			//html
+			$('.opt_merchant').mouseover(function(){
+				changeColor($('.c_merchants'));
+			});
+			
+			$('.opt_merchant').mouseout(function(){
+				changeBack($('.c_merchants'));
+			});
+			*/
+			
+			
+			//where
+			s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",100)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_where")
+				.on("click",function(){
+					/*depend on what user selects from previous page*/
+					clickNeighbor();
+					//or clickDistance();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			//html
+			$('.where').mouseover(function(){
+				changeColor($('.c_where'));
+			});
+			
+			$('.where').mouseout(function(){
+				changeBack($('.c_where'));
+			});
+			
+			$('.where').click(function(){
+				/*depend on what user selects from previous page*/
+				clickNeighbor();
+				//or clickDistance();
+			});
+			
+			//when
+			s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",200)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_when")
+				.on("click", clickDate)
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			//html
+			$('.when').mouseover(function(){
+				changeColor($('.c_when'));
+			});
+			
+			$('.when').mouseout(function(){
+				changeBack($('.c_when'));
+			});
+			
+			$('.when').click(clickDate);
+			
+			//options
+			/*s_canvas.append("svg:circle")
+				.attr("cx",150)
+				.attr("cy",300)
+				.attr("r",c_size)
+				.attr("fill",first_color)
+				.attr("class","c_op")
+				.on("click", clickOption)
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});*/
+			
+			//html
+			$('.option').mouseover(function(){
+				changeColor($('.c_op'));
+			});
+			
+			$('.option').mouseout(function(){
+				changeBack($('.c_op'));
+			});
+
+			$('.option').click(clickOption);
+
+			//distance & neighboehood
+			/*s_canvas.append("svg:circle")
+				.attr("cx",105)
+				.attr("cy",80)
+				.attr("r",0)
+				.attr("fill",first_color)
+				.attr("class","c_dis")	
+				.on("click",function(){
+					$(this).attr('fill',first_color);
+					clickDistance();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});*/
+			
+			$('.distance').mouseover(function(){
+				changeColor($('.c_dis'));
+			});
+			
+			$('.distance').mouseout(function(){
+				changeBack($('.c_dis'));
+			});
+			
+			$('.distance').click(clickDistance);
+
+
+			s_canvas.append("svg:circle")
+				.attr("cx",200)
+				.attr("cy",130)
+				.attr("r",0)
+				.attr("fill",second_color)
+				.attr("class","c_nei")
+				.on("click",function(){
+					$(this).attr('fill',second_color);
+					clickNeighbor();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			$('.neighbor').mouseover(function(){
+				changeColor($('.c_nei'));
+			});
+			
+			$('.neighbor').mouseout(function(){
+				changeBack($('.c_nei'));
+			});
+			
+			//$('.neighbor').click(clickNeighbor);
+			
+			//today & date --- only have one animation result
+			s_canvas.append("svg:circle")
+				.attr("cx",105)
+				.attr("cy",240)
+				.attr("r",0)
+				.attr("fill",second_color)
+				.attr("class","c_today")
+				.on("click",function(){
+					original();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			$('.today').mouseover(function(){
+				changeColor($('.c_today'));
+			});
+			
+			$('.today').mouseout(function(){
+				changeBack($('.c_today'));
+			});
+			
+			$('.today').click(function(){
+				original();
+			});
+			
+			s_canvas.append("svg:circle")
+				.attr("cx",200)
+				.attr("cy",300)
+				.attr("r",0)
+				.attr("fill",second_color)
+				.attr("class","c_date")
+				.on("click",function(){
+					$(this).attr('fill',second_color);
+					clickDate();
+				})
+				.on('mouseover', function(){
+					changeColor($(this));
+				})
+				.on('mouseout', function(){
+					changeBack($(this));
+				});
+			
+			$('.date').mouseover(function(){
+				changeColor($('.c_date'));
+			});
+			
+			$('.date').mouseout(function(){
+				changeBack($('.c_date'));
+			});
+			
+			$('.date').click(function(){
+				clickDate();
+			});
+			
+			$('.submit_btn').click(original)
+
+    $(".b_btn").mouseover(function(){
+	    $(this).parent()
+	    .find(".service, .price, .discount")
+	    .css({'background-color':'#C6E6FC'})
+    });
+    $(".b_btn").mouseout(function(){
+	    $(this).parent()
+	    .find(".service, .price, .discount")
+	    .css({'background-color':'white'})
+    });
+
+// Commented due to nul results: DC
+    //var results = {{ results|safe }};
+    //MODEL.set_results(_.map(results, function(data){ return new MerchantThing(data) }));
+
+    ko.applyBindings(MODEL);
+	
+	//FIXME
+	//change merchant services position
+	//The following is no longer used. DC 6/29/2012
+	/*
+	
+	$('div[timeslot*=37]').css({marginTop:'0px'});
+	$('div[timeslot*=38]').css({marginTop:'12px'});
+	$('div[timeslot*=39]').css({marginTop:'25px'});
+	$('div[timeslot*=40]').css({marginTop:'37px'});
+	$('div[timeslot*=41]').css({marginTop:'50px'});
+	$('div[timeslot*=42]').css({marginTop:'62px'});
+	$('div[timeslot*=43]').css({marginTop:'75px'});
+	$('div[timeslot*=44]').css({marginTop:'87px'});
+	$('div[timeslot*=45]').css({marginTop:'100px'});
+	$('div[timeslot*=46]').css({marginTop:'112px'});
+	$('div[timeslot*=47]').css({marginTop:'125px'});
+	$('div[timeslot*=48]').css({marginTop:'137px'});
+	$('div[timeslot*=49]').css({marginTop:'150px'});
+	$('div[timeslot*=50]').css({marginTop:'162px'});
+	$('div[timeslot*=51]').css({marginTop:'175px'});
+	$('div[timeslot*=52]').css({marginTop:'187px'});
+	$('div[timeslot*=53]').css({marginTop:'200px'});
+	$('div[timeslot*=54]').css({marginTop:'212px'});
+	$('div[timeslot*=55]').css({marginTop:'225px'});
+	$('div[timeslot*=56]').css({marginTop:'237px'});
+	$('div[timeslot*=57]').css({marginTop:'250px'});
+	$('div[timeslot*=58]').css({marginTop:'262px'});
+	$('div[timeslot*=59]').css({marginTop:'275px'});
+	$('div[timeslot*=60]').css({marginTop:'287px'});
+	$('div[timeslot*=61]').css({marginTop:'300px'});
+	$('div[timeslot*=62]').css({marginTop:'312px'});
+	$('div[timeslot*=63]').css({marginTop:'325px'});
+	$('div[timeslot*=64]').css({marginTop:'337px'});
+	$('div[timeslot*=65]').css({marginTop:'350px'});
+	$('div[timeslot*=66]').css({marginTop:'362px'});
+	$('div[timeslot*=67]').css({marginTop:'375px'});
+	$('div[timeslot*=68]').css({marginTop:'387px'});
+	$('div[timeslot*=69]').css({marginTop:'400px'});
+	$('div[timeslot*=70]').css({marginTop:'412px'});
+	$('div[timeslot*=71]').css({marginTop:'425px'});
+	$('div[timeslot*=72]').css({marginTop:'437px'});
+	$('div[timeslot*=73]').css({marginTop:'450px'});
+	$('div[timeslot*=74]').css({marginTop:'462px'});
+	$('div[timeslot*=75]').css({marginTop:'475px'});
+	$('div[timeslot*=76]').css({marginTop:'487px'});
+	$('div[timeslot*=77]').css({marginTop:'500px'});
+	$('div[timeslot*=78]').css({marginTop:'512px'});
+	$('div[timeslot*=79]').css({marginTop:'525px'});
+	$('div[timeslot*=80]').css({marginTop:'537px'});
+	$('div[timeslot*=81]').css({marginTop:'550px'});
+	$('div[timeslot*=82]').css({marginTop:'562px'});
+	$('div[timeslot*=83]').css({marginTop:'575px'});
+	$('div[timeslot*=84]').css({marginTop:'587px'});
+	*/
+	
+	//move price line
+	var n = $('.price_line').length;
+	var w = n*100;
+	var d = 0;
+	var p;
+	var pixel;
+	
+	$('.inv_data_width').css({width:w});
+	
+	$('.pre_move_btn').click(function(){
+		p = $('.inv_data_width').css('margin-left').replace(/[^-\d\.]/g, '');
+		//console.log(d);
+		if(p<0){
+			d += 100;
+			if(d>0){
+				d = 0;
+			}
+			pixel = d+"px";
+			$('.inv_data_width').animate({'margin-left':pixel},500);
+		}
+	})
+	
+	$('.next_move_btn').click(function(){
+		p = $('.inv_data_width').css('margin-left').replace(/[^-\d\.]/g, '');
+		if(p>(600-w)){
+			d -= 100;
+			if(d<(600-w))
+			{
+				d = (600-w);
+			}
+			pixel = d+"px";
+			$('.inv_data_width').animate({'margin-left':pixel},500);
+		}
+	})
+	
+	
+});
+
+
+</script>
+
+
+
+
+
+{% endblock %}
+{% block body %}
+	<div class="wrapper">
+		<div class="top-nav">
+			<div class="utility"><a href="#">( log out )</a></div>
+			<div class="utility"><a href="#">{{ user }}</a></div>
+			<div class="logo">
+				<img src="../static/image/logo.png" />
+			</div>
+		</div>
+		
+		<div id="nav_left">
+			<div class="animation">
+				<div class="canvas"></div>
+				<div class="where">where</div>
+				<div class="when">when</div>
+				
+				<div class="distance">Distance</div>
+				<form method="" action="" class="dis_form">
+					<input type="textarea" style="width:30px;height:10px;" /> miles from<br/>
+					355 Bryant Street, San Francisco <a href="#">(edit)</a><br/>
+					<input type="submit" value="confirm" class="submit_btn" style="margin-left:-7px;margin-top:0px;"/>
+					<a href="#" class="submit_btn">test</a>
+				</form>
+				
+				<div class="neighbor">Neighborhood</div>
+				<form method="" action="" class="nei_form">
+					<p>
+						<input type="checkbox" />Richmond/Presidio<br />
+						<input type="checkbox" />Marina/Cow Hollow<br />
+						<input type="checkbox" />Pacific Heights<br />
+						<input type="checkbox" />Russian Hill/Nob Hill<br />
+						<input type="checkbox" />Ingleside/Excelsior<br />
+						<input type="checkbox" />North Beach/Fisherman's Wharf<br />
+						<input type="checkbox" />Union Sq/Civic Ctr/FiDi<br />
+						<input type="checkbox" />SoMa/South Beach<br />
+						<input type="checkbox" />Haight<br />
+					</p>
+					<p>
+						<input type="checkbox" />Castro<br />
+						<input type="checkbox" />Mission<br />
+						<input type="checkbox" />Potrero Hill<br />
+						<input type="checkbox" />Noe Valley<br />
+						<input type="checkbox" />Bernal Heights<br />
+						<input type="checkbox" />Twin Peaks<br />
+						<input type="checkbox" />Sunset/Lake Merced<br />
+						<input type="checkbox" />Western Addition<br />
+					</p>
+					<input type="submit" value="confirm" class="submit_btn" style="margin-left:15px;margin-top:-10px;"/>
+					<a href="#" class="submit_btn">test</a>
+				</form>
+				
+				
+				<div class="today">Today</div>
+				<div class="date">Date Range</div>
+				<form method="" action="" class="date_form">
+					From <input type="textarea" style="width:60px;"/> to <input type="textarea" style="width:60px;"/>
+					<input type="submit" value="confirm" class="submit_btn" style="margin-left:5px;"/>
+					<a href="#" class="submit_btn">test</a>
+				</form>
+				
+				<div class="option">options</div>	
+				<form method="" action="">
+					<ul class="op_list">
+						<li>Price from <input type="textarea" style="width:60px;height:10px;"/> to <input type="textarea" style="width:60px;height:10px;"/></li>
+						<li>Discount <input type="textarea" style="width:60px;height:10px;"/> %</li>
+						<li>Amenities
+							<ul>
+								<li>Lockers/Robes &nbsp;</li> 
+								<li>Steam/Sauna &nbsp;</li>
+								<li>Showers &nbsp;</li>
+								<li>Pool &nbsp;</li>
+							</ul>
+							<div style="clear:both;">
+						</li>
+						<li>Credit Cards</li>
+						<li>Public Trans</li>
+						<li>Parking</li>
+						<li>Me+ <input type="textarea" style="width:30px;height:10px;"/></li>
+						<input type="submit" value="confirm" class="submit_btn" style="margin-top:5px;"/>
+						<a href="#" class="submit_btn">test</a>
+					</ul>
+				</form>
+				<!--
+				<div class="amenities">amenities</div>
+				<div class="opt_merchant">merchants</div>
+				-->
+				
+			</div><!--end of animation-->
+		</div><!--end of left nav-->
+		
+		<div id="nav_right">
+			<div id="header_service">{{ proc }}</div>
+			<div class="inv_col">
+				<div class="inv_date_wrapper">
+					<div class="btn_pre">&lt;</div>
+					<div class="inv_date">{{ date }}</div>
+					<div class="btn_pre">&gt;</div>
+				</div>
+				<div class="inv_grid">
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+					<div class="bold_line"></div>
+					<div class="line"></div>
+				</div>
+				
+				<div class="inv_time">
+					<ul>
+						<li>9:00</li>
+						<li>9:30</li>
+						<li>10:00</li>
+						<li>10:30</li>
+						<li>11:00</li>
+						<li>11:30</li>
+						<li>12:00</li>
+						<li>12:30</li>
+						<li>1:00</li>
+						<li>1:30</li>
+						<li>2:00</li>
+						<li>2:30</li>
+						<li>3:00</li>
+						<li>3:30</li>
+						<li>4:00</li>
+						<li>4:30</li>
+						<li>5:00</li>
+						<li>5:30</li>
+						<li>6:00</li>
+						<li>6:30</li>
+						<li>7:00</li>
+						<li>7:30</li>
+						<li>8:00</li>
+						<li>8:30</li>
+						<li>9:00</li>
+					</ul>
+				</div>
+				<!--	
+				<div class="pre_move_btn">&lt;</div>
+				<div class="next_move_btn">&gt;</div>
+				-->
+
+				<div class="inv_data">
+					<div class="inv_data_width">
+					
+					
+					<script type="text/javascript">
+					
+					//var testdata = [1,2,3];
+					//var priceObj = [{base_price:'100',appts:[{spa_name:'David Spa',slotNo:8},{spa_name:'David Spa',slotNo:10}]},{base_price:'120',appts:[{spa_name:'David Spa',slotNo:14},{spa_name:'David Spa',slotNo:20}]}];
+					var priceObj ={% autoescape off %}{{json_result}}{% endautoescape %};
+
+					var appts = d3.select(".inv_data_width")
+						.selectAll("div")
+						.data(priceObj)
+						.enter()
+						.append("div")
+						.classed("price_line",true)
+						.append("div")
+						.classed("inv_price",true)
+						.text(function(d){return "$" + d.base_price;})
+						.selectAll("div")
+						.data(function(d) {return d.appts;})
+						.enter()
+						.append("div")	
+						.classed("inv_merchant",true)
+						.text(function(d) {return d.spa_name;})				
+						.style("background-color","#D9E021")
+						.style("overflow","hidden")
+						.style("width",0)
+						//.style("height",function(d){return 40/60 * d.duration + "px";})
+						.style("top",function(d){return 17 *( d.timeslot-37) -2 + "px";})
+						//.attr("timeslot",function(d){return d.timeslot;})
+						;
+							
+						/*
+						$('.inv_merchant').tipsy({
+							gravity: 'sw',
+							html: true,
+							title: function(d) {
+							var d = this.__data__;
+						        return 'Hello, the lowest price is:' + d.base_price + '!';
+							    }
+						    });
+						    */
+						
+						appts.data(priceObj)
+						.transition()
+						.duration(2000)
+						.style("width","100px")
+						
+						;
+
+						$(document).ready(function() {
+							$('.inv_merchant').fancybox({
+								'overlayOpacity' : 0.2,
+								'content'   : '<div class="inv_title"></div><div class="inv_d">Date:{{ date|date:"D M, d Y" }}</div><div class="inv_form_date"></div><div class="inv_d">Price: {{ d }}</div><div class="inv_form"><form action="/look/book_info" method="GET"><input type="submit" value="Book" class="inv_form_btn"/></form></div><form><input type="submit" value="Bid" class="inv_form_btn"/></form></div>'
+								});
+							});
+
+
+    
+
+
+					</script>
+				</div>
+			</div>
+					
+		{# container of information from database #}
+		<!--<div data-bind="template: {name:'result_template', foreach:results}"></div>-->{# replace with sql #}
+		</div>{# end of right nav #}
+		
+		<div style="clear:both;"></div>
+
+	</div>{# end of wrapper #}
+{% endblock %}

@@ -1,6 +1,6 @@
 # Django settings for juvu project.
 from os.path import dirname, join, exists
-
+# 23
 
 PROJECT_ROOT = dirname(__file__)
 

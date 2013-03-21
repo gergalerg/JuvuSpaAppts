@@ -1,0 +1,30 @@
+@def NODE_FILL #eef;
+@def NODE_STROKE_FILL steelblue;
+@def PATH_STROKE_FILL #ccc;
+@def STROKE_WIDTH 1.5px;
+
+
+#tree {
+  position: absolute;
+  top: 10px;
+  left: 25%;
+  width: 914px;
+  height: 800px;
+}
+
+.node {
+  cursor: pointer;
+}
+
+.node circle {
+  fill: NODE_FILL;
+  stroke: NODE_STROKE_FILL;
+  stroke-width: STROKE_WIDTH;
+}
+
+path.link {
+  fill: none;
+  stroke: PATH_STROKE_FILL;
+  stroke-width: STROKE_WIDTH;
+}
+
