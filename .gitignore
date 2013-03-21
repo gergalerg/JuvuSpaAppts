@@ -9,3 +9,4 @@ admin/
 static/admin/
 venv
 .project
+*sqlite3
